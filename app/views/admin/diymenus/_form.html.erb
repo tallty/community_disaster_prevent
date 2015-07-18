@@ -1,0 +1,17 @@
+<%= form_for(@diymenu, url: admin_diymenus_path ) do |f| %>
+  <% if @diymenu.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@diymenu.errors.count, "error") %> prohibited this diymenu from being saved:</h2>
+
+      <ul>
+      <% @diymenu.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

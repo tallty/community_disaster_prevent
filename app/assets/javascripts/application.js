@@ -12,5 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootswatch/loader
+//= require bootswatch/bootswatch
+//= require twitter/bootstrap
 //= require turbolinks
-//= require_tree .
+

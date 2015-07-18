@@ -1,0 +1,73 @@
+<%= form_for(@article, url: admin_articles_path) do |f| %>
+  <div class="row">
+    <div id="media_preview_area" class="media_preview_area col-xs-3">
+      <div id="appmsgItem", class="js_appmsg_item has_thumb">
+        <div class="appmsg_info"><em class="appmsg_date"></em></div>
+        <div class="cover_appmsg_item">
+          <h4 class="appmsg_title">
+            <a href="javascript:void(0);">标题</a>
+          </h4>
+          <div class="appmsg_thumb_wrp">
+            <img id='head_pic' class="js_appmsg_thumb appmsg_thumb" src='' style="display:none;">
+            <i class="appmsg_thumb default">封面图片</i>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="media_edit_area" class="media_edit_area col-xs-5" data="0">
+      <div id="js_appmsg_editor">
+        <div class="appmsg_editor" style="margin-top: 0;">
+          <div class="inner">
+            <div class="appmsg_edit_item">
+              <label class="frm_label">标题</label>
+              <%= f.text_field :title, {:class => "form-control col-xs-8"} %>
+            </div>
+            <div class="appmsg_edit_item">
+              <label class="frm_label">
+                <strong class="title">作者</strong><p class="tips l">&nbsp;&nbsp;( 选填 ) </p>  
+              </label>
+              <%= f.text_field :author, {:class => "form-control col-xs-8"} %>
+            </div>
+            <div class="appmsg_edit_item">
+              <label class="frm_label">
+                <strong class="title">封面</strong><p class="tips">（大图片建议尺寸：900像素 * 500像素）</p>
+              </label>
+              <div class="row">
+                <div class="row" style="padding-left:20px;">
+                  <%= f.check_box :show_cover_pic %> 
+                  <%= label_tag(:article_template_show_cover_pic, "封面图片显示在正文中", style: "cursor: pointer;") %>
+                </div>
+              </div>
+            </div>
+            <div id="digest-area" class="appmsg_edit_item">
+              <label class="frm_label">
+                <strong class="title">摘要</strong>  
+                <p class="tips l">(选填,该摘要只在发送图文消息为单条时显示)</p>
+              </label>
+              <%= f.text_area :digest, {:class => "form-control col-xs-8"} %>
+            </div>
+            <div class="appmsg_edit_item">
+              <label class="frm_label">
+                <strong class="title">正文</strong>
+              </label>
+              <%= f.text_area :content, {:class => "form-control col-xs-8"} %>
+            </div>
+            <div class="appmsg_edit_item">
+              <label class="frm_label">
+              <strong class="title">原文链接</strong>  
+              <p class="tips l">（选填）</p>
+              </label>
+              <%= f.text_field :content_source_url, {:class => "form-control col-xs-8"} %>
+            </div>
+          </div>
+          <i class="arrow arrow_out" style="margin-top: 0;"></i>
+          <i class="arrow arrow_in" style="margin-top: 0;"></i>
+        </div>
+      </div>
+    </div>  
+  </div>
+  <div class="tool_area row">
+    <%= f.submit "保存", { :class => "btn btn-xs bigger-110 btn-info" } %>
+  </div>
+<% end %>

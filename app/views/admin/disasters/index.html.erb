@@ -1,0 +1,60 @@
+<!-- <div class="page-title">
+  <div class="title-env">
+    <h3 class="">灾情互动</h3>
+    <p class="description">最新上报监控</p>
+  </div>
+  <div class="breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li><a href=""><i class="fa-home"></i>Home</a></li>
+      <li><a>灾情互动</a></li>
+      <li class="active"><strong>监控</strong></li>
+    </ol>
+  </div>
+</div> -->
+<div class="row">
+  <div id="mapDiv" class="col-xs-12" style="z-index:10;height:500px;border:1px solid #d3d3d3;"></div>  
+</div>
+<br/>
+<div class="row panel panel-default">
+  <table id="disasters-table" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+    <thead>
+      <td>地址</td>
+      <td>类型</td>
+      <td>灾情时间</td>
+      <td>上报者</td>
+      <td>上报时间</td>
+    </thead>
+  </table>
+</div>
+
+<% content_for :scripts do %>
+  <script type="text/javascript">
+    var myMap;
+    var zoom = 12;
+    function init() {
+      var config = {
+        projection: "EPSG:4326",
+        type:"TMAP_NAVIGATION_CONTROL_LARGE",   //缩放平移的显示类型
+        anchor:"TMAP_ANCHOR_TOP_LEFT",          //缩放平移控件显示的位置
+        offset:[0,0],                           //缩放平移控件的偏移值
+        showZoomInfo:true                       //是否显示级别提示信息，true表示显示，false表示隐藏。
+      };
+        //创建缩放平移控件对象
+      control=new TNavigationControl(config);
+      var map=new TMap("mapDiv", config);
+      //添加缩放平移控件
+      map.addControl(control);
+      //允许鼠标滚轮缩放地图
+      map.enableHandleMouseScroll();
+      //创建比例尺控件对象
+      var scale = new TScaleControl();
+      //添加比例尺控件
+      map.addControl(scale);
+      map.centerAndZoom(new TLngLat(121.62969,31.23945),zoom);
+    }
+    init();
+    $('#disasters-table').dataTable({
+      bAutoWidth: false
+    });
+  </script>
+<% end %>

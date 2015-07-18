@@ -1,0 +1,6 @@
+<h4><%= @code %></h4>
+<% content_for :scripts do %>
+  <script type="text/javascript">
+    code = <%= @code.to_json.html_safe %>
+  </script>
+<% end %>

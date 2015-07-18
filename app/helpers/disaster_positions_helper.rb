@@ -1,0 +1,2 @@
+module DisasterPositionsHelper
+end

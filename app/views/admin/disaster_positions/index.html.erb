@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Disaster Positions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @disaster_positions.each do |disaster_position| %>
+      <tr>
+        <td><%= link_to 'Show', disaster_position %></td>
+        <td><%= link_to 'Edit', edit_disaster_position_path(disaster_position) %></td>
+        <td><%= link_to 'Destroy', disaster_position, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Disaster position', new_disaster_position_path %>

@@ -1,0 +1,42 @@
+<div class="row panel panel-default">
+  <table id="articles-table" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+    <thead>
+      <td>标题</td>
+      <td>作者</td>
+      <td>概要</td>
+      <td>关键词</td>
+      <td>类别</td>
+      <td width="200px">操作</td>
+    </thead>
+
+    <tbody>
+      <% @articles.each do |article| %>
+        <tr>
+          <td><%= article.title %></td>
+          <td><%= article.author %></td>
+          <td><%= article.digest %></td>
+          <td><%= article.keywords %></td>
+          <td><%= article.article_type %></td>
+          <td>
+            <%= link_to '显示', admin_articles_path(article), :class => "btn btn-xs btn-info" %>
+            <%= link_to '编辑', edit_admin_article_path(article), :class => "btn btn-xs btn-primary" %>
+            <%= link_to t('删除', :default => t("删除")),
+              admin_article_path(article),
+              :method => :delete,
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '确定删除?')) },
+              :class => 'btn btn-xs btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to "添加图文", new_admin_article_path %>
+</div>
+
+<% content_for :scripts do %>
+  <script type="text/javascript">
+    $('#articles-table').dataTable({
+      bAutoWidth: false
+    });
+  </script>
+<% end %>
