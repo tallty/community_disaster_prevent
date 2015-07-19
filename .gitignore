@@ -15,7 +15,7 @@
 /log/*
 !/log/.keep
 /tmp
-/config/initializers/weixin_rails_middleware.rb
+config/initializers/weixin_rails_middleware.rb
 
 # User Ignore
 /config/database.yml
