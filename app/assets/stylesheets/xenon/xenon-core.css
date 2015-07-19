@@ -1903,13 +1903,13 @@ body {
     min-width: 14px;
   }
 }
-@media screen and (max-width: 768px) and screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .navbar.horizontal-menu .navbar-inner .navbar-nav {
     margin-top: 10px;
     margin-bottom: 10px;
   }
 }
-@media screen and (max-width: 768px) and screen and (min-width: 768px) {
+@media screen and (max-width: 768px) {
   .navbar.horizontal-menu .navbar-inner .navbar-nav ul li.is-hidden {
     left: -20px;
     zoom: 1;
@@ -3717,11 +3717,11 @@ body.chat-open #chat {
     border-left: 0;
   }
 }
-@media screen and (max-width: 599px) {
+/*@media screen and (max-width: 599px) {
   .settings-pane .links-block.left-sep {
     padding: 0 25px;
   }
-}
+}*/
 .settings-pane .links-block h4 {
   color: #ffffff;
   margin: 0;
