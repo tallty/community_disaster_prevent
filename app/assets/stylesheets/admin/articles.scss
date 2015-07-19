@@ -19,6 +19,7 @@
  *= require ../xenon/font-awesome.min
  *= require ../xenon/linecons/linecons
  *= require ../xenon/dataTables.bootstrap
+ *= require ../ace/ace
  */
  
  @import "bootstrap-sprockets";
@@ -75,8 +76,6 @@ body {
   margin-right: 14px;
 }
 .media_edit_area {
-  max-width: 606px;
-  min-width: 606px;
   vertical-align: top;
   margin-bottom: 20px;
 }
@@ -345,7 +344,10 @@ body {
     }
   }
 }
-
+.error {
+  font-size: 12px;
+  color: #fc6a4d;
+}
 .appmsg_edit_item {
   padding-bottom: 1em;
   overflow: hidden;
@@ -353,7 +355,7 @@ body {
     overflow: hidden;
     display: block;
     width: auto;
-    float: none;
+    float: left;
     margin-right: 0;
     margin-bottom: 4px;
     p {
