@@ -69,7 +69,7 @@ gem 'roo'
 gem 'settingslogic'
 gem 'whenever', :require => false
 
-gem 'ckeditor', github: 'galetahub/ckeditor'
+gem 'ckeditor', git: 'https://github.com/galetahub/ckeditor.git'
 
 #gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 gem "paperclip"#, :git => "git://github.com/thoughtbot/paperclip.git"
