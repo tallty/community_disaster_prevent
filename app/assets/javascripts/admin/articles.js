@@ -26,3 +26,7 @@
 //= require ../xenon/datatables/dataTables.bootstrap
 //= require ../xenon/datatables/yadcf/jquery.dataTables.yadcf
 //= require ../xenon/datatables/tabletools/dataTables.tableTools.min
+//= require ckeditor/init
+//= require jquery-fileupload/basic
+//= require ../ace/ace
+//= require ../ace/elements.fileinput
