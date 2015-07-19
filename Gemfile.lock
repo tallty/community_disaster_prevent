@@ -7,8 +7,8 @@ GIT
       rake (~> 10.4)
 
 GIT
-  remote: git://github.com/galetahub/ckeditor.git
-  revision: 692e8cb7c92ec2349cff1880cc542c3bbf5a86ae
+  remote: https://github.com/shtzr840329/ckeditor.git
+  revision: eccdecd24bd2a0e4e9c32e919f53737e6e2911c2
   specs:
     ckeditor (4.1.2)
       cocaine
