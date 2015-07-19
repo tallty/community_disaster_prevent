@@ -11,14 +11,13 @@
  * file per style scope.
  *
  *= require_self
+  *= require ../xenon/xenon-core
  *= require ../xenon/bootstrap
- *= require ../xenon/xenon-core
  *= require ../xenon/xenon-forms
  *= require ../xenon/xenon-components
  *= require ../xenon/xenon-skins
  *= require ../xenon/custom
  *= require ../xenon/font-awesome.min
- *= require_directory .
  */
 
 @import "variables";
