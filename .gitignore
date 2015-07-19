@@ -15,3 +15,24 @@
 /log/*
 !/log/.keep
 /tmp
+/config/initializers/weixin_rails_middleware.rb
+
+# User Ignore
+/config/database.yml
+/config/application.yml
+/config/initializers/setting.rb
+/public/images
+/test
+/public/voice/
+/public/assets/
+/public/upload/
+/public/uploads/*
+/public/media/*
+/public/ckeditor_assets/
+/bin
+.idea/*
+spec/
+/spec/*
+.idea/*
+*.rdb
+*.swp
