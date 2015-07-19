@@ -11,7 +11,6 @@
  * file per style scope.
  *
  *= require_self
- *= require ../xenon/xenon-core
  *= require ../xenon/xenon-forms
  *= require ../xenon/xenon-components
  *= require ../xenon/xenon-skins
@@ -20,7 +19,6 @@
  *= require ../xenon/linecons/linecons
  *= require ../xenon/dataTables.bootstrap
  */
-
 @import "bootstrap-sprockets";
 @import "variables";
 @import "bootstrap";
