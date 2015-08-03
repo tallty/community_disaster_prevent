@@ -72,11 +72,13 @@ WeixinRailsMiddleware::WeixinController.class_eval do
     def handle_subscribe_event
       subscriber = Subscriber.new
       subscriber.update_subscriber(@weixin_message.FromUserName)
-      if @keyword.present?
-        # 扫描带参数二维码事件: 1. 用户未关注时，进行关注后的事件推送
-        return reply_text_message("扫描带参数二维码事件: 1. 用户未关注时，进行关注后的事件推送, keyword: #{@keyword}")
-      end
-      reply_text_message("关注公众账号")
+      # if @keyword.present?
+      #   # 扫描带参数二维码事件: 1. 用户未关注时，进行关注后的事件推送
+      #   return reply_text_message("扫描带参数二维码事件: 1. 用户未关注时，进行关注后的事件推送, keyword: #{@keyword}")
+      # end
+      # reply_text_message("关注公众账号")
+      articles = [{ :title => "社区绑定", :desc => "", :image_url => "#{Settings.ProjectSetting.url}/assets/images/community2.png", :page_url => "#{Settings.ProjectSetting.url}/volunteers/new?subscriber=#{@weixin_message.FromUserName}" }]
+      reply_news_message(articles)
     end
 
     # 取消关注
@@ -94,14 +96,28 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       @lat = @weixin_message.Latitude
       @lgt = @weixin_message.Longitude
       @precision = @weixin_message.Precision
-      reply_text_message("Your Location: #{@lat}, #{@lgt}, #{@precision}")
+      # reply_text_message("Your Location: #{@lat}, #{@lgt}, #{@precision}")
     end
 
     # 点击菜单拉取消息时的事件推送
     def handle_click_event
-      # result = MessageProcessor.process_request(@keyword, @weixin_message.FromUserName)
-      # reply_text_message("你点击了: #{@keyword}")
-      reply_text_message("<a href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcd581a346bffaf2d&redirect_uri=http://shtzr1984.xicp.net/test&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect'>点击这里绑定</a>")
+      result = MessageProcessor.process_request(@keyword, @weixin_message.FromUserName)
+      reply_message(result)
+      # reply_text_message("#{result}")
+      # reply_text_message("<a href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcd581a346bffaf2d&redirect_uri=http://shtzr1984.xicp.net/test&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect'>点击这里绑定</a>")
+    end
+
+    def reply_message(result)
+      case result[:type]
+      when 'text'
+        reply_text_message(result[:content])
+      when 'articles'
+        articles = []
+        result[:content].each do |item|
+          articles << generate_article(item[:title], item[:desc], item[:image_url], item[:page_url])
+        end
+        reply_news_message(articles)
+      end
     end
 
     # 点击菜单跳转链接时的事件推送

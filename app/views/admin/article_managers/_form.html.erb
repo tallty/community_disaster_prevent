@@ -1,0 +1,47 @@
+<%= form_for(@article_manager, url: admin_article_managers_path) do |f| %>
+  <% if @article_manager.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@article_manager.errors.count, "error") %> prohibited this article_manager from being saved:</h2>
+
+      <ul>
+      <% @article_manager.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row form-inputs">
+    <div class="input-group col-xs-6">
+      <%= f.select :article_id, Article.all.collect { |p| [ p.title, p.id ] }, options ={:prompt =>"请选择图文消息"},
+ :class =>"form-control input" %>
+    </div>
+    <div class="space-6"></div>
+    <div class="input-group col-xs-6">
+    <%= f.select :keyword, MessageProcessor.where(message_type: "dynamic").collect { |p| [ p.event_key ] }, options ={:prompt =>"请选择绑定菜单"},
+ :class =>"form-control input" %>
+    </div>
+    <div class="space-6"></div>
+    <div id="community-select" style="display: none">
+      <div class="input-group col-xs-6">
+        <%= f.select :street, [], options = {:prompt =>"请选择绑定区县" }, :class =>"form-control input" %>
+      </div>
+      <div class="space-6"></div>
+      <div class="input-group col-xs-6">
+        <%= f.select :community, [], options ={:prompt =>"请选择绑定街道"}, :class =>"form-control input" %>
+      </div>
+    </div>
+    <div class="space-6"></div>
+    <div class="input-group col-xs-6">
+      <%= f.text_field :page_url, placeholder: '页面地址', :class => "form-control input" %>
+    </div>
+    <div class="space-6"></div>
+    <div class="input-group col-xs-6">
+      <%= f.text_field :article_index, placeholder: '显示序列', :class => "form-control input" %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

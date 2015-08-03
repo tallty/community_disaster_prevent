@@ -76,6 +76,8 @@ gem "paperclip"#, :git => "git://github.com/thoughtbot/paperclip.git"
 
 gem 'ransack'
 
+gem "faraday"
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

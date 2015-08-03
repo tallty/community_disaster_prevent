@@ -1,0 +1,2 @@
+module SendLogsHelper
+end

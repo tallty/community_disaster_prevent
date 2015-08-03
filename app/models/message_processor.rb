@@ -9,12 +9,17 @@
 #  result_type        :string(255)
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  message_type       :string(255)
 #
 
 class MessageProcessor < ActiveRecord::Base
 
   def self.process_request(keyword, subscriber)
     processor = MessageProcessor.find_by(event_key: keyword)
-    p processor
+    processor_class = eval(processor.process_class_name).new
+    processor_class.instance_variable_set "@keyword", keyword
+    processor_class.instance_variable_set "@subscriber", subscriber
+
+    result = processor_class.__send__ processor.process_method
   end
 end

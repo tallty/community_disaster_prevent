@@ -11,25 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150701095107) do
+ActiveRecord::Schema.define(version: 20150802041112) do
 
-  create_table "articles", force: :cascade do |t|
-    t.string   "event_key",          limit: 255
-    t.string   "title",              limit: 255
-    t.string   "author",             limit: 255
-    t.string   "content_source_url", limit: 255
-    t.text     "content",            limit: 65535
-    t.string   "digest",             limit: 255
-    t.integer  "show_cover_pic",     limit: 4
-    t.string   "article_type",       limit: 255
-    t.string   "is_show",            limit: 255
-    t.string   "thumb_media_url",    limit: 255
-    t.string   "keywords",           limit: 255
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+  create_table "article_managers", force: :cascade do |t|
+    t.string   "keyword",       limit: 255
+    t.integer  "article_index", limit: 4
+    t.string   "page_url",      limit: 255
+    t.integer  "article_id",    limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "article_type",  limit: 255
+    t.integer  "community_id",  limit: 4
   end
 
-  add_index "articles", ["article_type"], name: "index_articles_on_article_type", length: {"article_type"=>191}, using: :btree
+  add_index "article_managers", ["article_id"], name: "index_article_managers_on_article_id", using: :btree
+  add_index "article_managers", ["community_id"], name: "index_article_managers_on_community_id", using: :btree
+  add_index "article_managers", ["keyword"], name: "index_article_managers_on_keyword", length: {"keyword"=>191}, using: :btree
+
+  create_table "articles", force: :cascade do |t|
+    t.string   "title",           limit: 255
+    t.string   "author",          limit: 255
+    t.text     "content",         limit: 65535
+    t.string   "digest",          limit: 255
+    t.string   "thumb_media_url", limit: 255
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
   add_index "articles", ["title"], name: "index_articles_on_title", length: {"title"=>191}, using: :btree
 
   create_table "ckeditor_assets", force: :cascade do |t|
@@ -54,7 +62,10 @@ ActiveRecord::Schema.define(version: 20150701095107) do
     t.string   "c_type",     limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.integer  "code",       limit: 4,   null: false
   end
+
+  add_index "communities", ["code"], name: "index_communities_on_code", using: :btree
 
   create_table "disaster_pictures", force: :cascade do |t|
     t.string   "file_name",         limit: 255
@@ -113,22 +124,48 @@ ActiveRecord::Schema.define(version: 20150701095107) do
     t.string   "result_type",        limit: 255
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.string   "message_type",       limit: 255
   end
 
   add_index "message_processors", ["process_class_name"], name: "index_message_processors_on_process_class_name", length: {"process_class_name"=>191}, using: :btree
 
-  create_table "subscribers", force: :cascade do |t|
-    t.string   "openid",     limit: 255
-    t.integer  "sex",        limit: 4
-    t.string   "city",       limit: 255
-    t.string   "province",   limit: 255
-    t.string   "country",    limit: 255
-    t.string   "headimgurl", limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "nick_name",  limit: 255
+  create_table "monitor_stations", force: :cascade do |t|
+    t.string   "station_number", limit: 255
+    t.string   "station_name",   limit: 255
+    t.string   "station_type",   limit: 255
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "community_id",   limit: 4
   end
 
+  add_index "monitor_stations", ["community_id"], name: "index_monitor_stations_on_community_id", using: :btree
+
+  create_table "send_logs", force: :cascade do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string   "status",     limit: 255
+    t.integer  "count",      limit: 4
+    t.string   "explain",    limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "send_logs", ["start_time"], name: "index_send_logs_on_start_time", using: :btree
+
+  create_table "subscribers", force: :cascade do |t|
+    t.string   "openid",       limit: 255
+    t.integer  "sex",          limit: 4
+    t.string   "city",         limit: 255
+    t.string   "province",     limit: 255
+    t.string   "country",      limit: 255
+    t.string   "headimgurl",   limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "nick_name",    limit: 255
+    t.integer  "community_id", limit: 4
+  end
+
+  add_index "subscribers", ["community_id"], name: "index_subscribers_on_community_id", using: :btree
   add_index "subscribers", ["openid"], name: "index_subscribers_on_openid", length: {"openid"=>191}, using: :btree
 
   create_table "users", force: :cascade do |t|
@@ -154,14 +191,27 @@ ActiveRecord::Schema.define(version: 20150701095107) do
     t.string   "tel",           limit: 255
     t.string   "commun",        limit: 255
     t.string   "neighborhood",  limit: 255
-    t.integer  "subscriber_id", limit: 4
-    t.integer  "communitie_id", limit: 4
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "subscriber_id", limit: 4
   end
 
-  add_index "volunteers", ["communitie_id"], name: "index_volunteers_on_communitie_id", using: :btree
   add_index "volunteers", ["subscriber_id"], name: "index_volunteers_on_subscriber_id", using: :btree
   add_index "volunteers", ["tel"], name: "index_volunteers_on_tel", length: {"tel"=>191}, using: :btree
+
+  create_table "warnings", force: :cascade do |t|
+    t.datetime "publish_time"
+    t.string   "warning_type", limit: 255
+    t.string   "level",        limit: 255
+    t.text     "content",      limit: 65535
+    t.integer  "community_id", limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "status",       limit: 255
+  end
+
+  add_index "warnings", ["community_id"], name: "index_warnings_on_community_id", using: :btree
+  add_index "warnings", ["publish_time"], name: "index_warnings_on_publish_time", using: :btree
+  add_index "warnings", ["warning_type"], name: "index_warnings_on_warning_type", length: {"warning_type"=>191}, using: :btree
 
 end

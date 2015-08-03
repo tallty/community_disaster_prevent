@@ -2,7 +2,7 @@ module Admin
   class CommunitiesController < ApplicationController
     before_action :set_community, only: [:show, :edit, :update, :destroy]
     layout 'admin/home'
-    
+
     # GET /communities
     # GET /communities.json
     def index
@@ -60,6 +60,21 @@ module Admin
       respond_to do |format|
         format.html { redirect_to communities_url, notice: 'Community was successfully destroyed.' }
         format.json { head :no_content }
+      end
+    end
+
+    def get_streets
+      @streets = Community.select(:street).distinct.pluck(:street)
+      respond_to do |format|
+        format.js
+      end
+    end
+
+    def get_districts
+      street = params[:street]
+      @districts = Community.where(street: street).pluck(:district, :id)
+      respond_to do |format|
+        format.js
       end
     end
 

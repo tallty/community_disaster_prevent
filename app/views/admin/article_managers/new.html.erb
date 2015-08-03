@@ -1,0 +1,11 @@
+<div class="row panel panel-default">
+  <%= render 'form' %>
+  <%= link_to 'Back', admin_article_managers_path %>
+</div>
+<%= content_for :scripts do %>
+  <%= javascript_tag do %>
+    get_streets_path = "<%= get_streets_admin_communities_path %>"
+    get_districts_path = "<%= get_districts_admin_communities_path %>"
+  <% end %>
+  <%= javascript_include_tag "admin/article_manager", 'data-turbolinks-track' => true  %>
+<% end %>

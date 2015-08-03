@@ -4,8 +4,6 @@
       <td>标题</td>
       <td>作者</td>
       <td>概要</td>
-      <td>关键词</td>
-      <td>类别</td>
       <td width="200px">操作</td>
     </thead>
 
@@ -15,8 +13,6 @@
           <td><%= article.title %></td>
           <td><%= article.author %></td>
           <td><%= article.digest %></td>
-          <td><%= article.keywords %></td>
-          <td><%= article.article_type %></td>
           <td>
             <%= link_to '显示', admin_articles_path(article), :class => "btn btn-xs btn-info" %>
             <%= link_to '编辑', edit_admin_article_path(article), :class => "btn btn-xs btn-primary" %>

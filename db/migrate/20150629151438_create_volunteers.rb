@@ -7,7 +7,7 @@ class CreateVolunteers < ActiveRecord::Migration
       t.string :neighborhood
 
       t.references :subscriber, index: true
-      t.references :communitie, index: true
+      t.references :community, index: true
       t.timestamps null: false
     end
     add_index :volunteers, :tel

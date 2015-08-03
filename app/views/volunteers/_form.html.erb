@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row" style="text-align: center;">
+    <h3>社区气象安全志愿者</h3>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <%= form_for @volunteer,  :url => { :action => :update } do |f| %>
+        <div class="form-inputs volunteer-form">
+          <div class="input-group col-xs-12">
+            <%= f.hidden_field :openid, value: @subscriber.openid %>
+          </div>
+          <div class="space-6"></div>
+          <div class="input-group col-xs-12">
+            <%= f.text_field :name, :placeholder => "姓名...", :class =>"form-control input" %>
+            <% if @volunteer.errors[:name].any? %>
+              <dd class="error">* <%= @volunteer.errors[:name][0] %></dd>
+            <% end %>
+          </div>
+          <div class="space-6"></div>
+          <div class="input-group col-xs-12">
+            <%= f.telephone_field :tel, :placeholder => "联系电话...", :class =>"form-control input" %>
+            <% if @volunteer.errors[:tel].any? %>
+              <dd class="error">* <%= @volunteer.errors[:tel][0] %></dd>
+            <% end %>
+          </div>
+          <div class="space-6"></div>
+          <div class="input-group col-xs-12">
+            <%= f.text_field :commun, :placeholder => "小区名称...", :class =>"form-control input" %>
+            <% if @volunteer.errors[:commun].any? %>
+              <dd class="error">* <%= @volunteer.errors[:commun][0] %></dd>
+            <% end %>
+          </div>
+          <div class="space-6"></div>
+          <div class="input-group col-xs-12">
+            <%= f.text_field :neighborhood, :placeholder => "所属居委会...", :class =>"form-control input" %>
+            <% if @volunteer.errors[:neighborhood].any? %>
+              <dd class="error">* <%= @volunteer.errors[:neighborhood][0] %></dd>
+            <% end %>
+          </div>
+          <div class="space-6"></div>
+          <div class="col-xs-12">
+            <div class="btn-group btn-group-justified ">
+              <%= f.submit "提交", :class => "btn btn-success bg-lg", :style => "width:100%" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div style="height: 50px;"></div>
+  </div>
+</div>
+<%= content_for :scripts do %>
+  <%= javascript_tag do %>
+    get_districts_path = "<%= get_districts_subscribers_path %>"
+  <% end %>
+  <%= javascript_include_tag "weixin_comm", 'data-turbolinks-track' => true  %>
+<% end %>

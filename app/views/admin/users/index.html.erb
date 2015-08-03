@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+<div class="row panel panel-default">
+  <table id="users-table" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+    <thead>
+      <td width="200px">用户名</td>
+      <td>当前登录时间</td>
+      <td>当前登录IP</td>
+      <td>最后登录时间</td>
+      <td>最后登录IP</td>
+      <td width="200px">操作</td>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.email %></td>
+          <td><%= user.current_sign_in_at %></td>
+          <td><%= user.current_sign_in_ip %></td>
+          <td><%= user.last_sign_in_at %></td>
+          <td><%= user.last_sign_in_ip %></td>
+          <td>
+            <%= link_to '显示', admin_user_path(user), :class => "btn btn-xs btn-info" %>
+            <%= link_to '编辑', edit_admin_user_path(user), :class => "btn btn-xs btn-primary" %>
+            <%= link_to t('删除', :default => t("删除")),
+              admin_user_path(user),
+              :method => :delete,
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '确定删除?')) },
+              :class => 'btn btn-xs btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<% content_for :scripts do %>
+  <script type="text/javascript">
+    $('#users-table').dataTable({
+
+      bAutoWidth: false
+    });
+  </script>
+<% end %>

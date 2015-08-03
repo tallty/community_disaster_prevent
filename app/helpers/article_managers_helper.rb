@@ -1,0 +1,2 @@
+module ArticleManagersHelper
+end

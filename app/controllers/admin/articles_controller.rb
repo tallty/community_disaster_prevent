@@ -2,7 +2,7 @@ module Admin
   class ArticlesController < ApplicationController
     before_action :set_article, only: [:show, :edit, :update, :destroy]
     layout 'admin/article'
-    
+
     # GET /articles
     # GET /articles.json
     def index
@@ -26,12 +26,10 @@ module Admin
     # POST /articles
     # POST /articles.json
     def create
-      params.permit!
       @article = Article.new(article_params)
 
       respond_to do |format|
         if @article.save
-          # format.html { redirect_to @article, notice: 'Article was successfully created.' }
           format.html { redirect_to admin_articles_path }
           format.json { render :show, status: :created, location: @article }
         else
@@ -73,7 +71,7 @@ module Admin
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def article_params
-        params[:article]
+        params.require(:article).permit(:title, :author, :content, :digest, :thumb_media_url)
       end
   end
 end

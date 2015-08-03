@@ -8,7 +8,12 @@
 #  c_type     :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  code       :integer          not null
 #
 
 class Community < ActiveRecord::Base
+  has_many :warnings, dependent: :destroy
+  has_one :monitor_station
+  has_one :subscriber
+  has_many :article_managers
 end

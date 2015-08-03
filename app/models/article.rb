@@ -2,23 +2,43 @@
 #
 # Table name: articles
 #
-#  id                 :integer          not null, primary key
-#  event_key          :string(255)
-#  title              :string(255)
-#  author             :string(255)
-#  content_source_url :string(255)
-#  content            :text(65535)
-#  digest             :string(255)
-#  show_cover_pic     :integer
-#  article_type       :string(255)
-#  is_show            :string(255)
-#  thumb_media_url    :string(255)
-#  keywords           :string(255)
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
+#  id              :integer          not null, primary key
+#  title           :string(255)
+#  author          :string(255)
+#  content         :text(65535)
+#  digest          :string(255)
+#  thumb_media_url :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 
 class Article < ActiveRecord::Base
+  has_one :article_manager, dependent: :destroy
   validates :title, :content, presence: true
 
+  def get_show_article
+    subscriber = Subscriber.where(openid: @subscriber).first
+    if subscriber.community.present?
+      if @keyword.eql?("社区风险")
+        articles = ArticleManager.where(keyword: @keyword, community: subscriber.community)
+      else
+        articles = ArticleManager.where(keyword: @keyword)
+      end
+      results = []
+      if articles.present?
+        articles.each do |item|
+          if item.page_url.present?
+            results << { :title => item.article.title, :desc => "", :image_url => "#{Settings.ProjectSetting.url}/#{item.article.thumb_media_url}", :page_url => "#{Settings.ProjectSetting.url}#{item.page_url}?openid=#{@subscriber}" }
+          else
+            results << { :title => item.article.title, :desc => "", :image_url => "#{Settings.ProjectSetting.url}/#{item.article.thumb_media_url}", :page_url => "#{Settings.ProjectSetting.url}/articles/#{item.article.id}?openid=#{@subscriber}" }
+          end
+        end
+        { :type => 'articles', :content => results }
+      else
+        { :type => 'text', :content => "当前无#{@keyword}信息" }
+      end
+    else
+      { :type => 'articles', :content => [{ :title => "社区绑定", :desc => "", :image_url => "", :page_url => "" }]}
+    end
+  end
 end

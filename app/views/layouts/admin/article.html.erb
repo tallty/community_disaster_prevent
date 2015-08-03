@@ -4,7 +4,7 @@
     <title>上海市防雷中心微信管理平台</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Xenon Boostrap Admin Panel" />
     <%= stylesheet_link_tag 'admin/articles', media: 'all', 'data-turbolinks-track' => true %>
@@ -16,12 +16,12 @@
     <%= render 'share/setting' %>
     <div class="page-container">
       <div class="sidebar-menu toggle-others fixed">
-        <div class="sidebar-menu-inner">  
+        <div class="sidebar-menu-inner">
           <header class="logo-env">
             <!-- logo -->
             <div class="logo">
-              <%= link_to image_tag('logo@2x.png'), admin_home_index_path, class: 'logo-expanded' %>
-              <%= link_to image_tag('logo-collapsed@2x.png'), admin_home_index_path, class: 'logo-collapsed' %>
+              <%= link_to image_tag('logo@2.png'), admin_home_index_path, class: 'logo-expanded' %>
+              <!-- <%= link_to image_tag('logo-collapsed@2x.png'), admin_home_index_path, class: 'logo-collapsed' %> -->
             </div>
             <!-- This will toggle the mobile menu and will be visible only on mobile devices -->
             <div class="mobile-menu-toggle visible-xs">
@@ -38,16 +38,16 @@
               <a href="#" data-toggle="settings-pane" data-animate="true">
                 <i class="linecons-cog"></i>
               </a>
-            </div>      
+            </div>
           </header>
           <%= render 'share/side_bar' %>
         </div>
       </div>
-      
-      <div class="main-content">  
+
+      <div class="main-content">
         <!-- User Info, Notifications and Menu Bar -->
         <%= render 'share/navbar' %>
-        
+
         <%= yield %>
         <script>
         jQuery(document).ready(function($) {
@@ -61,7 +61,7 @@
           });
         });
         </script>
-        
+
         <%= render 'share/footer' %>
       </div>
       <%= render 'share/charts' %>
