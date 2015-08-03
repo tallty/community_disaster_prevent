@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Send Logs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @send_logs.each do |send_log| %>
+      <tr>
+        <td><%= link_to 'Show', send_log %></td>
+        <td><%= link_to 'Edit', edit_send_log_path(send_log) %></td>
+        <td><%= link_to 'Destroy', send_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Send log', new_send_log_path %>
