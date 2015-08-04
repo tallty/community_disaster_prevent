@@ -1,0 +1,5 @@
+var community_option = "";
+<% @community.each do |s| %>
+  community_option = community_option + "<option value='<%= s %>'><%= s %></option>"
+<% end %>
+$("#monitor_station_community").html(community_option);

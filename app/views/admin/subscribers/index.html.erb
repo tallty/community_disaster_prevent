@@ -13,7 +13,11 @@
     <tbody>
       <% @subscribers.each do |subscriber| %>
         <tr>
-          <td><%= image_tag subscriber.headimgurl %></td>
+          <% if subscriber.headimgurl.present? %>
+            <td><%= image_tag subscriber.headimgurl %></td>
+          <% else %>
+            <td><%= image_tag "avatar-lg.png" %></td>
+          <% end %>
           <td><%= subscriber.nick_name %></td>
           <td><%= subscriber.city %></td>
           <td><%= subscriber.province %></td>
@@ -37,7 +41,7 @@
 <% content_for :scripts do %>
   <script type="text/javascript">
     $('#subscribers-table').dataTable({
-      
+
       bAutoWidth: false
     });
   </script>

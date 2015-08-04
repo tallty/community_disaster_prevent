@@ -1,13 +1,15 @@
-<div class="row">
-  <div class="col-xs-11">
-    <h2 class="rich_media_title"><%= @article.title %></h2>
-  </div>
-  <div class="col-xs-11 rich_media_meta_list">
-    <em><%= @article.created_at.strftime("%Y-%m-%d") %></em>
-    <em><%= @article.author %></em>
-    <em>上海市社区气象安全一点通</em>
-  </div>
-  <div class="col-xs-11">
-    <%= @article.content.html_safe %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2 class="rich_media_title"><%= @article.title %></h2>
+    </div>
+    <div class="col-xs-12 rich_media_meta_list">
+      <em><%= @article.created_at.strftime("%Y-%m-%d") %></em>
+      <em><%= @article.author %></em>
+      <em>上海市社区气象安全一点通</em>
+    </div>
+    <div class="col-xs-12">
+      <%= @article.content.html_safe %>
+    </div>
   </div>
 </div>

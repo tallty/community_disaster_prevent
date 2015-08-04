@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     end
   end
   resources :disasters
+  resource :monitor_stations, only: [:show]
 
   namespace :admin do
     resources :home, only: [:index]
@@ -26,6 +27,7 @@ Rails.application.routes.draw do
       collection do
         get :get_streets
         get :get_districts
+        get :search
       end
     end
     resources :disaster_positions

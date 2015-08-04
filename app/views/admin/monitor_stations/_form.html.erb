@@ -1,0 +1,44 @@
+<div class="row">
+  <%= form_tag search_admin_communities_path, remote: true, method: :get, class: "navbar-form nav-left" do %>
+    <div class="form-group">
+      <%= search_field_tag "q[district_cont]", params["q"] && params["q"]["district_cont"], class: "form-control input-sm search-form", placeholder: "请选择社区..." %>
+    </div>
+  <% end %>
+</div>
+<%= form_for(@monitor_station, url: admin_monitor_stations_path) do |f| %>
+  <% if @monitor_station.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@monitor_station.errors.count, "error") %> prohibited this monitor_station from being saved:</h2>
+
+      <ul>
+      <% @monitor_station.errors.full_messages.each do |station| %>
+        <li><%= station %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row form-inputs">
+    <div class="input-group col-xs-6">
+      <%= f.select :community, Community.where("district <> '上海'").distinct(:district).pluck(:district), options ={:prompt =>"请选择社区"}, :class => "form-control input", :multiple => false, :size => 5 %>
+    </div>
+    <div class="space-6"></div>
+    <div class="input-group col-xs-6">
+      <%= f.text_field :station_name, :placeholder => "请输入站名...", :class =>"form-control input"%>
+    </div>
+    <div class="space-6"></div>
+    <div class="input-group col-xs-6">
+      <%= f.text_field :station_number, :placeholder => "请输入站号...", :class =>"form-control input"%>
+    </div>
+    <div class="space-6"></div>
+    <div class="input-group col-xs-6">
+      <%= f.select :station_type, ["自动站", "积水站"], options ={:prompt =>"请选择站点类型"},
+ :class =>"form-control input" %>
+    </div>
+    <div class="space-6"></div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  </div>
+<% end %>
+

@@ -2,6 +2,16 @@ module Admin
   class CommunitiesController < ApplicationController
     before_action :set_community, only: [:show, :edit, :update, :destroy]
     layout 'admin/home'
+    respond_to :json, :html
+
+    def search
+      @q = Community.ransack(params[:q])
+      @community = @q.result(distinct: true).pluck(:district)
+      respond_to do |format|
+        format.json { render json: @community }
+        format.js
+      end
+    end
 
     # GET /communities
     # GET /communities.json

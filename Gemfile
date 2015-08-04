@@ -46,6 +46,8 @@ gem 'rest-client'
 gem 'multi_json'
 gem 'addressable'
 
+gem 'ransack'
+
 gem 'weixin_rails_middleware'
 gem 'weixin_authorize', git: "https://github.com/shtzr840329/weixin_authorize.git", branch: 'news_message_api'
 gem 'jquery-fileupload-rails'
@@ -73,8 +75,6 @@ gem 'ckeditor', git: 'https://github.com/shtzr840329/ckeditor.git'
 
 #gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 gem "paperclip"#, :git => "git://github.com/thoughtbot/paperclip.git"
-
-gem 'ransack'
 
 gem "faraday"
 

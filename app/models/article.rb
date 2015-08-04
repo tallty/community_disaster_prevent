@@ -13,6 +13,7 @@
 #
 
 class Article < ActiveRecord::Base
+  include BaseWeixin
   has_one :article_manager, dependent: :destroy
   validates :title, :content, presence: true
 
@@ -28,9 +29,9 @@ class Article < ActiveRecord::Base
       if articles.present?
         articles.each do |item|
           if item.page_url.present?
-            results << { :title => item.article.title, :desc => "", :image_url => "#{Settings.ProjectSetting.url}/#{item.article.thumb_media_url}", :page_url => "#{Settings.ProjectSetting.url}#{item.page_url}?openid=#{@subscriber}" }
+            results << { :title => item.article.title, :desc => "", :image_url => "#{Settings.ProjectSetting.url}/#{item.article.thumb_media_url}", :page_url => weixin_url("#{item.page_url}") }
           else
-            results << { :title => item.article.title, :desc => "", :image_url => "#{Settings.ProjectSetting.url}/#{item.article.thumb_media_url}", :page_url => "#{Settings.ProjectSetting.url}/articles/#{item.article.id}?openid=#{@subscriber}" }
+            results << { :title => item.article.title, :desc => "", :image_url => "#{Settings.ProjectSetting.url}/#{item.article.thumb_media_url}", :page_url => weixin_url("articles/#{item.article.id}") }
           end
         end
         { :type => 'articles', :content => results }
@@ -38,7 +39,7 @@ class Article < ActiveRecord::Base
         { :type => 'text', :content => "当前无#{@keyword}信息" }
       end
     else
-      { :type => 'articles', :content => [{ :title => "社区绑定", :desc => "", :image_url => "", :page_url => "" }]}
+      binding_community
     end
   end
 end
