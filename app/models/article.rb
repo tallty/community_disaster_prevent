@@ -29,9 +29,9 @@ class Article < ActiveRecord::Base
       if articles.present?
         articles.each do |item|
           if item.page_url.present?
-            results << { :title => item.article.title, :desc => "", :image_url => "#{Settings.ProjectSetting.url}/#{item.article.thumb_media_url}", :page_url => weixin_url("#{item.page_url}") }
+            results << { :title => item.article.title, :desc => item.article.digest, :image_url => "#{Settings.ProjectSetting.url}/#{item.article.thumb_media_url}", :page_url => weixin_url("#{item.page_url}") }
           else
-            results << { :title => item.article.title, :desc => "", :image_url => "#{Settings.ProjectSetting.url}/#{item.article.thumb_media_url}", :page_url => weixin_url("articles/#{item.article.id}") }
+            results << { :title => item.article.title, :desc => item.article.digest, :image_url => "#{Settings.ProjectSetting.url}/#{item.article.thumb_media_url}", :page_url => weixin_url("articles/#{item.article.id}") }
           end
         end
         { :type => 'articles', :content => results }
