@@ -1,0 +1,17 @@
+<div class="my-container">
+  <div class="row">
+    <ul class="top-tool">
+      <li>地图模式</li>
+      <li>列表模式</li>
+    </ul>
+  </div>
+  <div class="row">
+    <div id="my-map" class="map"></div>
+  </div>
+</div>
+<%= content_for :scripts do %>
+  <%= javascript_tag do %>
+    get_districts_path = "<%= get_districts_subscribers_path %>"
+  <% end %>
+  <%= javascript_include_tag "disasters", 'data-turbolinks-track' => true  %>
+<% end %>
