@@ -6,7 +6,7 @@ module Admin
 
     def search
       @q = Community.ransack(params[:q])
-      @community = @q.result(distinct: true).pluck(:district)
+      @community = @q.result(distinct: true).pluck(:street)
       respond_to do |format|
         format.json { render json: @community }
         format.js
