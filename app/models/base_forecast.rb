@@ -1,5 +1,4 @@
 class BaseForecast
-  require 'faraday'
 
   def initialize
     settings = Settings.__send__ self.class.to_s
