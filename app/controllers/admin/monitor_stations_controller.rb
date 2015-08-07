@@ -17,7 +17,7 @@ module Admin
       @monitor_station.station_name = monitor_station_params[:station_name]
       @monitor_station.station_number = monitor_station_params[:station_number]
       @monitor_station.station_type = monitor_station_params[:station_type]
-      community = Community.where(district: monitor_station_params[:community]).first
+      community = Community.where(street: monitor_station_params[:community]).first
       @monitor_station.community = community
       respond_to do |format|
         if @monitor_station.save
