@@ -15,7 +15,7 @@
   <tbody>
     <% @monitor_stations.each do |station| %>
       <tr>
-        <td><%= station.community.district if station.community.present? %></td>
+        <td><%= station.community.street if station.community.present? %></td>
         <td><%= station.station_number %></td>
         <td><%= station.station_name %></td>
         <td><%= station.station_type %></td>
