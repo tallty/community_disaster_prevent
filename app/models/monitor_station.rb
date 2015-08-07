@@ -1,8 +1,22 @@
+# == Schema Information
+#
+# Table name: monitor_stations
+#
+#  id             :integer          not null, primary key
+#  station_number :string(255)
+#  station_name   :string(255)
+#  station_type   :string(255)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  community_id   :integer
+#
+
 class MonitorStation < ActiveRecord::Base
   include BaseWeixin
-
+  validates :community, :station_name, :station_number, presence: true
+  validates :station_type, inclusion: ["自动站", "积水站"]
   belongs_to :community
-  attr_accessor :search
+  # attr_accessor :search
 
   scope :stations, -> { all.distinct(:station_number) }
 
@@ -21,7 +35,7 @@ class MonitorStation < ActiveRecord::Base
   def get_show_article
     subscriber = Subscriber.where(openid: @subscriber).first
     if subscriber.community.present?
-      results = [{ :title => "#{subscriber.community.district}实况监测", :desc => "", :image_url => "#{Settings.ProjectSetting.url}/images/lightning/DISCH_20150802_131000.jpeg", :page_url => weixin_url("monitor_stations") }]
+      results = [{ :title => "#{subscriber.community.street}实况监测", :desc => "", :image_url => "#{Settings.ProjectSetting.url}/images/lightning/DISCH_20150802_131000.jpeg", :page_url => weixin_url("monitor_stations") }]
       auto_station = MonitorStation.where(community: subscriber.community, station_type: "自动站").first
       data = $redis.hget("monitor_stations", auto_station.station_number)
       if data.present?
