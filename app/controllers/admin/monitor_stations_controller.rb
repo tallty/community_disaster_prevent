@@ -1,5 +1,7 @@
 module Admin
   class MonitorStationsController < ApplicationController
+    before_action :set_monitor_station, only: [:edit, :update, :destroy]
+    layout 'admin/home'
     layout 'admin/home'
 
     def index
@@ -25,6 +27,14 @@ module Admin
           format.html { render :new }
           format.json { render json: @monitor_station.errors, status: :unprocessable_entity }
         end
+      end
+    end
+
+    def destroy
+      @monitor_station.destroy
+      respond_to do |format|
+        format.html { redirect_to admin_monitor_stations_url, notice: 'Monitor Station was successfully destroyed.' }
+        format.json { head :no_content }
       end
     end
 
