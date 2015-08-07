@@ -36,7 +36,6 @@ class AQI < BaseForecast
     draw = Magick::Draw.new
     draw.pointsize = 28
     draw.font = 'public/assets/fonts/微软黑体.ttf'
-    # draw.font = 'public/assets/fonts/黑体.TTF'
     draw.font_weight = Magick::BoldWeight
     draw.fill = 'black'
 
