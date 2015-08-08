@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150802041112) do
+ActiveRecord::Schema.define(version: 20150805083228) do
 
   create_table "article_managers", force: :cascade do |t|
     t.string   "keyword",       limit: 255
@@ -140,6 +140,26 @@ ActiveRecord::Schema.define(version: 20150802041112) do
 
   add_index "monitor_stations", ["community_id"], name: "index_monitor_stations_on_community_id", using: :btree
 
+  create_table "options", force: :cascade do |t|
+    t.string   "option_title", limit: 255
+    t.integer  "question_id",  limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "options", ["question_id"], name: "index_options_on_question_id", using: :btree
+
+  create_table "questions", force: :cascade do |t|
+    t.string   "q_title",    limit: 255
+    t.string   "q_type",     limit: 255
+    t.string   "q_digest",   limit: 255
+    t.integer  "survey_id",  limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "questions", ["survey_id"], name: "index_questions_on_survey_id", using: :btree
+
   create_table "send_logs", force: :cascade do |t|
     t.datetime "start_time"
     t.datetime "end_time"
@@ -167,6 +187,28 @@ ActiveRecord::Schema.define(version: 20150802041112) do
 
   add_index "subscribers", ["community_id"], name: "index_subscribers_on_community_id", using: :btree
   add_index "subscribers", ["openid"], name: "index_subscribers_on_openid", length: {"openid"=>191}, using: :btree
+
+  create_table "survey_results", force: :cascade do |t|
+    t.string   "q_result",      limit: 255
+    t.integer  "survey_id",     limit: 4
+    t.integer  "subscriber_id", limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "survey_results", ["subscriber_id"], name: "index_survey_results_on_subscriber_id", using: :btree
+  add_index "survey_results", ["survey_id"], name: "index_survey_results_on_survey_id", using: :btree
+
+  create_table "surveys", force: :cascade do |t|
+    t.string   "s_title",      limit: 255
+    t.string   "s_digest",     limit: 255
+    t.string   "s_author",     limit: 255
+    t.integer  "community_id", limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "surveys", ["community_id"], name: "index_surveys_on_community_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 64,  default: "", null: false

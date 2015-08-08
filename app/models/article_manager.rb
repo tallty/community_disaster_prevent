@@ -10,6 +10,7 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  article_type  :string(255)
+#  community_id  :integer
 #
 
 class ArticleManager < ActiveRecord::Base

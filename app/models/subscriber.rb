@@ -2,23 +2,24 @@
 #
 # Table name: subscribers
 #
-#  id         :integer          not null, primary key
-#  openid     :string(255)
-#  sex        :integer
-#  city       :string(255)
-#  province   :string(255)
-#  country    :string(255)
-#  headimgurl :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  nick_name  :string(255)
+#  id           :integer          not null, primary key
+#  openid       :string(255)
+#  sex          :integer
+#  city         :string(255)
+#  province     :string(255)
+#  country      :string(255)
+#  headimgurl   :string(255)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  nick_name    :string(255)
+#  community_id :integer
 #
 
 class Subscriber < ActiveRecord::Base
   belongs_to :community
   has_one :volunteer
 
-  attr_accessor :street
+  attr_accessor :district
 
   def process
     subscriber = Subscriber.new

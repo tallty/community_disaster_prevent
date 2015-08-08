@@ -30,7 +30,7 @@ class SubscribersController < ApplicationController
   # PATCH/PUT /subscribers/1
   # PATCH/PUT /subscribers/1.json
   def update
-    @community = Community.where(district: params[:subscriber][:community]).first
+    @community = Community.where(street: params[:subscriber][:community]).first
     @subscriber.community = @community
     respond_to do |format|
       if @subscriber.update_attributes(:community => @community)
@@ -43,9 +43,9 @@ class SubscribersController < ApplicationController
     end
   end
 
-  def get_districts
-    street = params[:street]
-    @districts = Community.where(street: street).pluck(:district)
+  def get_streets
+    district = params[:district]
+    @streets = Community.where(district: district).pluck(:street)
     respond_to do |format|
       format.js
     end

@@ -47,9 +47,16 @@ class VolunteersController < ApplicationController
   # PATCH/PUT /volunteers/1
   # PATCH/PUT /volunteers/1.json
   def update
+    @subscriber = Subscriber.where(openid: volunteer_params[:openid]).first
+    @volunteer = @subscriber.volunteer
+    @volunteer.name = volunteer_params[:name]
+    @volunteer.tel = volunteer_params[:tel]
+    @volunteer.commun = volunteer_params[:commun]
+    @volunteer.neighborhood = volunteer_params[:neighborhood]
     respond_to do |format|
-      if @volunteer.update(volunteer_params)
-        format.html { redirect_to @volunteer, notice: 'Volunteer was successfully updated.' }
+      if @volunteer.save
+        # format.html { redirect_to @volunteer, notice: 'Volunteer was successfully updated.' }
+        format.html { render "volunteers/success" }
         format.json { render :show, status: :ok, location: @volunteer }
       else
         format.html { render :edit }

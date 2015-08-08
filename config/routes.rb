@@ -11,13 +11,15 @@ Rails.application.routes.draw do
   resource :volunteers, only: [:new, :create, :update]
   resource :subscribers, only: [:new, :update] do
     collection do
-      get :get_districts
+      get :get_streets
     end
   end
   resources :disasters
   resource :monitor_stations, only: [:show]
 
   namespace :admin do
+    resources :survey_results
+    resources :surveys
     resources :home, only: [:index]
     resources :diymenus
     resources :disaster_pictures

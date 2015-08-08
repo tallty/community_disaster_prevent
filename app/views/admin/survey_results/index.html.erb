@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Survey Results</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @survey_results.each do |survey_result| %>
+      <tr>
+        <td><%= link_to 'Show', survey_result %></td>
+        <td><%= link_to 'Edit', edit_survey_result_path(survey_result) %></td>
+        <td><%= link_to 'Destroy', survey_result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Survey result', new_survey_result_path %>

@@ -51,7 +51,7 @@
 </div>
 <%= content_for :scripts do %>
   <%= javascript_tag do %>
-    get_districts_path = "<%= get_districts_subscribers_path %>"
+    get_streets_path = "<%= get_streets_subscribers_path %>"
   <% end %>
   <%= javascript_include_tag "weixin_comm", 'data-turbolinks-track' => true  %>
 <% end %>
