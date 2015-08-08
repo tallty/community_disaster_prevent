@@ -61,6 +61,36 @@ class MonitorStation < ActiveRecord::Base
     end
   end
 
+  def write_auto_station_from_file
+    File.foreach("documents/自动站.csv") do |line|
+      line = line.force_encoding('utf-8').chomp
+      contents = line.split(';')
+      street = contents[0].gsub(/[街道|镇]/, "")
+      community = Community.where("street like ?", "%#{street}%").first
+      if community.present?
+        monitor_station = MonitorStation.find_or_create_by(community: community, station_number: contents[2])
+        monitor_station.station_name = contents[3]
+        monitor_station.station_type = '自动站'
+        monitor_station.save!
+      end
+    end
+  end
+
+  def write_water_station_from_file
+    File.foreach("documents/积水站.csv") do |line|
+      line = line.force_encoding('utf-8').chomp
+      contents = line.split(';')
+      street = contents[0].gsub(/[街道|镇]/, "")
+      community = Community.where("street like ?", "%#{street}%").first
+      if community.present?
+        monitor_station = MonitorStation.find_or_create_by(community: community, station_number: contents[3])
+        monitor_station.station_name = contents[2]
+        monitor_station.station_type = '积水站'
+        monitor_station.save
+      end
+    end
+  end
+
   private
   def base_url
     "http://61.152.122.112:8080/publicdata/data?appid=LV08MwglXetHcxdaUTIR&appkey=3LpFnUP84xhj5HaIcmKGAC2yezMgY9"
