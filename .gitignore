@@ -24,7 +24,6 @@ config/initializers/weixin_rails_middleware.rb
 /public/images
 /test
 /public/voice/
-/public/assets/
 /public/upload/
 /public/uploads/*
 /public/media/*
