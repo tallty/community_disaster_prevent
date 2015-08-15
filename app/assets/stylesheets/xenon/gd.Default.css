@@ -13,7 +13,7 @@ html{
 body,div,h1,h2,h3,h4,ul,li,form,input,dl,dt,dd,p{
 	margin:0;
 	padding:0;
-	font-family:Î¢ÈíÑÅºÚ;
+	font-family:å¾®è½¯é›…é»‘;
 }
 h3{
 	+font-size:14px;
@@ -29,7 +29,7 @@ ul,ol,li{
 	list-style:none;
 }
 
- /*Çå³ı¸¡¶¯*/
+ /*æ¸…é™¤æµ®åŠ¨*/
 .clearfix:after {
     content: ".";
     visibility: hidden;
@@ -49,7 +49,7 @@ ul,ol,li{
 }
 
 body{
-	font: 12px/1.5em Î¢ÈíÑÅºÚ,Arial,Verdana,Helvetica,sans-serif;
+	font: 12px/1.5em å¾®è½¯é›…é»‘,Arial,Verdana,Helvetica,sans-serif;
 	color:#333;
 }
 button,input,select,textarea{
@@ -80,7 +80,7 @@ input[type="button"]{
 /*	width:661px;*/
 	height:255px;
 }
-/*  ½á¹ûÏî */
+/*  ç»“æœé¡¹ */
 #result .sub_result{
 	font-size:12px;
 	cursor:pointer;
@@ -106,7 +106,7 @@ a:hover{
 }
 
 /*** layerout stylesheet ***/
-/* ĞŞ¸Ä±³¾°URL */
+/* ä¿®æ”¹èƒŒæ™¯URL */
 div.change{
 	background-image:url(http://pages.haozu.ajkcdn.com/20110909/img/map/marker-h.png);
 }
@@ -114,8 +114,8 @@ div.change div{
 	background-image:url(http://pages.haozu.ajkcdn.com/20110909/img/map/marker-h-l.gif);
 }
 
-/*** copied from demo #39 Ìí¼Ó×Ô¶¨Òåµã¸²¸ÇÎï ***/
-/* ¶¨Òå×Ô¶¨ÒåµãÑùÊ½ */
+/*** copied from demo #39 æ·»åŠ è‡ªå®šä¹‰ç‚¹è¦†ç›–ç‰© ***/
+/* å®šä¹‰è‡ªå®šä¹‰ç‚¹æ ·å¼ */
 .markerContentStyle{position:relative;}
 .markerContentStyle span{
 	background-color: #FFFFFF;
@@ -123,7 +123,7 @@ div.change div{
 	width:120px;
 	heigth:80px;
 	border:2px solid #D8BFD8;
-	FONT-FAMILY:»ªÎÄĞĞ¿¬;
+	FONT-FAMILY:åæ–‡è¡Œæ¥·;
 	position:absolute;
 	top:-10px;left:25px;
 	white-space:nowrap
@@ -131,8 +131,8 @@ div.change div{
 	border-radius:5px;
 }
 
-/*** copied from demo #43 Ìí¼Ó×Ô¶¨ÒåĞÅÏ¢´°Ìå ***/
-/* ¶¨Òå×Ô¶¨ÒåĞÅÏ¢´°ÌåÑùÊ½ */
+/*** copied from demo #43 æ·»åŠ è‡ªå®šä¹‰ä¿¡æ¯çª—ä½“ ***/
+/* å®šä¹‰è‡ªå®šä¹‰ä¿¡æ¯çª—ä½“æ ·å¼ */
 div.info {
 	position: relative;
 	z-index: 100;
