@@ -16,8 +16,7 @@ body,div,h1,h2,h3,h4,ul,li,form,input,dl,dt,dd,p{
 	font-family:微软雅黑;
 }
 h3{
-	+font-size:14px;
-	_font-size:14px;
+	font-size:14px;
 }
 img{
 	border:none;
