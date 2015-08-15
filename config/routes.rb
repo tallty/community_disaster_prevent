@@ -14,7 +14,8 @@ Rails.application.routes.draw do
       get :get_streets
     end
   end
-  resources :disasters
+  resources :disasters, only: [:index, :new, :show, :create]
+  resources :disaster_pictures, only: [:new, :create]
   resource :monitor_stations, only: [:show]
 
   namespace :admin do

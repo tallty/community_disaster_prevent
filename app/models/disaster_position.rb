@@ -11,4 +11,5 @@
 #
 
 class DisasterPosition < ActiveRecord::Base
+
 end

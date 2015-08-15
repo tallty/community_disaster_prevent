@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150805083228) do
+ActiveRecord::Schema.define(version: 20150815064520) do
 
   create_table "article_managers", force: :cascade do |t|
     t.string   "keyword",       limit: 255
@@ -68,16 +68,16 @@ ActiveRecord::Schema.define(version: 20150805083228) do
   add_index "communities", ["code"], name: "index_communities_on_code", using: :btree
 
   create_table "disaster_pictures", force: :cascade do |t|
-    t.string   "file_name",         limit: 255
-    t.string   "url",               limit: 255
-    t.string   "local_path",        limit: 255
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.string   "data_file_name",    limit: 255
-    t.string   "data_content_type", limit: 255
-    t.integer  "data_file_size",    limit: 4
-    t.datetime "data_updated_at"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
+    t.integer  "disaster_id",        limit: 4
   end
+
+  add_index "disaster_pictures", ["disaster_id"], name: "index_disaster_pictures_on_disaster_id", using: :btree
 
   create_table "disaster_positions", force: :cascade do |t|
     t.float    "lon",        limit: 24
@@ -89,17 +89,15 @@ ActiveRecord::Schema.define(version: 20150805083228) do
 
   create_table "disasters", force: :cascade do |t|
     t.datetime "occur_time"
-    t.string   "disaster_type",         limit: 255
-    t.text     "explain",               limit: 65535
-    t.integer  "subscriber_id",         limit: 4
-    t.integer  "disaster_positions_id", limit: 4
-    t.integer  "disaster_picture_id",   limit: 4
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.string   "disaster_type",        limit: 255
+    t.text     "explain",              limit: 65535
+    t.integer  "subscriber_id",        limit: 4
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "disaster_position_id", limit: 4
   end
 
-  add_index "disasters", ["disaster_picture_id"], name: "index_disasters_on_disaster_picture_id", using: :btree
-  add_index "disasters", ["disaster_positions_id"], name: "index_disasters_on_disaster_positions_id", using: :btree
+  add_index "disasters", ["disaster_position_id"], name: "index_disasters_on_disaster_position_id", using: :btree
   add_index "disasters", ["occur_time"], name: "index_disasters_on_occur_time", using: :btree
   add_index "disasters", ["subscriber_id"], name: "index_disasters_on_subscriber_id", using: :btree
 

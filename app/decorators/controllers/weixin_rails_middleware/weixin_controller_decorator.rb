@@ -23,7 +23,19 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       @ly    = @weixin_message.Location_Y
       @scale = @weixin_message.Scale
       @label = @weixin_message.Label
-      reply_text_message("Your Location: #{@lx}, #{@ly}, #{@scale}, #{@label}")
+      subscriber = Subscriber.where(openid: @weixin_message.FromUserName).first
+      disasters = Disaster.where("created_at > ? and subscriber_id = ?", Time.now.to_date - 1.day, subscriber.id)
+      disaster_position = DisasterPosition.new
+      disaster_position.lon = @ly
+      disaster_position.lat = @lx
+      disaster_position.address = @label
+      if disaster_position.save
+        disasters.each do |disaster|
+          disaster.disaster_position = disaster_position
+          disaster.save
+        end
+      end
+      # reply_text_message("Your Location: #{@lx}, #{@ly}, #{@scale}, #{@label}")
     end
 
     # <PicUrl><![CDATA[this is a url]]></PicUrl>
@@ -92,7 +104,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
     end
 
     # 上报地理位置事件
-    def handle_location_event 
+    def handle_location_event
       @lat = @weixin_message.Latitude
       @lgt = @weixin_message.Longitude
       @precision = @weixin_message.Precision

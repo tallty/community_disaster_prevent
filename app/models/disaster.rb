@@ -18,4 +18,14 @@ class Disaster < ActiveRecord::Base
   has_many :disaster_pictures
   belongs_to :disaster_position
   
+  def as_json(options=nil)
+    {
+      id: id,
+      occur_time: occur_time.strftime("%Y-%m-%d %H:%M"),
+      explain: explain,
+      type: disaster_type,
+      disaster_position: disaster_position,
+      pictures: disaster_pictures
+    }
+  end
 end

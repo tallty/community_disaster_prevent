@@ -5,17 +5,21 @@ class Healthy < BaseForecast
     shows = ["COPD患者", "儿童哮喘", "老年人感冒"]
     now_day = Time.zone.now
     results = now_day.strftime("%Y-%m-%d")
+    results << "\n"
     content[0].each do |item|
       if shows.include?(item["title"])
         results << "#{item['title']}气象风险等级:"
         results << "#{item['level']}级 #{item['guide']}\n"
       end
     end
-    results << "\r\n"
+    results << "\n"
     results << (now_day + 1.day).strftime("%Y-%m-%d")
+    results << "\n"
     content[0].each do |item|
-      results << "#{item['title']}气象风险等级:"
-      results << "#{item['level']}级 #{item['guide']}\n"
+      if shows.include?(item["title"])
+        results << "#{item['title']}气象风险等级:"
+        results << "#{item['level']}级 #{item['guide']}\n"
+      end
     end
 
     { :type => 'text', :content => results }

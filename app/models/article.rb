@@ -28,7 +28,6 @@ class Article < ActiveRecord::Base
       results = []
       if articles.present?
         articles.each do |item|
-          p "#{Settings.ProjectSetting.url}/#{item.article.thumb_media_url}"
           if item.page_url.present?
             results << { :title => item.article.title, :desc => item.article.digest, :image_url => "#{Settings.ProjectSetting.url}/#{item.article.thumb_media_url}", :page_url => weixin_url("#{item.page_url}") }
           else

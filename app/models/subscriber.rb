@@ -18,7 +18,7 @@
 class Subscriber < ActiveRecord::Base
   belongs_to :community
   has_one :volunteer
-
+  has_many :disaster
   attr_accessor :district
 
   def process

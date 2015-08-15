@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require bootswatch/loader
 //= require bootswatch/bootswatch
+//= require xenon/bootstrap-datetimepicker
 //= require twitter/bootstrap
 //= require turbolinks

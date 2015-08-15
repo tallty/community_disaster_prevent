@@ -17,7 +17,11 @@ class BaseForecast
       faraday.response :logger
       faraday.adapter  Faraday.default_adapter
     end
-    response = conn.get @data_url
+    response = conn.get do |req|
+      req.url @data_url
+      req.headers['Content-Type'] = 'application/json'
+      req.headers['Accept'] = 'application/json'
+    end
     content = MultiJson.load response.body
   end
 end

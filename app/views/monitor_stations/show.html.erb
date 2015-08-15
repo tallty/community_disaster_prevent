@@ -1,0 +1,59 @@
+<div class="row monitor-tool-bar" id="tool">
+  <ul>
+    <li class="button col-xs-6 active">实况监测</li>
+    <li class="button col-xs-6">闪电分布</li>
+  </ul>
+</div>
+<div class="monitor">
+  <div class="head">
+    <div class="row" style="font-size:20px;"><%= @community.street %></div>
+    <div class="row">更新时间: <%= @auto_station["datetime"] %></div>
+  </div>
+  <div class="page">
+    <div class="title"><%= @auto_station_info.station_name %> (气象实况)</div>
+    <div class="line">
+      <div class="col-xs-7"><span>温度: <%= @auto_station["tempe"] %>℃</span></div>
+      <div class="col-xs-5"><%= image_tag "temp.png" %></div>
+    </div>
+    <div class="line">
+      <div class="col-xs-7"><span>风向风速: <%= @auto_station["tempe"] %></span></div>
+      <div class="col-xs-5"><%= image_tag "wind.png" %></div>
+    </div>
+    <div class="line">
+      <div class="col-xs-7"><span>雨量: <%= @auto_station["rain"] %> mm</span></div>
+      <div class="col-xs-5"><%= image_tag "rain.png" %></div>
+    </div>
+  </div>
+  <div class="page">
+    <div class="title">(积水实况)</div>
+    <% @water_station_infos.each do |item| %>
+      <div class="line">
+        <div class="col-xs-7"><span><%= item.station_name %>积水深度: <%= $redis.hget("monitor_stations", item.station_number)["data"] || 0 %> m</span></div>
+        <div class="col-xs-5"><%= image_tag "water.png" %></div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="lightning" style="display:none;">
+  <div class="row">
+    <%= image_tag "lightning/DISCH_20150802_131000.jpeg", :style => "width: 100%;" %>
+  </div>
+  <div class="explan col-xs-11">
+    <span>地闪，即雷击，会对建筑物、电子电气设备以及人身财产产生危害。图中“+”、“-”表示闪电落点和正负极性，暖色至冷色依次表示过去1小时内10分钟间隔的地闪落点情况。</span>
+  </div>
+</div>
+<script type="text/javascript">
+  $(function(){
+    $("#tool li").on("click", function(){
+      $("#tool li").removeClass("active");
+      $(this).addClass("active");
+      if($(this).html()=="实况监测"){
+        $(".monitor").show();
+        $(".lightning").hide();
+      }else{
+        $(".monitor").hide();
+        $(".lightning").show();
+      }
+    });
+  });
+</script>

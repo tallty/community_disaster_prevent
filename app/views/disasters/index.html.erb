@@ -1,17 +1,138 @@
 <div class="my-container">
-  <div class="row">
-    <ul class="top-tool">
-      <li>地图模式</li>
-      <li>列表模式</li>
+  <div class="row monitor-tool-bar" id="tool">
+    <ul>
+      <li class="button col-xs-6 active">地图</li>
+      <li class="button col-xs-6">列表</li>
     </ul>
   </div>
-  <div class="row">
-    <div id="my-map" class="map"></div>
+  <div id="toolbar">
+    <button>灾情上报</button><button>刷新</button>
+  </div>
+  <div id="mapContainer" class="map"></div>
+  <div id="dataList" class="row" style="display:none;">
+    <% @disasters.each do |disaster| %>
+      <div class="col-xs-12 disaster-item">
+        <div class="row">时间: <%= disaster.occur_time.strftime("%Y-%m-%d %H:%M") %></div>
+        <div class="row">类型: <%= disaster.disaster_type %></div>
+        <div class="row">说明: <%= disaster.explain %></div>
+        <div class="row">地点: <%= disaster.disaster_position.try(:address) %></div>
+        <div class="row">
+          <div class="col-xs-4">
+            <%= link_to "详细信息", disaster_path(disaster) %>
+          </div>
+          <% if disaster.subscriber.id == @subscriber.id %>
+            <div class="col-xs-5">
+              <%= link_to "上传灾情图片", new_disaster_picture_path(disaster_id: disaster.id) %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 <%= content_for :scripts do %>
   <%= javascript_tag do %>
-    get_districts_path = "<%= get_districts_subscribers_path %>"
+    disasters = <%= @disasters.to_json.html_safe %>
   <% end %>
+  <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=3903299664a0b6330ca4ddfc37b1af89"></script>
   <%= javascript_include_tag "disasters", 'data-turbolinks-track' => true  %>
 <% end %>
+<script type="text/javascript">
+  var mapObj;
+  var markers = new Array();
+  $(function(){
+    mapObj = new AMap.Map("mapContainer", {
+      view: new AMap.View2D({
+        center: new AMap.LngLat(121.504,31.195),
+        zoom: 10
+      })
+    });
+    init_data();
+    $("#tool li").on("click", function(){
+      $("#tool li").removeClass("active");
+      $(this).addClass("active");
+      if($(this).html()=="地图"){
+        $("#mapContainer").show();
+        $("#dataList").hide();
+      }else{
+        $("#mapContainer").hide();
+        $("#dataList").show();
+      }
+    });
+    function init_data() {
+      for(var i = 0; i < disasters.length; i++) {
+        addmarker(disasters[i]);
+      }
+    }
+
+    function addmarker(d) {
+      if(d.disaster_position == null){return;}
+      var icon;
+      if(d.type=="暴雨"){
+        icon = "http://61.152.126.156/cms/resource/img/icon/rain.png";
+      }else if(d.type=="雷电"){
+        icon = "http://61.152.126.156/cms/resource/img/icon/lightning.png";
+      }else if(d.type=="大风"){
+        icon = "http://61.152.126.156/cms/resource/img/icon/win.png";
+      }else{
+        icon = "http://webapi.amap.com/images/4.png";
+      }
+      lanlat = new AMap.LngLat(d.disaster_position.lon, d.disaster_position.lat);
+      var markerOption = {map: mapObj, icon: icon, position: lanlat};
+      var marker = new AMap.Marker(markerOption);
+      markers.push(lanlat);
+      var infoWindow = new AMap.InfoWindow({
+        isCustom: true,
+        content: createInfoWindow("灾情点","<div>时间:"+d.occur_time+"</div><img style='text-align:center;max-height:160px;width:90%;' src='system/"+d.pictures[0].id+"/images/medium/image.jpg'/><div style='word-break:break-all;'>说明:"+d.explain+"</div><div><a href='/disasters/"+d.id+"'>详细说明</a></div>"),
+        size: new AMap.Size(0,0),
+        autoMove: true,
+        offset: new AMap.Pixel(25, -50)
+      });
+      var aa = function (e) { infoWindow.open(mapObj, marker.getPosition()); }
+      AMap.event.addListener(marker, "click", aa);
+    }
+    $("#toolbar").on("click","button",function(){
+      var click_target = $(this).text();
+      if(click_target == "灾情上报"){
+        self.location = "disasters/new?openid=<%= @subscriber.openid%>";
+      }else if(click_target == "刷新"){
+        window.location.reload();
+      }
+    });
+  });
+  function createInfoWindow(title,content){  
+    var info = document.createElement("div");  
+    info.className = "info";  
+    // 定义顶部标题  
+    var top = document.createElement("div");  
+    top.className = "info-top";  
+    var titleD = document.createElement("div");  
+    titleD.innerHTML = title;  
+    var closeX = document.createElement("img");  
+    closeX.src = "http://webapi.amap.com/images/close2.gif";  
+    closeX.onclick = closeInfoWindow;  
+          
+    top.appendChild(titleD);  
+    top.appendChild(closeX);  
+    info.appendChild(top);  
+    // 定义中部内容  
+    var middle = document.createElement("div");  
+    middle.className = "info-middle";  
+    middle.innerHTML = content;  
+    info.appendChild(middle);  
+        
+    // 定义底部内容  
+    var bottom = document.createElement("div");  
+    bottom.className = "info-bottom";  
+    var sharp = document.createElement("img");  
+    sharp.src = "http://webapi.amap.com/images/sharp.png";  
+    bottom.appendChild(sharp);    
+    info.appendChild(bottom);  
+    return info;  
+  }
+  
+  //关闭信息窗体  
+  function closeInfoWindow(){  
+    mapObj.clearInfoWindow();  
+  }
+</script>

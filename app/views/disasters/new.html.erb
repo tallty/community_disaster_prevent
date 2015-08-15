@@ -1,0 +1,42 @@
+<div class="container">
+  <div id="disaster-uploader">
+    <%= form_for(@disaster, url: disasters_path) do |f| %>
+      <div class="row">你好: <%= @subscriber.nick_name %></div>
+      <div class="row title"><h3>灾情信息上传</h3></div>
+      <%= f.hidden_field :openid, :value => @subscriber.openid %>
+      <div class="row col-xs-12 input-group">
+        <div class="row col-xs-12">灾情发生时间:</div>
+        <div class="row col-xs-12"><%= f.text_field :occur_time, :class => "form-control input" %></div>
+      </div>
+      <div class="row col-xs-12 input-group">
+        <div class="col-xs-12">灾情类别:</div>
+        <div class="col-xs-12">
+          <%= f.select :disaster_type, ["暴雨","雷电", "大风", "其它"], options = {:prompt =>"请选择灾情类型" }, :class =>"form-control input" %>
+        </div>
+      </div>
+      <div class="row col-xs-12 input-group">
+        <div class="col-xs-12">说明:</div>
+        <div class="col-xs-12">
+          <%= f.text_area :explain, :class =>"form-control input" %>
+        </div>
+      </div>
+      <div class="space-6"></div>
+      <div class="row input-group">
+        <div class="btn-group btn-group-justified ">
+          <%= f.submit "提交", :class => "btn btn-success bg-lg", :style => "width:100%" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<script type="text/javascript">
+  $(function(){
+    $("#disaster_occur_time").datetimepicker({
+        format: "yyyy-mm-dd hh:ii",
+        autoclose: true,
+        todayBtn: true,
+        minuteStep: 1
+        // pickerPosition: "bottom-left"
+    });
+  });
+</script>

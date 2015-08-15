@@ -17,9 +17,9 @@ class Warning < ActiveRecord::Base
   belongs_to :community
 
   def process
-    CityWarningProcess.new.process
-    # CommunityWarningProcess.new.process
-    clear_cache
+    # CityWarningProcess.new.process
+    CommunityWarningProcess.new.process
+    # clear_cache
   end
 
   def as_json(options=nil)
@@ -37,8 +37,8 @@ class Warning < ActiveRecord::Base
     if @keyword.eql?("全市预警")
       code = 20000
     else
-      volunteer = Subscriber.where(openid: @subscriber).first.volunteer
-      code = 0
+      subscriber = Subscriber.where(openid: @subscriber).first
+      code = subscriber.community.code
     end
     content = $redis.hvals("warnings_#{code}")
     if content.present?
@@ -103,18 +103,20 @@ class Warning < ActiveRecord::Base
 
     def parse
       content = get_data
-      if content.present?
+      if content["data"].present?
         warning = nil
-        community = Community.where(district: item["community"]).first
-        content.each do |item|
-          warning = Warning.new
-          warning.publish_time = Time.parse(item["publishtime"])
-          warning.type = item["type"]
+
+        content["data"].each do |item|
+          p item
+          community = Community.where("street like ?", "%#{item["unit"]}%").first
+          next if community.nil?
+          publish_time = Time.strptime(item["publish_time"],"%Y年%m月%d日%H时%M分").to_time
+          warning = Warning.find_or_create_by(publish_time: publish_time, warning_type: item["warning_type"])
           warning.level = item["level"]
           warning.content = item["content"]
-          warning.community_code = community.code
+          warning.community = community
 
-          $redis.hset("warnings_#{community.code}", "#{warning.type}", warning.to_json)
+          $redis.hset("warnings_#{community.code}", "#{warning.warning_type}", warning.to_json)
         end
       end
     end

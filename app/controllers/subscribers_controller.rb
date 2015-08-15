@@ -34,7 +34,7 @@ class SubscribersController < ApplicationController
     @subscriber.community = @community
     respond_to do |format|
       if @subscriber.update_attributes(:community => @community)
-        format.html { redirect_to "/subscribers/new?openid=#{@subscriber.openid}" }
+        format.html { redirect_to "/subscribers/new?openid=#{@subscriber.openid}", notice: "您当前绑定社区为: #{@community.street}." }
         format.json { render :show, status: :ok, location: @subscriber }
       else
         format.html { render :edit }

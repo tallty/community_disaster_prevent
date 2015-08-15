@@ -7,12 +7,15 @@
       <h3>上海市社区气象安全一点通</h3>
     </div>
     <div class="col-xs-12">
-      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本微信平台针对气象防灾减灾社区提供气象灾害风险服务。目前已开通杨浦区五角场、新江湾城街道两个社区，如您绑定两者之一，就可实时获取社区灾害性天气提醒、气象实况和社区气象灾害风险分布。同时您还可以加入防灾减灾志愿者队伍，通过灾情互动、调查问卷与我们开展线上互动。</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本微信平台针对上海市各乡镇社区提供气象灾害风险服务。全市用户可通过选择绑定自己所在社区，实时获取天气预报、气象实况、灾害性天气提醒和社区气象灾害风险分布（部分社区）等信息。同时，您还可以加入防灾减灾志愿者队伍，通过灾情互动、调查问卷和我们开展线上互动。</p>
     </div>
     <div class="col-xs-12">
       <% if @subscriber.community.present? %>
         <%= link_to "加入志愿者队伍", "/volunteers/new?openid=#{@subscriber.openid}" %>
       <% end %>
+    </div>
+    <div class="col-xs-12 notice">
+      <%= notice %>
     </div>
     <div class="col-xs-12">
       <%= form_for @subscriber,  :url => { :action => :update } do |f| %>

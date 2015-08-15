@@ -29,7 +29,7 @@ MessageProcessor.create(event_key: "五日预报", process_class_name: "FiveDayW
 MessageProcessor.create(event_key: "气象指数", process_class_name: "WeatherIndex", process_method: "get_message", result_type: "text_message")
 MessageProcessor.create(event_key: "空气质量", process_class_name: "AQI", process_method: "get_show_article", result_type: "news_message")
 MessageProcessor.create(event_key: "健康气象", process_class_name: "Healthy", process_method: "get_message", result_type: "text_message")
-MessageProcessor.create(event_key: "社区预警", process_class_name: "CommWarning", process_method: "get_show_article", result_type: "news_message")
+MessageProcessor.create(event_key: "社区预警", process_class_name: "Warning", process_method: "get_show_article", result_type: "news_message")
 MessageProcessor.create(event_key: "灾情互动", message_type: "dynamic", process_class_name: "Article", process_method: "get_show_article", result_type: "news_message")
 MessageProcessor.create(event_key: "实况监测", process_class_name: "MonitorStation", process_method: "get_show_article", result_type: "news_message")
 MessageProcessor.create(event_key: "社区风险", message_type: "dynamic", message_type: "dynamic", message_type: "dynamic", process_class_name: "Article", process_method: "get_show_article", result_type: "news_message")
