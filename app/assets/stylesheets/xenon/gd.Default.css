@@ -214,7 +214,7 @@ div.info-bottom img{
 .amap-info-close{position:absolute;right:5px;top:5px;color:#C3C3C3;text-decoration:none;font:700 16px/14px Tahoma,Verdana,sans-serif;width:14px;height:14px}
 .amap-info-outer,.amap-menu-outer{box-shadow:0 3px 14px rgba(0,0,0,.5);background:none repeat scroll 0 0 #fff;border-radius:5px;padding:1px;text-align:left;border:silver solid 1px}
 .amap-info-outer:hover,.amap-menu-outer:hover{box-shadow:0 3px 14px rgba(0,0,0,.75)}
-.amap-info-content{width:180px;margin:10px;margin:0 10px;+padding:10px 0;line-height:1.4;overflow:auto}
+.amap-info-content{width:180px;margin:10px;margin:0 10px;padding:10px 0;line-height:1.4;overflow:auto}
 .amap-info{width:200px}
 .amap-menu{width:100px}
 .amap-info-sharp{height:23px;margin:0 auto;overflow:hidden;position:absolute;bottom:-22px;width:30px;background-image:url(./sharp.png);_background-image:url(./sharp.gif)}
