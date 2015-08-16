@@ -43,9 +43,6 @@ ul,ol,li{
     height: 1%;
 }
 /* end */
-* + html .clearfix {
-    height: 1%;
-}
 
 body{
 	font: 12px/1.5em 微软雅黑,Arial,Verdana,Helvetica,sans-serif;
@@ -120,12 +117,12 @@ div.change div{
 	background-color: #FFFFFF;
 	color:#FF1493;
 	width:120px;
-	heigth:80px;
+	height: 80px;
 	border:2px solid #D8BFD8;
-	FONT-FAMILY:华文行楷;
+	font-family: 华文行楷;
 	position:absolute;
 	top:-10px;left:25px;
-	white-space:nowrap
+	white-space: nowrap;
 	-webkit-border-radius:5px;
 	border-radius:5px;
 }
