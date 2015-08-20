@@ -1,4 +1,4 @@
-<%= form_for(@message_processor) do |f| %>
+<%= form_for(@message_processor, url: admin_message_processor_path) do |f| %>
   <% if @message_processor.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@message_processor.errors.count, "error") %> prohibited this message_processor from being saved:</h2>
