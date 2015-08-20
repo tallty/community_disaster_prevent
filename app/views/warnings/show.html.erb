@@ -6,7 +6,7 @@
         <%= "上海中心气象台#{Time.zone.parse(item['publish_time']).strftime('%Y年%m月%d日 %H时%M分')}解除#{item['type']}#{item['level']}预警信号:" %>
       </div>
       <div class="row">
-        <%= image_tag "warnings/b_#{Warning.tran_type(item['type'])}#{Warning.tran_level(item['level'])}.png" %>
+        <%= image_tag "warnings/b_#{Warning.tran_type(item['type'])}#{Warning.tran_level(item['level'])}g.png" %>
         <%= item["content"] %>
       </div>
     <% else %>
