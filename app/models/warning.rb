@@ -127,7 +127,7 @@ class Warning < ActiveRecord::Base
   end
 
   def self.tran_level(text)
-    level = {"蓝色" => 1, "黄色" => 2, "橙色" => 3, "红色" => 4, "解除" => 5, "I" => 1, "II" => 2, "III" => 3, "IV" => 4}
+    level = {"蓝色" => 1, "黄色" => 2, "橙色" => 3, "红色" => 4, "解除" => 5, "I" => 6, "II" => 7, "III" => 8, "IV" => 9}
     level[text]
   end
 
