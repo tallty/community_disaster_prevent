@@ -107,11 +107,11 @@ class Warning < ActiveRecord::Base
         warning = nil
 
         content["data"].each do |item|
-          p item
           community = Community.where("street like ?", "%#{item["unit"]}%").first
           next if community.nil?
           publish_time = Time.strptime(item["publish_time"],"%Y年%m月%d日%H时%M分").to_time
           warning = Warning.find_or_create_by(publish_time: publish_time, warning_type: item["warning_type"])
+          warning.status = item["status"]
           warning.level = item["level"]
           warning.content = item["content"]
           warning.community = community
@@ -127,7 +127,7 @@ class Warning < ActiveRecord::Base
   end
 
   def self.tran_level(text)
-    level = {"蓝色" => 1, "黄色" => 2, "橙色" => 3, "红色" => 4, "解除" => 5}
+    level = {"蓝色" => 1, "黄色" => 2, "橙色" => 3, "红色" => 4, "解除" => 5, "I" => 1, "II" => 2, "III" => 3, "IV" => 4}
     level[text]
   end
 
