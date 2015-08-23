@@ -17,9 +17,9 @@ class Warning < ActiveRecord::Base
   belongs_to :community
 
   def process
-    # CityWarningProcess.new.process
+    CityWarningProcess.new.process
     CommunityWarningProcess.new.process
-    # clear_cache
+    clear_cache
   end
 
   def as_json(options=nil)
