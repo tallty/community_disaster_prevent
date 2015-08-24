@@ -46,7 +46,7 @@ class Warning < ActiveRecord::Base
       publishtime = nil
       content.each do |item|
         item = MultiJson.load item rescue {}
-        publishtime = Time.zone.parse(item["publish_time"]).strftime("%m月%d日 %H点%M分")
+        publishtime = Time.parse(item["publish_time"]).strftime("%m月%d日 %H点%M分")
         if item["status"].eql?("解除")
           articles << { :title => "上海中心气象台#{publishtime}解除#{item['type']}#{item['level']}预警", :desc => "", :image_url => "#{Settings.ProjectSetting.url}/assets/images/warnings/b_#{Warning.tran_type(item['type'])}#{Warning.tran_level(item['level'])}g.png", :page_url => "#{Settings.ProjectSetting.url}/warnings/#{item['community']}" }
         else
@@ -154,11 +154,11 @@ class Warning < ActiveRecord::Base
 
   def clear_cache
     warning_key = $redis.keys "warnings_*"
-    clear_time = Time.zone.now - 3.hours
+    clear_time = Time.now - 3.hours
     warning_key.each do |key|
       $redis.hgetall(key).map do |e, item|
         item = MultiJson.load item
-        $redis.hdel(key, e) if Time.zone.parse(item["publish_time"]) < clear_time and item["level"].eql?("解除")
+        $redis.hdel(key, e) if Time.parse(item["publish_time"]) < clear_time and item["level"].eql?("解除")
       end
 
     end
