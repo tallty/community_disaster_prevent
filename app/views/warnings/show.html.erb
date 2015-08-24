@@ -3,7 +3,7 @@
     <div class="warning_container">
     <% if item['status'].eql?("解除") %>
       <div class="row">
-        <%= "上海中心气象台#{Time.zone.parse(item['publish_time']).strftime('%Y年%m月%d日 %H时%M分')}解除#{item['type']}#{item['level']}预警信号:" %>
+        <%= "上海中心气象台#{Time.parse(item['publish_time']).strftime('%Y年%m月%d日 %H时%M分')}解除#{item['type']}#{item['level']}预警信号:" %>
       </div>
       <div class="row">
         <%= image_tag "warnings/b_#{Warning.tran_type(item['type'])}#{Warning.tran_level(item['level'])}g.png" %>
@@ -11,7 +11,7 @@
       </div>
     <% else %>
       <div class="row">
-        <%= "上海中心气象台#{Time.zone.parse(item['publish_time']).strftime('%Y年%m月%d日 %H时%M分')}发布#{item['type']}#{item['level']}预警信号:" %>
+        <%= "上海中心气象台#{Time.parse(item['publish_time']).strftime('%Y年%m月%d日 %H时%M分')}发布#{item['type']}#{item['level']}预警信号:" %>
       </div>
       <div class="row">
         <%= image_tag "warnings/b_#{Warning.tran_type(item['type'])}#{Warning.tran_level(item['level'])}.png" %>
