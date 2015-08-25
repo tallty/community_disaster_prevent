@@ -158,7 +158,7 @@ class Warning < ActiveRecord::Base
     warning_key.each do |key|
       $redis.hgetall(key).map do |e, item|
         item = MultiJson.load item
-        $redis.hdel(key, e) if Time.parse(item["publish_time"]) < clear_time and item["level"].eql?("解除")
+        $redis.hdel(key, e) if Time.parse(item["publish_time"]) < clear_time and item["status"].eql?("解除")
       end
 
     end
