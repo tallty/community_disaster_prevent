@@ -58,7 +58,7 @@ module Admin
     def destroy
       @disaster.destroy
       respond_to do |format|
-        format.html { redirect_to disasters_url, notice: 'Disaster was successfully destroyed.' }
+        format.html { redirect_to admin_disasters_url, notice: 'Disaster was successfully destroyed.' }
         format.json { head :no_content }
       end
     end

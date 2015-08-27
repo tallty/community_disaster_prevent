@@ -1,16 +1,3 @@
-<!-- <div class="page-title">
-  <div class="title-env">
-    <h3 class="">灾情互动</h3>
-    <p class="description">最新上报监控</p>
-  </div>
-  <div class="breadcrumb-env">
-    <ol class="breadcrumb bc-1">
-      <li><a href=""><i class="fa-home"></i>Home</a></li>
-      <li><a>灾情互动</a></li>
-      <li class="active"><strong>监控</strong></li>
-    </ol>
-  </div>
-</div> -->
 <div class="row">
   <div id="mapDiv" class="col-xs-12" style="z-index:10;height:500px;border:1px solid #d3d3d3;"></div>  
 </div>
@@ -24,37 +11,112 @@
       <td>上报者</td>
       <td>上报时间</td>
     </thead>
+    <tbody>
+      <% @disasters.each do |disaster| %>
+        <tr>
+          <td><%= disaster.disaster_position.try(:address) %></td>
+          <td><%= disaster.disaster_type %></td>
+          <td><%= disaster.occur_time %></td>
+          <td><%= disaster.subscriber.nick_name %></td>
+          <td><%= disaster.created_at %></td>
+          <td>
+            <%= link_to '显示', admin_disaster_path(disaster), :class => "btn btn-xs btn-info" %>
+            <%= link_to '编辑', edit_admin_disaster_path(disaster), :class => "btn btn-xs btn-primary" %>
+            <%= link_to t('删除', :default => t("删除")),
+              admin_disaster_path(disaster),
+              :method => :delete,
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '确定删除?')) },
+              :class => 'btn btn-xs btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
 </div>
 
 <% content_for :scripts do %>
+  <%= javascript_tag do %>
+    disasters = <%= @disasters.to_json.html_safe %>
+  <% end %>
+  <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=3903299664a0b6330ca4ddfc37b1af89"></script>
   <script type="text/javascript">
-    var myMap;
-    var zoom = 12;
-    function init() {
-      var config = {
-        projection: "EPSG:4326",
-        type:"TMAP_NAVIGATION_CONTROL_LARGE",   //缩放平移的显示类型
-        anchor:"TMAP_ANCHOR_TOP_LEFT",          //缩放平移控件显示的位置
-        offset:[0,0],                           //缩放平移控件的偏移值
-        showZoomInfo:true                       //是否显示级别提示信息，true表示显示，false表示隐藏。
-      };
-        //创建缩放平移控件对象
-      control=new TNavigationControl(config);
-      var map=new TMap("mapDiv", config);
-      //添加缩放平移控件
-      map.addControl(control);
-      //允许鼠标滚轮缩放地图
-      map.enableHandleMouseScroll();
-      //创建比例尺控件对象
-      var scale = new TScaleControl();
-      //添加比例尺控件
-      map.addControl(scale);
-      map.centerAndZoom(new TLngLat(121.62969,31.23945),zoom);
-    }
-    init();
-    $('#disasters-table').dataTable({
-      bAutoWidth: false
+    var mapObj;
+    var markers = new Array();
+    $(function(){
+      mapObj = new AMap.Map("mapDiv", {
+        view: new AMap.View2D({
+          center: new AMap.LngLat(121.504,31.195),
+          zoom: 10
+        })
+      });
+      init_data();
+      function init_data() {
+        for(var i = 0; i < disasters.length; i++) {
+          addmarker(disasters[i]);
+        }
+      }
+
+      function addmarker(d) {
+        if(d.disaster_position == null){return;}
+        var icon;
+        if(d.type=="暴雨"){
+          icon = "http://61.152.126.156/cms/resource/img/icon/rain.png";
+        }else if(d.type=="雷电"){
+          icon = "http://61.152.126.156/cms/resource/img/icon/lightning.png";
+        }else if(d.type=="大风"){
+          icon = "http://61.152.126.156/cms/resource/img/icon/win.png";
+        }else{
+          icon = "http://webapi.amap.com/images/4.png";
+        }
+        lanlat = new AMap.LngLat(d.disaster_position.lon, d.disaster_position.lat);
+        var markerOption = {map: mapObj, icon: icon, position: lanlat};
+        var marker = new AMap.Marker(markerOption);
+        markers.push(lanlat);
+        var infoWindow = new AMap.InfoWindow({
+          isCustom: true,
+          content: createInfoWindow("灾情点","<div>时间:"+d.occur_time+"</div><img style='text-align:center;max-height:160px;width:90%;' src='system/"+d.pictures[0].id+"/images/medium/image.jpg'/><div style='word-break:break-all;'>说明:"+d.explain+"</div><div><a href='/disasters/"+d.id+"'>详细说明</a></div>"),
+          size: new AMap.Size(0,0),
+          autoMove: true,
+          offset: new AMap.Pixel(25, -50)
+        });
+        var aa = function (e) { infoWindow.open(mapObj, marker.getPosition()); }
+        AMap.event.addListener(marker, "click", aa);
+      }
     });
+    function createInfoWindow(title,content){  
+      var info = document.createElement("div");  
+      info.className = "info";  
+      // 定义顶部标题  
+      var top = document.createElement("div");  
+      top.className = "info-top";  
+      var titleD = document.createElement("div");  
+      titleD.innerHTML = title;  
+      var closeX = document.createElement("img");  
+      closeX.src = "http://webapi.amap.com/images/close2.gif";  
+      closeX.onclick = closeInfoWindow;  
+      
+      top.appendChild(titleD);  
+      top.appendChild(closeX);  
+      info.appendChild(top);  
+      // 定义中部内容  
+      var middle = document.createElement("div");  
+      middle.className = "info-middle";  
+      middle.innerHTML = content;  
+      info.appendChild(middle);  
+          
+      // 定义底部内容  
+      var bottom = document.createElement("div");  
+      bottom.className = "info-bottom";  
+      var sharp = document.createElement("img");  
+      sharp.src = "http://webapi.amap.com/images/sharp.png";  
+      bottom.appendChild(sharp);    
+      info.appendChild(bottom);  
+      return info;  
+    }
+    
+    //关闭信息窗体  
+    function closeInfoWindow(){  
+      mapObj.clearInfoWindow();  
+    }
   </script>
 <% end %>
