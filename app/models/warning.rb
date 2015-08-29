@@ -115,7 +115,7 @@ class Warning < ActiveRecord::Base
           warning.level = item["level"]
           warning.content = item["content"]
           warning.community = community
-
+          warning.save
           $redis.hset("warnings_#{community.code}", "#{warning.warning_type}", warning.to_json)
         end
       end
