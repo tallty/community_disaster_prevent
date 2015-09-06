@@ -28,8 +28,8 @@
     <div class="title">(积水实况)</div>
     <% @water_station_infos.each do |item| %>
       <div class="line">
-        <div class="col-xs-7"><span><%= item.station_name %>积水深度: <%= $redis.hget("monitor_stations", item.station_number)["data"] || 0 %> m</span></div>
-        <div class="col-xs-5"><%= image_tag "water.png" %></div>
+        <div class="col-xs-8"><span><%= item.station_name %>积水深度: <%= $redis.hget("monitor_stations", item.station_number)["data"] || 0 %> m</span></div>
+        <div class="col-xs-4"><%= image_tag "water.png" %></div>
       </div>
     <% end %>
   </div>
