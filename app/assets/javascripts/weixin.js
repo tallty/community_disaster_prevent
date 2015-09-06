@@ -15,5 +15,6 @@
 //= require bootswatch/loader
 //= require bootswatch/bootswatch
 //= require xenon/bootstrap-datetimepicker
+//= require xenon/bootstrap-datetimepicker.zh-CN
 //= require twitter/bootstrap
 //= require turbolinks

@@ -7,7 +7,7 @@ class AQI < BaseForecast
   def get_show_article
     file_dir = "public/images/aqiquailty/"
     now_time = get_now_time
-    file_name = now_time.strftime('%Y-%d-%m')
+    file_name = now_time.strftime('%Y-%m-%d')
     file = File.join(file_dir, "#{file_name}.png")
     unless File.exist?(file)
       build_picture
@@ -113,7 +113,7 @@ class AQI < BaseForecast
   end
 
   def get_now_time
-    now_time = Time.zone.now
+    now_time = Time.now
     now_time.strftime("%H%M").to_i > 1730 ? now_time : now_time - 1.day
   end
 end
