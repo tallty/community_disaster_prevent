@@ -79,7 +79,7 @@ class AQI < BaseForecast
     file_dir = "public/images/aqiquailty"
     FileUtils.makedirs(file_dir) unless File.exist?(file_dir)
     now_time = get_now_time
-    pic_file = File.join(file_dir, "#{now_time.strftime('%Y-%d-%m')}.png")
+    pic_file = File.join(file_dir, "#{now_time.strftime('%Y-%m-%d')}.png")
 
     image.write(pic_file)
   end
