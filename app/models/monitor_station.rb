@@ -36,7 +36,7 @@ class MonitorStation < ActiveRecord::Base
     if subscriber.community.present?
       results = [{ :title => "#{subscriber.community.street}实况监测", :desc => "", :image_url => "#{Settings.ProjectSetting.url}/images/lightning/DISCH_20150802_131000.jpeg", :page_url => weixin_url("monitor_stations") }]
       auto_station = MonitorStation.where(community: subscriber.community, station_type: "自动站").first
-      url = "#{base_url}&type=s_auto_station&sitenumber=#{auto_station.station_number}"
+      url = "#{base_url}&type=s_auto_stations&sitenumber=#{auto_station.station_number}"
       data = get_data url
       p "-----------------------------自动站点--------------------------------------"
       $redis.hset("monitor_stations", auto_station.station_number, data) if data.present?
@@ -51,7 +51,7 @@ class MonitorStation < ActiveRecord::Base
       water_stations = MonitorStation.where(community: subscriber.community, station_type: "积水站")
       max_deep = 0
       water_stations.each do |item|
-        url = "#{base_url}&type=s_water_station&sitenumber=#{item.station_number}"
+        url = "#{base_url}&type=s_water_stations&sitenumber=#{item.station_number}"
         data = get_data url
 
         p "-----------------------------积水站点--------------------------------------"
