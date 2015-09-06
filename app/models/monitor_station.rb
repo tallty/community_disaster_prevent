@@ -38,6 +38,7 @@ class MonitorStation < ActiveRecord::Base
       auto_station = MonitorStation.where(community: subscriber.community, station_type: "自动站").first
       url = "#{base_url}&type=s_auto_station&sitenumber=#{auto_station.station_number}"
       data = get_data url
+      $redis.hset("monitor_stations", auto_station.station_number, data) if data.present?
       # data = $redis.hget("monitor_stations", auto_station.station_number)
       if data.present?
         data = MultiJson.load data
@@ -49,6 +50,7 @@ class MonitorStation < ActiveRecord::Base
       water_stations.each do |item|
         url = "#{base_url}&type=s_water_station&sitenumber=#{item.station_number}"
         data = get_data url
+        $redis.hset("monitor_stations", auto_station.station_number, data) if data.present?
         # data = $redis.hget("monitor_stations", item.station_number)
         # data = MultiJson.load data 
         max_deep = data["data"] if data["data"].to_f > max_deep
