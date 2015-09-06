@@ -15,7 +15,7 @@ class MonitorStationsController < ApplicationController
       @auto_station = MultiJson.load auto_station_data
       @water_stations = []
       @water_station_infos.each do |item|
-        @water_stations << MultiJson.load $redis.hget("monitor_stations", item.station_number) rescue {}
+        @water_stations << MultiJson.load($redis.hget("monitor_stations", item.station_number)) rescue {}
       end
     else
     end
