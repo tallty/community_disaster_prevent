@@ -1,4 +1,22 @@
 <p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_disaster_path(@disaster) %> |
-<%= link_to 'Back', disasters_path %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-1">类型:</div><div class="col-xs-11"><%= @disaster.disaster_type %></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1">说明:</div><div class="col-xs-11"><%= @disaster.explain %></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1">地址:</div><div class="col-xs-11"><%= @disaster.disaster_position.try(:address) %></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-11"><hr class="space-line" /></div>
+  </div>
+  <div class="disaster-pictures">
+    <% @disaster.disaster_pictures.each do |picture| %>
+      <%= image_tag picture.image.url(:medium) %>
+    <% end %>
+  </div>
+</div>
+<!-- <%= link_to 'Edit', edit_admin_disaster_path(@disaster) %> | -->
+<%= link_to 'Back', admin_disasters_path %>

@@ -21,7 +21,7 @@
           <td><%= disaster.created_at %></td>
           <td>
             <%= link_to '显示', admin_disaster_path(disaster), :class => "btn btn-xs btn-info" %>
-            <%= link_to '编辑', edit_admin_disaster_path(disaster), :class => "btn btn-xs btn-primary" %>
+           <!--  <%= link_to '编辑', edit_admin_disaster_path(disaster), :class => "btn btn-xs btn-primary" %> -->
             <%= link_to t('删除', :default => t("删除")),
               admin_disaster_path(disaster),
               :method => :delete,
