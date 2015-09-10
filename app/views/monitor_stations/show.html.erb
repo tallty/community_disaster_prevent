@@ -28,7 +28,7 @@
       <div class="col-xs-5"><%= image_tag "rain.png" %></div>
     </div>
   </div>
-  <% @water_stations.present? %>
+  <% if @water_stations.present? %>
     <div class="page">
       <div class="title">(积水实况)</div>
       <% @water_stations.each do |item| %>
