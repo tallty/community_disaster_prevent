@@ -17,6 +17,9 @@ class MonitorStationsController < ApplicationController
       @water_station_infos.each do |item|
         @water_stations << MultiJson.load($redis.hget("monitor_stations", item.station_number)) rescue {}
       end
+      p "--------------------------------------------------------------------------------"
+      p @water_stations.present?
+      p "--------------------------------------------------------------------------------"
     else
     end
   end
