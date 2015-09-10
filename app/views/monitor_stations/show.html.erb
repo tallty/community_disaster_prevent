@@ -16,7 +16,11 @@
       <div class="col-xs-5"><%= image_tag "temp.png" %></div>
     </div>
     <div class="line">
-      <div class="col-xs-7"><span>风向风速: <%= MonitorStation.translate_wdir(@auto_station["wind_direction"]) %><%= MonitorStation.translate_wspeed(@auto_station["wind_speed"])%></span></div>
+      <% if @auto_station["wind_speed"].to_f < 0.2 %>
+        <div class="col-xs-7"><span>风向风速: 静风</span></div>
+      <% else %>
+        <div class="col-xs-7"><span>风向风速: <%= MonitorStation.translate_wdir(@auto_station["wind_direction"]) %><%= MonitorStation.translate_wspeed(@auto_station["wind_speed"])%></span></div>
+      <% end %>
       <div class="col-xs-5"><%= image_tag "wind.png" %></div>
     </div>
     <div class="line">
