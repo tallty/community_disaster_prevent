@@ -19,6 +19,7 @@ class MonitorStationsController < ApplicationController
       end
       p "--------------------------------------------------------------------------------"
       p @water_stations.present?
+      p @water_stations
       p "--------------------------------------------------------------------------------"
     else
     end
