@@ -18,8 +18,13 @@ class DisastersController < ApplicationController
   end
 
   def create
-    p @subscriber
-    @disaster = Disaster.find_or_create_by(occur_time: Time.parse(disaster_params[:occur_time]), subscriber: @subscriber)
+    occur_time = disaster_params[:occur_time]
+    if occur_time.present?
+      occur_time = Time.parse(disaster_params[:occur_time])
+    else
+      occur_time = Time.now
+    end
+    @disaster = Disaster.find_or_create_by(occur_time: occur_time, subscriber: @subscriber)
     @disaster.disaster_type = disaster_params[:disaster_type]
     @disaster.explain = disaster_params[:explain]
     if @disaster.save
