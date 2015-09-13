@@ -21,7 +21,7 @@ class Article < ActiveRecord::Base
     subscriber = Subscriber.where(openid: @subscriber).first
     if subscriber.community.present?
       if @keyword.eql?("社区风险")
-        if subscriber.community.status.eql("closed")
+        if subscriber.community.status.eql?("closed")
           return { :type => 'text', :content => "您所在社区暂未开放此服务" }
         else
           articles = ArticleManager.where(keyword: @keyword, community: subscriber.community)  
