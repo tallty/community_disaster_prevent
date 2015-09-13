@@ -45,15 +45,17 @@ class MonitorStation < ActiveRecord::Base
         results << { :title => "实况雨量: #{data["rain"]} mm", :desc => "", :image_url => "#{Settings.ProjectSetting.url}/assets/images/rain.png", :page_url => weixin_url("monitor_stations") }
       end
       water_stations = MonitorStation.where(community: subscriber.community, station_type: "积水站")
-      max_deep = 0
-      water_stations.each do |item|
-        url = "#{base_url}&type=s_water_stations&sitenumber=#{item.station_number}"
-        data = get_data url
-        $redis.hset("monitor_stations", item.station_number, data) if data.present?
-      
-        max_deep = data["data"] if data["data"].to_f > max_deep
+      if water_stations.present?
+        max_deep = 0
+        water_stations.each do |item|
+          url = "#{base_url}&type=s_water_stations&sitenumber=#{item.station_number}"
+          data = get_data url
+          $redis.hset("monitor_stations", item.station_number, data) if data.present?
+        
+          max_deep = data["data"] if data["data"].to_f > max_deep
+        end
+        results << { :title => "积水: #{max_deep} m", :desc => "", :image_url => "#{Settings.ProjectSetting.url}/assets/images/water.png", :page_url => weixin_url("monitor_stations") }
       end
-      results << { :title => "积水: #{max_deep} m", :desc => "", :image_url => "#{Settings.ProjectSetting.url}/assets/images/water.png", :page_url => weixin_url("monitor_stations") }
       if results.present?
         { :type => 'articles', :content => results }
       else
