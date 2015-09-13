@@ -9,6 +9,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  code       :integer          not null
+#  status     :integer
 #
 
 class Community < ActiveRecord::Base
@@ -16,4 +17,7 @@ class Community < ActiveRecord::Base
   has_one :monitor_station
   has_one :subscriber
   has_many :article_managers
+  has_many :surveys
+
+  enum status: [ :closed, :used]
 end
