@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150815064520) do
+ActiveRecord::Schema.define(version: 20150913082039) do
 
   create_table "article_managers", force: :cascade do |t|
     t.string   "keyword",       limit: 255
@@ -60,9 +60,10 @@ ActiveRecord::Schema.define(version: 20150815064520) do
     t.string   "district",   limit: 255
     t.string   "street",     limit: 255
     t.string   "c_type",     limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "code",       limit: 4,   null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "code",       limit: 4,               null: false
+    t.integer  "status",     limit: 4,   default: 0
   end
 
   add_index "communities", ["code"], name: "index_communities_on_code", using: :btree

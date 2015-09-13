@@ -13,6 +13,13 @@ module Admin
       end
     end
 
+    def switch
+      community = Community.where(id: params[:id]).first
+      community.status = community.status.eql?("closed") ? 1 : 0
+      community.save
+      redirect_to admin_communities_path
+    end
+
     # GET /communities
     # GET /communities.json
     def index

@@ -32,6 +32,9 @@ Rails.application.routes.draw do
         get :get_districts
         get :search
       end
+      member do
+        get :switch
+      end
     end
     resources :disaster_positions
     resources :disasters
