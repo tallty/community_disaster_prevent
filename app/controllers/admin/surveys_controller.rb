@@ -17,7 +17,6 @@ module Admin
     # GET /surveys/new
     def new
       @survey = Survey.new
-      # @survey.questions.build { | item | item.item_index = 0 }
     end
 
     # GET /surveys/1/edit
@@ -28,7 +27,16 @@ module Admin
     # POST /surveys.json
     def create
       @survey = Survey.new(survey_params)
-
+      community = Community.where(id: params[:community]).first
+      @survey.community = community
+      questions = []
+      if params[:survey][:questions].present?
+        params[:survey][:questions].each do |title|
+          question = Question.where(q_title: title).first
+          questions << question if question.present?
+        end
+      end
+      @survey.questions = questions
       respond_to do |format|
         if @survey.save
           format.html { redirect_to admin_survey_path(@survey), notice: 'Survey was successfully created.' }

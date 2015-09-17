@@ -1,6 +1,6 @@
 <h1>Editing Survey</h1>
 
-<%= render 'form' %>
+<%= render 'edit_form' %>
 
-<%= link_to 'Show', @survey %> |
-<%= link_to 'Back', surveys_path %>
+<%= link_to 'Show', admin_survey_path(@survey) %> |
+<%= link_to 'Back', admin_surveys_path %>

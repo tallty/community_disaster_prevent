@@ -17,7 +17,8 @@ Rails.application.routes.draw do
   resources :disasters, only: [:index, :new, :show, :create]
   resources :disaster_pictures, only: [:new, :create]
   resource :monitor_stations, only: [:show]
-
+  resources :surveys
+  
   namespace :admin do
     resources :survey_results
     resources :surveys

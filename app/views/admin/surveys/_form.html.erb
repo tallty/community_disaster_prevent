@@ -1,17 +1,61 @@
-<%= form_for(@survey) do |f| %>
-  <% if @survey.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@survey.errors.count, "error") %> prohibited this survey from being saved:</h2>
-
-      <ul>
-      <% @survey.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= form_for(@survey, url: admin_surveys_path ) do |f| %>
+   <div class="row form-inputs">
+    <div class="survey-header">
+      <div class="input-group col-xs-6">
+        <%= f.text_field :s_title, :placeholder => "请输入标题", :class =>"form-control input" %>
+      </div>
+      <div class="input-group col-xs-6">
+        <%= f.text_field :s_digest, :placeholder => "请输入说明", :class =>"form-control input" %>
+      </div>
+      <div class="input-group col-xs-6">
+        <%= f.select :s_author, User.all.pluck(:email), options ={:prompt =>"请选择作者"}, :class =>"form-control input" %>
+      </div>
+      <div class="input-group col-xs-6">
+        <%= select_tag :community, options_for_select(Community.all.pluck(:street, :id)), {:prompt =>"请选择社区", :class =>"form-control input"} %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="actions">
+    <div class="survey-content input-group col-xs-6">
+      <div class="row">
+        <ul id='questions_area'>
+          
+        </ul>
+      </div>
+      <div class="col-xs-8">
+        <%= select_tag :question, options_for_select(Question.all.pluck(:q_title, :id)), {:prompt => '请选择题目', :class => 'form-control input'} %>
+      </div>
+      <div class="col-xs-3">
+        <%= link_to "添加题目", "javascript:add_question();", :class => "btn btn-xs btn-info" %>
+      </div>
+    </div>
+    <div class="survey-footer">
+      <%= f.text_area :tag, :placeholder => '问卷结束语', :class => 'form-control input'%>
+    </div>
+  </div>
+  <div id='next_btn'>
+    <%= link_to "下一步", "javascript:go();", :class => "btn btn-xs btn-info" %>
+  </div>
+  <div class="survey-actions">
     <%= f.submit %>
   </div>
+<% end %>
+<% content_for :scripts do %>
+  <script type="text/javascript">
+    var now_step = 0;
+    pages = ['survey-header', 'survey-content', 'survey-footer']
+    function go() {
+      if(now_step == 1){
+        $('.survey-actions').show();
+        $('#next_btn').hide();
+      }else if(now_step > 2){
+        return;
+      }
+      $("."+pages[now_step]).hide();
+      now_step += 1;
+      $("."+pages[now_step]).show();
+    }
+    function add_question(){
+      select_obj = $('#question')
+      $('#questions_area').append("<li><input type='text' id='survey_questions_"+select_obj.val()+"' name='survey[questions][]' value='"+select_obj.find('option:selected').text()+"' /></li>");
+    }
+  </script>
 <% end %>

@@ -1,0 +1,26 @@
+<%= form_for(@survey, url: admin_survey_path ) do |f| %>
+  <% if @survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@survey.errors.count, "error") %> prohibited this survey from being saved:</h2>
+      <ul>
+      <% @survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+   <div class="row form-inputs">
+    <div class="input-group col-xs-6">
+      <%= f.text_field :s_title, :placeholder => "请输入标题", :class =>"form-control input" %>
+    </div>
+    <div class="input-group col-xs-6">
+      <%= f.text_field :s_digest, :placeholder => "请输入说明", :class =>"form-control input" %>
+    </div>
+    <div class="input-group col-xs-6">
+      <%= f.select :s_author, User.all.pluck(:email), options ={:prompt =>"请选择作者"}, :class =>"form-control input" %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
