@@ -43,3 +43,17 @@ table {
   border:none;
   border-top:3px solid #ffd181;
 }
+.survey-content, .survey-footer, .survey-actions {
+  display: none;
+}
+.question-field, .question-option{
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+.question-field {
+  border: 1px solid #fff;
+  padding: 5px;
+}
+.tool_area{
+  margin-top:10px;
+}

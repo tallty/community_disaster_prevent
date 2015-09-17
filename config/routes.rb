@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     resources :send_logs
     resources :monitor_stations
     resources :users
+    resources :questions
   end
 
   resource :upload_file, only: [:create]

@@ -1,0 +1,33 @@
+<%= form_for(@question, url: admin_question_path) do |f| %>
+  <div class="row">
+    <div class="col-xs-9">
+      <div class="col-xs-12 question-option">
+        <%= f.text_field :q_title, :placeholder => "题目", :class => "form-control input" %>
+      </div>
+      <div class="col-xs-12 question-option">
+        <%= f.text_area :q_digest, :placeholder => "说明", :class => "form-control input" %>
+      </div>
+      <div class="col-xs-12 question-option">
+        <div class="col-xs-5">
+          <%= f.select :q_type, ['单选', '多选', '填空'], options = {:prompt => '请选择题型', :onchage => 'change_type'}, :class => 'form-control input' %>
+        </div>
+        <div class="col-xs-5">
+          <%= raw link_to_add_option("<i class='icon20_common add_gray'>添加选项</i>", f, :options, f.options.length) %>
+        </div>
+      </div>
+      <div class="question_options">
+      <%= f.fields_for :options, f.options do |o| %>
+        <%= render :partial => 'option', locals: { item: o } %>
+      <% end %>
+      </div>
+      <div class="tool_area row">
+        <%= f.submit "保存", { :class => "btn btn-xs bigger-110 btn-info" } %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<% content_for :scripts do %>
+  <%= javascript_include_tag "admin/question", 'data-turbolinks-track' => true %>
+<% end %>
+
+

@@ -17,6 +17,7 @@ module Admin
     # GET /surveys/new
     def new
       @survey = Survey.new
+      # @survey.questions.build { | item | item.item_index = 0 }
     end
 
     # GET /surveys/1/edit
@@ -30,7 +31,7 @@ module Admin
 
       respond_to do |format|
         if @survey.save
-          format.html { redirect_to @survey, notice: 'Survey was successfully created.' }
+          format.html { redirect_to admin_survey_path(@survey), notice: 'Survey was successfully created.' }
           format.json { render :show, status: :created, location: @survey }
         else
           format.html { render :new }
@@ -44,7 +45,7 @@ module Admin
     def update
       respond_to do |format|
         if @survey.update(survey_params)
-          format.html { redirect_to @survey, notice: 'Survey was successfully updated.' }
+          format.html { redirect_to admin_survey_path(@survey), notice: 'Survey was successfully updated.' }
           format.json { render :show, status: :ok, location: @survey }
         else
           format.html { render :edit }
@@ -58,7 +59,7 @@ module Admin
     def destroy
       @survey.destroy
       respond_to do |format|
-        format.html { redirect_to surveys_url, notice: 'Survey was successfully destroyed.' }
+        format.html { redirect_to admin_surveys_path }
         format.json { head :no_content }
       end
     end
@@ -71,7 +72,7 @@ module Admin
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def survey_params
-        params[:survey]
+        params.require(:survey).permit(:s_title, :s_digest, :s_author)
       end
   end
 end
