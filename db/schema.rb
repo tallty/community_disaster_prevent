@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914154511) do
+ActiveRecord::Schema.define(version: 20150917180402) do
 
   create_table "article_managers", force: :cascade do |t|
     t.string   "keyword",       limit: 255
@@ -194,6 +194,7 @@ ActiveRecord::Schema.define(version: 20150914154511) do
     t.integer  "subscriber_id", limit: 4
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "q_index",       limit: 4
   end
 
   add_index "survey_results", ["subscriber_id"], name: "index_survey_results_on_subscriber_id", using: :btree
@@ -206,6 +207,7 @@ ActiveRecord::Schema.define(version: 20150914154511) do
     t.integer  "community_id", limit: 4
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.string   "tag",          limit: 255
   end
 
   add_index "surveys", ["community_id"], name: "index_surveys_on_community_id", using: :btree
