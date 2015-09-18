@@ -13,7 +13,7 @@
       <% @article_managers.each do |article| %>
         <tr>
           <td><%= article.keyword %></td>
-          <td><%= article.article.title %></td>
+          <td><%= article.article.try(:title) %></td>
           <td><%= article.article_type %></td>
           <td><%= article.article_index %></td>
           <td><%= article.page_url %></td>
