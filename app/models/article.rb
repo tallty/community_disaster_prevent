@@ -20,11 +20,27 @@ class Article < ActiveRecord::Base
   def get_show_article
     subscriber = Subscriber.where(openid: @subscriber).first
     if subscriber.community.present?
-      if @keyword.eql?("社区风险")
+      if ["社区风险", "调查问卷"].include?(@keyword)
         if subscriber.community.status.eql?("closed")
           return { :type => 'text', :content => "您所在社区暂未开放此服务" }
         else
-          articles = ArticleManager.where(keyword: @keyword, community: subscriber.community)  
+          if @keyword.eql?('调查问卷')
+            surveys = Survey.where(community: subscriber.community)
+            p surveys
+            if surveys.present?
+              contents = ""
+              surveys.each do |s|
+                url = weixin_url("surveys/#{s.id}")
+                contents << "<a href='#{url}'>#{s.s_title}</a>" << "\r\n"
+              end
+              return { :type => 'text', :content => contents }
+            else
+              return { :type => 'text', :content => "当前无#{@keyword}信息" }      
+            end
+          else
+            articles = ArticleManager.where(keyword: @keyword, community: subscriber.community)  
+          end
+          
         end
       else
         articles = ArticleManager.where(keyword: @keyword)
