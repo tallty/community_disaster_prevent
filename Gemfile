@@ -69,7 +69,7 @@ gem 'seedbank'
 gem 'roo'
 
 gem 'settingslogic'
-gem 'whenever', :require => false
+gem 'whenever', git: "https://github.com/shtzr840329/whenever.git", :require => false
 
 gem 'ckeditor', git: 'https://github.com/shtzr840329/ckeditor.git'
 

@@ -26,6 +26,13 @@ GIT
       rest-client (>= 1.6.7)
       yajl-ruby (>= 1.2.0)
 
+GIT
+  remote: https://github.com/shtzr840329/whenever.git
+  revision: 61c04281cd6f395bd2600380b0dfc91466af4bca
+  specs:
+    whenever (0.9.4)
+      chronic (>= 0.6.3)
+
 GEM
   remote: https://ruby.taobao.org/
   specs:
@@ -285,8 +292,6 @@ GEM
       rails (>= 3.1)
       railties (>= 3.1)
       roxml
-    whenever (0.9.4)
-      chronic (>= 0.6.3)
     will_paginate (3.0.7)
     yajl-ruby (1.2.1)
 
@@ -336,5 +341,5 @@ DEPENDENCIES
   web-console (~> 2.0)
   weixin_authorize!
   weixin_rails_middleware
-  whenever
+  whenever!
   will_paginate (~> 3.0.6)
