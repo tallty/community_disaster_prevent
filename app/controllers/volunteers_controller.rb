@@ -10,7 +10,6 @@ class VolunteersController < ApplicationController
     else
       @volunteer = Volunteer.new
     end
-    p @volunteer
   end
 
   # GET /volunteers/1/edit

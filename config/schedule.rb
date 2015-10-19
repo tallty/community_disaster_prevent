@@ -6,6 +6,7 @@
 # Example:
 #
 set :output, "./log/cron_log.log"
+set :job_template, "/usr/bin/timeout -s 30 /bin/bash -l -c ':job'"
 #
 # every 2.hours do
 #   command "/usr/bin/some_great_command"

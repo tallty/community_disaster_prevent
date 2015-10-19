@@ -10,10 +10,13 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+//= require ./jquery
 //= require jquery_ujs
 //= require bootstrap
 //= require bootstrap-sprockets
+//= require ../xenon/datatables/js/jquery.dataTables
+//= require ../xenon/datatables/dataTables.bootstrap
+//= require ../xenon/datatables/tabletools/dataTables.tableTools.min
 //= require ../xenon/TweenMax.min
 //= require ../xenon/resizeable
 //= require ../xenon/joinable
@@ -22,7 +25,3 @@
 //= require ../xenon/jquery-validate/jquery.validate.min
 //= require ../xenon/toastr/toastr
 //= require ../xenon/xenon-custom
-//= require ../xenon/datatables/js/jquery.dataTables
-//= require ../xenon/datatables/dataTables.bootstrap
-//= require ../xenon/datatables/yadcf/jquery.dataTables.yadcf
-//= require ../xenon/datatables/tabletools/dataTables.tableTools.min

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150917180402) do
+ActiveRecord::Schema.define(version: 20151019153211) do
 
   create_table "article_managers", force: :cascade do |t|
     t.string   "keyword",       limit: 255
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150917180402) do
     t.string   "thumb_media_url", limit: 255
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.string   "assort",          limit: 255
   end
 
   add_index "articles", ["title"], name: "index_articles_on_title", length: {"title"=>191}, using: :btree
@@ -107,7 +108,7 @@ ActiveRecord::Schema.define(version: 20150917180402) do
     t.string   "name",       limit: 255
     t.string   "key",        limit: 255
     t.string   "url",        limit: 255
-    t.boolean  "is_show",    limit: 1
+    t.boolean  "is_show"
     t.integer  "sort",       limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
@@ -225,6 +226,7 @@ ActiveRecord::Schema.define(version: 20150917180402) do
     t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
+    t.string   "name",                   limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

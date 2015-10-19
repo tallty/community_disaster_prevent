@@ -1,8 +1,6 @@
 module Admin
   class MonitorStationsController < ApplicationController
     before_action :set_monitor_station, only: [:edit, :update, :destroy]
-    layout 'admin/home'
-    layout 'admin/home'
 
     def index
       @monitor_stations = MonitorStation.all
@@ -10,6 +8,10 @@ module Admin
 
     def new
       @monitor_station = MonitorStation.new
+    end
+
+    def edit
+      
     end
 
     def create

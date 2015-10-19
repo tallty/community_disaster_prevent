@@ -8,7 +8,7 @@
       <th>处理类</th>
       <th>处理方法</th>
       <th>返回类型</th>
-      <th></th>
+      <th width="100px">操作</th>
     </tr>
   </thead>
 
@@ -20,18 +20,18 @@
         <td><%= message_processor.process_method %></td>
         <td><%= message_processor.result_type %></td>
         <td>
-          <%= link_to 'Show', 
+          <%= link_to '显示', 
                                 admin_message_processor_path(message_processor), 
                                 :class => "btn btn-xs btn-info" %>
-          <%= link_to 'Edit', 
+          <%= link_to '编辑', 
                                 edit_admin_message_processor_path(message_processor),
                                 :class => "btn btn-xs btn-primary" %>
-          <%= link_to 'Destroy',
+          <!-- <%= link_to '删除',
                                 admin_message_processor_path(message_processor), 
                                 method: :delete, 
                                 data: { confirm: 'Are you sure?' },
                                 :class => 'btn btn-xs btn-danger' 
-          %>
+          %> -->
         </td>
       </tr>
     <% end %>

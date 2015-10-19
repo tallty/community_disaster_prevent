@@ -6,7 +6,6 @@
       <th>键|地址</th>
       <th>是否显示</th>
       <th>排序</th>
-      <th></th>
     </tr>
   </thead>
 
@@ -17,18 +16,12 @@
         <td><%= diymenu.key || diymenu.url %></td>
         <td><%= diymenu.is_show %></td>
         <td><%= diymenu.sort %></td>
-        <td><%= link_to 'Show', admin_diymenu_path(diymenu), :class => "btn btn-xs btn-info" %>
-        <%= link_to 'Edit', edit_admin_diymenu_path(diymenu), :class => "btn btn-xs btn-primary" %>
-        <%= link_to 'Destroy', admin_diymenu_path(diymenu), method: :delete, data: { confirm: 'Are you sure?' },
-              :class => 'btn btn-xs btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Diymenu', new_admin_diymenu_path %>
 </div>
 <% content_for :scripts do %>
   <script type="text/javascript">

@@ -2,8 +2,6 @@ module Admin
   class ArticleManagersController < ApplicationController
     before_action :set_article_manager, only: [:show, :edit, :update, :destroy]
 
-    layout 'admin/home'
-
     # GET /article_managers
     # GET /article_managers.json
     def index

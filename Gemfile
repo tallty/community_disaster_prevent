@@ -7,6 +7,7 @@ gem 'rails'
 gem 'mysql2', '~> 0.3.18'
 # gem 'sqlite3'
 # Use SCSS for stylesheets
+gem 'bootstrap-sass', '~> 3.3.4'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -29,12 +30,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use Unicorn as the app server
 gem 'unicorn'
-gem 'bootstrap-sass'
-gem 'backstretch-rails'
+# gem 'backstretch-rails'
 gem 'less-rails'
-gem 'twitter-bootstrap-rails'
-gem 'twitter-bootswatch-rails', '~> 3.3.2'
-gem 'twitter-bootswatch-rails-helpers'
+# gem 'twitter-bootstrap-rails'
+# gem 'twitter-bootswatch-rails', '~> 3.3.2'
+# gem 'twitter-bootswatch-rails-helpers'
 
 gem 'will_paginate', '~> 3.0.6'
 # Authentication

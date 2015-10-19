@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  root 'admin/home#index'
+  root 'admin/disasters#index'
   mount Ckeditor::Engine => '/ckeditor'
   mount WeixinRailsMiddleware::Engine, at: "/"
 

@@ -1,8 +1,6 @@
 module Admin
   class DiymenusController < ApplicationController
-    before_filter :authenticate_user!
     before_action :set_diymenu, only: [:show, :edit, :update, :destroy]
-    layout 'admin/home'
 
     # GET /diymenus
     # GET /diymenus.json

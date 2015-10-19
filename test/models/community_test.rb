@@ -9,6 +9,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  code       :integer          not null
+#  status     :integer
 #
 
 require 'test_helper'

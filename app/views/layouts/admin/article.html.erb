@@ -9,8 +9,7 @@
     <meta name="description" content="Xenon Boostrap Admin Panel" />
     <%= stylesheet_link_tag 'admin/articles', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'admin/articles', 'data-turbolinks-track' => true %>
-    <link rel="stylesheet" href="http://fonts.useso.com/css?family=Arimo:400,700,400italic">
-    <%= csrf_meta_tags %>
+    
   </head>
   <body class="page-body">
     <%= render 'share/setting' %>
@@ -34,11 +33,11 @@
               </a>
             </div>
             <!-- This will open the popup with user profile settings, you can use for any purpose, just be creative -->
-            <div class="settings-icon">
+            <!-- <div class="settings-icon">
               <a href="#" data-toggle="settings-pane" data-animate="true">
                 <i class="linecons-cog"></i>
               </a>
-            </div>
+            </div> -->
           </header>
           <%= render 'share/side_bar' %>
         </div>

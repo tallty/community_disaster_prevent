@@ -26,7 +26,6 @@ class Article < ActiveRecord::Base
         else
           if @keyword.eql?('调查问卷')
             surveys = Survey.where(community: subscriber.community)
-            p surveys
             if surveys.present?
               contents = ""
               surveys.each do |s|
