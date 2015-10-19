@@ -32,9 +32,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'unicorn'
 # gem 'backstretch-rails'
 gem 'less-rails'
-# gem 'twitter-bootstrap-rails'
-# gem 'twitter-bootswatch-rails', '~> 3.3.2'
-# gem 'twitter-bootswatch-rails-helpers'
+gem 'twitter-bootstrap-rails'
+gem 'twitter-bootswatch-rails', '~> 3.3.2'
+gem 'twitter-bootswatch-rails-helpers'
 
 gem 'will_paginate', '~> 3.0.6'
 # Authentication
