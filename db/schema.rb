@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151019153211) do
+ActiveRecord::Schema.define(version: 20151020152638) do
 
   create_table "article_managers", force: :cascade do |t|
     t.string   "keyword",       limit: 255
@@ -149,6 +149,17 @@ ActiveRecord::Schema.define(version: 20151019153211) do
 
   add_index "options", ["question_id"], name: "index_options_on_question_id", using: :btree
 
+  create_table "publish_surveys", force: :cascade do |t|
+    t.integer  "community_id", limit: 4
+    t.integer  "survey_id",    limit: 4
+    t.integer  "status",       limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "publish_surveys", ["community_id"], name: "index_publish_surveys_on_community_id", using: :btree
+  add_index "publish_surveys", ["survey_id"], name: "index_publish_surveys_on_survey_id", using: :btree
+
   create_table "questions", force: :cascade do |t|
     t.string   "q_title",    limit: 255
     t.string   "q_type",     limit: 255
@@ -202,16 +213,13 @@ ActiveRecord::Schema.define(version: 20151019153211) do
   add_index "survey_results", ["survey_id"], name: "index_survey_results_on_survey_id", using: :btree
 
   create_table "surveys", force: :cascade do |t|
-    t.string   "s_title",      limit: 255
-    t.string   "s_digest",     limit: 255
-    t.string   "s_author",     limit: 255
-    t.integer  "community_id", limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.string   "tag",          limit: 255
+    t.string   "s_title",    limit: 255
+    t.string   "s_digest",   limit: 255
+    t.string   "s_author",   limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "tag",        limit: 255
   end
-
-  add_index "surveys", ["community_id"], name: "index_surveys_on_community_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 64,  default: "", null: false

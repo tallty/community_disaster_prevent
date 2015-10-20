@@ -17,7 +17,7 @@ class Community < ActiveRecord::Base
   has_one :monitor_station
   has_one :subscriber
   has_many :article_managers
-  has_many :surveys
+  belongs_to :publish_surveys
 
   enum status: [ :closed, :used]
 end

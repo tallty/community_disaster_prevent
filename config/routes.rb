@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :publish_surveys
   devise_for :users
   root 'admin/disasters#index'
   mount Ckeditor::Engine => '/ckeditor'
@@ -37,6 +38,7 @@ Rails.application.routes.draw do
         get :switch
       end
     end
+    resources :publish_surveys
     resources :disaster_positions
     resources :disasters
     resources :articles

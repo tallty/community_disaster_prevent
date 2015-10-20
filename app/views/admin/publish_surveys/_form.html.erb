@@ -1,0 +1,31 @@
+<%= form_for(@publish_survey) do |f| %>
+  <% if @publish_survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@publish_survey.errors.count, "error") %> prohibited this publish_survey from being saved:</h2>
+
+      <ul>
+      <% @publish_survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row form-inputs">
+    <div class="input-group col-xs-6">
+      <%= f.select :survey_id, Survey.all.collect { |p| [ p.s_title, p.id ] }, options ={:prompt =>"请选择问卷"},
+ :class =>"form-control input" %>
+    </div>
+    <div class="space-6"></div>
+    <div class="input-group col-xs-6">
+      <%= f.select :street, Community.select(:street).distinct.pluck(:street), options = {:prompt =>"请选择绑定区县" }, :class =>"form-control input" %>
+    </div>
+    <div class="space-6"></div>
+    <div class="input-group col-xs-6">
+      <%= f.select :community, [], options ={:prompt =>"请选择绑定街道"}, :class =>"form-control input" %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

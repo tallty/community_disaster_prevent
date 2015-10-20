@@ -1,0 +1,41 @@
+<div class="row panel panel-default">
+  <h1>问卷发布列表</h1>
+  <table id="publisher-table" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+    <thead>
+      <tr>
+        <th>问卷编号</th>
+        <th>问卷名称</th>
+        <th>社区名称</th>
+        <th>状态</th>
+        <th>发布时间</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @publish_surveys.each do |publish_survey| %>
+        <tr>
+          <td><%= publish_survey.survey.id %></td>
+          <td><%= publish_survey.survey.name %></td>
+          <td><%= publish_survey.community.street %></td>
+          <td><%= publish_survey.status %></td>
+          <td><%= publish_survey.created_time.strftime('%Y-%m-%d %H:%M') %></td>
+          <td>
+            <%= link_to '停止', edit_publish_survey_path(publish_survey) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  <%= link_to '发布问卷', new_admin_publish_survey_path %>
+</div>
+<% content_for :scripts do %>
+  <script type="text/javascript">
+    $('#publisher-table').dataTable({
+      bAutoWidth: false
+    });
+  </script>
+<% end %>

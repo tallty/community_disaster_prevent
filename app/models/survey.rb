@@ -13,7 +13,7 @@
 
 class Survey < ActiveRecord::Base
   has_many :questions
-  belongs_to :community
+  belongs_to :publish_survey
   accepts_nested_attributes_for :questions, allow_destroy: true, :reject_if => lambda { |a| a[:q_title].blank? }
   
   validates_presence_of :s_title
