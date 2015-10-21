@@ -34,6 +34,13 @@ class DisastersController < ApplicationController
     end
   end
 
+  def get_disaster
+    start_time = params['start_time']
+    end_time = params['end_time']
+    @disaster = Disaster.between_times(start_time, end_time)
+    render :json => @disaster
+  end
+
   private
     def set_subscriber
       @subscriber = Subscriber.where(openid: disaster_params[:openid]).first

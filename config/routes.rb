@@ -15,7 +15,11 @@ Rails.application.routes.draw do
       get :get_streets
     end
   end
-  resources :disasters, only: [:index, :new, :show, :create]
+  resources :disasters, only: [:index, :new, :show, :create] do
+    collection do
+      get :get_disaster
+    end
+  end
   resources :disaster_pictures, only: [:new, :create]
   resource :monitor_stations, only: [:show]
   resources :surveys
