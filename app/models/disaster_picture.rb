@@ -23,7 +23,8 @@ class DisasterPicture < ActiveRecord::Base
 
   def as_json(options=nil)
     {
-      id: id
+      id: id,
+      url: image.url
     }
   end
 end
