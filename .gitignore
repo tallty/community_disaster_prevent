@@ -29,8 +29,6 @@ config/initializers/weixin_rails_middleware.rb
 /public/ckeditor_assets/
 /bin
 .idea/*
-spec/
-/spec/*
 .idea/*
 *.rdb
 *.swp
