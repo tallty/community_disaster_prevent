@@ -1,0 +1,16 @@
+{
+  "resources": [
+    {
+      "name": "灾情互动",
+      "examples": [
+        {
+          "description": "获取数据",
+          "link": "灾情互动/获取数据.json",
+          "groups": "all",
+          "route": "/disasters/get_disaster",
+          "method": "get"
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
-var street_option = "<option>请选择绑定区县</option>";
+var street_option = "<option>请选择绑定街道</option>";
 <% @streets.each do |s| %>
   street_option = street_option + "<option value='<%= s %>'><%= s %></option>"
 <% end %>
-$("#article_manager_street").html(street_option);
-$("#article_manager_community").html("<option>请选择绑定街道</option>");
+$("#article_manager_community").html(street_option);
+$("#publish_survey_community").html(street_option);

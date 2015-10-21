@@ -81,15 +81,15 @@ module Admin
     end
 
     def get_streets
-      @streets = Community.select(:street).distinct.pluck(:street)
+      district = params[:district]
+      @streets = Community.where(district: district).distinct.pluck(:street)
       respond_to do |format|
         format.js
       end
     end
 
     def get_districts
-      street = params[:street]
-      @districts = Community.where(street: street).pluck(:district, :id)
+      @districts = Community.all.distinct(:district).pluck(:district)
       respond_to do |format|
         format.js
       end

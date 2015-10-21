@@ -42,7 +42,11 @@ Rails.application.routes.draw do
         get :switch
       end
     end
-    resources :publish_surveys
+    resources :publish_surveys do
+      member do
+        get :switch
+      end
+    end
     resources :disaster_positions
     resources :disasters
     resources :articles

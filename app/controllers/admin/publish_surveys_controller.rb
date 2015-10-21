@@ -25,11 +25,13 @@ module Admin
     # POST /publish_surveys
     # POST /publish_surveys.json
     def create
-      @publish_survey = PublishSurvey.new(publish_survey_params)
+      @publish_survey = PublishSurvey.new()
+      @publish_survey.survey_id = publish_survey_params[:survey_id]
+      @publish_survey.community_id = Community.where(street: publish_survey_params[:community]).first.id
 
       respond_to do |format|
         if @publish_survey.save
-          format.html { redirect_to @publish_survey, notice: 'Publish survey was successfully created.' }
+          format.html { redirect_to admin_publish_surveys_path }
           format.json { render :show, status: :created, location: @publish_survey }
         else
           format.html { render :new }
@@ -62,6 +64,13 @@ module Admin
       end
     end
 
+    def switch
+      publish_survey = PublishSurvey.where(id: params[:id]).first
+      publish_survey.status = publish_survey.status.eql?("closed") ? 1 : 0
+      publish_survey.save
+      redirect_to admin_publish_surveys_path
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_publish_survey
@@ -70,7 +79,7 @@ module Admin
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def publish_survey_params
-        params[:publish_survey]
+        params.require(:publish_survey).permit(:survey_id, :community)
       end
   end
 end

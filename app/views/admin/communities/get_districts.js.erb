@@ -1,5 +1,5 @@
-var community_option = "<option>请选择绑定街道</option>";
+var community_option = "<option>请选择区县</option>";
 <% @districts.each do |s| %>
-  community_option = community_option + "<option value='<%= s[1]%>'><%= s[0]%></option>"
+  community_option = community_option + "<option><%= s%></option>"
 <% end %>
-$("#article_manager_community").html(community_option);
+$("#article_manager_district").html(community_option);

@@ -1,0 +1,56 @@
+{
+  "resource": "灾情互动",
+  "http_method": "GET",
+  "route": "/disasters/get_disaster",
+  "description": "获取数据",
+  "explanation": null,
+  "parameters": [
+    {
+      "required": true,
+      "name": "start_time",
+      "description": "开始时间"
+    },
+    {
+      "required": true,
+      "name": "end_time",
+      "description": "结束时间"
+    }
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "GET",
+      "request_path": "/disasters/get_disaster?start_time=2015-06-01&end_time=2015-11-01",
+      "request_body": null,
+      "request_headers": {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Host": "example.org",
+        "Cookie": ""
+      },
+      "request_query_parameters": {
+        "start_time": "2015-06-01",
+        "end_time": "2015-11-01"
+      },
+      "request_content_type": "application/json",
+      "response_status": 200,
+      "response_status_text": "OK",
+      "response_body": "[\n  {\n    \"id\": 1,\n    \"occur_time\": \"2015-08-15 18:34\",\n    \"explain\": \"在于她身边人珍惜现在所有的事情\",\n    \"type\": \"大风\",\n    \"disaster_position\": {\n      \"id\": 1,\n      \"lon\": 121.521,\n      \"lat\": 31.1341,\n      \"address\": \"上海市浦东新区红同路金谊河桥西北350米\",\n      \"created_at\": \"2015-08-15T18:37:24.000+08:00\",\n      \"updated_at\": \"2015-08-15T18:37:24.000+08:00\"\n    },\n    \"pictures\": [\n      {\n        \"id\": 2,\n        \"url\": \"http://61.152.126.154/system/2/images/original/image.jpg?1439634980\"\n      },\n      {\n        \"id\": 3,\n        \"url\": \"http://61.152.126.154/system/3/images/original/image.jpg?1439634991\"\n      }\n    ]\n  },\n  {\n    \"id\": 3,\n    \"occur_time\": \"2015-08-27 10:30\",\n    \"explain\": \"这、但又、但又有人？但\",\n    \"type\": \"暴雨\",\n    \"disaster_position\": {\n      \"id\": 2,\n      \"lon\": 121.381,\n      \"lat\": 31.2057,\n      \"address\": \"上海市长宁区仙霞西郊一品花园(北虹路南)\",\n      \"created_at\": \"2015-08-27T10:31:18.000+08:00\",\n      \"updated_at\": \"2015-08-27T10:31:18.000+08:00\"\n    },\n    \"pictures\": [\n      {\n        \"id\": 5,\n        \"url\": \"http://61.152.126.154/system/5/images/original/image.jpg?1440642652\"\n      }\n    ]\n  },\n  {\n    \"id\": 6,\n    \"occur_time\": \"2015-07-26 02:43\",\n    \"explain\": \"\",\n    \"type\": \"大风\",\n    \"disaster_position\": {\n      \"id\": 6,\n      \"lon\": 121.437,\n      \"lat\": 31.1897,\n      \"address\": \"徐汇区漕溪北路\",\n      \"created_at\": \"2015-08-27T11:19:48.000+08:00\",\n      \"updated_at\": \"2015-08-27T11:19:48.000+08:00\"\n    },\n    \"pictures\": [\n      {\n        \"id\": 6,\n        \"url\": \"http://61.152.126.154/system/6/images/original/7659918668D25BA592CF6C1667B4D562D35DBFCA5.jpg?1440643417\"\n      },\n      {\n        \"id\": 7,\n        \"url\": \"http://61.152.126.154/images/original/missing.png\"\n      },\n      {\n        \"id\": 8,\n        \"url\": \"http://61.152.126.154/images/original/missing.png\"\n      }\n    ]\n  },\n  {\n    \"id\": 7,\n    \"occur_time\": \"2015-07-29 11:12\",\n    \"explain\": \"大风\",\n    \"type\": \"大风\",\n    \"disaster_position\": {\n      \"id\": 6,\n      \"lon\": 121.437,\n      \"lat\": 31.1897,\n      \"address\": \"徐汇区漕溪北路\",\n      \"created_at\": \"2015-08-27T11:19:48.000+08:00\",\n      \"updated_at\": \"2015-08-27T11:19:48.000+08:00\"\n    },\n    \"pictures\": [\n      {\n        \"id\": 9,\n        \"url\": \"http://61.152.126.154/system/9/images/original/mmexport1440393471227.jpg?1440645199\"\n      },\n      {\n        \"id\": 10,\n        \"url\": \"http://61.152.126.154/images/original/missing.png\"\n      }\n    ]\n  },\n  {\n    \"id\": 8,\n    \"occur_time\": \"2015-08-27 11:18\",\n    \"explain\": \"积涝\",\n    \"type\": \"暴雨\",\n    \"disaster_position\": {\n      \"id\": 6,\n      \"lon\": 121.437,\n      \"lat\": 31.1897,\n      \"address\": \"徐汇区漕溪北路\",\n      \"created_at\": \"2015-08-27T11:19:48.000+08:00\",\n      \"updated_at\": \"2015-08-27T11:19:48.000+08:00\"\n    },\n    \"pictures\": [\n      {\n        \"id\": 11,\n        \"url\": \"http://61.152.126.154/system/11/images/original/mmexport1440393471227.jpg?1440645547\"\n      },\n      {\n        \"id\": 12,\n        \"url\": \"http://61.152.126.154/images/original/missing.png\"\n      }\n    ]\n  }\n]",
+      "response_headers": {
+        "X-Frame-Options": "SAMEORIGIN",
+        "X-XSS-Protection": "1; mode=block",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Type": "application/json; charset=utf-8",
+        "ETag": "W/\"abfb186b56e1211f647afb6a97e76594\"",
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "X-Request-Id": "f5908331-e497-4d7c-b172-cc8bc1f67a0b",
+        "X-Runtime": "0.128669",
+        "Content-Length": "2329"
+      },
+      "response_content_type": "application/json; charset=utf-8",
+      "curl": "curl \"http://localhost:4444/disasters/get_disaster?start_time=2015-06-01&end_time=2015-11-01\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}

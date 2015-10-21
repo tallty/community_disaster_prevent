@@ -17,5 +17,5 @@ class ArticleManager < ActiveRecord::Base
   belongs_to :article
   belongs_to :community
 
-  attr_accessor :street
+  attr_accessor :district
 end

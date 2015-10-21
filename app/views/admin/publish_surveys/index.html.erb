@@ -16,12 +16,12 @@
       <% @publish_surveys.each do |publish_survey| %>
         <tr>
           <td><%= publish_survey.survey.id %></td>
-          <td><%= publish_survey.survey.name %></td>
+          <td><%= publish_survey.survey.s_title %></td>
           <td><%= publish_survey.community.street %></td>
           <td><%= publish_survey.status %></td>
-          <td><%= publish_survey.created_time.strftime('%Y-%m-%d %H:%M') %></td>
+          <td><%= publish_survey.created_at.strftime('%Y-%m-%d %H:%M') %></td>
           <td>
-            <%= link_to '停止', edit_publish_survey_path(publish_survey) %>
+            <%= link_to '切换', switch_admin_publish_survey_path(publish_survey), :class => 'btn btn-xs btn-danger'%>
           </td>
         </tr>
       <% end %>
@@ -35,7 +35,33 @@
 <% content_for :scripts do %>
   <script type="text/javascript">
     $('#publisher-table').dataTable({
-      bAutoWidth: false
+      bAutoWidth: false,
+      'oLanguage': {
+        "oAria": {
+            "sSortAscending": ": 升序排列",
+            "sSortDescending": ": 降序排列"
+        },
+        "oPaginate": {
+            "sFirst": "首页",
+            "sLast": "末页",
+            "sNext": "下页",
+            "sPrevious": "上页"
+        },
+        "sEmptyTable": "没有相关记录",
+        "sInfo": "第 _START_ 到 _END_ 条记录，共 _TOTAL_ 条",
+        "sInfoEmpty": "第 0 到 0 条记录，共 0 条",
+        "sInfoFiltered": "(从 _MAX_ 条记录中检索)",
+        "sInfoPostFix": "",
+        "sDecimal": "",
+        "sThousands": ",",
+        "sLengthMenu": "每页显示条数: _MENU_",
+        "sLoadingRecords": "正在载入...",
+        "sProcessing": "正在载入...",
+        "sSearch": "搜索:",
+        "sSearchPlaceholder": "",
+        "sUrl": "",
+        "sZeroRecords": "没有相关记录"
+      }
     });
   </script>
 <% end %>
