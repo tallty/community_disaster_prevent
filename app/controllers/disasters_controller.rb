@@ -35,8 +35,8 @@ class DisastersController < ApplicationController
   end
 
   def get_disaster
-    start_time = params['start_time']
-    end_time = params['end_time']
+    start_time = Time.parse(params['start_time'])
+    end_time = Time.parse(params['end_time'])
     @disaster = Disaster.between_times(start_time, end_time)
     render :json => @disaster
   end
