@@ -62,7 +62,7 @@ gem "redis-namespace"
 
 gem 'rmmseg-cpp'
 gem 'ferret'
-
+gem 'by_star'
 gem 'seedbank'
 
 #excel导入功能

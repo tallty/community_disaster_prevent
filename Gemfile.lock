@@ -83,6 +83,8 @@ GEM
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.3.0)
     builder (3.2.2)
+    by_star (2.2.1)
+      activesupport
     byebug (6.0.2)
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
@@ -296,6 +298,7 @@ DEPENDENCIES
   addressable
   annotate!
   bootstrap-sass (~> 3.3.4)
+  by_star
   byebug
   ckeditor!
   coffee-rails (~> 4.1.0)
