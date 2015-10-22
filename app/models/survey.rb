@@ -17,5 +17,4 @@ class Survey < ActiveRecord::Base
   accepts_nested_attributes_for :questions, allow_destroy: true, :reject_if => lambda { |a| a[:q_title].blank? }
   
   validates_presence_of :s_title
-  validates_presence_of :community_id
 end

@@ -27,8 +27,6 @@ module Admin
     # POST /surveys.json
     def create
       @survey = Survey.new(survey_params)
-      community = Community.where(id: params[:community]).first
-      @survey.community = community
       questions = []
       if params[:survey][:questions].present?
         params[:survey][:questions].each do |title|
@@ -39,7 +37,7 @@ module Admin
       @survey.questions = questions
       respond_to do |format|
         if @survey.save
-          format.html { redirect_to admin_survey_path(@survey), notice: 'Survey was successfully created.' }
+          format.html { redirect_to admin_surveys_path, notice: 'Survey was successfully created.' }
           format.json { render :show, status: :created, location: @survey }
         else
           format.html { render :new }
