@@ -31,8 +31,8 @@ Rails.application.routes.draw do
     resources :diymenus
     resources :disaster_pictures
     resources :volunteers do
-      member do
-        get 'down'
+      collection do
+        get :down
       end
     end
     resources :subscribers
