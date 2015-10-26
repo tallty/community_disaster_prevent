@@ -6,6 +6,13 @@ module Admin
       @monitor_stations = MonitorStation.all
     end
 
+    def down
+      file = MonitorStation.export
+      io = File.open(file)
+      io.binmode
+      send_data(io.read, :filename => "monitor_stations.xlsx", :disposition => 'attachment')
+    end
+
     def new
       @monitor_station = MonitorStation.new
     end

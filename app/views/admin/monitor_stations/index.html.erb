@@ -27,6 +27,10 @@
     <% end %>
   </tbody>
 </table>
+<br/>
+<%= link_to '添加监测站点', new_admin_monitor_station_path %> | <%= link_to "导出", down_admin_monitor_stations_path %>
+</div>
+
 <% content_for :scripts do %>
   <script type="text/javascript">
     $(function(){
@@ -62,6 +66,3 @@
     });
   </script>
 <% end %>
-<%= link_to '添加监测站点', new_admin_monitor_station_path %>
-</div>
-

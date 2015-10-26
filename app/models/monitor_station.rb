@@ -31,6 +31,21 @@ class MonitorStation < ActiveRecord::Base
     nil
   end
 
+  def self.export
+    file_name = "public/monitor_stations.xlsx"
+    p = Axlsx::Package.new
+    p.workbook.add_worksheet(:name => "监测站点") do |sheet|
+      sheet.add_row ["站号", "站名", "类型", "社区"]
+
+      MonitorStation.all.each do |station|
+        sheet.add_row [station.station_number, station.station_name, station.station_type, station.community.street]
+      end
+      p.use_shared_strings = true
+      p.serialize(file_name)
+    end
+    file_name
+  end
+
   def get_show_article
     subscriber = Subscriber.where(openid: @subscriber).first
     if subscriber.community.present?

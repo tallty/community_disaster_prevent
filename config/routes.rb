@@ -57,7 +57,11 @@ Rails.application.routes.draw do
     resources :message_processors
     resources :article_managers
     resources :send_logs
-    resources :monitor_stations
+    resources :monitor_stations do
+      collection do
+        get :down
+      end
+    end
     resources :users
     resources :questions
   end
