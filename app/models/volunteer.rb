@@ -17,6 +17,7 @@ class Volunteer < ActiveRecord::Base
   validates :name, :tel, :commun, :neighborhood, presence: true
 
   def self.export
+    file_name = "public/volunteer.xlsx"
     p = Axlsx::Package.new
     p.workbook.add_worksheet(:name => "志愿者") do |sheet|
       sheet.add_row ["姓名", "电话", "居委会", "小区"]
@@ -25,8 +26,9 @@ class Volunteer < ActiveRecord::Base
         sheet.add_row [volunteer.name, volunteer.tel, volunteer.neighborhood, volunteer.commun]
       end
       p.use_shared_strings = true
-      p.serialize("public/volunteer.xlsx")
+      p.serialize(file_name)
     end
+    file_name
   end
 
 end
