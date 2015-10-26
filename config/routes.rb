@@ -30,7 +30,11 @@ Rails.application.routes.draw do
     resources :home, only: [:index]
     resources :diymenus
     resources :disaster_pictures
-    resources :volunteers
+    resources :volunteers do
+      member do
+        get 'down'
+      end
+    end
     resources :subscribers
     resources :communities do
       collection do

@@ -66,7 +66,9 @@ gem 'by_star'
 gem 'seedbank'
 
 #excel导入功能
-gem 'roo'
+# gem 'roo'
+gem 'axlsx'
+gem 'spreadsheet'
 
 gem 'settingslogic'
 gem 'whenever', git: "https://github.com/shtzr840329/whenever.git", :require => false

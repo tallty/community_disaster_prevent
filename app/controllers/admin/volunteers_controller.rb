@@ -9,6 +9,13 @@ module Admin
       @volunteers = Volunteer.all
     end
 
+    def down
+      file = Volunteer.export
+      io = File.open(file)
+      io.binmode
+      send_data(io.read, :filename => "volunteer.xlsx", :disposition => 'attachment')
+    end
+
     # GET /volunteers/1
     # GET /volunteers/1.json
     def show
