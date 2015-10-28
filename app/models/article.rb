@@ -25,7 +25,7 @@ class Article < ActiveRecord::Base
           return { :type => 'text', :content => "您所在社区暂未开放此服务" }
         else
           if @keyword.eql?('调查问卷')
-            surveys = PublistSurvey.where(community_id: subscriber.community, status: 1)
+            surveys = PublishSurvey.where(community_id: subscriber.community, status: 1)
             # surveys = Survey.where(community: subscriber.community)
             if surveys.present?
               contents = ""
