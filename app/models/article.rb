@@ -25,11 +25,12 @@ class Article < ActiveRecord::Base
           return { :type => 'text', :content => "您所在社区暂未开放此服务" }
         else
           if @keyword.eql?('调查问卷')
-            surveys = PublishSurvey.where(community_id: subscriber.community, status: 1)
+            publish_surveys = PublishSurvey.where(community_id: subscriber.community, status: 1)
             # surveys = Survey.where(community: subscriber.community)
-            if surveys.present?
+            if publish_surveys.present?
               contents = ""
-              surveys.each do |s|
+              publish_surveys.each do |publish_survey|
+                survey = publish_survey.survey
                 url = weixin_url("surveys/#{s.id}")
                 contents << "<a href='#{url}'>#{s.s_title}</a>" << "\r\n"
               end
