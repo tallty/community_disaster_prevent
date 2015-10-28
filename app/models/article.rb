@@ -31,8 +31,8 @@ class Article < ActiveRecord::Base
               contents = ""
               publish_surveys.each do |publish_survey|
                 survey = publish_survey.survey
-                url = weixin_url("surveys/#{s.id}")
-                contents << "<a href='#{url}'>#{s.s_title}</a>" << "\r\n"
+                url = weixin_url("surveys/#{survey.id}")
+                contents << "<a href='#{url}'>#{survey.s_title}</a>" << "\r\n"
               end
               return { :type => 'text', :content => contents }
             else
