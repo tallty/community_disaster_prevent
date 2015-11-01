@@ -30,7 +30,7 @@
   </div>
   <% if @water_stations.present? %>
     <div class="page">
-      <div class="title">(积水实况)</div>
+      <div class="title">积水实况</div>
       <% @water_stations.each do |item| %>
         <div class="line">
           <div class="col-xs-8"><span><%= item["site_name"] %>积水深度: <%= item["data"] || 0 %> m</span></div>
