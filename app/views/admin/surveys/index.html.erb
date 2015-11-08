@@ -5,7 +5,7 @@
         <td>问卷说明</td>
         <td>作者</td>
         <td>创建时间</td>
-        <td width="150px">操作</td>
+        <td width="200px">操作</td>
       </thead>
 
     <tbody>
@@ -18,6 +18,7 @@
           <td>
             <%= link_to '显示', admin_survey_path(survey), :class => "btn btn-xs btn-info" %>
             <%= link_to '编辑', edit_admin_survey_path(survey), :class => "btn btn-xs btn-primary" %>
+            <%= link_to '统计', admin_survey_result_path(survey), :class => 'btn btn-xs btn-primary' %>
             <%= link_to t('删除', :default => t("删除")),
               admin_survey_path(survey),
               :method => :delete,

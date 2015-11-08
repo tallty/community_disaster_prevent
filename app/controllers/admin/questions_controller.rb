@@ -12,6 +12,12 @@ module Admin
     def edit
     end
 
+    def draw
+      @survey = Survey.where(id: params[:survey_id]).first
+      @question = Question.where(id: params[:id]).first
+      @survey_results =SurveyResult.where(survey: @survey, q_index: @question.id).group(:q_result).count
+    end
+
     def new
       @question = Question.new
       2.times do |i|

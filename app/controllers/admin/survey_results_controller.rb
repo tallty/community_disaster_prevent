@@ -1,6 +1,6 @@
 module Admin
   class SurveyResultsController < ApplicationController
-    before_action :set_survey_result, only: [:show, :edit, :update, :destroy]
+    before_action :set_survey_result, only: [:edit, :update, :destroy]
 
     # GET /survey_results
     # GET /survey_results.json
@@ -11,6 +11,10 @@ module Admin
     # GET /survey_results/1
     # GET /survey_results/1.json
     def show
+      @survey = Survey.where(id: params[:id]).first
+      question_ids = SurveyResult.where(survey: @survey).distinct(:q_index).pluck(:q_index)
+
+      @questions = Question.where(id: question_ids)
     end
 
     # GET /survey_results/new
@@ -25,6 +29,7 @@ module Admin
     # POST /survey_results
     # POST /survey_results.json
     def create
+      subscriber = Subscriber.where(openid: params)
       @survey_result = SurveyResult.new(survey_result_params)
 
       respond_to do |format|

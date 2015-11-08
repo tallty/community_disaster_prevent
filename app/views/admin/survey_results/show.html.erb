@@ -1,4 +1,55 @@
-<p id="notice"><%= notice %></p>
+<div class="row panel panel-default">
+  <table id="results-table" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+    <thead>
+        <td>标题</td>
+        <td>题型</td>
+        <td width="200px">操作</td>
+      </thead>
 
-<%= link_to 'Edit', edit_survey_result_path(@survey_result) %> |
-<%= link_to 'Back', survey_results_path %>
+    <tbody>
+      <% @questions.each do |question| %>
+        <tr>
+          <td><%= question.q_title %></td>
+          <td><%= question.q_type %></td>
+          <td>
+            <%= link_to '结果', draw_admin_survey_question_path(@survey, question), :class => 'btn btn-xs btn-primary' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= link_to 'Back', admin_surveys_path %>
+<% content_for :scripts do %>
+  <script type="text/javascript">
+    $('#results-table').dataTable({
+      bAutoWidth: false,
+      'oLanguage': {
+        "oAria": {
+            "sSortAscending": ": 升序排列",
+            "sSortDescending": ": 降序排列"
+        },
+        "oPaginate": {
+            "sFirst": "首页",
+            "sLast": "末页",
+            "sNext": "下页",
+            "sPrevious": "上页"
+        },
+        "sEmptyTable": "没有相关记录",
+        "sInfo": "第 _START_ 到 _END_ 条记录，共 _TOTAL_ 条",
+        "sInfoEmpty": "第 0 到 0 条记录，共 0 条",
+        "sInfoFiltered": "(从 _MAX_ 条记录中检索)",
+        "sInfoPostFix": "",
+        "sDecimal": "",
+        "sThousands": ",",
+        "sLengthMenu": "每页显示条数: _MENU_",
+        "sLoadingRecords": "正在载入...",
+        "sProcessing": "正在载入...",
+        "sSearch": "搜索:",
+        "sSearchPlaceholder": "",
+        "sUrl": "",
+        "sZeroRecords": "没有相关记录"
+      }
+    });
+  </script>
+<% end %>

@@ -8,11 +8,13 @@ class SurveysController < ApplicationController
 
   def update
     survey = Survey.where(id: params[:id]).first
-    subscriber = Subscriber.where(openid: params[:openid]).first
+    subscriber = Subscriber.where(openid: params[:survey][:subscriber]).first
     params["q"]["result"].map do |i, e|
-      result = SurveyResult.find_or_create_by(survey: survey, subscriber: subscriber, q_index: i)
-      result.q_result = e
-      result.save
+      e.each do |k|
+        result = SurveyResult.create(survey: survey, subscriber: subscriber, q_index: i)
+        result.q_result = k
+        result.save
+      end
     end
     render :text => "谢谢"
   end

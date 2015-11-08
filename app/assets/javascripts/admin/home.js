@@ -25,3 +25,4 @@
 //= require ../xenon/jquery-validate/jquery.validate.min
 //= require ../xenon/toastr/toastr
 //= require ../xenon/xenon-custom
+//= require ../chart/Chart.min

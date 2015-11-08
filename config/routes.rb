@@ -25,8 +25,15 @@ Rails.application.routes.draw do
   resources :surveys
   
   namespace :admin do
-    resources :survey_results
-    resources :surveys
+    resources :survey_results, only: [:show]
+    
+    resources :surveys do
+      resources :questions, only: [] do 
+        member do
+          get :draw
+        end
+      end
+    end
     resources :home, only: [:index]
     resources :diymenus
     resources :disaster_pictures

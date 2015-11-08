@@ -6,6 +6,7 @@
   <hr class="form-divider" />
   <div class="row">
   <%= form_for @survey do |s| %>
+    <%= s.hidden_field :subscriber, :value => @subscriber.openid %>
     <ul class="row" style="over-flow:hidden;">
       <% @survey.questions.each_with_index do |q, index| %>
         <li class="col-xs-12">
