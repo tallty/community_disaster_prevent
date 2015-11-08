@@ -58,7 +58,7 @@ module Admin
     end
 
     def question_params
-      params.require(:question).permit(:q_title, :q_digest, :q_type, options_attributes: [:option_title, :_destroy])
+      params.require(:question).permit(:q_title, :q_digest, :q_type, options_attributes: [:option_title, :_destroy, :id])
     end
   end
 end
