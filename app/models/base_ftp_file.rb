@@ -61,8 +61,7 @@ class BaseFtpFile
     
     file_arr = []
     (0..day_to_fetch).each do |index|
-      file_arr.concat @connection.nlst() rescue []
-      # file_arr.concat @connection.nlst(ftpfile_format(today - index)) rescue []
+      file_arr.concat @connection.nlst(ftpfile_format(today - index)) rescue []
     end
     p file_arr
     file_arr.each do |filename|
