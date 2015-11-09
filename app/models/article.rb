@@ -44,7 +44,7 @@ class Article < ActiveRecord::Base
           
         end
       else
-        articles = ArticleManager.where(keyword: @keyword)
+        articles = ArticleManager.where(keyword: @keyword).order(article_index: :desc)
       end
       results = []
       if articles.present?
