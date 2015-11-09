@@ -61,7 +61,9 @@ class BaseFtpFile
     
     file_arr = []
     (0..day_to_fetch).each do |index|
-      file_arr.concat @connection.nlst(ftpfile_format(today-index)) rescue []
+      l_file_name = ftpfile_format(today - index)
+      p l_file_name
+      file_arr.concat @connection.nlst(l_file_name) rescue []
     end
     file_arr.each do |filename|
       report_time_string = get_report_time_string_from_ftp filename
