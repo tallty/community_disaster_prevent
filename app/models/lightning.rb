@@ -14,7 +14,7 @@ class Lightning
     end
 
     def ftpfile_format day
-      "DISCH_#{day.strftime('%Y%m%d')}_*.jpeg"
+      "DISCH_#{day.strftime('%Y%m%d')}*.jpeg"
     end
 
     def parse local_file
