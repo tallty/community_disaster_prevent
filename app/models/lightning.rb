@@ -13,9 +13,8 @@ class Lightning
       @redis_last_report_time_key = "lightning_pic_last_report_time"
     end
 
-    protected
     def ftpfile_format day
-      "DISCH_#{day.strftime('%Y%m%d')}_\*.jpeg"
+      "DISCH_#{day.strftime('%Y%m%d')}_*.jpeg"
     end
 
     def parse local_file
