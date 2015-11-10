@@ -25,7 +25,7 @@ module Admin
     # POST /article_managers
     # POST /article_managers.json
     def create
-      community = Community.where(street: article_manager_params[:article_manager][:community]).first
+      community = Community.where(street: params[:article_manager][:community]).first
       
       @article_manager = ArticleManager.new(article_manager_params)
       @article_manager.community = community
