@@ -63,9 +63,9 @@ class BaseFtpFile
     (0..day_to_fetch).each do |index|
       file_arr.concat @connection.nlst(ftpfile_format(today - index)) rescue []
     end
-    p file_arr
+    
     file_arr.each do |filename|
-      report_time_string = get_report_time_string_from_ftp filename
+      report_time_string = get_report_time_string_from_ftp filename rescue next
       filename = filename.encode! 'utf-8', 'gb2312', {:invalid => :replace}
       @file_infos << [report_time_string, filename]
     end
