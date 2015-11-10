@@ -25,8 +25,8 @@ module Admin
     # POST /article_managers
     # POST /article_managers.json
     def create
-      community = Community.where(id: params[:article_manager][:community]).first
-      p community
+      community = Community.where(street: article_manager_params[:community]).first
+      
       @article_manager = ArticleManager.new(article_manager_params)
       @article_manager.community = community
       respond_to do |format|
@@ -73,7 +73,7 @@ module Admin
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def article_manager_params
-        params.require(:article_manager).permit(:article_id, :keyword, :page_url, :article_index)
+        params.require(:article_manager).permit(:article_id, :keyword, :page_url, :article_index, :community)
       end
   end
 end
