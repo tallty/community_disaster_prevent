@@ -5,6 +5,10 @@ class Lightning
     LightningProcess.new.process
   end
 
+  def self.get_pic
+    $redis.get("lightning_cache")
+  end
+
   class LightningProcess < BaseFtpFile
     def initialize
       super
