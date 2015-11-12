@@ -59,7 +59,7 @@ module Admin
     def destroy
       @publish_survey.destroy
       respond_to do |format|
-        format.html { redirect_to publish_surveys_url, notice: 'Publish survey was successfully destroyed.' }
+        format.html { redirect_to admin_publish_surveys_path, notice: 'Publish survey was successfully destroyed.' }
         format.json { head :no_content }
       end
     end
