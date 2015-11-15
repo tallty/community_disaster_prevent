@@ -49,7 +49,7 @@ class MonitorStation < ActiveRecord::Base
   def get_show_article
     subscriber = Subscriber.where(openid: @subscriber).first
     if subscriber.community.present?
-      results = [{ :title => "#{subscriber.community.street}实况监测", :desc => "", :image_url => "#{Settings.ProjectSetting.url}/lightning/#{Lighnting.get_pic}", :page_url => weixin_url("monitor_stations") }]
+      results = [{ :title => "#{subscriber.community.street}实况监测", :desc => "", :image_url => "#{Settings.ProjectSetting.url}/lightning/#{Lightning.get_pic}", :page_url => weixin_url("monitor_stations") }]
       auto_station = MonitorStation.where(community: subscriber.community, station_type: "自动站").first
       url = "#{base_url}&type=s_auto_station&sitenumber=#{auto_station.station_number}"
       data = get_data url
