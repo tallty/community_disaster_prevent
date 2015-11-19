@@ -20,4 +20,12 @@ class Community < ActiveRecord::Base
   belongs_to :publish_surveys
 
   enum status: [ :closed, :used]
+
+  def write_community_to_file
+    file = File.new('./public/community.txt', 'w')
+    Community.all.each do |item|
+      file.write("#{item.code}\t#{item.district}\t#{item.street}\t#{item.c_type}\r\n")
+    end
+    file.close
+  end
 end
