@@ -39,7 +39,7 @@ class AQI < BaseForecast
     draw.font_weight = Magick::BoldWeight
     draw.fill = 'black'
 
-    publish_time = Time.zone.parse(content["data"]["publishtime"]).strftime("%Y年%m月%d日 17时发布")
+    publish_time = Time.zone.parse(content["data"]["publishtime"])#.strftime("%Y年%m月%d日 17时发布")
 
     draw.annotate(image, 0, 0, 230, 116, "(#{publish_time})")
 
