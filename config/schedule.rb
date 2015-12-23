@@ -24,6 +24,9 @@ every 1.minutes do
   runner "Warning.new.process"
 end
 
+every 10.minutes do
+  runner "Lightning.process"
+end
 # every 10.minutes do
   # runner "MonitorStation.new.process"
 # end
