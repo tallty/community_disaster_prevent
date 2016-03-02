@@ -111,14 +111,15 @@ class Warning < ActiveRecord::Base
         warning = nil
 
         content["data"].each do |item|
-          community = Community.where("street like ?", "%#{item["unit"]}%").first
+          # community = Community.where("street like ?", "%#{item["unit"]}%").first
+          community = Community.find_by_code item['unit']
           next if community.nil?
           publish_time = Time.strptime(item["publish_time"],"%Y年%m月%d日%H时%M分").to_time
-          warning = Warning.find_or_create_by(publish_time: publish_time, warning_type: item["warning_type"])
+          warning = Warning.find_or_create_by(publish_time: publish_time, warning_type: item["warning_type"], community: community)
           warning.status = item["status"]
           warning.level = item["level"]
           warning.content = item["content"]
-          warning.community = community
+          # warning.community = community
           warning.save
           $redis.hset("warnings_#{community.code}", "#{warning.warning_type}", warning.to_json)
         end
