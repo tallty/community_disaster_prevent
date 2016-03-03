@@ -118,7 +118,7 @@ class Warning < ActiveRecord::Base
           publish_time = Time.strptime(item["publish_time"],"%Y年%m月%d日%H时%M分").to_time
           warning = Warning.find_or_create_by(publish_time: publish_time, warning_type: item["warning_type"], community: community)
           warning.status = item["status"]
-          warning.level = Warning.tran_level(item["level"])
+          warning.level = Warning.tran_level(item["level"].to_s)
           warning.content = item["content"]
           # warning.community = community
           warning.save
@@ -136,7 +136,7 @@ class Warning < ActiveRecord::Base
     level = {
         "蓝色" => 1, "黄色" => 2, "橙色" => 3, "红色" => 4, "解除" => 5,
         "I" => 6, "II" => 7, "III" => 8, "IV" => 9,
-        1 => "I", 2 => "II", 3 => "III", 4 => "IV"}
+        "1" => "I", "2" => "II", "3" => "III", "4" => "IV"}
     level[text]
   end
 
