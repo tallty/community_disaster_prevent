@@ -51,11 +51,12 @@ class Warning < ActiveRecord::Base
       content.each do |item|
         item = MultiJson.load item rescue {}
         publishtime = Time.parse(item["publish_time"]).strftime("%m月%d日 %H点%M分")
-        if item["status"].eql?("解除")
-          articles << { :title => "上海中心气象台#{publishtime}解除#{Community.where(code: item['community']).first.street}#{item['type']}#{item['level']}预警", :desc => "", :image_url => "#{Settings.ProjectSetting.url}/assets/images/warnings/b_#{Warning.tran_type(item['type'])}#{Warning.tran_level(item['level'])}g.png", :page_url => "#{Settings.ProjectSetting.url}/warnings/#{item['community']}" }
-        else
-          articles << { :title => "上海中心气象台#{publishtime}发布#{Community.where(code: item['community']).first.street}#{item['type']}#{item['level']}预警", :desc => "", :image_url => "#{Settings.ProjectSetting.url}/assets/images/warnings/b_#{Warning.tran_type(item['type'])}#{Warning.tran_level(item['level'])}.png", :page_url => "#{Settings.ProjectSetting.url}/warnings/#{item['community']}" }
-        end
+        articles << { :title => "上海中心气象台#{publishtime}#{item['status']}#{Community.where(code: item['community']).first.street}#{item['type']}#{item['level']}预警", :desc => "", :image_url => "#{Settings.ProjectSetting.url}/assets/images/warnings/b_#{Warning.tran_type(item['type'])}#{Warning.tran_level(item['level'])}g.png", :page_url => "#{Settings.ProjectSetting.url}/warnings/#{item['community']}" }
+        # if item["status"].eql?("解除")
+        #   articles << { :title => "上海中心气象台#{publishtime}解除#{Community.where(code: item['community']).first.street}#{item['type']}#{item['level']}预警", :desc => "", :image_url => "#{Settings.ProjectSetting.url}/assets/images/warnings/b_#{Warning.tran_type(item['type'])}#{Warning.tran_level(item['level'])}g.png", :page_url => "#{Settings.ProjectSetting.url}/warnings/#{item['community']}" }
+        # else
+        #   articles << { :title => "上海中心气象台#{publishtime}发布#{Community.where(code: item['community']).first.street}#{item['type']}#{item['level']}预警", :desc => "", :image_url => "#{Settings.ProjectSetting.url}/assets/images/warnings/b_#{Warning.tran_type(item['type'])}#{Warning.tran_level(item['level'])}.png", :page_url => "#{Settings.ProjectSetting.url}/warnings/#{item['community']}" }
+        # end
       end
       { :type => 'articles', :content => articles }
     else
@@ -117,7 +118,7 @@ class Warning < ActiveRecord::Base
           publish_time = Time.strptime(item["publish_time"],"%Y年%m月%d日%H时%M分").to_time
           warning = Warning.find_or_create_by(publish_time: publish_time, warning_type: item["warning_type"], community: community)
           warning.status = item["status"]
-          warning.level = item["level"]
+          warning.level = Warning.tran_level(["level"])
           warning.content = item["content"]
           # warning.community = community
           warning.save
@@ -132,7 +133,10 @@ class Warning < ActiveRecord::Base
   end
 
   def self.tran_level(text)
-    level = {"蓝色" => 1, "黄色" => 2, "橙色" => 3, "红色" => 4, "解除" => 5, "I" => 6, "II" => 7, "III" => 8, "IV" => 9}
+    level = {
+        "蓝色" => 1, "黄色" => 2, "橙色" => 3, "红色" => 4, "解除" => 5,
+        "I" => 6, "II" => 7, "III" => 8, "IV" => 9,
+        "1" => "I", "2" => "II", "3" => "III", "4" => "IV"}
     level[text]
   end
 
