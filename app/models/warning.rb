@@ -136,7 +136,7 @@ class Warning < ActiveRecord::Base
     level = {
         "蓝色" => 1, "黄色" => 2, "橙色" => 3, "红色" => 4, "解除" => 5,
         "I" => 6, "II" => 7, "III" => 8, "IV" => 9,
-        "1" => "I", "2" => "II", "3" => "III", "4" => "IV"}
+        1 => "I", 2 => "II", 3 => "III", 4 => "IV"}
     level[text]
   end
 
