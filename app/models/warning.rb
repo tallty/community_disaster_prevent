@@ -118,7 +118,7 @@ class Warning < ActiveRecord::Base
           publish_time = Time.strptime(item["publish_time"],"%Y年%m月%d日%H时%M分").to_time
           warning = Warning.find_or_create_by(publish_time: publish_time, warning_type: item["warning_type"], community: community)
           warning.status = item["status"]
-          warning.level = Warning.tran_level(["level"])
+          warning.level = Warning.tran_level(item["level"])
           warning.content = item["content"]
           # warning.community = community
           warning.save
