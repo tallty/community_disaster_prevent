@@ -47,7 +47,6 @@ class Warning < ActiveRecord::Base
     content = $redis.hvals("warnings_#{code}")
     if content.present?
       articles = []
-      publishtime = nil
       content.each do |item|
         item = MultiJson.load item rescue {}
         publishtime = Time.parse(item["publish_time"]).strftime("%m月%d日 %H点%M分")
@@ -161,7 +160,7 @@ class Warning < ActiveRecord::Base
       "霾" => "n",
       "臭氧" => "o",
       "暴雨内涝" => "p",
-      "雷电" => "q"
+      "雷电2" => "q"
     }
     type = warning_type[text]
   end
