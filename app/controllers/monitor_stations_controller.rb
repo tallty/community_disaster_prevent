@@ -1,3 +1,4 @@
+# 实况检测
 class MonitorStationsController < ApplicationController
   layout 'weixin'
   def index

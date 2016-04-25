@@ -32,3 +32,10 @@ config/initializers/weixin_rails_middleware.rb
 .idea/*
 *.rdb
 *.swp
+
+# ignore DS_store
+.DS_Store
+app/.DS_Store
+app/assets/.DS_Store
+app/assets/javascripts/.DS_Store
+app/assets/javascripts/chart/.DS_Store
