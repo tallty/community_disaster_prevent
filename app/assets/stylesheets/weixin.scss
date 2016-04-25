@@ -12,9 +12,29 @@
  *
  *= require xenon/gd.Default
  *= require xenon/bootstrap-datetimepicker
+ *= require weui
+ *= require weixin_page
  */
 
 @import "bootstrap";
+
+@font-face {
+  font-family: 'iconfont';
+  src: url('//at.alicdn.com/t/font_1461574064_574574.eot'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_1461574064_574574.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_1461574064_574574.woff') format('woff'), /* chrome、firefox */
+  url('//at.alicdn.com/t/font_1461574064_574574.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_1461574064_574574.svg#iconfont') format('svg'); /* iOS 4.1- */
+} 
+
+.iconfont{
+  font-family:"iconfont";
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  display: block;
+  -webkit-text-stroke-width: 0.2px;
+}  
 
 body {
   font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif

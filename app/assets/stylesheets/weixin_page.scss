@@ -1,0 +1,53 @@
+/**============全局样式==============**/
+body, html {
+	height: 100%;
+	-webkit-tap-highlight-color: transparent;
+}
+body {
+	overflow-x: hidden;
+  background-color: #fbf9fe;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;              
+}
+.weui_container {
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  .weui_content {
+		padding: 10px;
+	}
+}
+.weui_tab_bd {
+	padding-bottom: 54px;
+}
+.weui_tabbar {
+	background: rgba(0,0,0,0.6);
+	.weui_tabbar_item {
+		padding-top: 0;
+		padding-bottom: 3px;
+		.weui_tabbar_label {
+			margin-top: 0;
+			color: #fff;
+		}
+		.weui_tabbar_icon {
+			height: auto;
+		i{
+				font-size: 24px;
+				color: #fff;
+			}
+		}
+	}
+	.weui_bar_item_on {
+		color: #00D9CF;
+		.weui_tabbar_icon i{
+			font-size: 24px;
+			color: #00D9CF;
+		}
+		.weui_tabbar_label {
+			color: #00D9CF;
+		}
+	}
+	p {
+		margin: 0;
+	}
+}
+// 五日天气预报

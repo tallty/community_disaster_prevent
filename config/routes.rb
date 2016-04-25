@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   resources :disaster_pictures, only: [:new, :create]
   resource :monitor_stations, only: [:show]
   resources :surveys
+
+  # 五日天气预报
+  resources :five_day_weathers, only: [:index]
   
   namespace :admin do
     resources :survey_results, only: [:show]
