@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   resources :warnings, only: [:show]
   resources :articles, only: [:show]
   resources :aqi, only: [:show]
+
+  resources :committees, only: [:show]
+
   resource :volunteers, only: [:new, :create, :update]
   resource :subscribers, only: [:new, :update] do
     collection do
