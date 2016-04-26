@@ -26,6 +26,8 @@ Rails.application.routes.draw do
 
   # 五日天气预报
   resources :five_day_weathers, only: [:index]
+  # 社区
+  resources :communities, only: [:index]
   
   namespace :admin do
     resources :survey_results, only: [:show]

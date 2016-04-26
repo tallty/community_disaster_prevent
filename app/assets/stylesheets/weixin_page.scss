@@ -8,6 +8,7 @@ body {
   background-color: #fbf9fe;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;              
 }
+// 微信端页面，背景图容器
 .weui_container {
   height: 100%;
   overflow-y: auto;
@@ -16,14 +17,53 @@ body {
 		padding: 10px;
 	}
 }
+// 半透明pannel
+.my-panel {
+	color: #fff;
+	.panel-hd {
+		padding: 8px 10px;
+		font-size: 18px;
+		margin-bottom: 1px;
+		&:before, &:after {
+			content: " ";
+	    display: table;
+		}
+	}
+	.panel-bd {
+		margin-bottom: 1px;
+		padding: 0px 10px;
+		&:before, &:after {
+			content: " ";
+	    display: table;
+		}
+	}
+	.panel-ft {
+		padding: 5px 10px;
+		&:before, &:after {
+			content: " ";
+	    display: table;
+		}
+	}
+}
+// 半透明背景
+.alpha-bg {
+	background: rgba(0,0,0,0.3);
+}
+// 透明boder-bottom
+.mborder {
+	border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+
+// overwrite weui tababr
 .weui_tab_bd {
 	padding-bottom: 54px;
 }
 .weui_tabbar {
-	background: rgba(0,0,0,0.6);
+	background: rgba(0,0,0,0.7);
 	.weui_tabbar_item {
 		padding-top: 0;
 		padding-bottom: 3px;
+		text-decoration: none;
 		.weui_tabbar_label {
 			margin-top: 0;
 			color: #fff;
