@@ -17,5 +17,6 @@
 //= require xenon/bootstrap-datetimepicker
 //= require xenon/bootstrap-datetimepicker.zh-CN
 //= require twitter/bootstrap
-//= require jquery.backstretch
+//= require weixin/jquery.backstretch
+//= require weixin/echarts.min
 //= require turbolinks

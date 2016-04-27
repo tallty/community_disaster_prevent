@@ -45,56 +45,144 @@
 			<div class="panel-bd alpha-bg weui_grids weather">
 				<div class="weui_grid">
 					<strong>今天</strong><br>
-					<i class="iconfont">&#xe630;</i>
+					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
 					<strong>多云</strong><br>
-					<br><br><br><br><br><br><br><br><br><br>	
-					<i class="iconfont">&#xe630;</i>
+					<div class="empty"></div>	
+					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
 					<strong>多云</strong><br>
 					<small>东风</small><br>
 					<small> <3级 </small>
 				</div>
 				<div class="weui_grid">
 					<strong>明天</strong><br>
-					<i class="iconfont">&#xe630;</i>
+					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
 					<strong>多云</strong><br>
-					<br><br><br><br><br><br><br><br><br><br>	
-					<i class="iconfont">&#xe630;</i>
+					<div class="empty"></div>	
+					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
 					<strong>多云</strong><br>
 					<small>东风</small><br>
 					<small> <3级 </small>
 				</div>
 				<div class="weui_grid">
 					<strong>周三</strong><br>
-					<i class="iconfont">&#xe630;</i>
+					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
 					<strong>多云</strong><br>
-					<br><br><br><br><br><br><br><br><br><br>
-					<i class="iconfont">&#xe630;</i>
+					<div class="empty"></div>
+					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
 					<strong>多云</strong><br>
 					<small>东风</small><br>
 					<small> <3级 </small>
 				</div>
 				<div class="weui_grid">
 					<strong>周四</strong><br>
-					<i class="iconfont">&#xe630;</i>
+					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
 					<strong>多云</strong><br>
-					<br><br><br><br><br><br><br><br><br><br>
-					<i class="iconfont">&#xe630;</i>
+					<div class="empty"></div>
+					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
 					<strong>多云</strong><br>
 					<small>东风</small><br>
 					<small> <3级 </small>
 				</div>
 				<div class="weui_grid">
 					<strong>周五</strong><br>
-					<i class="iconfont">&#xe630;</i>
+					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
 					<strong>多云</strong><br>
-					<br><br><br><br><br><br><br><br><br><br>
-					<i class="iconfont">&#xe630;</i>
+					<div class="empty"></div>
+					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
 					<strong>多云</strong><br>
 					<small>东风</small><br>
 					<small> <3级 </small>
 				</div>
+				<!-- 五日天气图表 -->
+				<div id="five_weather_chart"></div>
 			</div>
 		</div><!--end: 五日预报 -->
 	</div>
 </div>
+
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('five_weather_chart'));
+
+    // 指定图表的配置项和数据
+    var option = {
+	    tooltip: {
+	        trigger: 'axis'
+	    },
+	    grid: {
+	        show: false,
+	        left: 0,
+	        right: 0
+	    },
+	    xAxis:  {
+	        type: 'category',
+	        boundaryGap: true,
+	        data: ['周一','周二','周三','周四','周五'],
+	        axisLine: {
+	            show: false
+	        },
+	        axisTick: {
+	            show: false
+	        },
+	        axisLabel: {
+	            show: false
+	        },
+	        splitLine: {
+	            show: false
+	        }
+	    },
+	    yAxis: {
+	        type: 'value',
+	        axisLabel: {
+	            formatter: '{value} °C',
+	            show: false
+	        },
+	        axisLine: {
+	            show: false
+	        },
+	        axisTick: {
+	            show: false
+	        },
+	        splitLine: {
+	            show: false
+	        }
+	    },
+	    series: [
+	        {
+	            name:'最高气温',
+	            type:'line',
+	            data:[11, 11, 15, 13, 12],
+	            markPoint: {
+	                symbol: 'circle',
+	                symbolSize: 20,
+	                data: [
+	                    {name: '气温',coord: ['周一', 11], value: 11},
+	                    {name: '气温',coord: ['周二', 11]},
+	                    {name: '气温',coord: ['周三', 15]},
+	                    {name: '气温',coord: ['周四', 13]},
+	                    {name: '气温',coord: ['周五', 12]}
+	                ]
+	            }
+	        },
+	        {
+	            name:'最低气温',
+	            type:'line',
+	            data:[1, -2, 2, 5, 3],
+	            markPoint: {
+	                symbol: 'circle',
+	                symbolSize: 20,
+	                data: [
+	                    {name: '气温',coord: ['周一', 1], value: 1},
+	                    {name: '气温',coord: ['周二', -2]},
+	                    {name: '气温',coord: ['周三', 2]},
+	                    {name: '气温',coord: ['周四', 5]},
+	                    {name: '气温',coord: ['周五', 3]}
+	                ]
+	            }
+	        }
+	    ]
+	};
+  // 使用刚指定的配置项和数据显示图表。
+  myChart.setOption(option);
+</script>
 
