@@ -28,6 +28,7 @@ body * {
 	content: " ";
   display: table;
 }
+
 // 微信端页面，背景图容器
 .weui_container {
   height: 100%;
@@ -85,6 +86,7 @@ body * {
 	z-index: 999;
 	.weui_bar_item_on {
 		color: #00D9CF;
+		text-decoration: none;
 		.weui_tabbar_icon i{
 			font-size: 24px;
 			color: #00D9CF;
@@ -239,7 +241,18 @@ body * {
   }
 }
 
-.rightTabContent {
+.rightTabContent,.head {
+	a {
+		color: #fff;
+  	text-decoration: none;
+  	&:visited,&:hover,&:active {
+  		text-decoration: none;
+			color: #00D9CF;
+  		.iconfont {
+  			color: #00D9CF;
+  		}
+		}
+	}
 	.rightTab {
 		width: 60px;
 		height: 75px;
@@ -252,13 +265,6 @@ body * {
 				i {
 					font-size: 30px;
 				}
-			}
-		}
-		a {
-	  	color: #fff;
-	  	&:visited {
-	  		text-decoration: none;
-				color: #00D9CF;
 			}
 		}
 	}
