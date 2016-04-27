@@ -24,8 +24,16 @@ Rails.application.routes.draw do
   resource :monitor_stations, only: [:show]
   resources :surveys
 
-  # 五日天气预报
-  resources :five_day_weathers, only: [:index]
+  # 预报服务（全市预警、五日预报、气象指数、空气质量、健康气象）
+  resources :forecast_services do
+    collection do
+      get :city_warn
+      get :five_day_weather
+      get :life_index
+      get :air_quality
+      get :healthy_weather
+    end
+  end
   # 社区
   resources :communities, only: [:index]
   
@@ -79,5 +87,4 @@ Rails.application.routes.draw do
   end
 
   resource :upload_file, only: [:create]
-
 end
