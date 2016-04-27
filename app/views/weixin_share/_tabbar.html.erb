@@ -1,23 +1,23 @@
 <div class="weui_tabbar">
-  <a href="javascript:;" class="weui_tabbar_item weui_bar_item_on">
+  <a href="<%= interact_communities_path %>" class="weui_tabbar_item <%= "weui_bar_item_on" if params[:action] == "interact"%>">
       <div class="weui_tabbar_icon">
           <i class="iconfont">&#xe61e;</i>
       </div>
       <p class="weui_tabbar_label">灾情互动</p>
   </a>
-  <a href="javascript:;" class="weui_tabbar_item">
+  <a href="<%= detection_communities_path %>" class="weui_tabbar_item <%= "weui_bar_item_on" if params[:action] == "detection"%>">
       <div class="weui_tabbar_icon">
           <i class="iconfont">&#xe606;</i>
       </div>
       <p class="weui_tabbar_label">实况监测</p>
   </a>
-  <a href="javascript:;" class="weui_tabbar_item">
+  <a href="<%= community_risk_communities_path %>" class="weui_tabbar_item <%= "weui_bar_item_on" if params[:action] == "community_risk"%>">
       <div class="weui_tabbar_icon">
           <i class="iconfont">&#xe609;</i>
       </div>
       <p class="weui_tabbar_label">社区风险</p>
   </a>
-  <a href="javascript:;" class="weui_tabbar_item">
+  <a href="<%= centre_communities_path %>" class="weui_tabbar_item <%= "weui_bar_item_on" if params[:action] == "centre"%>">
       <div class="weui_tabbar_icon">
           <i class="iconfont">&#xe61c;</i>
       </div>

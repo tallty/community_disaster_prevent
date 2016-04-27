@@ -36,8 +36,15 @@ Rails.application.routes.draw do
     end
   end
   # 社区
-  resources :communities, only: [:index]
-  
+  resources :communities do
+    collection do
+      get :interact
+      get :detection
+      get :community_risk
+      get :centre
+    end
+  end
+
   namespace :admin do
     resources :survey_results, only: [:show]
     

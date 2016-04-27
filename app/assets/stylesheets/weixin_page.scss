@@ -84,6 +84,9 @@ body * {
 .weui_tabbar {
 	background: rgba(0,0,0,0.7);
 	z-index: 999;
+	i {
+		font-size: 24px;
+	}
 	.weui_bar_item_on {
 		color: #00D9CF;
 		text-decoration: none;
@@ -112,7 +115,6 @@ body * {
 	.weui_tabbar_icon {
 		height: auto;
 	i{
-			font-size: 24px;
 			color: #fff;
 		}
 	}
@@ -287,4 +289,20 @@ body * {
 		  right: 20px;
 		  z-index: 999;
 	}
+}
+
+#showList {
+	padding-right: 90px;
+	.show_disasters {
+		margin-top: 60px;
+		margin-left: 10px;
+		padding: 10px;
+		color: #fff;
+		border-radius: 8px;
+	}
+}
+
+//实况监测页面
+.weui_detection {
+	padding: 10px;
 }
