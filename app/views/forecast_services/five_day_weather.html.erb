@@ -5,10 +5,10 @@
 		<!-- 天气预报 -->
 		<div class="my-panel now-weather">
 			<!-- 发布信息 -->
-			<p class="right">4月22日&nbsp;&nbsp;星期一&nbsp;&nbsp;29分钟前发布</p>
+			<p class="right"><%= Time.now.strftime("%m月%d日") %>&nbsp;&nbsp;<%= week_name Time.now.strftime("%w") %>&nbsp;&nbsp;29分钟前发布</p>
 			<!-- 天气 -->
 			<div class="weather-info">
-				<div class="weather-left">17.7˚</div>
+				<div class="weather-left"><%= @weathers.first.second.first %>˚</div>
 				<div class="weather-right">
 					<div class="right">
 						<div class="warn"><i class="iconfont">&#xe632;</i>橙色预警</div>
@@ -18,11 +18,11 @@
 			</div>
 			<!-- 气温 -->
 			<div class="other-info">
-				<span>晴</span>
+				<span><%= @weathers.first.second.last %></span>
 				<i class="iconfont">&#xe61a;</i>
-				<span>22˚</span>
+				<span><%= @weathers.first.second.first %>˚</span>
 				<i class="iconfont">&#xe61f;</i>
-				<span>8˚</span>	
+				<span><%= @weathers.first.second.second %>˚</span>	
 			</div>
 		</div>
 		<!--begin: 当前天气详情 -->
@@ -65,56 +65,26 @@
 		<div class="my-panel">
 			<div class="panel-hd alpha-bg">五日预报</div>
 			<div class="panel-bd alpha-bg weui_grids five-weather">
-				<div class="weui_grid">
-					<strong>今天</strong><br>
-					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
-					<strong>多云</strong><br>
-					<div class="empty"></div>	
-					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
-					<strong>多云</strong><br>
-					<small>东风</small><br>
-					<small> <3级 </small>
-				</div>
-				<div class="weui_grid">
-					<strong>明天</strong><br>
-					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
-					<strong>多云</strong><br>
-					<div class="empty"></div>	
-					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
-					<strong>多云</strong><br>
-					<small>东风</small><br>
-					<small> <3级 </small>
-				</div>
-				<div class="weui_grid">
-					<strong>周三</strong><br>
-					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
-					<strong>多云</strong><br>
-					<div class="empty"></div>
-					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
-					<strong>多云</strong><br>
-					<small>东风</small><br>
-					<small> <3级 </small>
-				</div>
-				<div class="weui_grid">
-					<strong>周四</strong><br>
-					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
-					<strong>多云</strong><br>
-					<div class="empty"></div>
-					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
-					<strong>多云</strong><br>
-					<small>东风</small><br>
-					<small> <3级 </small>
-				</div>
-				<div class="weui_grid before-none">
-					<strong>周五</strong><br>
-					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
-					<strong>多云</strong><br>
-					<div class="empty"></div>
-					<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
-					<strong>多云</strong><br>
-					<small>东风</small><br>
-					<small> <3级 </small>
-				</div>
+				<% @weathers.each_with_index do |(key, value), index| %>
+					<div class="weui_grid <%= "before-none" if index == 4 %>">
+						<strong>
+							<% if index == 0 %>
+								今天
+							<% elsif index == 1 %>
+								明天
+							<% else %>
+								<%= week_name key %>
+							<% end %>
+						</strong><br>
+						<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
+						<strong><%= value.last %></strong><br>
+						<div class="empty"></div>
+						<%= image_tag "weather_icon/weather_cloudy.png" %> <br>
+						<strong><%= value.last %></strong><br>
+						<small>东风</small><br>
+						<small> <3级 </small>
+					</div>
+				<% end %>
 				<!-- 五日天气图表 -->
 				<div id="five_weather_chart"></div>
 			</div>
@@ -129,95 +99,107 @@
 	})
 </script>
 <script type="text/javascript">
-  // 基于准备好的dom，初始化echarts实例
-  var myChart = echarts.init(document.getElementById('five_weather_chart'));
-  // 指定图表的配置项和数据
-  var option = {
-    tooltip: { 
-    	trigger: 'axis' 
-    },
-    grid: {
-      show: false,
-      left: 0,
-      right: 0
-    },
-    xAxis:  {
-      type: 'category',
-      boundaryGap: true,
-      data: ['周一','周二','周三','周四','周五'],
-      axisLine: { show: false },
-      axisTick: { show: false },
-      axisLabel: { show: false },
-      splitLine: { show: false }
-    },
-    yAxis: {
-      type: 'value',
-      axisLabel: {
-          formatter: '{value} °C',
-          show: false
-      },
-      axisLine: { show: false },
-      axisTick: { show: false },
-      splitLine: { show: false }
-    },
-    series: [
-      {
-        name:'最高气温',
-        type:'line',
-        data:[11, 11, 15, 13, 12],
-        markPoint: {
-            symbol: 'pin',
-            symbolSize: 30,
-            showSymbol: false,
-            data: [
-                { name: '气温',coord: ['周一', 11], value: 11 },
-                { name: '气温',coord: ['周二', 11] },
-                { name: '气温',coord: ['周三', 15] },
-                { name: '气温',coord: ['周四', 13] },
-                { name: '气温',coord: ['周五', 12] }
-            ]
-        },
-       	lineStyle: {
-            normal: {
-                color: '#ffffff'
-            }
-        },
-        itemStyle: {
-			    normal: {
-			    		color: '#c23531'
-			    }
-				}
-      },
-      {
-        name:'最低气温',
-        type:'line',
-        data:[1, -2, 2, 5, 3],
-        markPoint: {
-            symbol: 'pin',
-            symbolSize: 30,
-            data: [
-              { name: '气温',coord: ['周一', 1], value: 1 },
-              { name: '气温',coord: ['周二', -2] },
-              { name: '气温',coord: ['周三', 2] },
-              { name: '气温',coord: ['周四', 5] },
-              { name: '气温',coord: ['周五', 3 ]}
-            ]
-        },
-        lineStyle: {
-            normal: {
-                color: '#ffffff'
-            }
-        },
-        itemStyle: {
-			    normal: {
-			    		color: '#5FA0A9'
-			    }
-				}
-      }
-    ]
-	};
-  // 使用刚指定的配置项和数据显示图表。
-  myChart.setOption(option);
+	$(function() {
+		<% @week_day = [] %>
+		<% @low = [] %>
+		<% @high = [] %>
+		<% @weathers.each do |key, value| %>
+			<% @low.push value.first.to_i %>
+			<% @high.push value.second.to_i %>
+			<% @week_day.push (week_name key) %>
+		<% end %>
+		// 基于准备好的dom，初始化echarts实例
+	  var myChart = echarts.init(document.getElementById('five_weather_chart'));
+	  // 指定图表的配置项和数据
+	  var option = {
+	    tooltip: { 
+	    	trigger: 'axis' 
+	    },
+	    grid: {
+	      show: false,
+	      left: 0,
+	      right: 0
+	    },
+	    xAxis:  {
+	      type: 'category',
+	      boundaryGap: true,
+	      data: <%= raw @week_day %>,
+	      axisLine: { show: false },
+	      axisTick: { show: false },
+	      axisLabel: { show: false },
+	      splitLine: { show: false }
+	    },
+	    yAxis: {
+	      type: 'value',
+	      axisLabel: {
+	          formatter: '{value} °C',
+	          show: false
+	      },
+	      axisLine: { show: false },
+	      axisTick: { show: false },
+	      splitLine: { show: false }
+	    },
+	    series: [
+	      {
+	        name:'最高气温',
+	        type:'line',
+	        data:<%= @high %>,
+	        markPoint: {
+	            symbol: 'pin',
+	            symbolSize: 30,
+	            showSymbol: false,
+	            data: [
+	                <% @weathers.each do |key, value| %>
+										{ name: '气温',coord: ['<%= week_name key %>', <%= value.second.to_i %>], value: <%= value.second.to_i %> },
+	                <% end %>
+	            ],
+	            itemStyle: {
+						    normal: {
+						    		color: 'rgba(255, 255, 255, 0)'
+						    }
+							}
+	        },
+	       	lineStyle: {
+	            normal: {
+	                color: '#ffffff'
+	            }
+	        },
+	        itemStyle: {
+				    normal: {
+				    		color: '#c23531'
+				    }
+					}
+	      },
+	      {
+	        name:'最低气温',
+	        type:'line',
+	        data:<%= @low %>,
+	        markPoint: {
+	            symbol: 'pin',
+	            symbolSize: 30,
+	            symbolRotate: 180,
+	            data: [
+                <% @weathers.each do |key, value| %>
+									{ name: '气温',coord: ['<%= week_name key %>', <%= value.first.to_i %>], value: <%= value.first.to_i %> },
+                <% end %>
+	            ],
+			        itemStyle: {
+						    normal: {
+						    		color: 'rgba(255, 255, 255, 0)'
+						    }
+							}
+	        },
+	        lineStyle: {
+	            normal: {
+	                color: '#ffffff'
+	            }
+	        }
+	      }
+	    ]
+		};
+	  // 使用刚指定的配置项和数据显示图表。
+	  myChart.setOption(option);
+	});
 </script>
 <% end %>
 

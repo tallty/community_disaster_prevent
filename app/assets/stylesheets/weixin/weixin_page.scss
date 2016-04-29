@@ -13,7 +13,7 @@ body {
   background-color: #fbf9fe;
 }
 body * {
-	// font-family: 'weixin-font';
+	font-family: 'weixin-font';
 }
 // 气温数字字体
 @font-face {
@@ -29,6 +29,12 @@ body * {
 }
 .center {
 	text-align: center;
+}
+.float-right {
+	float: right;
+}
+.float-left {
+	float: left;
 }
 .clearfix:before, .clearfix:after {
 	content: " ";
@@ -48,29 +54,28 @@ body * {
 .my-panel {
 	color: #fff;
 	margin-bottom: 10px;
+	.weui_grids:after { 
+		border: none;
+	}
 	.panel-hd {
-		padding: 8px 10px;
+		padding: 10px 10px;
 		font-size: 16px;
+		line-height: 22px;
 		margin-bottom: 1px;
-		&:before, &:after {
-			content: " ";
-	    display: table;
+		overflow: auto;
+		span {
+			float: right;
+			font-size: 10px;
 		}
 	}
 	.panel-bd {
 		margin-bottom: 1px;
 		padding: 10px 0;
-		&:before, &:after {
-			content: " ";
-	    display: table;
-		}
+		overflow: auto;
 	}
 	.panel-ft {
 		padding: 5px 10px;
-		&:before, &:after {
-			content: " ";
-	    display: table;
-		}
+		overflow: auto;
 	}
 }
 // 半透明背景
