@@ -13,11 +13,11 @@
  *= require xenon/gd.Default
  *= require xenon/bootstrap-datetimepicker
  *= require ./weixin/weui
- *= require ./weixin/weixin_page
+ *= require ./weixin/weixin_global
  *= require ./weixin/forecast_services
  */
 
-@import "bootstrap";  
+@import "bootstrap";
 
 body {
   font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif

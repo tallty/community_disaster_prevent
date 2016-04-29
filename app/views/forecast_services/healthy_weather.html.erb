@@ -2,23 +2,38 @@
 <!-- 生活指数 -->
 <div class="weui_container">
 	<div class="weui_content">
-		<div class="my-panel life-index">
+		<div class="my-panel">
 			<div class="panel-hd alpha-bg">
-				生活指数<span class="float-right"><%= Time.now.strftime("%m月%d日") %>&nbsp;&nbsp;<%= week_name Time.now.strftime("%w") %>&nbsp;&nbsp;29分钟前发布</span>
+				健康气象<span class="float-right"><%= Time.now.strftime("%m月%d日") %>&nbsp;&nbsp;<%= week_name Time.now.strftime("%w") %>&nbsp;&nbsp;29分钟前发布</span>
 			</div>
-			<div class="panel-bd alpha-bg">
-				<% @index.each_with_index do |(key, value), index| %>
-					<div class="weui_grid <%= "before-none" if index.odd? %> <%= "after-none" if index == @index.count - 1 || index == @index.count - 2 %>">
-						<div class="index-left center">
-							<i class="iconfont <%= life_index_icon key %>"></i>
-						</div>
-						<div class="index-right center">
-							<%= value.first %><br>
-							<small><%= key %></small><br>
-							<%= value.last %>
-						</div>
-					</div>
-				<% end %>
+			<div class="panel-bd" style="padding: 0px;">
+				<!-- 折叠模块 -->
+				<div class="healthy-weather" id="accordion" role="tablist" aria-multiselectable="true">
+					<!-- 气象风险 -->
+					<% @results.each_with_index do |(key, value), index| %>
+					  <div class="panel">
+					    <div class="panel-heading alpha-bg" role="tab" id="heading<%= index %>">
+						    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index %>" aria-expanded="true" aria-controls="collapse<%= index %>" class="clearfix">
+						        <span class="pull-left"><i class="iconfont icon-muying"></i></span>
+						        <span class="pull-left">&nbsp;&nbsp;&nbsp;<%= key %></span>
+										<span class="iconfont icon-right pull-right" style="font-size: 22px;"></span>
+				        </a>
+					    </div>
+					    <div id="collapse<%= index %>" class="panel-collapse collapse alpha-bg" role="tabpanel" aria-labelledby="heading<%= index %>">
+					      <div class="panel-body">
+					      	<% value.each_with_index do |(k, v), i| %>
+						        <p><%= k %></p>
+										<p><small>风险等级：<%= v.first %></small></p>
+										<p><small>防护建议：<%= v.second %></small></p>
+										<% if i != (value.size - 1) %>
+											<hr class="dot-hr">
+										<% end %>
+									<% end %>
+					      </div>
+					    </div>
+					  </div>
+					<% end %>
+				</div><!-- 折叠模块 -->
 			</div>
 		</div>
 	</div>
