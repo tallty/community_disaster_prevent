@@ -1,6 +1,6 @@
 <div class="weui_tab_bd">
-  <div class="weui_content">
-    
+  <div class="weui_content_communities">
+
     <div class="head weui_tabbar">
       <div class="headTab headTabLeft col-xs-6"><a href="javascript:;" id="head_Map" class="weui_bar_item_on">地图</a></div>
       <div class="headTab headTabRight col-xs-6"><a href="javascript:;" id= "head_List">列表</a></div>
@@ -11,36 +11,36 @@
       <% if @disasters.present? != true %>
         <div class="col-xs-12 show_disasters alpha-bg"><h4>当前没有灾情列表！</h4></div>
       <% else %>
-        <%= @disasters.each do |disaster| %>
-        <div class="col-xs-12 show_disasters alpha-bg">
-          <div class="row">时间: <%= disaster.occur_time.strftime("%Y-%m-%d %H:%M") %></div>
-          <div class="row">类型: <%= disaster.disaster_type %></div>
-          <div class="row">说明: <%= disaster.explain %></div>
-          <div class="row">地点: <%= disaster.disaster_position.try(:address) %></div>
+        <% @disasters.each do |disaster| %>
           <div class="col-xs-12 show_disasters alpha-bg">
-            <div class="col-xs-4">
+            <div class="row">时间: <%= disaster.occur_time.strftime("%Y-%m-%d %H:%M") %></div>
+            <div class="row">类型: <%= disaster.disaster_type %></div>
+            <div class="row">说明: <%= disaster.explain %></div>
+            <div class="row">地点: <%= disaster.disaster_position.try(:address) %></div>
+          </div>
+          <div class="col-xs-12 show_disasters text-center show_disasters_push alpha-bg">
+            <div class="col-xs-6">
               <%= link_to "详细信息", disaster_path(disaster) %>
             </div>
-            <% if disaster.subscriber.id == @subscriber.id %>
-              <div class="col-xs-5">
-                <%= link_to "上传灾情图片", new_disaster_picture_path(disaster_id: disaster.id) %>
-              </div>
-            <% end %>
+            <%#= if disaster.subscriber.id == @subscriber.id %>
+            <div class="col-xs-6">
+              <%= link_to "上传图片", new_disaster_picture_path(disaster_id: disaster.id) %>
+            </div>
+            <%#= end %>
           </div>
-        </div>
         <% end %>
       <% end %>
     </div>
 
     <div class="rightTabContent">
       <div class="rightTab rightTabUp alpha-bg">
-        <a href="javascript:;" class="weui_tabbar_item">
+        <a href="javascript:;" id="disaster_loading" class="weui_tabbar_item">
             <div class="weui_tabbar_icon">
                 <i class="iconfont">&#xe600;</i>
             </div>
             <p class="rightTabUp_label text-center">灾情上报</p>
         </a>
-        <hr class="tab_hr">
+        <!-- <hr class="tab_hr"> -->
       </div>
       <div class="rightTab rightTabDown alpha-bg">
         <a href="javascript:;" id="relaodMap" class="weui_tabbar_item">
@@ -66,6 +66,11 @@
   $("#relaodMap").on("click",function(){
     window.location.reload();
   });
+
+  $("#disaster_loading").on("click",function(){
+    window.location = "/disasters/new";
+  });
+
   $("#head_Map").on("click", function(){
     $("#head_Map").removeClass("weui_bar_item_on");
     $(this).addClass("weui_bar_item_on");
@@ -79,13 +84,13 @@
     $("#showList").show();
   });
 
-  var map = new AMap.Map('map_container',{
-    resizeEnable: true,
-    zoom: 10,
-    center: [121.504,31.195]
-  });
   
   
+    var map = new AMap.Map('map_container',{
+      resizeEnable: true,
+      zoom: 10,
+      center: [121.504,31.195]
+    });
 
     function init_data() {
       for(var i = 0; i < disasters.length; i++) {

@@ -1,30 +1,35 @@
-<div class="container">
-  <div class="row">
-    <%= @disaster.subscriber.nick_name %>, 感谢您上报灾情. 
-    <% if @disaster.disaster_pictures.nil? %>
-      请上传灾情照片完善<灾情上报>流程.
-    <% elsif @disaster.disaster_position.nil? %>
-      您已经上传了灾情照片,请上传地址来完善<灾情上报>流程.
-    <% end %>
-  </div>
-  <div class="row"><%= link_to "返回", "" %></div>
-  <div class="row"><h3>上传灾情图片</h3></div>
-  <div class="row disaster-picture-list">
-    <% @disaster.disaster_pictures.each do |picture| %>
-      <% if picture.image.present? %>
-        <%= image_tag picture.image.url %>
+<div class="weui_container">
+  <div class="disaster_content">
+    <div class="row">
+      <%#= @disaster.subscriber.nick_name %>, 感谢您上报灾情. 
+      <% if @disaster.disaster_pictures.nil? %>
+        请上传灾情照片完善<灾情上报>流程.
+      <% elsif @disaster.disaster_position.nil? %>
+        请上传灾情图片来完善<灾情上报>流程.
       <% end %>
+    </div>
+    
+    <div class="row"><h3>上传图片</h3></div>
+    <div class="row disaster-picture-list">
+      <% @disaster.disaster_pictures.each do |picture| %>
+        <% if picture.image.present? %>
+          <%= image_tag picture.image.url %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="row">
+    <%= form_for(@disaster_pictures, url: disaster_pictures_path, :html => { :multipart => true } ) do |f| %>
+      <%= f.hidden_field :disaster_id, :value => @disaster.id %>
+      <div class="row submit_input">
+        <%= f.file_field :image %>
+      </div>
+      <div class="weui_content_communities">
+        <div class="head weui_tabbar">
+          <div class="headTab headTabLeft col-xs-6"><a href="javascript:;" id="head_Map" class="weui_bar_item_on">返回</a></div>
+          <div class="headTab headTabRight col-xs-6"><a href="javascript:;" id= "head_List"><%= f.submit "上传", :style => "width:100%" %></a></div>
+        </div>
+      </div>
     <% end %>
-  </div>
-  <div class="row">
-  <%= form_for(@disaster_pictures, url: disaster_pictures_path, :html => { :multipart => true } ) do |f| %>
-    <%= f.hidden_field :disaster_id, :value => @disaster.id %>
-    <div class="row">
-      <%= f.file_field :image %>
     </div>
-    <div class="row">
-      <%= f.submit "上传", :class => "btn btn-success bg-lg", :style => "width:100%" %>
-    </div>
-  <% end %>
   </div>
 </div>

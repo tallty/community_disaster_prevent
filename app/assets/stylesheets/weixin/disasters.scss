@@ -1,0 +1,30 @@
+.disaster_content {
+  color: #fff;
+  padding: 20px;
+  padding-top: 60px;
+
+  .disaster-picture-list {
+    img {
+      border: 2px solid #fff;
+      border-radius: 8px;
+    }
+  }
+  .submit_input {
+    input {
+      border: none;
+      border-radius: 5px;
+      background-color: #fff;
+    }
+  }
+}
+
+.disaster_show_content {
+  padding-top: 50px;
+  color: #fff;
+  .disaster-picture-list {
+    img {
+      border: 2px solid #fff;
+      border-radius: 8px;
+    }
+  }
+}

@@ -1,0 +1,173 @@
+.weui_content_communities {
+  a {
+    color: #fff;
+    text-decoration: none;
+    &:visited,&:hover,&:active {
+      text-decoration: none;
+      color: #00D9CF;
+      .iconfont {
+        color: #00D9CF;
+      }
+    }
+  }
+  overflow-y: auto;
+  padding: 10px;
+  height: 100%;
+  #map_container {
+    margin: -10px;
+    margin-bottom: -65px;
+  }
+  .head{
+    z-index: 999;
+    color: #fff;
+    text-align: center;
+    line-height: 37px;
+    width: 100%;
+    height: 47px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    .headTab {
+      margin: 5px auto;
+    }
+    .headTabLeft {
+      border-right: 2px solid rgba(255,255,255,0.3);
+    }
+  }
+
+  .rightTabContent,.head {
+    a {
+      color: #fff;
+      text-decoration: none;
+      &:visited,&:hover,&:active {
+        text-decoration: none;
+        color: #00D9CF;
+        .iconfont {
+          color: #00D9CF;
+        }
+      }
+    }
+    .rightTab {
+      width: 60px;
+      height: 75px;
+      font-size: 12px;
+      // padding-top: 8px;
+      color: #fff;
+      .weui_tabbar_item {
+        .weui_tabbar_icon {
+          margin-right: 21px;
+          height: 44px;
+          i {
+            font-size: 30px;
+          }
+        }
+      }
+    }
+    .rightTabUp {
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      .tab_hr {
+        margin: 0 5px;
+      }
+      position: absolute;
+        top: 70px;
+        right: 20px;
+        z-index: 999;
+    }
+    .rightTabDown {
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      position: absolute;
+        top: 145px;
+        right: 20px;
+        z-index: 999;
+    }
+  }
+
+  #showList {
+    padding-right: 90px;
+    padding-top: 31px;
+    .show_disasters {
+      margin-top: 30px;
+      margin-left: 10px;
+      padding: 10px;
+      color: #fff;
+      border-radius: 8px;
+    }
+    .show_disasters_push {
+      padding-top: 15px;
+      margin-top: 5px;
+    }
+  }
+}
+
+//实况监测页面
+.weui_detection {
+  padding: 10px;
+  .detection_content_1 {
+    padding-top: 20px;
+    i ,span {
+      font-size: 15px;
+    }
+  }
+  .detection_content {
+    color: #fff;
+    font-size: 12px;
+    .detection_content_hr {
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      margin: 10px 0 15px 0;
+    }
+    .detection-weather-info {
+      font-size: 16px;
+      margin-bottom: 15px;
+      display: inline-block;
+      height: 36px;
+      line-height: 36px;
+      padding: 0px 15px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 17px;
+      .detection-weather-text {
+        display: inline;
+      }
+      .detection-weather-icon {
+        display: inline;
+          i {
+          display: inline;
+          font-size: 20px;
+          margin-right: 5px;
+        }
+      }
+    }
+    .detection_content_grids {
+      padding-left: 4px;
+      .detection_content_grid {
+        text-align: center;
+        display: inline-block;
+        i {
+          font-size: 30px;
+        }
+      }
+      .detection_content_grid_1 {
+        border-left: 1px solid rgba(255, 255, 255, 0.25);
+        border-right: 1px solid rgba(255, 255, 255, 0.25);
+      }
+    }
+    .detection_content_ponding {
+      padding: 0 10px;
+    }
+    .detection_content_lightning {
+      margin: 0 20px;
+      text-align: center;
+      line-height: 150px;
+      background-color: rgba(255, 255, 255, 0.25);
+      height: 150px;
+    }
+    .detection_content_lightning_text {
+      padding:  20px 20px 0 20px;
+      line-height: 1.8em;
+    }
+  }
+  .detection_content_3 {
+    margin-bottom: 52px;
+  }
+}
