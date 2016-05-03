@@ -6,6 +6,12 @@
 .after-none:after {
 	border: none;
 }
+
+// 半透明水平分割线
+.divider {
+  border-top: 1px solid rgba(255,255,255,0.4);
+  margin: 0;
+}
 // ============五日天气预报===========
 .now-weather {
 	margin-bottom: 60px;
@@ -172,6 +178,7 @@
 	    	text-decoration: none;
 	    	padding: 0 12px;
 	    	font-size: 16px;
+	    	overflow: auto;
 	    	&:hover {
 	    		color: #fff;
 	    		text-decoration: none;
@@ -202,5 +209,179 @@
 		    border-top: 1px dotted rgba(255,255,255,0.3);
 			}
 		}
+	}
+}
+
+// ============空气质量===========
+.air-quality {
+	.my-panel {
+		margin-bottom: 0;
+		.panel-bd {
+			padding-bottom: 5px;
+		}
+	}
+	// 空气质量描述
+	.now-time {
+    font-size: 18px;
+    margin-top: 25px;
+	}
+	.now-air {
+		margin-top: 15px;
+		height: 30px;
+		span {
+			font-size: 18px;
+		}
+	}
+	.tips {
+		height: 26px;
+		padding: 3px 0;
+		font-size: 16px;
+		display: inline-block;
+		background: rgba(0,0,0,0.3);
+		text-align: center;
+		border-radius: 12px;
+		.tips-l {
+			height: 20px;
+			display: inline-block;
+			padding: 2px 8px 0 12px;
+			border-right: 1px solid rgba(255,255,255,0.5);
+		}
+		.tips-r {
+			height: 20px;
+			display: inline-block;
+			padding: 2px 12px 0 8px;
+		}
+	}
+	.pollutant {
+		margin-top: 10px;
+		margin-bottom: 16px;
+	}
+	.range, .range-info {
+		width: 100%;
+		display: inline-block;
+		margin-bottom: 0;
+		list-style: none;
+		li {
+			display:inline-block;
+			float: left;
+			width: 16.666%;
+		}
+	}
+	.range-info li{
+		text-align: right;
+		div{
+			height: 18px;
+		}
+	}
+	.air-intro {
+		text-align: justify;
+		padding: 15px 10px 10px;
+	}
+	// 明天空气质量
+	.tomorrow-air {
+		width: 100%;
+		display: inline-block;
+		color: #fff;		
+		padding: 8px 0;
+		.part {
+			width: 50%;
+			float: left;
+			padding: 4px 0px 4px 15px;
+			.now-time {
+				font-size: 16px;
+				margin-top: 10px;
+			}
+			.now-air {
+				margin-top: 10px;
+			}
+			.tips {
+				margin-top: 6px;
+			}
+			.pollutant {
+				margin-top: 18px;
+				margin-bottom: 0;
+			}
+		}
+	}
+	// 过去24小时空气质量指数变化图
+	.last24 {
+		color: #fff;
+		.title {
+			padding: 18px 10px;
+			font-size: 16px;
+		}
+		.content {
+			padding: 0 5px;
+			height: 325px;
+			ul {
+				border: none;
+				li {
+					width: 20%;
+					a {
+						text-align: center;
+						font-size: 12px;
+						color: #fff;
+				    background-color: transparent;
+				    border: none;
+				    border-bottom-color: transparent;
+				    cursor: default;
+				    margin-right: 0;
+				    padding: 6px 0 4px;
+						border-radius: 0;
+					}
+				}
+				.active a {
+					background: rgba(0,0,0,0.27);
+				}
+			}
+			.tab-content {
+				padding-top: 10px;
+				.tab-pane div {
+					height: 240px;
+				}
+			}
+		}
+	}
+
+	.color1 {
+		color: #7ED321;
+	}
+	.color2 {
+		color: #F8E71C;
+	}
+	.color3 {
+		color: #F5A623;
+	}
+	.color4 {
+		color: #F9233E;
+	}
+	.color5 {
+		color: #B6015C;
+	}
+	.color6 {
+		color: #920012;
+	}
+
+	.bg1 {
+		background-color: #7ED321;
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+	}
+	.bg2 {
+		background-color: #F8E71C;
+	}
+	.bg3 {
+		background-color: #F5A623;
+	}
+	.bg4 {
+		background-color: #F9233E;
+	}
+	.bg5 {
+		background-color: #B6015C;
+	}
+	.bg6 {
+		background-color: #920012;
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
 	}
 }

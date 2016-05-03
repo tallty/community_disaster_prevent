@@ -1,0 +1,230 @@
+<% content_for :title, "空气质量" %>
+<!-- 生活指数 -->
+<div class="weui_container">
+	<div class="weui_content air-quality">
+		<!-- 空气质量描述 -->
+		<div class="my-panel">
+			<div class="panel-hd">
+				空气质量<span class="float-right"><%= Time.now.strftime("%m月%d日") %>&nbsp;&nbsp;<%= week_name Time.now.strftime("%w") %>&nbsp;&nbsp;29分钟前发布</span>
+			</div>
+			<div class="panel-bd center">
+				<!-- 数据时间段 -->
+				<div class="now-time">今天夜间 20时 - 06时</div>
+				<!-- 现在的空气质量 -->
+				<div class="now-air">
+					<span class="color2">80-100</span> AQI &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<div class="tips"><div class="tips-l color2">良</div><div class="tips-r color2">良</div></div>
+				</div>
+				<!-- 主要污染物 -->
+				<div class="pollutant">主要污染物： PM2.5</div>
+				<!-- 范围 -->
+				<ul class="range">
+					<li class="bg1" style="height: 10px;"></li>
+					<li class="bg2" style="height: 10px;"></li>
+					<li class="bg3" style="height: 10px;"></li>
+					<li class="bg4" style="height: 10px;"></li>
+					<li class="bg5" style="height: 10px;"></li>
+					<li class="bg6" style="height: 10px;"></li>
+				</ul>
+				<!-- 刻度 -->
+				<ul class="range-info">
+					<li><div><span class="pull-left">0</span>50</div><div>优</div></li>
+					<li><div>100</div><div>良</div></li>
+					<li><div>150</div><div>轻度</div></li>
+					<li><div>200</div><div>中度</div></li>
+					<li><div>300</div><div>重度</div></li>
+					<li><div>500</div><div>严重</div></li>
+				</ul>
+				<!-- 说明 -->
+				<div class="air-intro">健康影响：空气质量可接受，但某些污染物可能对极少数异常敏感人群健康有较弱影响。极少数异常敏感人群应减少户外活动。</div>
+				<!-- 分割线 -->
+				<hr class="divider">
+			</div>
+		</div><!-- 空气质量描述 -->
+
+		<!-- 明天空气质量 -->
+		<div class="tomorrow-air alpha-bg">
+			<div class="part" style="border-right: 1px solid rgba(255,255,255,0.2);">
+				<!-- 数据时间段 -->
+				<div class="now-time">今天夜间 20时 - 06时</div>
+				<!-- 现在的空气质量 -->
+				<div class="now-air">
+					<span class="color2">80-100</span> AQI
+				</div>
+				<div class="tips">
+					<div class="tips-l color2">良</div>
+					<div class="tips-r color2">良</div>
+				</div>
+				<!-- 主要污染物 -->
+				<div class="pollutant">主要污染物： PM2.5</div>
+			</div>
+			<div class="part">
+				<!-- 数据时间段 -->
+				<div class="now-time">今天夜间 20时 - 06时</div>
+				<!-- 现在的空气质量 -->
+				<div class="now-air">
+					<span class="color2">80-100</span> AQI
+				</div>
+				<div class="tips">
+					<div class="tips-l color2">良</div>
+					<div class="tips-r color2">良</div>
+				</div>
+				<!-- 主要污染物 -->
+				<div class="pollutant">主要污染物： PM2.5</div>
+			</div>
+		</div><!-- 明天空气质量 -->
+
+		<!-- 过去24小时空气质量指数变化图 -->
+		<div class="last24 alpha-bg">
+			<div class="title">过去24小时空气质量指数变化图</div>
+			<div class="content">
+
+			  <!-- Nav tabs -->
+			  <ul class="nav nav-tabs" role="tablist">
+			    <li role="presentation" class="active">
+			    	<a href="#aqi" aria-controls="aqi" role="tab" data-toggle="tab">
+			    		<div>AQI</div>
+			    		<div>空气质量</div>
+			    		<div>90</div>
+				    </a>
+			    </li>
+			    <li role="presentation">
+			    	<a href="#pm25" aria-controls="pm25" role="tab" data-toggle="tab">
+			    		<div>PM2.5</div>
+			    		<div>细颗粒物</div>
+			    		<div>90</div>
+			    	</a>
+			    </li>
+			    <li role="presentation">
+			    	<a href="#O3" aria-controls="O3" role="tab" data-toggle="tab">
+			    		<div>O3</div>
+			    		<div>臭氧</div>
+			    		<div>69</div>
+			    	</a>
+			    </li>
+			    <li role="presentation">
+			    	<a href="#pm10" aria-controls="pm10" role="tab" data-toggle="tab">
+			    		<div>PM10</div>
+			    		<div>可吸入颗粒物</div>
+			    		<div>71</div>
+			    	</a>
+			    </li>
+			    <li role="presentation">
+			    	<a href="#NO3" aria-controls="NO3" role="tab" data-toggle="tab">
+			    		<div>NO3</div>
+			    		<div>二氧化氮</div>
+			    		<div>17</div>
+			    	</a>
+			    </li>
+			  </ul>
+			  <!-- Tab panes -->
+			  <div class="tab-content">
+			    <div role="tabpanel" class="tab-pane active" id="aqi">
+			    	<div id="aqi_chart"></div>
+			    </div>
+			    <div role="tabpanel" class="tab-pane" id="pm25">
+			    	
+			    </div>
+			    <div role="tabpanel" class="tab-pane" id="O3">
+			    	
+			    </div>
+			    <div role="tabpanel" class="tab-pane" id="pm10">
+			    	
+			    </div>
+			    <div role="tabpanel" class="tab-pane" id="NO3">
+			    	
+			    </div>
+			  </div>
+
+			</div>
+		</div><!-- 过去24小时 -->
+	</div>
+</div>
+
+
+<% content_for :scripts do %>
+	<script>
+		$(function() {
+			$(".weather-right").width(document.body.clientWidth - 180);
+		})
+	</script>
+	<script type="text/javascript">
+		$(function() {
+			// 基于准备好的dom，初始化echarts实例
+		  var myChart = echarts.init(document.getElementById('aqi_chart'));
+		  // 指定图表的配置项和数据
+		  var option = {
+		    tooltip: { 
+		    	trigger: 'axis' 
+		    },
+		    grid: {
+		      show: false,
+		      left: 32,
+		      right: 12,
+		      top: 12,
+		      bottom: 24
+		    },
+		    xAxis:  {
+		      type: 'category',
+		      axisLabel: {
+		        formatter: '{value}时',
+	          textStyle: {
+					    color: '#fff'
+					  }
+		      },
+		      boundaryGap: true,
+		      data: ['0','1','2','3','4','5','6','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23'],
+		      axisLine: { show: false },
+		      axisTick: { show: false },
+		      splitLine: { show: false }
+		    },
+		    yAxis: {
+		      type: 'value',
+		      axisLabel: {
+		        formatter: '{value}',
+	          textStyle: {
+					    color: '#fff'
+					  }
+		      },
+		      axisLine: { show: false },
+		      axisTick: { show: false }
+		    },
+		    series: [
+		      {
+		        name:'最高气温',
+		        type:'line',
+		        data:[11, 11, 15, 13, 12, 13, 20,11, 11, 15, 13, 12, 13, 20,11, 11, 15, 13, 12, 13, 20, 23, 12, 32],
+		        markPoint: {
+		            symbol: 'pin',
+		            symbolSize: 30,
+		            showSymbol: false,
+		            data: [
+		                {type: 'max', name: '最大值'},
+                    {type: 'min', name: '最小值'}
+		            ],
+		            itemStyle: {
+							    normal: {
+							    		color: 'rgba(255, 255, 255, 0)'
+							    }
+								}
+		        },
+		       	lineStyle: {
+		            normal: {
+		                color: '#ffffff'
+		            }
+		        },
+		        itemStyle: {
+					    normal: {
+					    		color: '#fff',
+					    		borderColor: '#fff',
+					    		borderWidth: 5
+					    }
+						}
+		      }
+		    ]
+			};
+		  // 使用刚指定的配置项和数据显示图表。
+		  myChart.setOption(option);
+		});
+	</script>
+<% end %>

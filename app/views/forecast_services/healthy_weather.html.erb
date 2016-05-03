@@ -13,7 +13,7 @@
 					<% @results.each_with_index do |(key, value), index| %>
 					  <div class="panel">
 					    <div class="panel-heading alpha-bg" role="tab" id="heading<%= index %>">
-						    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index %>" aria-expanded="true" aria-controls="collapse<%= index %>" class="clearfix">
+						    <a id="link_collapse<%= index %>" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index %>" aria-expanded="true" aria-controls="collapse<%= index %>">
 						        <span class="pull-left"><i class="iconfont icon-muying"></i></span>
 						        <span class="pull-left">&nbsp;&nbsp;&nbsp;<%= key %></span>
 										<span class="iconfont icon-right pull-right" style="font-size: 22px;"></span>
@@ -38,3 +38,21 @@
 		</div>
 	</div>
 </div>
+
+<% content_for :scripts do %>
+	<script>
+		$(function() {
+			$('.panel-collapse').on('show.bs.collapse', function () {
+				var a = $(this).attr("id");
+			 	$("#link_"+a+"").children(".iconfont").removeClass("icon-right");
+			  $("#link_"+a+"").children(".iconfont").addClass("icon-bottom");
+			})
+
+			$('.panel-collapse').on('hide.bs.collapse', function () {
+				var b = $(this).attr("id");
+			  $("#link_"+b+"").children(".iconfont").removeClass("icon-bottom");
+			  $("#link_"+b+"").children(".iconfont").addClass("icon-right");
+			});
+		})
+	</script>
+<% end %>
