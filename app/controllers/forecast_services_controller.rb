@@ -12,7 +12,7 @@ class ForecastServicesController < ApplicationController
     # {周几 => [低温，高温，天气], ...}
 		# @weathers = FiveDayWeather.get_web_message
 		@weathers = {
-			"4" => ["8.2", "17", "阴转多云"],
+			"4" => ["8.2", "17.7", "阴转多云"],
 			"5" => ["9", "21", "阴转多云"],
 			"6" => ["11", "22", "阴转多云"],
 			"0" => ["13", "18", "阴转多云"],
@@ -23,7 +23,7 @@ class ForecastServicesController < ApplicationController
   # 生活指数
   def life_index
   	# @index = WeatherIndex.get_web_message
-  	@index = {"体感指数" => ["2级", "较适宜"], "穿衣指数" => ["2级", "较适宜"], "洗晒指数" => ["2级", "较适宜"], "户外晚间锻炼指数" => ["2级", "较适宜"]}
+  	@index = {"体感指数" => ["2", "较适宜"], "穿衣指数" => ["2", "较适宜"], "洗晒指数" => ["2", "较适宜"], "户外晚间锻炼指数" => ["2", "较适宜"]}
   end
 
   # 空气质量

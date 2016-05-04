@@ -2,8 +2,14 @@
 // 微信版全局字体
 @font-face {
 	font-family: 'weixin-font';
-	src: font-url("WeixinGlobal.otf");
+	src: font-url("weixin-global.ttf");
 }
+// 气温数字字体
+@font-face {
+  font-family: 'degree';
+  src: font-url("HelveticaNeueLTPro-ThCn.otf");
+}
+
 body, html {
 	height: 100%;
 	-webkit-tap-highlight-color: transparent;
@@ -11,14 +17,10 @@ body, html {
 body {
 	width: 100%;
   background-color: #fbf9fe;
+  font-weight: 100;
 }
 body * {
 	font-family: 'weixin-font';
-}
-// 气温数字字体
-@font-face {
-  font-family: 'degree';
-  src: font-url('HelveticaNeueLTPro-LtCn.otf');
 }
 // 排版 & 清除浮动
 .right {

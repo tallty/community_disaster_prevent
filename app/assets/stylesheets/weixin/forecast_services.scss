@@ -16,7 +16,7 @@
 .now-weather {
 	margin-bottom: 60px;
 	.release {
-		margin-top: 10px; 
+		margin-top: 10px;
 	}
 	.weather-info {
 		position: relative;
@@ -41,7 +41,7 @@
 				font-size: 16px;
 				display: inline-block;
 				height: 36px;
-				padding: 2px 15px;
+				padding: 3px 15px;
 				background: rgba(0,0,0,0.4);
 				border-radius: 17px;
 				i { 
@@ -132,7 +132,7 @@
 		width: 50%;
 		height: 162px;
 		&:after, &:before {
-			border-color: rgba(255,255,255,0.3);
+			border-color: rgba(255,255,255,0.2);
 		}
 		.index-left {
 			height: 122px;
@@ -152,6 +152,9 @@
 				font-weight: lighter;
 				display: block;
 				margin-bottom: 10px;
+			}
+			small {
+				color: #B7CED2;
 			}
 		}
 	}
@@ -336,8 +339,10 @@
 			}
 			.tab-content {
 				padding-top: 10px;
+				width: 100%;
 				.tab-pane div {
 					height: 240px;
+					width: 100%;
 				}
 			}
 		}
