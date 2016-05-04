@@ -5,18 +5,18 @@
 		<!-- 空气质量描述 -->
 		<div class="my-panel">
 			<div class="panel-hd">
-				空气质量<span class="float-right"><%= Time.now.strftime("%m月%d日") %>&nbsp;&nbsp;<%= week_name Time.now.strftime("%w") %>&nbsp;&nbsp;29分钟前发布</span>
+				空气质量<span class="float-right"><%= @result[:time].to_time.strftime("%m月%d日") %>&nbsp;&nbsp;<%= week_name @result[:time].to_time.strftime("%w") %>&nbsp;&nbsp;29分钟前发布</span>
 			</div>
 			<div class="panel-bd center">
 				<!-- 数据时间段 -->
 				<div class="now-time">今天夜间 20时 - 06时</div>
 				<!-- 现在的空气质量 -->
 				<div class="now-air">
-					<span class="color2">80-100</span> AQI &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<div class="tips"><div class="tips-l color2">良</div><div class="tips-r color2">良</div></div>
+					<span class="color2"><%= @result[:aqi][0] %></span> AQI &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<div class="tips"><div class="tips-l color2"><%= @result[:level][0] %></div><div class="tips-r color2"><%= @result[:level][0] %></div></div>
 				</div>
 				<!-- 主要污染物 -->
-				<div class="pollutant">主要污染物： PM2.5</div>
+				<div class="pollutant">主要污染物： <%= @result[:pripoll][0] %></div>
 				<!-- 范围 -->
 				<ul class="range">
 					<li class="bg1" style="height: 10px;"></li>
@@ -46,31 +46,29 @@
 		<div class="tomorrow-air alpha-bg">
 			<div class="part" style="border-right: 1px solid rgba(255,255,255,0.2);">
 				<!-- 数据时间段 -->
-				<div class="now-time">明天上午 20时 - 06时</div>
+				<div class="now-time">明天上午 06时 - 12时</div>
 				<!-- 现在的空气质量 -->
 				<div class="now-air">
-					<span class="color2">80-100</span> AQI
+					<span class="color2"><%= @result[:aqi][1] %></span> AQI
 				</div>
 				<div class="tips">
-					<div class="tips-l color2">良</div>
-					<div class="tips-r color2">良</div>
+					<div class="tips-l color2"><%= @result[:level][1] %></div><div class="tips-r color2"><%= @result[:level][1] %></div>
 				</div>
 				<!-- 主要污染物 -->
-				<div class="pollutant">主要污染物： PM2.5</div>
+				<div class="pollutant">主要污染物： <%= @result[:pripoll][1] %></div>
 			</div>
 			<div class="part">
 				<!-- 数据时间段 -->
-				<div class="now-time">明天下午 20时 - 06时</div>
+				<div class="now-time">明天下午 12时 - 20时</div>
 				<!-- 现在的空气质量 -->
 				<div class="now-air">
-					<span class="color2">80-100</span> AQI
+					<span class="color2"><%= @result[:aqi][2] %></span> AQI
 				</div>
 				<div class="tips">
-					<div class="tips-l color2">良</div>
-					<div class="tips-r color2">良</div>
+					<div class="tips-l color2"><%= @result[:level][2] %></div><div class="tips-r color2"><%= @result[:level][2] %></div>
 				</div>
 				<!-- 主要污染物 -->
-				<div class="pollutant">主要污染物： PM2.5</div>
+				<div class="pollutant">主要污染物： <%= @result[:pripoll][2] %></div>
 			</div>
 		</div><!-- 明天空气质量 -->
 
@@ -78,17 +76,16 @@
 		<div class="last24 alpha-bg">
 			<div class="title">过去24小时空气质量指数变化图</div>
 			<div class="content">
-
 			  <!-- Nav tabs -->
 			  <ul class="nav nav-tabs" role="tablist">
-			    <li role="presentation">
+			    <li role="presentation" class="active">
 			    	<a href="#aqi" aria-controls="aqi" role="tab" data-toggle="tab">
 			    		<div>AQI</div>
 			    		<div>空气质量</div>
 			    		<div>90</div>
 				    </a>
 			    </li>
-			    <li role="presentation" class="active">
+			    <li role="presentation">
 			    	<a href="#pm25" aria-controls="pm25" role="tab" data-toggle="tab">
 			    		<div>PM2.5</div>
 			    		<div>细颗粒物</div>
@@ -116,13 +113,13 @@
 			    		<div>17</div>
 			    	</a>
 			    </li>
-			  </ul>
+			  </ul><!-- Nav tabs -->
 			  <!-- Tab panes -->
 			  <div class="tab-content">
-			    <div role="tabpanel" class="tab-pane" id="aqi">
+			    <div role="tabpanel" class="tab-pane active" id="aqi">
 			    	<div id="aqi_chart"></div>
 			    </div>
-			    <div role="tabpanel" class="tab-pane active" id="pm25">
+			    <div role="tabpanel" class="tab-pane" id="pm25">
 			    	<div id="pm25_chart"></div>
 			    </div>
 			    <div role="tabpanel" class="tab-pane" id="O3">
@@ -134,8 +131,7 @@
 			    <div role="tabpanel" class="tab-pane" id="NO3">
 			    	<div id="NO3_chart"></div>
 			    </div>
-			  </div>
-
+			  </div><!-- Tab panes -->
 			</div>
 		</div><!-- 过去24小时 -->
 	</div>

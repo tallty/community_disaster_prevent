@@ -5,10 +5,10 @@
 		<!-- 天气预报 -->
 		<div class="my-panel now-weather">
 			<!-- 发布信息 -->
-			<p class="release right"><%= Time.now.strftime("%m月%d日") %>&nbsp;&nbsp;<%= week_name Time.now.strftime("%w") %>&nbsp;&nbsp;29分钟前发布</p>
+			<p class="release right"><%= Time.now.strftime("%m月%d日") %>&nbsp;&nbsp;<%= week_name Time.now %>&nbsp;&nbsp;29分钟前发布</p>
 			<!-- 天气 -->
 			<div class="weather-info">
-				<div class="weather-left"><%= @weathers.first.second.second %>˚</div>
+				<div class="weather-left"><span><%= @weathers.first.second.second %></span><span style="padding-left: 8px;">˚</span></div>
 				<div class="weather-right">
 					<div class="right">
 						<div class="warn"><i class="iconfont">&#xe632;</i>橙色预警</div>
@@ -20,9 +20,9 @@
 			<div class="other-info">
 				<span><%= @weathers.first.second.last %></span>
 				<i class="iconfont">&#xe61a;</i>
-				<span><strong><%= @weathers.first.second.second %>˚</strong></span>
+				<span><strong><%= @weathers.first.second.second %> °</strong></span>
 				<i class="iconfont">&#xe61f;</i>
-				<span><strong><%= @weathers.first.second.first %>˚</strong></span>	
+				<span><strong><%= @weathers.first.second.first %>˚</strong></span>
 			</div>
 		</div>
 		<!--begin: 当前天气详情 -->
@@ -68,9 +68,9 @@
 				<% @weathers.each_with_index do |(key, value), index| %>
 					<div class="weui_grid <%= "before-none" if index == 4 %>" style="padding-top: 0;">
 						<span class="week-day">
-							<% if index == 0 %>
+							<% if key.to_date == Date.today %>
 								今天
-							<% elsif index == 1 %>
+							<% elsif key.to_date == Date.tomorrow %>
 								明天
 							<% else %>
 								<%= week_name key %>
@@ -147,8 +147,6 @@
 		        type:'line',
 		        data:<%= @high %>,
 		        markPoint: {
-		            symbol: 'pin',
-		            symbolSize: 30,
 		            showSymbol: false,
 		            data: [
 		                <% @weathers.each do |key, value| %>

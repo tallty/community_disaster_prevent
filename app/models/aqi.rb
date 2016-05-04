@@ -4,6 +4,30 @@ class AQI < BaseForecast
     super
   end
 
+  # （微信页面）：空气质量
+  def self.get_web_message
+    content = get_data
+    list = content["data"]["list"]
+    # 发布时间
+    publish_time = content["data"]["publishtime"]
+
+    aqi = []
+    level = []
+    pripoll = []
+
+    list.each do |item|
+      # AQI
+      aqi << item['aqi']
+      # 空气质量等级
+      level << item["level"]
+      # 首要污染物
+      pripoll << item["pripoll"]
+    end
+    
+    { time: publish_time, aqi: aqi, level: level, pripoll: pripoll }
+  end
+
+  # 图文消息
   def get_show_article
     file_dir = "public/images/aqiquailty/"
     now_time = get_now_time
@@ -53,6 +77,7 @@ class AQI < BaseForecast
     offset_x = 0
     list.each do |item|
       draw.annotate(image, 0, 0, get_offset_x_by_aqi("#{item['aqi']}"), base_y[i], "#{item['aqi']}")
+      # 空气质量等级
       level = item["level"]
       len = level.length
       font_size = (len > 6) ? 24 : 28
@@ -60,6 +85,7 @@ class AQI < BaseForecast
       offset_x = 470 - (((level.length - 1)>> 1) * font_size)
       offset_x = offset_x - (font_size >> 1) if len % 2 == 0
       draw.annotate(image, 0, 0, offset_x, base_y[i], level)
+      # 首要污染物
       pripoll = item["pripoll"]
       if pripoll.length > 1
         index = pripoll.index(/[\d]/, 0)

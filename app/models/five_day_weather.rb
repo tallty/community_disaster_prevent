@@ -57,10 +57,10 @@ class FiveDayWeather
       if datetime < limit_day
         cache = weather['tempe'].delete("℃").split("~")
         cache.push weather['weather']
-        result["#{datetime.strftime('%w')}"] = cache
+        result["#{datetime}"] = cache
       end
     end
-    # {周几 => [低温，高温，天气], ...}
+    # {日期 => [低温，高温，天气], ...}
     result
   end
 

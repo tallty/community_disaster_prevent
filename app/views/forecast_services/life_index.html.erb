@@ -4,7 +4,7 @@
 	<div class="weui_content">
 		<div class="my-panel life-index">
 			<div class="panel-hd alpha-bg">
-				生活指数<span class="float-right"><%= Time.now.strftime("%m月%d日") %>&nbsp;&nbsp;<%= week_name Time.now.strftime("%w") %>&nbsp;&nbsp;29分钟前发布</span>
+				生活指数<span class="float-right"><%= Time.now.strftime("%m月%d日") %>&nbsp;&nbsp;<%= week_name Time.now %>&nbsp;&nbsp;29分钟前发布</span>
 			</div>
 			<div class="panel-bd">
 				<% @index.each_with_index do |(key, value), index| %>

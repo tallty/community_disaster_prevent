@@ -27,7 +27,7 @@ class Healthy < BaseForecast
 
   # 微信网页版：获取健康气象数据
   # TODO: 今天、明天数据没有区分，待解决
-  def get_message
+  def self.get_web_message
     content = get_data
     shows = ["COPD患者", "儿童哮喘", "老年人感冒"]
 
@@ -37,13 +37,13 @@ class Healthy < BaseForecast
     # 今天
     content[0].each do |item|
       if shows.include?(item["title"])
-        cache["今天"] = ["#{item['level']}级", "#{item['guide']}"]
-        cache["明天"] = ["#{item['level']}级", "#{item['guide']}"]
+        cache["今天"] = ["#{item['level']}", "#{item['guide']}"]
+        cache["明天"] = ["#{item['level']}", "#{item['guide']}"]
         results["#{item['title']}气象风险"] = cache
       end
     end
 
-    # {"风险种类" => {"今天" => ["4级", "建议"], "明天" => ["3级", "建议"]}, ...}
+    # {"风险种类" => {"今天" => ["4", "建议"], "明天" => ["3", "建议"]}, ...}
     results
   end
 
