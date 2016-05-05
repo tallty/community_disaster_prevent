@@ -1,0 +1,162 @@
+<div class="weui_tab_bd">
+  <div class="weui_content_communities">
+
+    <div class="head weui_tabbar">
+      <div class="headTab headTabLeft col-xs-6"><a href="javascript:;" id="head_Map" class="weui_bar_item_on">地图</a></div>
+      <div class="headTab headTabRight col-xs-6"><a href="javascript:;" id= "head_List">列表</a></div>
+    </div>
+
+    <div id="map_container"></div>
+    <div id="showList" class="row" style="display: none;">
+      <% if @disasters.present? != true %>
+        <div class="col-xs-12 show_disasters alpha-bg"><h4>当前没有灾情列表！</h4></div>
+      <% else %>
+        <% @disasters.each do |disaster| %>
+          <div class="col-xs-12 show_disasters alpha-bg">
+            <div class="row">时间: <%= disaster.occur_time.strftime("%Y-%m-%d %H:%M") %></div>
+            <div class="row">类型: <%= disaster.disaster_type %></div>
+            <div class="row">说明: <%= disaster.explain %></div>
+            <div class="row">地点: <%= disaster.disaster_position.try(:address) %></div>
+          </div>
+          <div class="col-xs-12 show_disasters text-center show_disasters_push alpha-bg">
+            <div class="col-xs-6">
+              <%= link_to "详细信息", disaster_path(disaster) %>
+            </div>
+            <%#= if disaster.subscriber.id == @subscriber.id %>
+            <div class="col-xs-6">
+              <%= link_to "上传图片", new_disaster_picture_path(disaster_id: disaster.id) %>
+            </div>
+            <%#= end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="rightTabContent">
+      <div class="rightTab rightTabUp alpha-bg">
+        <a href="javascript:;" id="disaster_loading" class="weui_tabbar_item">
+            <div class="weui_tabbar_icon">
+                <i class="iconfont">&#xe600;</i>
+            </div>
+            <p class="rightTabUp_label text-center">灾情上报</p>
+        </a>
+        <!-- <hr class="tab_hr"> -->
+      </div>
+      <div class="rightTab rightTabDown alpha-bg">
+        <a href="javascript:;" id="relaodMap" class="weui_tabbar_item">
+            <div class="weui_tabbar_icon">
+                <i class="iconfont">&#xe60c;</i>
+            </div>
+            <p class="rightTabDown_label text-center">刷新</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=3903299664a0b6330ca4ddfc37b1af89"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var height = $(window).height();
+    var width = $(window).width();
+      $("div#map_container").height(height);
+      $("div#map_container").width(width);
+  });
+
+  $("#relaodMap").on("click",function(){
+    window.location.reload();
+  });
+
+  $("#disaster_loading").on("click",function(){
+    window.location = "/disasters/new";
+  });
+
+  $("#head_Map").on("click", function(){
+    $("#head_Map").removeClass("weui_bar_item_on");
+    $(this).addClass("weui_bar_item_on");
+    $("#map_container").show();
+    $("#showList").hide();
+  });
+  $("#head_List").on("click", function(){
+    $("#head_List").removeClass("weui_bar_item_on");
+    $(this).addClass("weui_bar_item_on");
+    $("#map_container").hide();
+    $("#showList").show();
+  });
+
+  
+  
+    var map = new AMap.Map('map_container',{
+      resizeEnable: true,
+      zoom: 10,
+      center: [121.504,31.195]
+    });
+
+    function init_data() {
+      for(var i = 0; i < disasters.length; i++) {
+        addmarker(disasters[i]);
+      }
+    }
+
+    function addmarker(d) {
+      if(d.disaster_position == null){return;}
+      var icon;
+      if(d.type=="暴雨"){
+        icon = "http://61.152.126.156/cms/resource/img/icon/rain.png";
+      }else if(d.type=="雷电"){
+        icon = "http://61.152.126.156/cms/resource/img/icon/lightning.png";
+      }else if(d.type=="大风"){
+        icon = "http://61.152.126.156/cms/resource/img/icon/win.png";
+      }else{
+        icon = "http://webapi.amap.com/images/4.png";
+      }
+      lanlat = new AMap.LngLat(d.disaster_position.lon, d.disaster_position.lat);
+      var markerOption = {map: mapObj, icon: icon, position: lanlat};
+      var marker = new AMap.Marker(markerOption);
+      markers.push(lanlat);
+      var infoWindow = new AMap.InfoWindow({
+        isCustom: true,
+        content: createInfoWindow("灾情点","<div>时间:"+d.occur_time+"</div><img style='text-align:center;max-height:160px;width:90%;' src='system/"+d.pictures[0].id+"/images/medium/image.jpg'/><div style='word-break:break-all;'>说明:"+d.explain+"</div><div><a href='/disasters/"+d.id+"'>详细说明</a></div>"),
+        size: new AMap.Size(0,0),
+        autoMove: true,
+        offset: new AMap.Pixel(25, -50)
+      });
+      var aa = function (e) { infoWindow.open(mapObj, marker.getPosition()); }
+      AMap.event.addListener(marker, "click", aa);
+    }
+  function createInfoWindow(title,content){  
+    var info = document.createElement("div");  
+    info.className = "info";  
+    // 定义顶部标题  
+    var top = document.createElement("div");  
+    top.className = "info-top";  
+    var titleD = document.createElement("div");  
+    titleD.innerHTML = title;  
+    var closeX = document.createElement("img");  
+    closeX.src = "http://webapi.amap.com/images/close2.gif";  
+    closeX.onclick = closeInfoWindow;
+          
+    top.appendChild(titleD);  
+    top.appendChild(closeX);  
+    info.appendChild(top);  
+    // 定义中部内容  
+    var middle = document.createElement("div");  
+    middle.className = "info-middle";  
+    middle.innerHTML = content;  
+    info.appendChild(middle);  
+        
+    // 定义底部内容  
+    var bottom = document.createElement("div");  
+    bottom.className = "info-bottom";  
+    var sharp = document.createElement("img");  
+    sharp.src = "http://webapi.amap.com/images/sharp.png";  
+    bottom.appendChild(sharp);    
+    info.appendChild(bottom);  
+    return info;  
+  }
+  
+  //关闭信息窗体  
+  function closeInfoWindow(){  
+    mapObj.clearInfoWindow();  
+  }
+</script>

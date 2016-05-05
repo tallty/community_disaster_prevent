@@ -1,0 +1,67 @@
+<!-- 社区 -->
+<!-- 底部tabbar页 -->
+<% content_for :title, "实况监测" %>
+
+<div class="weui_container">
+  <div class="weui_detection weui_content_communities">
+    <div class="detection_content detection_content_1">
+      <p><i class="iconfont">&#xe607;</i>&nbsp<span>漕宝路梅龙镇社区</span></p>
+      <p><small>4月22日&nbsp星期一&nbsp</small><small>29分钟前发布</small></p>
+      <hr class="detection_content_hr">
+    </div>
+    <div class="detection_content">
+      <div class="detection-weather-info">
+        <div class="detection-weather-icon"><i class="iconfont">&#xe632;</i></div>
+        <div class="detection-weather-text"><span>霾橙色预警</span></div>
+      </div>
+    </div>
+    <div class="detection_content alpha-bg">
+      <div class="my-panel">
+        <div class="panel-hd mborder">气象实况</div>
+        <div class="panel-bd">
+          <div class="detection_content_grids">
+            <div class="detection_content_grid">
+              <p><i class="iconfont">&#xe617;</i></p>
+              <p><small>实时温度</small></p>
+              <p><small>17.1</small></p>
+            </div>
+            <div class="detection_content_grid detection_content_grid_1">
+              <p><i class="iconfont">&#xe602;</i></p>
+              <p><small>累计雨量</small></p>
+              <p><small>0.0mm</small></p>
+            </div>
+            <div class="detection_content_grid">
+              <p><i class="iconfont">&#xe619;</i></p>
+              <p><small>风速风向</small></p>
+              <p><small>静风</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detection_content alpha-bg">
+      <div class="my-panel">
+        <div class="panel-hd mborder">积水实况</div>
+        <div class="panel-bd"><p class="detection_content_ponding">龙吴立交桥下积水深度：0.0mm</p></div>
+      </div>
+    </div>
+    <div class="detection_content detection_content_3 alpha-bg">
+      <div class="my-panel">
+        <div class="panel-hd mborder">闪电分布</div>
+        <div class="panel-bd">
+          <div class="detection_content_lightning">闪电分布数据图</div>
+          <p class="detection_content_lightning_text">云体与大地相接触的放电现象称为地闪·用CG表示，地闪有两种：正地闪(+)和负地闪(-)，通常情况下的对地放电过程都是将云内负电荷输送到地面的负极性放电·即负地闪，但是也有一些放电将云内的正电荷输送到地面，这种现象被称为正地闪。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%= render partial: "weixin_share/tabbar" %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var width = $("div.detection_content_grids").width()/3;
+      $("div.detection_content_grid").width(width-4);
+  });
+</script>

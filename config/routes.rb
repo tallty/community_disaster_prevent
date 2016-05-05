@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :warnings, only: [:show]
   resources :articles, only: [:show]
   resources :aqi, only: [:show]
+
   resource :volunteers, only: [:new, :create, :update]
   resource :subscribers, only: [:new, :update] do
     collection do
@@ -35,8 +36,15 @@ Rails.application.routes.draw do
     end
   end
   # 社区
-  resources :communities, only: [:index]
-  
+  resources :communities do
+    collection do
+      get :interact
+      get :detection
+      get :community_risk
+      get :centre
+    end
+  end
+
   namespace :admin do
     resources :survey_results, only: [:show]
     

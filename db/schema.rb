@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20151020152638) do
 
   add_index "article_managers", ["article_id"], name: "index_article_managers_on_article_id", using: :btree
   add_index "article_managers", ["community_id"], name: "index_article_managers_on_community_id", using: :btree
-  add_index "article_managers", ["keyword"], name: "index_article_managers_on_keyword", length: {"keyword"=>191}, using: :btree
+  add_index "article_managers", ["keyword"], name: "index_article_managers_on_keyword", using: :btree
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",           limit: 255
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20151020152638) do
     t.string   "assort",          limit: 255
   end
 
-  add_index "articles", ["title"], name: "index_articles_on_title", length: {"title"=>191}, using: :btree
+  add_index "articles", ["title"], name: "index_articles_on_title", using: :btree
 
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string   "data_file_name",    limit: 255, null: false
@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 20151020152638) do
     t.datetime "updated_at",             null: false
   end
 
-  add_index "diymenus", ["key"], name: "index_diymenus_on_key", length: {"key"=>191}, using: :btree
+  add_index "diymenus", ["key"], name: "index_diymenus_on_key", using: :btree
   add_index "diymenus", ["parent_id"], name: "index_diymenus_on_parent_id", using: :btree
 
   create_table "message_processors", force: :cascade do |t|
@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 20151020152638) do
     t.string   "message_type",       limit: 255
   end
 
-  add_index "message_processors", ["process_class_name"], name: "index_message_processors_on_process_class_name", length: {"process_class_name"=>191}, using: :btree
+  add_index "message_processors", ["process_class_name"], name: "index_message_processors_on_process_class_name", using: :btree
 
   create_table "monitor_stations", force: :cascade do |t|
     t.string   "station_number", limit: 255
@@ -198,7 +198,7 @@ ActiveRecord::Schema.define(version: 20151020152638) do
   end
 
   add_index "subscribers", ["community_id"], name: "index_subscribers_on_community_id", using: :btree
-  add_index "subscribers", ["openid"], name: "index_subscribers_on_openid", length: {"openid"=>191}, using: :btree
+  add_index "subscribers", ["openid"], name: "index_subscribers_on_openid", using: :btree
 
   create_table "survey_results", force: :cascade do |t|
     t.string   "q_result",      limit: 255
@@ -245,13 +245,13 @@ ActiveRecord::Schema.define(version: 20151020152638) do
     t.string   "tel",           limit: 255
     t.string   "commun",        limit: 255
     t.string   "neighborhood",  limit: 255
+    t.integer  "subscriber_id", limit: 4
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
-    t.integer  "subscriber_id", limit: 4
   end
 
   add_index "volunteers", ["subscriber_id"], name: "index_volunteers_on_subscriber_id", using: :btree
-  add_index "volunteers", ["tel"], name: "index_volunteers_on_tel", length: {"tel"=>191}, using: :btree
+  add_index "volunteers", ["tel"], name: "index_volunteers_on_tel", using: :btree
 
   create_table "warnings", force: :cascade do |t|
     t.datetime "publish_time"
@@ -266,6 +266,6 @@ ActiveRecord::Schema.define(version: 20151020152638) do
 
   add_index "warnings", ["community_id"], name: "index_warnings_on_community_id", using: :btree
   add_index "warnings", ["publish_time"], name: "index_warnings_on_publish_time", using: :btree
-  add_index "warnings", ["warning_type"], name: "index_warnings_on_warning_type", length: {"warning_type"=>191}, using: :btree
+  add_index "warnings", ["warning_type"], name: "index_warnings_on_warning_type", using: :btree
 
 end

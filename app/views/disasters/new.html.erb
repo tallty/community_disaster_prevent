@@ -1,9 +1,9 @@
-<div class="container">
-  <div id="disaster-uploader">
+<div class="weui_container">
+  <div class="disaster_content">
     <%= form_for(@disaster, url: disasters_path) do |f| %>
-      <div class="row">你好: <%= @subscriber.nick_name %></div>
+      <div class="row">你好: <%#= @subscriber.nick_name %></div>
       <div class="row title"><h3>灾情信息上传</h3></div>
-      <%= f.hidden_field :openid, :value => @subscriber.openid %>
+      <%#= f.hidden_field :openid, :value => @subscriber.openid %>
       <div class="row col-xs-12 input-group">
         <div class="row col-xs-12">灾情发生时间:</div>
         <div class="row col-xs-12"><%= f.text_field :occur_time, :class => "form-control input" %></div>
@@ -17,13 +17,14 @@
       <div class="row col-xs-12 input-group">
         <div class="col-xs-12">说明:</div>
         <div class="col-xs-12">
-          <%= f.text_area :explain, :class =>"form-control input" %>
+          <%= f.text_area :explain, :class =>"form-control input", style: "height:150px" %>
         </div>
       </div>
       <div class="space-6"></div>
-      <div class="row col-xs-12">
-        <div class="btn-group btn-group-justified ">
-          <%= f.submit "提交", :class => "btn btn-success bg-lg", :style => "width:100%" %>
+      <div class="weui_content_communities">
+        <div class="head weui_tabbar">
+          <div class="headTab headTabLeft col-xs-6"><a href="javascript:;" id="head_Map" class="weui_bar_item_on">返回</a></div>
+          <div class="headTab headTabRight col-xs-6"><a href="javascript:;" id= "head_List"><%= f.submit "提交", :style => "width:100%" %></a></div>
         </div>
       </div>
     <% end %>
