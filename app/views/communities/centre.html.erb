@@ -2,9 +2,67 @@
 <!-- 底部tabbar页 -->
 <% content_for :title, "个人中心" %>
 
-<div class="weui_container">
-  <div class="weui_tab">
-      <%#= render partial: "weui_tab_bd_1" %>
-      <%= render partial: "weixin_share/tabbar" %>
+<div class="communities_centre_container">
+  <div class="weui_tab1">
+    <div class="communities_centre_userinfo">
+      <div class="weui_container communities_centre_userinfo_content">
+        <div class="communities_centre_userinfo_image"><%= image_tag "avatar-lg.png", class: "user_pic", alt: "用户头像"%></div>
+        <span>tt</span>
+      </div>
+    </div>
+    <div class="communities_belong">
+      <!-- <%#= form_for(@community, url: admin_communities_path) do |f| %>
+        <%#= if @community.errors.any? %>
+          <div id="error_explanation">
+            <h2><%#= pluralize(@community.errors.count, "error") %> prohibited this community from being saved:</h2>
+
+            <ul>
+            <%#= @community.errors.full_messages.each do |message| %>
+              <li><%#= message %></li>
+            <%#= end %>
+            </ul>
+          </div>
+        <%#= end %>
+
+        <div class="row form-inputs">
+          <div class="input-group col-xs-6">
+            <%#= f.select :district, Community.where("district <> '上海'").distinct(:district).pluck(:district), options ={:prompt =>"请所属区县"}, :class => "form-control input" %>
+          </div>
+          <div class="space-6"></div>
+          <div class="input-group col-xs-6">
+            <%#= f.text_field :street, :placeholder => "请输入街道名称...", :class =>"form-control input"%>
+          </div>
+          <div class="space-6"></div>
+          <div class="input-group col-xs-6">
+            <%#= f.select :c_type, ["普通", "特殊"], options ={:prompt =>"请选择类型"},
+       :class =>"form-control input" %>
+          </div>
+          <div class="space-6"></div>
+          <div class="actions">
+            <%#= f.submit '提交', { :class => "btn btn-xs bigger-110 btn-info" }%>
+          </div>
+        </div>
+      <%#= end %> -->
+
+      <div class="communities_belong_1">
+        <i class="iconfont input-left-icon">&#xe605;</i><strong>社区</strong>
+        <%=link_to change_community_communities_path do %> 
+          <span class="pull-right right-pull">未绑定<i class="iconfont">&#xe635;</i></span>
+        <% end -%>
+      </div>
+      <div class="communities_belong_2">
+        <i class="iconfont input-left-icon">&#xe61c;</i><strong>我的预报风险</strong><i class="iconfont right-pull pull-right">&#xe635;</i>
+      </div>
+    </div>
+    <%= render partial: "weixin_share/tabbar" %>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var width = $(window).width();
+    var height = $(window).height()*0.9;
+      $("div.communities_centre_userinfo").height(height/3);
+      $("img.user_pic").width(width/5)
+  });
+</script>

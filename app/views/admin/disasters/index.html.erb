@@ -18,7 +18,7 @@
           <td><%= disaster.disaster_position.try(:address) %></td>
           <td><%= disaster.disaster_type %></td>
           <td><%= disaster.occur_time %></td>
-          <td><%= disaster.subscriber.nick_name %></td>
+          <td><%#= disaster.subscriber.nick_name %></td>
           <td><%= disaster.created_at %></td>
           <td>
             <%= link_to '显示', admin_disaster_path(disaster), :class => "btn btn-xs btn-info" %>

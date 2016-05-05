@@ -171,3 +171,78 @@
     margin-bottom: 52px;
   }
 }
+
+
+//个人中心
+.communities_centre_userinfo {
+  .communities_centre_userinfo_content {
+    padding-top: 50px;
+    color: #fff;
+    text-align: center;
+    .communities_centre_userinfo_image {
+      padding-bottom: 10px;
+      img {
+        width: 60px;
+      }
+    }
+  }
+}
+.communities_belong {
+  margin: auto 15px;
+  .communities_belong_1, .communities_belong_2 {
+    padding: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    .right-pull {
+      color: #9B9B9B;
+    }
+    .input-left-icon {
+      color: #9B9B9B;
+      font-size: 1.2em;
+      padding-right: 5px;
+    }
+  }
+}
+
+//个人中心——绑定社区
+.communities_belong1 {
+  margin: 30px 15px;
+  .communities_change1 {
+    margin: 10px auto;
+    i {
+      color: #F5A623;
+    }
+    #location_address {
+      color: #4A4A4A;
+    }
+    .makesure {
+      margin-top: 30px;
+      background-color: #7ED321;
+      border: none;
+      border-radius: 0;
+      color: #fff;
+      width: 100%;
+    }
+  }
+}
+
+
+//社区风险页
+.risk-list {
+  margin: 0 15px !important;
+  padding: 15px 0;
+  border-bottom: 1px solid #EAEAEA;
+  .pic-content {
+    line-height: 95px;
+    padding: 0;
+    .show_pic {
+      width: 100%;
+    }
+  }
+  .article-content {
+    padding-right: 0;
+    .articletext {
+      color: #999999;
+      font-size: 13px;
+    }
+  }
+}

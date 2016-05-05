@@ -20,16 +20,20 @@
           <%= f.text_area :explain, :class =>"form-control input", style: "height:150px" %>
         </div>
       </div>
-      <div class="space-6"></div>
+      <!-- <div class="space-6"></div> -->
       <div class="weui_content_communities">
         <div class="head weui_tabbar">
           <div class="headTab headTabLeft col-xs-6"><a href="javascript:;" id="head_Map" class="weui_bar_item_on">返回</a></div>
           <div class="headTab headTabRight col-xs-6"><a href="javascript:;" id= "head_List"><%= f.submit "提交", :style => "width:100%" %></a></div>
         </div>
       </div>
+      <div id="map_container2"></div>
+      <span>灾情地址: </span><span id="location_address_in"></span>
     <% end %>
   </div>
 </div>
+
+<script type="text/javascript" src=http://api.map.baidu.com/api?v=2.0&ak=5l5GtYwm4wTs7hBpeijR7CeGQEbs8jwP></script>
 <script type="text/javascript">
   $(function(){
     $("#disaster_occur_time").datetimepicker({
@@ -41,4 +45,32 @@
         // pickerPosition: "bottom-left"
     });
   });
+
+  // 百度地图API功能
+  var map = new BMap.Map("map_container2");    // 创建Map实例
+  map.centerAndZoom("上海",15);      // 初始化地图,用城市名设置地图中心点
+  map.enableScrollWheelZoom(true);
+  map.enableInertialDragging();   //两秒后开启惯性拖拽
+
+  var geolocation = new BMap.Geolocation();
+  geolocation.getCurrentPosition(function(r){
+    if(this.getStatus() == BMAP_STATUS_SUCCESS){
+      var mk = new BMap.Marker(r.point);
+      map.addOverlay(mk);
+      map.panTo(r.point);
+
+      var myGeo = new BMap.Geocoder();
+      myGeo.getLocation(new BMap.Point(r.point.lng, r.point.lat),
+          function(rs) {
+            var addComp = rs.addressComponents;
+            var address = addComp.district+addComp.street
+            $("span#location_address_in").text(address)
+            // location.href = "http://localhost:3000/location_weather/query?lon="+r.point.lng+"&lat="+r.point.lat+"&name="+addComp.district+addComp.street;
+          });
+      alert('您的位置：'+r.point.lng+','+r.point.lat);
+    }
+    else {
+      alert('failed'+this.getStatus());
+    }        
+  },{enableHighAccuracy: true})
 </script>

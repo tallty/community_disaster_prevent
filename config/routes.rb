@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       get :healthy_weather
     end
   end
+  
   # 社区
   resources :communities do
     collection do
@@ -42,6 +43,7 @@ Rails.application.routes.draw do
       get :detection
       get :community_risk
       get :centre
+      get :change_community
     end
   end
 

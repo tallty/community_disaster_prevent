@@ -5,6 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+User.create(id: 1, email: '1234567890@qq.com', password: '1234567890')
+
 Diymenu.delete_all
 Diymenu.create(id: 1, name: '预报服务', is_show: true, sort: 0)
 Diymenu.create(id: 2, name: '我的社区', is_show: true, sort: 1)
@@ -32,9 +34,9 @@ MessageProcessor.create(event_key: "健康气象", process_class_name: "Healthy"
 MessageProcessor.create(event_key: "社区预警", process_class_name: "Warning", process_method: "get_show_article", result_type: "news_message")
 MessageProcessor.create(event_key: "灾情互动", message_type: "dynamic", process_class_name: "Article", process_method: "get_show_article", result_type: "news_message")
 MessageProcessor.create(event_key: "实况监测", process_class_name: "MonitorStation", process_method: "get_show_article", result_type: "news_message")
-MessageProcessor.create(event_key: "社区风险", message_type: "dynamic", message_type: "dynamic", message_type: "dynamic", process_class_name: "Article", process_method: "get_show_article", result_type: "news_message")
+MessageProcessor.create(event_key: "社区风险", message_type: "dynamic", process_class_name: "Article", process_method: "get_show_article", result_type: "news_message")
 MessageProcessor.create(event_key: "调查问卷", process_class_name: "Article", process_method: "get_show_article", result_type: "news_message")
-MessageProcessor.create(event_key: "气象科普", message_type: "dynamic", message_type: "dynamic", process_class_name: "Article", process_method: "get_show_article", result_type: "news_message")
+MessageProcessor.create(event_key: "气象科普", message_type: "dynamic", process_class_name: "Article", process_method: "get_show_article", result_type: "news_message")
 MessageProcessor.create(event_key: "帮助", message_type: "dynamic", process_class_name: "Article", process_method: "get_show_article", result_type: "news_message")
 
 Article.create(title: "社区绑定", author: "系统", content: "abc", thumb_media_url: "assets/community2.png")

@@ -1,10 +1,22 @@
 <!-- 社区 -->
 <!-- 底部tabbar页 -->
 <% content_for :title, "社区风险" %>
-
-<div class="weui_container">
-  <div class="weui_tab">
-      <%#= render partial: "weui_tab_bd_1" %>
-      <%= render partial: "weixin_share/tabbar" %>
+<div class="weui_tab_bd">
+  <div class="communities_centre_container">
+    <div class="weui_tab1">
+      <% (1..8).each do |t| %>
+        <div class="risk-list row">
+          <div class="pic-content col-xs-3 text-center">
+            <%= image_tag "community3.jpg", class: "show_pic", alt: "文章列表图"%>
+          </div>
+          <div class="article-content col-xs-9">
+            <h5 class="articletitle">Docker传奇之dotCloud</h5>
+            <span class="articletext">Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的...</span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <%= render partial: "weixin_share/tabbar" %>
   </div>
 </div>
+
