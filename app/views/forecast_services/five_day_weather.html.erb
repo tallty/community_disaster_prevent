@@ -147,6 +147,8 @@
 		        type:'line',
 		        data:<%= @high %>,
 		        markPoint: {
+			        	symbol: 'pin',
+		            symbolSize: 30,
 		            showSymbol: false,
 		            data: [
 		                <% @weathers.each do |key, value| %>
