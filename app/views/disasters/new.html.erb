@@ -1,40 +1,46 @@
-<div class="weui_container">
-  <div class="disaster_content">
-    <%= form_for(@disaster, url: disasters_path) do |f| %>
-      <div class="row">你好: <%#= @subscriber.nick_name %></div>
-      <div class="row title"><h3>灾情信息上传</h3></div>
+<div class="disaster_container">
+  <div class="communities_centre_userinfo">
+    <div class="weui_container communities_centre_userinfo_content">
+      <div class="communities_centre_userinfo_image"><%= image_tag "avatar-lg.png", class: "user_pic", alt: "用户头像"%></div>
+      <span>tt</span>
+    </div>
+  </div>
+
+  <div class="disaster_content row">
+    <%= form_for @disaster, url: disasters_path do |f| %>
+      <!-- <div class="row">你好: <%#= @subscriber.nick_name %></div> -->
       <%#= f.hidden_field :openid, :value => @subscriber.openid %>
-      <div class="row col-xs-12 input-group">
-        <div class="row col-xs-12">灾情发生时间:</div>
-        <div class="row col-xs-12"><%= f.text_field :occur_time, :class => "form-control input" %></div>
+      <%= f.hidden_field :disaster_position_id, :value => @disaster_position.id %>
+      <div class="col-xs-12 disaster-input disaster-time">
+        <strong>灾情发生时间: </strong> <%= f.text_field :occur_time, :class => "input", placeholder: "时间" %>
       </div>
-      <div class="row col-xs-12 input-group">
-        <div class="col-xs-12">灾情类别:</div>
-        <div class="col-xs-12">
-          <%= f.select :disaster_type, ["暴雨","雷电", "大风", "其它"], options = {:prompt =>"请选择灾情类型" }, :class =>"form-control input" %>
+      <div class="col-xs-12 disaster-input">
+        <strong>灾情类别: </strong> <%= f.select :disaster_type, ["暴雨","雷电", "大风", "其它"], options = {:prompt =>"请选择灾情类型" }, :class =>"input" %> <i class="iconfont right-pull pull-right">&#xe635;</i>
+      </div>
+      <strong class="disaster_said">灾情说明: </strong>
+
+      <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+          <div id="weui_textarea_cell" class="weui_cell_bd weui_cell_primary">
+            <%= f.text_area :explain, class: "weui_textarea", style: "height:150px", placeholder: "请输入说明", row: 3, maxlength: 200 %>
+            <div id="numtj" class="weui_textarea_counter"><var style="color:#C00">--</var>／200</div>
+          </div>
         </div>
       </div>
-      <div class="row col-xs-12 input-group">
-        <div class="col-xs-12">说明:</div>
-        <div class="col-xs-12">
-          <%= f.text_area :explain, :class =>"form-control input", style: "height:150px" %>
-        </div>
+      <div class="col-xs-12 disaster-input">
+        <strong>灾情地址: </strong> <span id="location_address_in"></span>
       </div>
-      <!-- <div class="space-6"></div> -->
-      <div class="weui_content_communities">
-        <div class="head weui_tabbar">
-          <div class="headTab headTabLeft col-xs-6"><a href="javascript:;" id="head_Map" class="weui_bar_item_on" onclick="history.go(-1)">返回</a></div>
-          <div class="headTab headTabRight col-xs-6"><a href="javascript:;" id= "head_List"><%= f.submit "提交", :style => "width:100%" %></a></div>
-        </div>
+      <div class="headTab headTabRight col-xs-12">
+        <a href="javascript:;" id= "head_List"><%= f.submit "提交", class: "btn btn-success btn-lg" ,:style => "width:100%" %></a>
       </div>
-      <div id="map_container2"></div>
-      <span>灾情地址: </span><span id="location_address_in"></span>
     <% end %>
   </div>
+  <div id="map_container2"></div>
 </div>
 
 <script type="text/javascript" src=http://api.map.baidu.com/api?v=2.0&ak=5l5GtYwm4wTs7hBpeijR7CeGQEbs8jwP></script>
 <script type="text/javascript">
+//日期选择器
   $(function(){
     $("#disaster_occur_time").datetimepicker({
         language: 'zh-CN',
@@ -46,12 +52,25 @@
     });
   });
 
+  //字数统计效果
+  $(document).ready(function(){
+    var text=$("#weui_textarea_cell textarea").val();
+    var counter=text.length;
+    $("#numtj var").text(counter);
+    $(document).keyup(function() {
+        var text=$("#weui_textarea_cell textarea").val();
+        var counter=text.length;
+        $("#numtj var").text(counter);
+    });
+  });
+
   // 百度地图API功能
   var map = new BMap.Map("map_container2");    // 创建Map实例
   map.centerAndZoom("上海",15);      // 初始化地图,用城市名设置地图中心点
   map.enableScrollWheelZoom(true);
   map.enableInertialDragging();   //两秒后开启惯性拖拽
 
+//通过浏览器定位
   var geolocation = new BMap.Geolocation();
   geolocation.getCurrentPosition(function(r){
     if(this.getStatus() == BMAP_STATUS_SUCCESS){
@@ -67,7 +86,7 @@
             $("span#location_address_in").text(address)
             // location.href = "http://localhost:3000/location_weather/query?lon="+r.point.lng+"&lat="+r.point.lat+"&name="+addComp.district+addComp.street;
           });
-      alert('您的位置：'+r.point.lng+','+r.point.lat);
+      // alert('您的位置：'+r.point.lng+','+r.point.lat);
     }
     else {
       alert('failed'+this.getStatus());

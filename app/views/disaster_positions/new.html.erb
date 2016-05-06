@@ -1,0 +1,70 @@
+<div class="communities_centre_container">
+  <div id="map_container_position"></div>
+
+
+
+  <div class="disaster_position_content" style="color: #000;">
+    <div class="row">
+      <%#= @disaster.subscriber.nick_name %>, 感谢您上报灾情. 
+      <% if @disaster_position.nil? %>
+        请上传灾情地址完善<灾情上报>流程.
+      <% end %>
+    </div>
+    
+    <div class="row"><h4>灾情地址确认</h4></div>
+    <!-- <div id="map_container_position"></div> -->
+    <div class="row">
+    <%= form_for(@disaster_positions, url: disaster_positions_path, :html => { :multipart => true } ) do |f| %>
+      <%= f.hidden_field :lon %>
+      <%= f.hidden_field :lat %>
+      <%= f.hidden_field :address %>
+      <div class="text-center"><i class="iconfont">&#xe607;</i><span id="position" style="color: red;"></span></div>
+      <br>
+      <div class="headTab headTabRight"><a href="javascript:;" id= "head_List"><%= f.submit "确认", class: "btn btn-success btn-lg", :style => "width:100%" %></a></div>
+    <% end %>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src=http://api.map.baidu.com/api?v=2.0&ak=5l5GtYwm4wTs7hBpeijR7CeGQEbs8jwP></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+    var height = $(window).height()*2;
+    var width = $(window).width
+      $("div#map_container_position").height(height/5);
+      $("div#map_container_position").width(width);
+  });
+
+  // 百度地图API功能
+  var map = new BMap.Map("map_container_position");    // 创建Map实例
+  map.centerAndZoom("上海",15);      // 初始化地图,用城市名设置地图中心点
+  map.enableScrollWheelZoom(true);
+  map.enableInertialDragging();   //两秒后开启惯性拖拽
+
+
+  var geolocation = new BMap.Geolocation();
+  geolocation.getCurrentPosition(function(r){
+    if(this.getStatus() == BMAP_STATUS_SUCCESS){
+      var mk = new BMap.Marker(r.point);
+      map.addOverlay(mk);
+      map.panTo(r.point);
+
+      var myGeo = new BMap.Geocoder();
+      myGeo.getLocation(new BMap.Point(r.point.lng, r.point.lat),
+          function(rs) {
+            var addComp = rs.addressComponents;
+            var address = addComp.district+addComp.street;
+            $("input#disaster_position_lon").val(r.point.lng);
+            $("input#disaster_position_lat").val(r.point.lat);
+            $("input#disaster_position_address").val(address);
+            $("span#position").text(address);
+            // location.href = "http://localhost:3000/location_weather/query?lon="+r.point.lng+"&lat="+r.point.lat+"&name="+addComp.district+addComp.street;
+          });
+      // alert('您的位置：'+r.point.lng+','+r.point.lat);
+    }
+    else {
+      alert('failed'+this.getStatus());
+    }        
+  },{enableHighAccuracy: true})
+</script>

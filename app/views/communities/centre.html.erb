@@ -11,39 +11,6 @@
       </div>
     </div>
     <div class="communities_belong">
-      <!-- <%#= form_for(@community, url: admin_communities_path) do |f| %>
-        <%#= if @community.errors.any? %>
-          <div id="error_explanation">
-            <h2><%#= pluralize(@community.errors.count, "error") %> prohibited this community from being saved:</h2>
-
-            <ul>
-            <%#= @community.errors.full_messages.each do |message| %>
-              <li><%#= message %></li>
-            <%#= end %>
-            </ul>
-          </div>
-        <%#= end %>
-
-        <div class="row form-inputs">
-          <div class="input-group col-xs-6">
-            <%#= f.select :district, Community.where("district <> '上海'").distinct(:district).pluck(:district), options ={:prompt =>"请所属区县"}, :class => "form-control input" %>
-          </div>
-          <div class="space-6"></div>
-          <div class="input-group col-xs-6">
-            <%#= f.text_field :street, :placeholder => "请输入街道名称...", :class =>"form-control input"%>
-          </div>
-          <div class="space-6"></div>
-          <div class="input-group col-xs-6">
-            <%#= f.select :c_type, ["普通", "特殊"], options ={:prompt =>"请选择类型"},
-       :class =>"form-control input" %>
-          </div>
-          <div class="space-6"></div>
-          <div class="actions">
-            <%#= f.submit '提交', { :class => "btn btn-xs bigger-110 btn-info" }%>
-          </div>
-        </div>
-      <%#= end %> -->
-
       <div class="communities_belong_1">
         <i class="iconfont input-left-icon">&#xe605;</i><strong>社区</strong>
         <%=link_to change_community_communities_path do %> 

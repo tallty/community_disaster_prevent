@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     end
   end
   resources :disaster_pictures, only: [:new, :create]
+  resources :disaster_positions, only: [:new, :create]
   resource :monitor_stations, only: [:show]
   resources :surveys
 

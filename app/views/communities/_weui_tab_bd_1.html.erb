@@ -15,7 +15,7 @@
           <div class="col-xs-12 show_disasters alpha-bg">
             <div class="row">时间: <%= disaster.occur_time.strftime("%Y-%m-%d %H:%M") %></div>
             <div class="row">类型: <%= disaster.disaster_type %></div>
-            <div class="row">说明: <%= disaster.explain %></div>
+            <div class="row">说明: <%= truncate(disaster.explain,length: 20) %></div>
             <div class="row">地点: <%= disaster.disaster_position.try(:address) %></div>
           </div>
           <div class="col-xs-12 show_disasters text-center show_disasters_push alpha-bg">
@@ -70,7 +70,7 @@
   });
 
   $("#disaster_loading").on("click",function(){
-    window.location = "/disasters/new";
+    window.location = "/disaster_positions/new";
   });
 
   $("#head_Map").on("click", function(){

@@ -1,20 +1,21 @@
-<div class="weui_container">
-  <div class="weui_content_communities">
-    <div class="head weui_tabbar">
-      <div class="headTab headTabLeft col-xs-6"><a href="javascript:;" id="head_Map" class="weui_bar_item_on">返回</a></div>
-      <div class="headTab headTabRight col-xs-6"><a href="javascript:;" id= "head_List"></a></div>
-    </div>
-    <div class="disaster_show_content">
+<div class="disaster_show_container">
+  <div class="disaster_show_top">
+    <div class="weui_container communities_centre_userinfo_content">
       <div class="row">时间: <%= @disaster.occur_time.strftime("%Y-%m-%d %H:%M") %></div>
       <div class="row">类型: <%= @disaster.disaster_type %></div>
       <div class="row">说明: <%= @disaster.explain %></div>
-      <div class="row">地址: <%= @disaster.disaster_position.try(:address) %></div>
-      <div class=""><h4>照片列表</h4></div>
-      <div class="row disaster-picture-list">
-        <% @disaster.disaster_pictures.each do |picture| %>
-          <%= image_tag picture.image.url(:medium) %>
-        <% end %>
-      </div>
+      <div class="row address">地址: <%= @disaster.disaster_position.try(:address) %></div>
+    </div>
+  </div> 
+  <div class="disaster_show_content">
+    <div class=""><h4>照片列表</h4></div>
+    <div class="row disaster-picture-list">
+      <% if @disaster.disaster_pictures.nil? %>
+        该灾情暂无上传图片！
+      <% end %>
+      <% @disaster.disaster_pictures.each do |picture| %>
+        <%= image_tag picture.image.url(:medium) %>
+      <% end %>
     </div>
   </div>
 </div>
