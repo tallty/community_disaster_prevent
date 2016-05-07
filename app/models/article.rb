@@ -36,7 +36,7 @@ class Article < ActiveRecord::Base
               end
               return { :type => 'text', :content => contents }
             else
-              return { :type => 'text', :content => "当前无#{@keyword}信息" }      
+              return { :type => 'text', :content => "当前无#{@keyword}信息" }
             end
           else
             articles = ArticleManager.where(keyword: @keyword, community: subscriber.community)  

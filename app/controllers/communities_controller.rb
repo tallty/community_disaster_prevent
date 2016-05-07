@@ -21,8 +21,7 @@ class CommunitiesController < ApplicationController
   end
 
   def change_community
-    @subscriber = Subscriber.where(openid: params[:openid]).first
-    @disasters = Disaster.where("occur_time > ?", Time.now.to_date - 3.day).find_all { |d| d.subscriber == @subscriber or d.disaster_position.present? }
+    @communities = Community.all
   end
 
   def centre
@@ -39,15 +38,4 @@ class CommunitiesController < ApplicationController
     #     end
     #   end
   end
-
-  # private
-  #     # Use callbacks to share common setup or constraints between actions.
-  #     def set_community
-  #       @community = Community.find(params[:id])
-  #     end
-
-  #     # Never trust parameters from the scary internet, only allow the white list through.
-  #     def community_params
-  #       params.require(:community).permit(:district, :street, :c_type)
-  #     end
 end
