@@ -1,0 +1,17 @@
+<% content_for :title, "预报服务列表" %>
+
+<div class="weui_container">
+	<div class="weui_content">
+		<div class="my-panel">
+			<div class="panel-hd">
+				<ul class="nav">
+					<li><%= link_to "全市预警", city_warn_forecast_services_path %></li>
+					<li><%= link_to "五日天气预报", five_day_weather_forecast_services_path %></li>
+					<li><%= link_to "健康气象", healthy_weather_forecast_services_path %></li>
+					<li><%= link_to "生活指数", life_index_forecast_services_path %></li>
+					<li><%= link_to "空气质量", air_quality_forecast_services_path %></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

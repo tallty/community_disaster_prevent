@@ -13,8 +13,14 @@
     </div> -->
 
     <div class="detection_content detection_content_1">
-      <p><i class="iconfont">&#xe607;</i>&nbsp<span>漕宝路梅龙镇社区</span></p>
-      <p><small>4月22日&nbsp星期一&nbsp</small><small>29分钟前发布</small></p>
+      <p><i class="iconfont">&#xe607;</i>&nbsp;<span><%= @community.street %>社区</span></p>
+      <p>
+        <small>
+        <%= @auto_station["datetime"].to_time.strftime("%m月%d日") %>
+        <%= week_name @auto_station["datetime"].to_time %>
+        </small>
+        <small><%= @auto_station["datetime"].to_time.strftime("%H:%M") %>发布</small>
+      </p>
       <hr class="detection_content_hr">
     </div>
 
@@ -32,38 +38,50 @@
             <div class="detection_content_grid">
               <p><i class="iconfont">&#xe617;</i></p>
               <p><small>实时温度</small></p>
-              <p><small>17.1</small></p>
+              <p><small><%= @auto_station["tempe"] %>℃</small></p>
             </div>
             <div class="detection_content_grid detection_content_grid_1">
               <p><i class="iconfont">&#xe602;</i></p>
               <p><small>累计雨量</small></p>
-              <p><small>0.0mm</small></p>
+              <p><small><%= @auto_station["rain"] %>mm</small></p>
             </div>
             <div class="detection_content_grid">
               <p><i class="iconfont">&#xe619;</i></p>
               <p><small>风速风向</small></p>
-              <p><small>静风</small></p>
+              <p><small>
+                <% if @auto_station["wind_speed"].to_f < 0.2 %>
+                  静风
+                <% else %>
+                  <%= MonitorStation.translate_wdir(@auto_station["wind_direction"]) %><%= MonitorStation.translate_wspeed(@auto_station["wind_speed"])%>
+                <% end %>
+              </small></p>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="detection_content alpha-bg">
-      <div class="my-panel">
-        <div class="panel-hd mborder">积水实况</div>
-        <div class="panel-bd"><p class="detection_content_ponding">龙吴立交桥下积水深度：0.0mm</p></div>
+    <% if @water_stations.present? %>
+      <div class="detection_content alpha-bg">
+        <div class="my-panel">
+          <div class="panel-hd mborder">积水实况</div>
+          <div class="panel-bd"><p class="detection_content_ponding"><%= item["site_name"] %>积水深度：<%= item["data"] || 0 %>m</p></div>
+        </div>
       </div>
-    </div>
+    <% end %>
+
     <div class="detection_content detection_content_3 alpha-bg">
       <div class="my-panel">
         <div class="panel-hd mborder">闪电分布</div>
         <div class="panel-bd">
-          <div class="detection_content_lightning">闪电分布数据图</div>
+          <div class="detection_content_lightning">
+            <%= image_tag "../lightning/#{Lightning.get_pic}", :style => "width: 100%;" %>
+          </div>
           <p class="detection_content_lightning_text text-justify">云体与大地相接触的放电现象称为地闪·用CG表示，地闪有两种：正地闪(+)和负地闪(-)，通常情况下的对地放电过程都是将云内负电荷输送到地面的负极性放电·即负地闪，但是也有一些放电将云内的正电荷输送到地面，这种现象被称为正地闪。</p>
         </div>
       </div>
     </div>
+
   </div>
 </div>
 <%= render partial: "weixin_share/tabbar" %>

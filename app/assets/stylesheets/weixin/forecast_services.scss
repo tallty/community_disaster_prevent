@@ -12,6 +12,26 @@
   border-top: 1px solid rgba(255,255,255,0.4);
   margin: 0;
 }
+// ============气象预警===========
+.city-warn {
+	.my-panel {
+		margin-top: 10px;
+	}
+	.panel-hd {
+		font-size: 14px;
+		img {
+			margin-top: -2px;
+			margin-left: -10px;
+	    margin-right: -13px;
+		}
+	}
+	.panel-bd {
+		padding: 20px;
+		text-align: justify;
+		line-height: 24px;
+	}
+}
+
 // ============五日天气预报===========
 .now-weather {
 	margin-bottom: 60px;

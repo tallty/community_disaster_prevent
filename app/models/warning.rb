@@ -23,15 +23,15 @@ class Warning < ActiveRecord::Base
   end
 
   def as_json(options=nil)
-      {
-        publish_time: publish_time,
-        type: warning_type,
-        level: level,
-        content: content,
-        status: status,
-        community: community.code
-      }
-    end
+    {
+      publish_time: publish_time,
+      type: warning_type,
+      level: level,
+      content: content,
+      status: status,
+      community: community.code
+    }
+  end
 
   def get_show_article
     if @keyword.eql?("全市预警")

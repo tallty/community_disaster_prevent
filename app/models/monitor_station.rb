@@ -46,6 +46,7 @@ class MonitorStation < ActiveRecord::Base
     file_name
   end
 
+  # 图文消息
   def get_show_article
     subscriber = Subscriber.where(openid: @subscriber).first
     if subscriber.community.present?

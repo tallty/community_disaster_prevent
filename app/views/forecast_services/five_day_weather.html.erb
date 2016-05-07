@@ -2,18 +2,21 @@
 <!-- 五日天气预报 -->
 <div class="weui_container">
 	<div class="weui_content">
-		<!-- 天气预报 -->
+
 		<div class="my-panel now-weather">
-			<!-- 发布信息 -->
-			<p class="release right"><%= Time.now.strftime("%m月%d日") %>&nbsp;&nbsp;<%= week_name Time.now %>&nbsp;&nbsp;29分钟前发布</p>
+			<!-- 发布时间 -->
+			<p class="release right">
+				<%= @auto_station["datetime"].to_time.strftime("%m月%d日") %>
+				<%= week_name @auto_station["datetime"].to_time %>
+				<%= @auto_station["datetime"].to_time.strftime("%H:%M") %>发布</p>
 			<!-- 天气 -->
 			<div class="weather-info">
-				<div class="weather-left"><span><%= @weathers.first.second.second %></span><span style="padding-left: 8px;">˚</span></div>
+				<div class="weather-left"><span><%= @auto_station["tempe"] %></span><span style="padding-left: 8px;">˚</span></div>
 				<div class="weather-right">
 					<div class="right">
 						<div class="warn"><i class="iconfont">&#xe632;</i>橙色预警</div>
 					</div>
-					<div class="location">闵行<i class="iconfont">&#xe612;</i></div>
+					<div class="location"><%#= @community.street %><i class="iconfont">&#xe612;</i></div>
 				</div>
 			</div>
 			<!-- 气温 -->
@@ -25,41 +28,9 @@
 				<span><strong><%= @weathers.first.second.first %>˚</strong></span>
 			</div>
 		</div>
-		<!--begin: 当前天气详情 -->
-		<div class="my-panel">
-			<div class="panel-bd alpha-bg weui_grids five-weather">
-				<div class="weui_grid">
-					<span>风 速</span>
-					<i class="iconfont">&#xe60f;</i>
-					<small class="five-info">1级</small>
-					<small>东风</small>	
-				</div>
-				<div class="weui_grid">
-					<span>降 水</span>
-					<i class="iconfont">&#xe608;</i>
-					<small class="five-info">0.0</small>
-					<small>mm</small>	
-				</div>
-				<div class="weui_grid">
-					<span>能见度</span>
-					<i class="iconfont">&#xe616;</i>
-					<small class="five-info">大于10</small>
-					<small>km</small>	
-				</div>
-				<div class="weui_grid">
-					<span>露 点</span>
-					<i class="iconfont">&#xe610;</i>
-					<small class="five-info">26.0</small>
-					<small>%</small>	
-				</div>
-				<div class="weui_grid before-none">
-					<span>气 压</span>
-					<i class="iconfont">&#xe60b;</i>
-					<small class="five-info">1020.7</small>
-					<small>hpa</small>	
-				</div>
-			</div>
-		</div><!--end: 当前天气 -->
+
+		<!--天气实况 -->
+		<%= render partial: "now_weather" %>
 
 		<!--begin: 五日预报 -->
 		<div class="my-panel" style="margin-bottom: 0;">
@@ -89,6 +60,7 @@
 				<div id="five_weather_chart"></div>
 			</div>
 		</div><!--end: 五日预报 -->
+		
 	</div>
 </div>
 
@@ -96,122 +68,9 @@
 	<script>
 		$(function() {
 			$(".weather-right").width(document.body.clientWidth - 180);
+			// 五日天气图表
+			<%= render partial: "five_day_weather_chart" %>
 		})
-	</script>
-	<script type="text/javascript">
-		$(function() {
-			<% @week_day = [] %>
-			<% @low = [] %>
-			<% @high = [] %>
-			<% @weathers.each do |key, value| %>
-				<% @low.push value.first.to_i %>
-				<% @high.push value.second.to_i %>
-				<% @week_day.push (week_name key) %>
-			<% end %>
-			// 基于准备好的dom，初始化echarts实例
-		  var myChart = echarts.init(document.getElementById('five_weather_chart'));
-		  // 指定图表的配置项和数据
-		  var option = {
-		    tooltip: { 
-		    	trigger: 'axis' 
-		    },
-		    grid: {
-		      show: false,
-		      left: 0,
-		      right: 0,
-		      top: 12,
-		      bottom: 12
-		    },
-		    xAxis:  {
-		      type: 'category',
-		      boundaryGap: true,
-		      data: <%= raw @week_day %>,
-		      axisLine: { show: false },
-		      axisTick: { show: false },
-		      axisLabel: { show: false },
-		      splitLine: { show: false }
-		    },
-		    yAxis: {
-		      type: 'value',
-		      axisLabel: {
-		          formatter: '{value} °C',
-		          show: false
-		      },
-		      axisLine: { show: false },
-		      axisTick: { show: false },
-		      splitLine: { show: false }
-		    },
-		    series: [
-		      {
-		        name:'最高气温',
-		        type:'line',
-		        data:<%= @high %>,
-		        markPoint: {
-			        	symbol: 'pin',
-		            symbolSize: 30,
-		            showSymbol: false,
-		            data: [
-		                <% @weathers.each do |key, value| %>
-											{ name: '气温',coord: ['<%= week_name key %>', <%= value.second.to_i %>], value: <%= value.second.to_i %> },
-		                <% end %>
-		            ],
-		            itemStyle: {
-							    normal: {
-							    		color: 'rgba(255, 255, 255, 0)'
-							    }
-								}
-		        },
-		       	lineStyle: {
-		            normal: {
-		                color: '#ffffff'
-		            }
-		        },
-		        itemStyle: {
-					    normal: {
-					    		color: '#fff',
-					    		borderColor: '#fff',
-					    		borderWidth: 5
-					    }
-						}
-		      },
-		      {
-		        name:'最低气温',
-		        type:'line',
-		        data:<%= @low %>,
-		        markPoint: {
-	            symbol: 'pin',
-	            symbolSize: 30,
-	            symbolRotate: 180,
-	            symbolOffset: [0, '20%'],
-	            data: [
-                <% @weathers.each do |key, value| %>
-									{ name: '气温',coord: ['<%= week_name key %>', <%= value.first.to_i %>], value: <%= value.first.to_i %> },
-                <% end %>
-	            ],
-			        itemStyle: {
-						    normal: {
-						    		color: 'rgba(255, 255, 255, 0)'
-						    }
-							}
-		        },
-		        lineStyle: {
-	            normal: {
-	                color: '#fff'
-	            }
-		        },
-		        itemStyle: {
-					    normal: {
-					    		color: '#fff',
-					    		borderColor: '#fff',
-					    		borderWidth: 3
-					    }
-						}
-		      }
-		    ]
-			};
-		  // 使用刚指定的配置项和数据显示图表。
-		  myChart.setOption(option);
-		});
 	</script>
 <% end %>
 

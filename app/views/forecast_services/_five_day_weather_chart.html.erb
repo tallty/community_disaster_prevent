@@ -1,0 +1,113 @@
+$(function() {
+	<% @week_day = [] %>
+	<% @low = [] %>
+	<% @high = [] %>
+	<% @weathers.each do |key, value| %>
+		<% @low.push value.first.to_i %>
+		<% @high.push value.second.to_i %>
+		<% @week_day.push (week_name key) %>
+	<% end %>
+	// 基于准备好的dom，初始化echarts实例
+  var myChart = echarts.init(document.getElementById('five_weather_chart'));
+  // 指定图表的配置项和数据
+  var option = {
+    tooltip: { 
+    	trigger: 'axis' 
+    },
+    grid: {
+      show: false,
+      left: 0,
+      right: 0,
+      top: 12,
+      bottom: 12
+    },
+    xAxis:  {
+      type: 'category',
+      boundaryGap: true,
+      data: <%= raw @week_day %>,
+      axisLine: { show: false },
+      axisTick: { show: false },
+      axisLabel: { show: false },
+      splitLine: { show: false }
+    },
+    yAxis: {
+      type: 'value',
+      axisLabel: {
+          formatter: '{value} °C',
+          show: false
+      },
+      axisLine: { show: false },
+      axisTick: { show: false },
+      splitLine: { show: false }
+    },
+    series: [
+      {
+        name:'最高气温',
+        type:'line',
+        data:<%= @high %>,
+        markPoint: {
+	        	symbol: 'pin',
+            symbolSize: 30,
+            showSymbol: false,
+            data: [
+                <% @weathers.each do |key, value| %>
+									{ name: '气温',coord: ['<%= week_name key %>', <%= value.second.to_i %>], value: <%= value.second.to_i %> },
+                <% end %>
+            ],
+            itemStyle: {
+					    normal: {
+					    		color: 'rgba(255, 255, 255, 0)'
+					    }
+						}
+        },
+       	lineStyle: {
+            normal: {
+                color: '#ffffff'
+            }
+        },
+        itemStyle: {
+			    normal: {
+			    		color: '#fff',
+			    		borderColor: '#fff',
+			    		borderWidth: 5
+			    }
+				}
+      },
+      {
+        name:'最低气温',
+        type:'line',
+        data:<%= @low %>,
+        markPoint: {
+          symbol: 'pin',
+          symbolSize: 30,
+          symbolRotate: 180,
+          symbolOffset: [0, '20%'],
+          data: [
+            <% @weathers.each do |key, value| %>
+							{ name: '气温',coord: ['<%= week_name key %>', <%= value.first.to_i %>], value: <%= value.first.to_i %> },
+            <% end %>
+          ],
+	        itemStyle: {
+				    normal: {
+				    		color: 'rgba(255, 255, 255, 0)'
+				    }
+					}
+        },
+        lineStyle: {
+          normal: {
+              color: '#fff'
+          }
+        },
+        itemStyle: {
+			    normal: {
+			    		color: '#fff',
+			    		borderColor: '#fff',
+			    		borderWidth: 3
+			    }
+				}
+      }
+    ]
+	};
+  // 使用刚指定的配置项和数据显示图表。
+  myChart.setOption(option);
+});
