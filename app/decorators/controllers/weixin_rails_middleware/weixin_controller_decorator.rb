@@ -11,7 +11,11 @@ WeixinRailsMiddleware::WeixinController.class_eval do
   private
 
     def response_text_message(options={})
-      reply_text_message("Your Message: #{@keyword}")
+      if @keyword == "列表"
+        reply_text_message("#{forecast_services_url}")
+      else
+        reply_text_message("Your Message: #{@keyword}")
+      end
     end
 
     # <Location_X>23.134521</Location_X>
