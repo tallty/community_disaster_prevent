@@ -138,28 +138,28 @@
       var marker2 = new BMap.Marker(lanlat,{icon:myIcon});  // 创建标注
       map.addOverlay(marker2);
 
-      var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+      // var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
 
      //  var markerOption = {map: mapObj, icon: icon, position: lanlat};
      //  var marker = new BMap.Marker(lanlat,markerOption);
       
       // var infoWindow = new AMap.InfoWindow({
      //    isCustom: true,
-      var  sContent = "灾情点","<div>时间:"+d.occur_time+"</div><img id='imgDemo' style='text-align:center;max-height:160px;width:90%;' src='system/"+d.pictures[0].id+"/images/medium/image.jpg'/><div style='word-break:break-all;'>说明:"+d.explain+"</div><div><a href='/disasters/"+d.id+"'>详细说明</a></div>";
+      // var  sContent = "灾情点","<div>时间:"+d.occur_time+"</div><img id='imgDemo' style='text-align:center;max-height:160px;width:90%;' src='system/"+d.pictures[0].id+"/images/medium/image.jpg'/><div style='word-break:break-all;'>说明:"+d.explain+"</div><div><a href='/disasters/"+d.id+"'>详细说明</a></div>";
      //    size: new AMap.Size(0,0),
      //    autoMove: true,
      //    offset: new AMap.Pixel(25, -50)
      //  });
 
 
-      map.addOverlay(marker);
-      marker.addEventListener("click", function(){          
-      this.openInfoWindow(infoWindow);
+      // map.addOverlay(marker2);
+      // marker.addEventListener("click", function(){          
+      // this.openInfoWindow(infoWindow);
      //图片加载完毕重绘infowindow
-        document.getElementById('imgDemo').onload = function (){
-          infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
-        }
-      });
+      //   document.getElementById('imgDemo').onload = function (){
+      //     infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
+      //   }
+      // });
 
 
 
