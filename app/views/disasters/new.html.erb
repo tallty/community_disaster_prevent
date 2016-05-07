@@ -2,14 +2,20 @@
   <div class="communities_centre_userinfo">
     <div class="weui_container communities_centre_userinfo_content">
       <div class="communities_centre_userinfo_image"><%= image_tag "avatar-lg.png", class: "user_pic", alt: "用户头像"%></div>
-      <span>tt</span>
+      <% if @subscriber.present? %>
+        <span><%= @subscriber.nick_name %></span>
+      <% else %>
+        <span>游客</span>
+      <% end -%>
     </div>
   </div>
 
   <div class="disaster_content row">
     <%= form_for @disaster, url: disasters_path do |f| %>
-      <!-- <div class="row">你好: <%#= @subscriber.nick_name %></div> -->
-      <%#= f.hidden_field :openid, :value => @subscriber.openid %>
+      <% if @subscriber.present? %>
+        <div class="row">你好: <%= @subscriber.nick_name %></div>
+        <%= f.hidden_field :openid, :value => @subscriber.openid %>
+      <% end -%>
       <%= f.hidden_field :disaster_position_id, :value => @disaster_position.id %>
       <div class="col-xs-12 disaster-input disaster-time">
         <strong>灾情发生时间: </strong> <%= f.text_field :occur_time, :class => "input", placeholder: "时间" %>

@@ -48,17 +48,6 @@ class CommunitiesController < ApplicationController
   end
 
   def centre
-    # @community = Community.new(community_params)
-    #   @community.code = Community.where(district: "杨浦").last.code.succ
-
-    #   respond_to do |format|
-    #     if @community.save
-    #       format.html { redirect_to admin_communities_path }
-    #       format.json { render :show, status: :created, location: @community }
-    #     else
-    #       format.html { render :new }
-    #       format.json { render json: @community.errors, status: :unprocessable_entity }
-    #     end
-    #   end
+    
   end
 end
