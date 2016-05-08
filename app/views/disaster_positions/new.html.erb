@@ -5,7 +5,7 @@
 
   <div class="disaster_position_content" style="color: #000;">
     <div class="row">
-      <%#= @disaster.subscriber.nick_name %>, 感谢您上报灾情. 
+      <%= @subscriber.nick_name %>, 感谢您上报灾情. 
       <% if @disaster_position.nil? %>
         请上传灾情地址完善<灾情上报>流程.
       <% end %>
