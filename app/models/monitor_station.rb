@@ -82,11 +82,6 @@ class MonitorStation < ActiveRecord::Base
     end
   end
 
-  # 微信页面：实况监测
-  def get_subscriber
-    subscriber = Subscriber.where(openid: @subscriber).first
-  end
-
   def write_auto_station_from_file
     File.foreach("documents/自动站.csv") do |line|
       line = line.force_encoding('utf-8').chomp
