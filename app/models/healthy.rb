@@ -31,14 +31,15 @@ class Healthy < BaseForecast
     content = get_data
     shows = ["COPD患者", "儿童哮喘", "老年人感冒"]
 
+    now_day = Time.zone.now
     results = {}
-    cache = {}
 
     # 今天
     content[0].each do |item|
       if shows.include?(item["title"])
-        cache["今天"] = ["#{item['level']}", "#{item['guide']}"]
-        cache["明天"] = ["#{item['level']}", "#{item['guide']}"]
+        cache = {}
+        cache["#{now_day.strftime("%Y-%m-%d")}"] = ["#{item['level']}", "#{item['guide']}"]
+        cache["#{(now_day + 1.day).strftime("%Y-%m-%d")}"] = ["#{item['level']}", "#{item['guide']}"]
         results["#{item['title']}气象风险"] = cache
       end
     end
