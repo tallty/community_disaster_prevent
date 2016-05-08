@@ -4,16 +4,22 @@
 <div class="weui_tab_bd">
   <div class="communities_centre_container">
     <div class="weui_tab1">
-      <% (1..8).each do |t| %>
-        <div class="risk-list row">
-          <div class="pic-content col-xs-3 text-center">
-            <%= image_tag "community3.jpg", class: "show_pic", alt: "文章列表图"%>
+      <% @articles.each do |article| %>
+        <%= link_to article_path(id:article.id) do %>
+          <div class="risk-list row">
+            <div class="pic-content col-xs-3 text-center">
+              <% if article.thumb_media_url.present? %>
+                <%= image_tag article.thumb_media_url, class: "show_pic", alt: "文章列表图"%>
+              <% else %>
+                <%= image_tag "community2.png", class: "show_pic", alt: "文章列表图"%>
+              <% end -%>
+            </div>
+            <div class="article-content col-xs-9">
+              <h5 class="articletitle"><%=article.title %></h5>
+              <span class="articletext"><%= truncate(article.digest,length: 60) %></span>
+            </div>
           </div>
-          <div class="article-content col-xs-9">
-            <h5 class="articletitle">Docker传奇之dotCloud</h5>
-            <span class="articletext">Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的...</span>
-          </div>
-        </div>
+        <% end -%>
       <% end %>
     </div>
     <%= render partial: "weixin_share/tabbar" %>

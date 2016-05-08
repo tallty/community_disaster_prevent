@@ -2,6 +2,7 @@
 class CommunitiesController < ApplicationController
 	layout 'weixin'
   before_action :set_community, only: [:show, :edit, :update, :destroy]
+  before_action :set_article, only: [:show]
   respond_to :json, :html
 
 	# 社区四个部分
@@ -39,8 +40,7 @@ class CommunitiesController < ApplicationController
   end
 
   def community_risk
-    @subscriber = Subscriber.where(openid: params[:openid]).first
-    @disasters = Disaster.where("occur_time > ?", Time.now.to_date - 3.day).find_all { |d| d.subscriber == @subscriber or d.disaster_position.present? }
+    @articles = Article.all
   end
 
   def change_community
@@ -50,4 +50,10 @@ class CommunitiesController < ApplicationController
   def centre
     
   end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_article
+      @article = Article.find(params[:id])
+    end
 end
