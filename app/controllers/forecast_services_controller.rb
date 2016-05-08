@@ -16,8 +16,7 @@ class ForecastServicesController < ApplicationController
 		@weathers = five_day_weather.get_web_message
 
     # 实况天气
-    monitor_station = MonitorStation.new
-    subscriber = monitor_station.get_subscriber
+    subscriber = Subscriber.where(openid: session[:openid]).first
     if subscriber.present?
       # 用户所属社区
       @community = subscriber.community
