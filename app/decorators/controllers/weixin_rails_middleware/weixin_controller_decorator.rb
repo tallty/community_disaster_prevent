@@ -12,7 +12,6 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
     def response_text_message(options={})
       if @keyword == "列表"
-        session[:openid] = @weixin_message.FromUserName
         reply_text_message("http://61.152.126.154/forecast_services")
       else
         reply_text_message("Your Message: #{@keyword}")
