@@ -5,7 +5,7 @@
 		<!-- 空气质量描述 -->
 		<div class="my-panel">
 			<div class="panel-hd">
-				空气质量<span class="float-right"><%= @result[:time].to_time.strftime("%m月%d日") %>&nbsp;&nbsp;<%= week_name @result[:time].to_time.strftime("%w") %>&nbsp;&nbsp;29分钟前发布</span>
+				空气质量<span class="float-right"><%= @result[:time].to_time.strftime("%m月%d日") %>&nbsp;&nbsp;<%= week_name @result[:time] %>&nbsp;&nbsp;29分钟前发布</span>
 			</div>
 			<div class="panel-bd center">
 				<!-- 数据时间段 -->
