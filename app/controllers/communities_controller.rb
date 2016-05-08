@@ -1,7 +1,7 @@
 # 微信端： 社区
 class CommunitiesController < ApplicationController
-  before_action :invoke_wx_auth
-  before_action :get_wechat_sns, if: :is_wechat_brower?
+  # before_action :invoke_wx_auth
+  # before_action :get_wechat_sns, if: :is_wechat_brower?
 	layout 'weixin'
   before_action :set_community, only: [:show, :edit, :update, :destroy]
   before_action :set_article, only: [:show]
