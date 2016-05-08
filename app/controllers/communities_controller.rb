@@ -19,12 +19,13 @@ class CommunitiesController < ApplicationController
       @community = subscriber.community
       # 获取数据
       auto_station_info = MonitorStation.where(community: @community, station_type: "自动站").first
+      water_station_infos = MonitorStation.where(community: @community, station_type: "积水站")
       auto_station_data = $redis.hget("monitor_stations", auto_station_info.station_number)
       # 气象实况
       @auto_station = MultiJson.load auto_station_data
       # 积水实况
       @water_stations = []
-      @water_station_infos.each do |item|
+      water_station_infos.each do |item|
         data = MultiJson.load($redis.hget("monitor_stations", item.station_number)) rescue {}
         if data.present?
           @water_stations << data
