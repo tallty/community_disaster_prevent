@@ -5,7 +5,7 @@ class AQI < BaseForecast
   end
 
   # （微信页面）：空气质量
-  def self.get_web_message
+  def get_web_message
     content = get_data
     list = content["data"]["list"]
     # 发布时间

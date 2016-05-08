@@ -44,19 +44,22 @@ class ForecastServicesController < ApplicationController
 
   # 生活指数
   def life_index
-  	@index = WeatherIndex.get_web_message
+    weather_index = WeatherIndex.new
+  	@index = weather_index.get_web_message
   	# @index = {"体感指数" => ["2", "较适宜"], "穿衣指数" => ["2", "较适宜"], "洗晒指数" => ["2", "较适宜"], "户外晚间锻炼指数" => ["2", "较适宜"]}
   end
 
   # 空气质量
   def air_quality
-    @results = Aqi.get_web_message
+    aqi = Aqi.new
+    @results = aqi.get_web_message
     # @result = { time: "2016-05-04 17:00", aqi: ["56-75", "70-90", "90-110"], level: ["良", "良", "差"], pripoll: ["PM2.5", "PM2.5", "O3"] }
   end
 
   # 健康气象
   def healthy_weather
-    @results = Healthy.get_web_message
+    healthy = Healthy.new
+    @results = healthy.get_web_message
     # @results = {
     #   "儿童感冒气象风险" => {"今天" => ["4级", "建议"], "明天" => ["3级", "建议"]},
     #   "儿童哮喘气象风险" => {"今天" => ["4级", "建议"], "明天" => ["3级", "建议"]},
