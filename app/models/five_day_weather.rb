@@ -39,7 +39,7 @@ class FiveDayWeather
   end
 
   # 微信网页版：五日天气
-  def self.get_web_message
+  def get_web_message
     conn = Faraday.new(:url => Settings.DataUrl) do |faraday|
       faraday.request  :url_encoded
       faraday.response :logger
