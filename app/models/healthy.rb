@@ -27,7 +27,7 @@ class Healthy < BaseForecast
 
   # 微信网页版：获取健康气象数据
   # TODO: 今天、明天数据没有区分，待解决
-  def self.get_web_message
+  def get_web_message
     content = get_data
     shows = ["COPD患者", "儿童哮喘", "老年人感冒"]
 
