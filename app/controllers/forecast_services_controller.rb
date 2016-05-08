@@ -18,19 +18,19 @@ class ForecastServicesController < ApplicationController
 		@weathers = five_day_weather.get_web_message
 
     # 实况天气
-    subscriber = Subscriber.where(openid: params[:openid]).first
-    if subscriber.present?
-      # 用户所属社区
-      @community = subscriber.community
-      # 获取数据
-      auto_station_info = MonitorStation.where(community: @community, station_type: "自动站").first
-      auto_station_data = $redis.hget("monitor_stations", auto_station_info.station_number)
-      # 气象实况
-      @auto_station = MultiJson.load auto_station_data
-    else
-      # TODO 跳转绑定社区页面
-      redirect_to centre_communities_path
-    end
+    # subscriber = Subscriber.where(openid: params[:openid]).first
+    # if subscriber.present?
+    #   # 用户所属社区
+    #   @community = subscriber.community
+    #   # 获取数据
+    #   auto_station_info = MonitorStation.where(community: @community, station_type: "自动站").first
+    #   auto_station_data = $redis.hget("monitor_stations", auto_station_info.station_number)
+    #   # 气象实况
+    #   @auto_station = MultiJson.load auto_station_data
+    # else
+    #   # TODO 跳转绑定社区页面
+    #   redirect_to centre_communities_path
+    # end
 
     # @weathers = {
     #   "2016-05-04" => ["8.2", "17.7", "多云"],
@@ -39,7 +39,7 @@ class ForecastServicesController < ApplicationController
     #   "2016-05-07" => ["13", "18", "阴转多云"],
     #   "2016-05-08" => ["13", "22", "多云"]
     # }
-    # @auto_station = {"datetime" => "2015-10-27 14:20","name" => "体育场","sitenumber" => "98110","tempe" => "19.7","rain" => "0","wind_direction" => "347","wind_speed" => "6.6","visibility" => "10","humi" => "20","pressure" => "1024"}
+    @auto_station = {"datetime" => "2015-10-27 14:20","name" => "体育场","sitenumber" => "98110","tempe" => "19.7","rain" => "0","wind_direction" => "347","wind_speed" => "6.6","visibility" => "10","humi" => "20","pressure" => "1024"}
   end
 
   # 生活指数
