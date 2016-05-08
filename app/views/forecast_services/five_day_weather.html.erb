@@ -4,6 +4,7 @@
 	<div class="weui_content">
 
 		<div class="my-panel now-weather">
+			<%= @auto_station %>
 			<!-- 发布时间 -->
 			<p class="release right">
 				<%= @auto_station["datetime"].to_time.strftime("%m月%d日") %>
