@@ -46,7 +46,7 @@ class CommunitiesController < ApplicationController
   end
 
   def centre
-    
+    @subscriber = Subscriber.where(openid: session[:openid]).first
   end
 
   private
