@@ -55,10 +55,11 @@
 </div>
 
 <% content_for :scripts do %>
+
   <%= javascript_tag do %>
     disasters = <%= @disasters.to_json.html_safe %>
   <% end %>
-  <script type="text/javascript" src=http://api.map.baidu.com/api?v=2.0&ak=5l5GtYwm4wTs7hBpeijR7CeGQEbs8jwP></script>
+
   <script type="text/javascript">
 
     $(document).ready(function() {
@@ -111,6 +112,11 @@
 
         for(var i = 0; i < disasters.length; i++) {
           addmarker(disasters[i],map)
+        }
+
+        //======
+        if($("#map_container div").length == 0) {
+          window.location.reload();
         }
       }
 
