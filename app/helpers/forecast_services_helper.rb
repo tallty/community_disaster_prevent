@@ -13,4 +13,11 @@ module ForecastServicesHelper
 		}
 		cache[name]
 	end
+
+	# 健康气象图标
+	def healthy_weather_icon name
+		"COPD患者气象风险" => "icon-feibu",
+		"儿童哮喘气象风险" => "icon-yaopingmp",
+		"老年人感冒气象风险" => "icon-old-man"
+ 	end
 end
