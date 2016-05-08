@@ -52,7 +52,7 @@ class ForecastServicesController < ApplicationController
   # 空气质量
   def air_quality
     aqi = AQI.new
-    @results = aqi.get_web_message
+    @result = aqi.get_web_message
     # @result = { time: "2016-05-04 17:00", aqi: ["56-75", "70-90", "90-110"], level: ["良", "良", "差"], pripoll: ["PM2.5", "PM2.5", "O3"] }
   end
 
