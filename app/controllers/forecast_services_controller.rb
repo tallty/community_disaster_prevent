@@ -1,7 +1,7 @@
 # 预报服务
 class ForecastServicesController < ApplicationController
-  before_action :invoke_wx_auth
-  before_action :get_wechat_sns, if: :is_wechat_brower?
+  # before_action :invoke_wx_auth
+  # before_action :get_wechat_sns, if: :is_wechat_brower?
 	layout 'weixin'
 
   # 城市告警
