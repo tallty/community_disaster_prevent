@@ -6,4 +6,8 @@ module BaseWeixin
   def weixin_url(url)
     "#{Settings.ProjectSetting.url}/#{url}?openid=#{@subscriber}"
   end
+
+  def weixin_openid
+  	@subscriber
+  end
 end
