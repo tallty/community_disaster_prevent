@@ -13,7 +13,7 @@
     </div>
     <div>
       <% if @article.thumb_media_url.present? %>
-        <%= image_tag @article.thumb_media_url, class: "show_pic", alt: "文章列表图"%>
+        <%= image_tag @article.thumb_media_url, class: "show_pic", width: "100%", alt: "文章列表图"%>
       <% else %>
         <%= image_tag "community2.png", class: "show_pic", alt: "文章列表图"%>
       <% end -%>
