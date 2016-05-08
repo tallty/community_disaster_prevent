@@ -11,8 +11,11 @@ class ForecastServicesController < ApplicationController
 
   # 五日天气预报
   def five_day_weather
+    five_day_weather = FiveDayWeather.new
+    # five_day_weather.instance_variable_set "@keyword", keyword
+    # five_day_weather.instance_variable_set "@subscriber", subscriber
     # {周几 => [低温，高温，天气], ...}
-		@weathers = FiveDayWeather.get_web_message
+		@weathers = five_day_weather.get_web_message
 
     # 实况天气
     subscriber = Subscriber.where(openid: params[:openid]).first
