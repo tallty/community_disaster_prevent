@@ -1,6 +1,5 @@
 # 预报服务
 class ForecastServicesController < ApplicationController
-  include BaseWeixin
 	layout 'weixin'
 
   # 城市告警
@@ -13,13 +12,12 @@ class ForecastServicesController < ApplicationController
   # 五日天气预报
   def five_day_weather
     five_day_weather = FiveDayWeather.new
-    # five_day_weather.instance_variable_set "@keyword", keyword
-    # five_day_weather.instance_variable_set "@subscriber", subscriber
     # {周几 => [低温，高温，天气], ...}
 		@weathers = five_day_weather.get_web_message
 
     # 实况天气
-    subscriber = Subscriber.where(openid: weixin_openid).first
+    monitor_station = MonitorStation.new
+    subscriber = monitor_station.get_subscriber
     if subscriber.present?
       # 用户所属社区
       @community = subscriber.community
