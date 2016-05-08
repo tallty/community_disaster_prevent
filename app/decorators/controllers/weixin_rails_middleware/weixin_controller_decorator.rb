@@ -12,7 +12,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
     def response_text_message(options={})
       if @keyword == "列表"
-        reply_text_message("#{forecast_services_url}")
+        reply_text_message("#{forecast_services_path}")
       else
         reply_text_message("Your Message: #{@keyword}")
       end
