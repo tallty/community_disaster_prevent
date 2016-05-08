@@ -54,7 +54,7 @@ class FiveDayWeather
     limit_day = Time.zone.now.to_date + 4.day
     content.each do |weather|
       datetime = Time.zone.parse(weather["datatime"])
-      if datetime < limit_day
+      if datetime < limit_day && datetime >= Time.zone.now.to_date
         cache = weather['tempe'].delete("℃").split("~")
         cache.push weather['weather']
         result["#{datetime}"] = cache
