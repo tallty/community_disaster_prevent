@@ -6,8 +6,13 @@
   <div class="weui_tab1">
     <div class="communities_centre_userinfo">
       <div class="weui_container communities_centre_userinfo_content">
-        <div class="communities_centre_userinfo_image"><%= image_tag "avatar-lg.png", class: "user_pic", alt: "用户头像"%></div>
-        <span>tt</span>
+        <% if @subscriber.present? %>
+          <div class="communities_centre_userinfo_image"><%= image_tag @subscriber.headimgurl, class: "user_pic", alt: "用户头像"%></div>
+          <span><%= @subscriber.nick_name %></span>
+        <% else %>
+          <div class="communities_centre_userinfo_image"><%= image_tag "avatar-lg.png", class: "user_pic", alt: "用户头像"%></div>
+          <span>游客</span>
+        <% end -%>
       </div>
     </div>
     <div class="communities_belong">

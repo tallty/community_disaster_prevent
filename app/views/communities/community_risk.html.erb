@@ -9,7 +9,7 @@
           <div class="risk-list row">
             <div class="pic-content col-xs-3 text-center">
               <% if article.thumb_media_url.present? %>
-                <%= image_tag article.thumb_media_url, class: "show_pic", alt: "文章列表图"%>
+                <img src=<%= "/#{article.thumb_media_url}" %> class="show_pic">
               <% else %>
                 <%= image_tag "community2.png", class: "show_pic", alt: "文章列表图"%>
               <% end -%>
