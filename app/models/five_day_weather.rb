@@ -27,6 +27,9 @@ class FiveDayWeather
     response = conn.get @data_url
 
     content = MultiJson.load response.body
+    p "==================="
+    p content
+    p "==================="
     datetime = nil
     limit_day = Time.zone.now.to_date + 4.day
     content.each do |weather|
