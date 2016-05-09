@@ -13,7 +13,7 @@
 					<% @results.each_with_index do |(key, value), index| %>
 					  <div class="panel">
 					    <div class="panel-heading alpha-bg" role="tab" id="heading<%= index %>">
-						    <a id="link_collapse<%= index %>" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index %>" aria-expanded="true" aria-controls="collapse<%= index %>">
+						    <a id="link_collapse<%= index %>" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index %>" aria-expanded="true" aria-controls="collapse<%= index %>" class="clearfix">
 						        <span class="pull-left"><i class="iconfont <%= healthy_weather_icon key %>"></i></span>
 						        <span class="pull-left">&nbsp;&nbsp;&nbsp;<%= key %></span>
 										<span class="iconfont icon-right pull-right" style="font-size: 22px;"></span>

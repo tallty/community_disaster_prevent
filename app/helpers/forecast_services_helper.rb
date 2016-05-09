@@ -19,7 +19,10 @@ module ForecastServicesHelper
 		cache = {
 			"COPD患者气象风险" => "icon-feibu",
 			"儿童哮喘气象风险" => "icon-yaopingmp",
-			"老年人感冒气象风险" => "icon-old-man"
+			"老年人感冒气象风险" => "icon-old-man",
+			"儿童感冒气象风险" => "icon-muying",
+			"成人感冒气象风险" => "icon-zhenguan",
+			"慢性阻塞性肺病气象风险" => "icon-feibu"
 		}
 		cache[name]
  	end
