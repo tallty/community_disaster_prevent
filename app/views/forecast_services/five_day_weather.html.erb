@@ -71,6 +71,11 @@
 			// 五日天气图表
 			<%= render partial: "five_day_weather_chart" %>
 		})
+
+		//屏幕旋转事件监听
+    $(window).on('orientationchange', function() {
+      window.location.reload();
+    });
 	</script>
 <% end %>
 

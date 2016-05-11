@@ -89,7 +89,13 @@
       $("#map_container").hide();
       $("#showList").show();
     });
+
+    //屏幕旋转事件监听
+    $(window).on('orientationchange', function() {
+      window.location.reload();
+    });
     
+    //百度地图初始化
     $(document).ready(function() {
       init_data();
       function init_data() {
@@ -126,7 +132,7 @@
       // var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
       // map.addOverlay(marker2); 
 
-
+      //弹框式标注、图标自定义
       function addmarker(d,map) {
         
         if(d.disaster_position == null){return;}

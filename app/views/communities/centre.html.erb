@@ -18,8 +18,14 @@
     <div class="communities_belong">
       <div class="communities_belong_1">
         <i class="iconfont input-left-icon">&#xe605;</i><strong>社区</strong>
-        <%=link_to change_community_communities_path do %> 
-          <span class="pull-right right-pull">未绑定<i class="iconfont">&#xe635;</i></span>
+        <% if @subscriber.community.present? %>
+          <%=link_to new_subscribers_path do %> 
+            <span class="pull-right right-pull">@subscriber.community.district|@subscriber.community.street<i class="iconfont">&#xe635;</i></span>
+          <% end -%>
+        <% else %>
+          <%=link_to new_subscribers_path do %> 
+            <span class="pull-right right-pull">未绑定<i class="iconfont">&#xe635;</i></span>
+          <% end -%>
         <% end -%>
       </div>
       <div class="communities_belong_2">
