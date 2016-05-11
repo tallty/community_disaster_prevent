@@ -1,0 +1,61 @@
+<div class="last24 alpha-bg">
+	<div class="title">过去24小时空气质量指数变化图</div>
+	<div class="content">
+	  <!-- Nav tabs -->
+	  <ul class="nav nav-tabs" role="tablist">
+	    <li role="presentation" class="active">
+	    	<a href="#aqi" aria-controls="aqi" role="tab" data-toggle="tab">
+	    		<div><%= aqi_format "AQI" %></div>
+	    		<div style="font-size: 10px;">空气质量</div>
+	    		<div><%= @aqi_weathers.try(:last).try(:aqi) %></div>
+		    </a>
+	    </li>
+	    <li role="presentation">
+	    	<a href="#pm25" aria-controls="pm25" role="tab" data-toggle="tab">
+	    		<div><%= aqi_format "PM2.5" %></div>
+	    		<div style="font-size: 10px;">细颗粒物</div>
+	    		<div><%= @aqi_weathers.try(:last).try(:pm2_5) %></div>
+	    	</a>
+	    </li>
+	    <li role="presentation">
+	    	<a href="#O3" aria-controls="O3" role="tab" data-toggle="tab">
+	    		<div><%= aqi_format "O3" %></div>
+	    		<div style="font-size: 10px;">臭氧</div>
+	    		<div><%= @aqi_weathers.try(:last).try(:o3) %></div>
+	    	</a>
+	    </li>
+	    <li role="presentation">
+	    	<a href="#pm10" aria-controls="pm10" role="tab" data-toggle="tab">
+	    		<div><%= aqi_format "PM10" %></div>
+	    		<div style="font-size: 10px;">可吸入颗粒物</div>
+	    		<div><%= @aqi_weathers.try(:last).try(:pm10) %></div>
+	    	</a>
+	    </li>
+	    <li role="presentation">
+	    	<a href="#NO2" aria-controls="NO2" role="tab" data-toggle="tab">
+	    		<div><%= aqi_format "NO2" %></div>
+	    		<div style="font-size: 10px;">二氧化氮</div>
+	    		<div><%= @aqi_weathers.try(:last).try(:no2) %></div>
+	    	</a>
+	    </li>
+	  </ul><!-- Nav tabs -->
+	  <!-- Tab panes -->
+	  <div class="tab-content">
+	    <div role="tabpanel" class="tab-pane active" id="aqi">
+	    	<div id="aqi_chart"></div>
+	    </div>
+	    <div role="tabpanel" class="tab-pane" id="pm25">
+	    	<div id="pm25_chart"></div>
+	    </div>
+	    <div role="tabpanel" class="tab-pane" id="O3">
+	    	<div id="O3_chart"></div>
+	    </div>
+	    <div role="tabpanel" class="tab-pane" id="pm10">
+	    	<div id="pm10_chart"></div>
+	    </div>
+	    <div role="tabpanel" class="tab-pane" id="NO2">
+	    	<div id="NO2_chart"></div>
+	    </div>
+	  </div><!-- Tab panes -->
+	</div>
+</div><!-- 过去24小时 -->

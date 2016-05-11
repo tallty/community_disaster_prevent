@@ -5,23 +5,15 @@
 <div class="weui_container">
   <div class="weui_detection weui_content_communities">
   
-<!--     <div class="my-panel">
+    <div class="my-panel">
       <div class="panel-hd">
-        <i class="iconfont" style="font-size: 20px;">&#xe607;</i>&nbsp;漕宝路梅龙镇社区
-        <span class="float-right"><%= Time.now.strftime("%m月%d日") %>&nbsp;<%= week_name Time.now %>&nbsp;29分钟前发布</span>
+        <i class="iconfont" style="font-size: 20px;">&#xe607;</i>&nbsp;<%= @community.street %>社区
+        <span class="float-right">
+          <%= @auto_station["datetime"].to_time.strftime("%m月%d日") %>
+          <%= week_name @auto_station["datetime"].to_time %>
+          <%= @auto_station["datetime"].to_time.strftime("%H:%M") %>发布
+        </span>
       </div>
-    </div> -->
-
-    <div class="detection_content detection_content_1">
-      <p><i class="iconfont">&#xe607;</i>&nbsp;<span><%= @community.street %>社区</span></p>
-      <p>
-        <small>
-        <%= @auto_station["datetime"].to_time.strftime("%m月%d日") %>
-        <%= week_name @auto_station["datetime"].to_time %>
-        </small>
-        <small><%= @auto_station["datetime"].to_time.strftime("%H:%M") %>发布</small>
-      </p>
-      <hr class="detection_content_hr">
     </div>
 
     <div class="detection_content">
@@ -65,7 +57,11 @@
       <div class="detection_content alpha-bg">
         <div class="my-panel">
           <div class="panel-hd mborder">积水实况</div>
-          <div class="panel-bd"><p class="detection_content_ponding"><%= item["site_name"] %>积水深度：<%= item["data"] || 0 %>m</p></div>
+          <div class="panel-bd">
+            <% @water_stations.each do |item| %>
+              <p class="detection_content_ponding"><%= item["site_name"] %>积水深度：<%= item["data"] || 0 %>m</p>
+            <% end %>
+          </div>
         </div>
       </div>
     <% end %>

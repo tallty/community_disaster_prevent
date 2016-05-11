@@ -16,16 +16,16 @@
 					<div class="right">
 						<div class="warn"><i class="iconfont">&#xe632;</i>橙色预警</div>
 					</div>
-					<div class="location"><%#= @community.street %><i class="iconfont">&#xe612;</i></div>
+					<div class="location"><%= @community.street %><i class="iconfont">&#xe612;</i></div>
 				</div>
 			</div>
 			<!-- 气温 -->
 			<div class="other-info">
 				<span><%= @weathers.first.second.last %></span>
 				<i class="iconfont">&#xe61a;</i>
-				<span><strong><%= @weathers.first.second.second %> °</strong></span>
+				<span><%= @weathers.first.second.second %>°</span>
 				<i class="iconfont">&#xe61f;</i>
-				<span><strong><%= @weathers.first.second.first %>˚</strong></span>
+				<span><%= @weathers.first.second.first %>˚</span>
 			</div>
 		</div>
 
@@ -48,7 +48,7 @@
 							<% end %>
 						</span>
 						<i class="iconfont icon-duoyun"></i>
-						<span><%= value.last %></span>
+						<span style="height: 34px;"><%= value.last %></span>
 						<div class="empty"></div>
 						<i class="iconfont icon-duoyun"></i>
 						<span><%= value.last %></span>
@@ -71,6 +71,11 @@
 			// 五日天气图表
 			<%= render partial: "five_day_weather_chart" %>
 		})
+
+		//屏幕旋转事件监听
+    $(window).on('orientationchange', function() {
+      window.location.reload();
+    });
 	</script>
 <% end %>
 

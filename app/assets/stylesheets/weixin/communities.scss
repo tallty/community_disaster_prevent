@@ -214,35 +214,39 @@
     #location_address {
       color: #4A4A4A;
     }
-    .makesure {
-      margin-top: 30px;
-      background-color: #7ED321;
-      border: none;
-      border-radius: 0;
-      color: #fff;
-      width: 100%;
-    }
   }
+}
+.makesure {
+  margin-top: 30px;
+  background-color: #7ED321 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  color: #fff;
+  width: 100%;
 }
 
 
 //社区风险页
-.risk-list {
-  margin: 0 15px !important;
-  padding: 15px 0;
-  border-bottom: 1px solid #EAEAEA;
-  .pic-content {
-    line-height: 95px;
-    padding: 0;
-    .show_pic {
-      width: 100%;
+.weui_risk_container {
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+  .risk-list {
+    margin: 0 15px !important;
+    padding: 15px 0;
+    border-bottom: 1px solid #EAEAEA;
+    .pic-content {
+      line-height: 95px;
+      padding: 0;
+      .show_pic {
+        width: 100%;
+      }
     }
-  }
-  .article-content {
-    padding-right: 0;
-    .articletext {
-      color: #999999;
-      font-size: 13px;
+    .article-content {
+      padding-right: 0;
+      .articletext {
+        color: #999999;
+        font-size: 13px;
+      }
     }
   }
 }

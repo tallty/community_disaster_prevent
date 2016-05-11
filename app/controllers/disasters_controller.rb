@@ -5,7 +5,7 @@ class DisastersController < ApplicationController
   layout 'weixin'
 
   def index
-    @subscriber = Subscriber.where(openid: params[:openid]).first
+    @subscriber = Subscriber.where(openid: session[:openid]).first
     @disasters = Disaster.where("occur_time > ?", Time.now.to_date - 3.day).find_all { |d| d.subscriber == @subscriber or d.disaster_position.present? }
   end
 
@@ -14,7 +14,7 @@ class DisastersController < ApplicationController
   end
 
   def new
-    @subscriber = Subscriber.where(openid: params[:openid]).first
+    @subscriber = Subscriber.where(openid: session[:openid]).first
     @disaster_position = DisasterPosition.where(id: params[:disaster_position_id]).first
     @disaster = Disaster.new
   end

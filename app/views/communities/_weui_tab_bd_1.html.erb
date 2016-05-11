@@ -55,10 +55,11 @@
 </div>
 
 <% content_for :scripts do %>
+
   <%= javascript_tag do %>
     disasters = <%= @disasters.to_json.html_safe %>
   <% end %>
-  <script type="text/javascript" src=http://api.map.baidu.com/api?v=2.0&ak=5l5GtYwm4wTs7hBpeijR7CeGQEbs8jwP></script>
+
   <script type="text/javascript">
 
     $(document).ready(function() {
@@ -88,117 +89,86 @@
       $("#map_container").hide();
       $("#showList").show();
     });
-    
-    init_data();
-    function init_data() {
-      var map = new BMap.Map("map_container");
-      map.centerAndZoom("上海",12);      // 初始化地图,用城市名设置地图中心点
-      map.enableScrollWheelZoom(true);
-      map.enableInertialDragging();   //两秒后开启惯性拖拽
 
-      var geolocation = new BMap.Geolocation();
-      geolocation.getCurrentPosition(function(r){
-        if(this.getStatus() == BMAP_STATUS_SUCCESS){
-          var mk = new BMap.Marker(r.point);
-          map.addOverlay(mk);
-          map.panTo(r.point);
+    //屏幕旋转事件监听
+    $(window).on('orientationchange', function() {
+      window.location.reload();
+    });
+    
+    //百度地图初始化
+    $(document).ready(function() {
+      init_data();
+      function init_data() {
+        var map = new BMap.Map("map_container");
+        map.centerAndZoom("上海",12);      // 初始化地图,用城市名设置地图中心点
+        map.enableScrollWheelZoom(true);
+        map.enableInertialDragging();   //两秒后开启惯性拖拽
+
+        var geolocation = new BMap.Geolocation();
+        geolocation.getCurrentPosition(function(r){
+          if(this.getStatus() == BMAP_STATUS_SUCCESS){
+            var mk = new BMap.Marker(r.point);
+            map.addOverlay(mk);
+            map.panTo(r.point);
+          }
+          else {
+            alert('failed'+this.getStatus());
+          }        
+        },{enableHighAccuracy: true})
+
+        for(var i = 0; i < disasters.length; i++) {
+          addmarker(disasters[i],map)
         }
-        else {
-          alert('failed'+this.getStatus());
-        }        
-      },{enableHighAccuracy: true})
 
-      for(var i = 0; i < disasters.length; i++) {
-        addmarker(disasters[i],map)
+        //======
+        if($("#map_container div").length == 0) {
+          window.location.reload();
+        }
       }
-    }
 
-      // 创建小狐狸
-    // var pt = new BMap.Point(121.186, 31.3618);
-    // var myIcon = new BMap.Icon("http://developer.baidu.com/map/jsdemo/img/fox.gif", new BMap.Size(300,157));
-    // var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
-    // map.addOverlay(marker2); 
+        // 创建小狐狸
+      // var pt = new BMap.Point(121.186, 31.3618);
+      // var myIcon = new BMap.Icon("http://developer.baidu.com/map/jsdemo/img/fox.gif", new BMap.Size(300,157));
+      // var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+      // map.addOverlay(marker2); 
+
+      //弹框式标注、图标自定义
+      function addmarker(d,map) {
+        
+        if(d.disaster_position == null){return;}
+        var myIcon = new BMap.Icon("http://webapi.amap.com/images/4.png", new BMap.Size(100,57));
+        var icon;
+        if(d.type=="暴雨"){
+          icon = new BMap.Icon("http://61.152.126.156/cms/resource/img/icon/rain.png", new BMap.Size(300,157));
+        }else if(d.type=="雷电"){
+          icon = new BMap.Icon("http://61.152.126.156/cms/resource/img/icon/lightning.png", new BMap.Size(300,157));
+        }else if(d.type=="大风"){
+          icon = new BMap.Icon("http://61.152.126.156/cms/resource/img/icon/win.png", new BMap.Size(300,157));
+        }else{
+          icon = new BMap.Icon("http://webapi.amap.com/images/4.png", new BMap.Size(300,157));
+        }
+        var lanlat = new BMap.Point(d.disaster_position.lon, d.disaster_position.lat);
+        // var marker2 = new BMap.Marker(lanlat,{icon:myIcon});  // 创建标注
+        // map.addOverlay(marker2);
+
+        var sContent ="<div class='text-center'>"+
+        "<div>时间:"+d.occur_time+"</div>"+
+        "<img id='imgDemo' style='text-align:center;height:90px;width:80px;' src='system/"+"27"+"/images/medium/image.jpg'/>"+
+        "<div style='word-break:break-all;width:250px;'>说明:"+d.explain+"</div>"+
+        "<div>"+"<a style='color:red;' href='/disasters/"+d.id+"'>详细说明</a>"+"</div>"+"</div>";
 
 
-    function addmarker(d,map) {
-      
-      if(d.disaster_position == null){return;}
-      var myIcon = new BMap.Icon("http://developer.baidu.com/map/jsdemo/img/fox.gif", new BMap.Size(200,157));
-      var icon;
-      if(d.type=="暴雨"){
-        icon = new BMap.Icon("http://61.152.126.156/cms/resource/img/icon/rain.png", new BMap.Size(300,157));
-      }else if(d.type=="雷电"){
-        icon = new BMap.Icon("http://61.152.126.156/cms/resource/img/icon/lightning.png", new BMap.Size(300,157));
-      }else if(d.type=="大风"){
-        icon = new BMap.Icon("http://61.152.126.156/cms/resource/img/icon/win.png", new BMap.Size(300,157));
-      }else{
-        icon = new BMap.Icon("http://webapi.amap.com/images/4.png", new BMap.Size(300,157));
+        var marker = new BMap.Marker(lanlat,{icon:myIcon});
+        var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+        map.addOverlay(marker);
+        marker.addEventListener("click", function(){          
+           this.openInfoWindow(infoWindow);
+           //图片加载完毕重绘infowindow
+           document.getElementById('imgDemo').onload = function (){
+             infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
+           }
+        });
       }
-      var lanlat = new BMap.Point(d.disaster_position.lon, d.disaster_position.lat);
-      var marker2 = new BMap.Marker(lanlat,{icon:myIcon});  // 创建标注
-      map.addOverlay(marker2);
-
-      // var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
-
-     //  var markerOption = {map: mapObj, icon: icon, position: lanlat};
-     //  var marker = new BMap.Marker(lanlat,markerOption);
-      
-      // var infoWindow = new AMap.InfoWindow({
-     //    isCustom: true,
-      // var  sContent = "灾情点","<div>时间:"+d.occur_time+"</div><img id='imgDemo' style='text-align:center;max-height:160px;width:90%;' src='system/"+d.pictures[0].id+"/images/medium/image.jpg'/><div style='word-break:break-all;'>说明:"+d.explain+"</div><div><a href='/disasters/"+d.id+"'>详细说明</a></div>";
-     //    size: new AMap.Size(0,0),
-     //    autoMove: true,
-     //    offset: new AMap.Pixel(25, -50)
-     //  });
-
-
-      // map.addOverlay(marker2);
-      // marker.addEventListener("click", function(){          
-      // this.openInfoWindow(infoWindow);
-     //图片加载完毕重绘infowindow
-      //   document.getElementById('imgDemo').onload = function (){
-      //     infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
-      //   }
-      // });
-
-
-
-    }
-
-    function createInfoWindow(title,content){  
-      var info = document.createElement("div");  
-      info.className = "info";  
-      // 定义顶部标题  
-      var top = document.createElement("div");  
-      top.className = "info-top";  
-      var titleD = document.createElement("div");  
-      titleD.innerHTML = title;  
-      var closeX = document.createElement("img");  
-      closeX.src = "http://webapi.amap.com/images/close2.gif";  
-      closeX.onclick = closeInfoWindow;
-            
-      top.appendChild(titleD);  
-      top.appendChild(closeX);  
-      info.appendChild(top);  
-      // 定义中部内容  
-      var middle = document.createElement("div");  
-      middle.className = "info-middle";  
-      middle.innerHTML = content;  
-      info.appendChild(middle);  
-          
-      // 定义底部内容  
-      var bottom = document.createElement("div");  
-      bottom.className = "info-bottom";  
-      var sharp = document.createElement("img");  
-      sharp.src = "http://webapi.amap.com/images/sharp.png";  
-      bottom.appendChild(sharp);    
-      info.appendChild(bottom);  
-      return info;  
-    }
-    
-    //关闭信息窗体  
-    function closeInfoWindow(){  
-      mapObj.clearInfoWindow();  
-    }
+    })
   </script>
 <% end %>

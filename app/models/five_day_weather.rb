@@ -30,7 +30,7 @@ class FiveDayWeather
     datetime = nil
     limit_day = Time.zone.now.to_date + 4.day
     content.each do |weather|
-      datetime = Time.zone.parse(weather["datatime"])
+      datetime = Time.zone.parse(weather["datatime"]).to_date
       if datetime < limit_day
         result << "#{datetime.strftime('%d日')} #{weather['weather']} #{weather['tempe']}\n"
       end
@@ -39,7 +39,7 @@ class FiveDayWeather
   end
 
   # 微信网页版：五日天气
-  def self.get_web_message
+  def get_web_message
     conn = Faraday.new(:url => Settings.DataUrl) do |faraday|
       faraday.request  :url_encoded
       faraday.response :logger
@@ -53,7 +53,7 @@ class FiveDayWeather
     datetime = nil
     limit_day = Time.zone.now.to_date + 4.day
     content.each do |weather|
-      datetime = Time.zone.parse(weather["datatime"])
+      datetime = Time.zone.parse(weather["datatime"]).to_date
       if datetime < limit_day
         cache = weather['tempe'].delete("℃").split("~")
         cache.push weather['weather']
