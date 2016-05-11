@@ -5,18 +5,23 @@
 		<!-- 空气质量描述 -->
 		<div class="my-panel">
 			<div class="panel-hd">
-				空气质量<span class="float-right"><%= @result[:time] %>&nbsp;&nbsp;发布</span>
+				空气质量
+				<span class="float-right">
+					<%= @publish_time.strftime("%_m月%d日") %>
+					<%= week_name @publish_time %>
+					<%= @publish_time.strftime("%H:%M") %> 
+					发布</span>
 			</div>
 			<div class="panel-bd center">
 				<!-- 数据时间段 -->
 				<div class="now-time">今天夜间 20时 - 06时</div>
 				<!-- 现在的空气质量 -->
 				<div class="now-air">
-					<span class="color2"><%= @result[:aqi][0] %></span> AQI &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<div class="tips"><div class="tips-l color2"><%= @result[:level][0] %></div><div class="tips-r color2"><%= @result[:level][0] %></div></div>
+					<span class="color<%= aqi_level(@result[:aqi][0]) %>"><%= @result[:aqi][0] %></span> AQI &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<div class="tips"><div class="tips-l color<%= aqi_level(@result[:aqi][0]) %>"><%= @result[:level][0] %></div></div>
 				</div>
 				<!-- 主要污染物 -->
-				<div class="pollutant">主要污染物： <%= @result[:pripoll][0] %></div>
+				<div class="pollutant">主要污染物： <%= aqi_format @result[:pripoll][0] %></div>
 				<!-- 范围 -->
 				<ul class="range">
 					<li class="bg1" style="height: 10px;"></li>
@@ -43,117 +48,18 @@
 		</div><!-- 空气质量描述 -->
 
 		<!-- 明天空气质量 -->
-		<div class="tomorrow-air alpha-bg">
-			<div class="part" style="border-right: 1px solid rgba(255,255,255,0.2);">
-				<!-- 数据时间段 -->
-				<div class="now-time">明天上午 06时 - 12时</div>
-				<!-- 现在的空气质量 -->
-				<div class="now-air">
-					<span class="color2"><%= @result[:aqi][1] %></span> AQI
-				</div>
-				<div class="tips">
-					<div class="tips-l color2"><%= @result[:level][1] %></div><div class="tips-r color2"><%= @result[:level][1] %></div>
-				</div>
-				<!-- 主要污染物 -->
-				<div class="pollutant">主要污染物： <%= @result[:pripoll][1] %></div>
-			</div>
-			<div class="part">
-				<!-- 数据时间段 -->
-				<div class="now-time">明天下午 12时 - 20时</div>
-				<!-- 现在的空气质量 -->
-				<div class="now-air">
-					<span class="color2"><%= @result[:aqi][2] %></span> AQI
-				</div>
-				<div class="tips">
-					<div class="tips-l color2"><%= @result[:level][2] %></div><div class="tips-r color2"><%= @result[:level][2] %></div>
-				</div>
-				<!-- 主要污染物 -->
-				<div class="pollutant">主要污染物： <%= @result[:pripoll][2] %></div>
-			</div>
-		</div><!-- 明天空气质量 -->
+		<%= render partial: "tomorrow_air" %>
 
 		<!-- 过去24小时空气质量指数变化图 -->
-		<div class="last24 alpha-bg">
-			<div class="title">过去24小时空气质量指数变化图</div>
-			<div class="content">
-			  <!-- Nav tabs -->
-			  <ul class="nav nav-tabs" role="tablist">
-			    <li role="presentation" class="active">
-			    	<a href="#aqi" aria-controls="aqi" role="tab" data-toggle="tab">
-			    		<div>AQI</div>
-			    		<div>空气质量</div>
-			    		<div>90</div>
-				    </a>
-			    </li>
-			    <li role="presentation">
-			    	<a href="#pm25" aria-controls="pm25" role="tab" data-toggle="tab">
-			    		<div>PM2.5</div>
-			    		<div>细颗粒物</div>
-			    		<div>90</div>
-			    	</a>
-			    </li>
-			    <li role="presentation">
-			    	<a href="#O3" aria-controls="O3" role="tab" data-toggle="tab">
-			    		<div>O3</div>
-			    		<div>臭氧</div>
-			    		<div>69</div>
-			    	</a>
-			    </li>
-			    <li role="presentation">
-			    	<a href="#pm10" aria-controls="pm10" role="tab" data-toggle="tab">
-			    		<div>PM10</div>
-			    		<div>可吸入颗粒物</div>
-			    		<div>71</div>
-			    	</a>
-			    </li>
-			    <li role="presentation">
-			    	<a href="#NO3" aria-controls="NO3" role="tab" data-toggle="tab">
-			    		<div>NO3</div>
-			    		<div>二氧化氮</div>
-			    		<div>17</div>
-			    	</a>
-			    </li>
-			  </ul><!-- Nav tabs -->
-			  <!-- Tab panes -->
-			  <div class="tab-content">
-			    <div role="tabpanel" class="tab-pane active" id="aqi">
-			    	<div id="aqi_chart"></div>
-			    </div>
-			    <div role="tabpanel" class="tab-pane" id="pm25">
-			    	<div id="pm25_chart"></div>
-			    </div>
-			    <div role="tabpanel" class="tab-pane" id="O3">
-			    	<div id="O3_chart"></div>
-			    </div>
-			    <div role="tabpanel" class="tab-pane" id="pm10">
-			    	<div id="pm10_chart"></div>
-			    </div>
-			    <div role="tabpanel" class="tab-pane" id="NO3">
-			    	<div id="NO3_chart"></div>
-			    </div>
-			  </div><!-- Tab panes -->
-			</div>
-		</div><!-- 过去24小时 -->
+		<%= render partial: "chart_tabs" %>
 	</div>
 </div>
 
 
 <% content_for :scripts do %>
-	<script>
-		$(function() {
-			// 设置图表宽度，隐藏的tab会出现图表宽度失常问题
-			$(".tab-pane div").width(document.body.clientWidth - 30);
-		});
-	</script>
-
-	<!-- aqi -->
-	<%= render partial: "air_chart", locals: { dom_id: "aqi_chart" } %>
-	<!-- PM2.5 -->
-	<%= render partial: "air_chart", locals: { dom_id: "pm25_chart" } %>
-	<!-- 臭氧 -->
-	<%= render partial: "air_chart", locals: { dom_id: "O3_chart" } %>
-	<!-- PM10 -->
-	<%= render partial: "air_chart", locals: { dom_id: "pm10_chart" } %>
-	<!-- 二氧化氮 -->
-	<%= render partial: "air_chart", locals: { dom_id: "NO3_chart" } %>
+	<%= javascript_tag "$('.tab-pane div').width(document.body.clientWidth - 30)" %>
+	<!-- chart -->
+	<% {"aqi_chart" => @aqi_datas, "pm25_chart" => @pm25_datas, "O3_chart" => @o3_datas, "pm10_chart" => @pm10_datas, "NO2_chart" => @no2_datas}.each do |key, value| %>
+		<%= render partial: "air_chart", locals: { dom_id: "#{key}", time: air_time(value), data: air_data(value) } %>
+	<% end %>
 <% end %>
