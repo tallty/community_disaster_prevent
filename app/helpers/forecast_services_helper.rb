@@ -26,4 +26,44 @@ module ForecastServicesHelper
 		}
 		cache[name]
  	end
+
+ 	# 处理空气质量名词格式
+ 	def aqi_format kpi
+    match = /([a-zA-Z]+)([0-9,.]+)/.match kpi
+    if match.present?
+      "#{match[1]}<span class=\"aqi-small\">#{match[2]}</span>".html_safe
+    else
+      kpi
+    end
+  end
+
+  # 空气质量时间
+  def air_time datas
+  	time = datas.collect { |x| x[0] }
+  end
+
+  # 空气质量值
+  def air_data datas
+  	data = datas.collect { |x| x[1] }
+  end
+
+  # aqi级别
+  def aqi_level range
+    refs = /(\d{1,3}).{1}(\d{1,3})/.match(range)[2].to_f
+
+    case refs
+    when 0..50
+      return 1
+    when 50..100
+      return 2
+    when 100..150
+      return 3
+    when 150..200
+      return 4
+    when 200..300
+      return 5
+    else
+      return 6
+    end
+  end
 end

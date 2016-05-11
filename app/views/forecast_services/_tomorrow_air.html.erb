@@ -1,0 +1,28 @@
+<div class="tomorrow-air alpha-bg">
+	<div class="part" style="border-right: 1px solid rgba(255,255,255,0.2);">
+		<!-- 数据时间段 -->
+		<div class="now-time">明天上午 06时 - 12时</div>
+		<!-- 现在的空气质量 -->
+		<div class="now-air">
+			<span class="color<%= aqi_level(@result[:aqi][1]) %>"><%= @result[:aqi][1] %></span> AQI
+		</div>
+		<div class="tips">
+			<div class="tips-l color<%= aqi_level(@result[:aqi][1]) %>"><%= @result[:level][1] %></div>
+		</div>
+		<!-- 主要污染物 -->
+		<div class="pollutant">主要污染物： <%= aqi_format @result[:pripoll][1] %></div>
+	</div>
+	<div class="part">
+		<!-- 数据时间段 -->
+		<div class="now-time">明天下午 12时 - 20时</div>
+		<!-- 现在的空气质量 -->
+		<div class="now-air">
+			<span class="color<%= aqi_level(@result[:aqi][2]) %>"><%= @result[:aqi][2] %></span> AQI
+		</div>
+		<div class="tips">
+			<div class="tips-l color<%= aqi_level(@result[:aqi][2]) %>"><%= @result[:level][2] %></div>
+		</div>
+		<!-- 主要污染物 -->
+		<div class="pollutant">主要污染物： <%= aqi_format @result[:pripoll][2] %></div>
+	</div>
+</div><!-- 明天空气质量 -->
