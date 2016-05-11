@@ -4,7 +4,7 @@ class SubscribersController < ApplicationController
 
   # GET /subscribers/new
   def new
-    @subscriber = Subscriber.new
+    @subscriber = Subscriber.where(openid: params[:openid]).first
   end
 
   # GET /subscribers/1/edit
