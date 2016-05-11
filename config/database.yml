@@ -10,7 +10,7 @@ default: &default
   pool: 5
   username: root
   password: 
-  host: localhost
+  # host: localhost
   timeout: 5000
 
 development:
