@@ -46,21 +46,22 @@ class FiveDayWeather
       faraday.adapter  Faraday.default_adapter
     end
 
-    result = {}
     response = conn.get @data_url
 
+    result = {}
     content = MultiJson.load response.body
     datetime = nil
     limit_day = Time.zone.now.to_date + 4.day
-    content.each do |weather|
-      datetime = Time.zone.parse(weather["datatime"]).to_date
-      if datetime < limit_day
-        cache = weather['tempe'].delete("℃").split("~")
-        cache.push weather['weather']
+
+    content.each do |item|
+      datetime = Time.zone.parse(item["datatime"]).to_date
+      if datetime <= limit_day
+        temp = item['tempe'].delete("℃").split("~")
+        cache = {low: temp.first, high: temp.last, weather: item['weather'], direction: item['direction'], speed: item['speed']}
         result["#{datetime}"] = cache
       end
     end
-    # {日期 => [低温，高温，天气], ...}
+    # {日期 => {低温，高温，天气, 风向， 风速}, ...}
     result
   end
 

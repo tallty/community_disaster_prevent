@@ -1,4 +1,11 @@
 module ForecastServicesHelper
+  # 五日天气图标
+  def weather_icon name
+    cache = {
+      
+    }
+  end
+
 	# 生活指数图标
 	def life_index_icon name
 		cache = {

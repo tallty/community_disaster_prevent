@@ -21,11 +21,11 @@
 			</div>
 			<!-- 气温 -->
 			<div class="other-info">
-				<span><%= @weathers.first.second.last %></span>
+				<span><%= @weathers.first.second[:weather] %></span>
 				<i class="iconfont">&#xe61a;</i>
-				<span><%= @weathers.first.second.second %>°</span>
+				<span><%= @weathers.first.second[:high] %>°</span>
 				<i class="iconfont">&#xe61f;</i>
-				<span><%= @weathers.first.second.first %>˚</span>
+				<span><%= @weathers.first.second[:low] %>˚</span>
 			</div>
 		</div>
 
@@ -36,6 +36,7 @@
 		<div class="my-panel" style="margin-bottom: 0;">
 			<div class="panel-hd alpha-bg">五日预报</div>
 			<div class="panel-bd alpha-bg weui_grids five-weather" style="padding-top: 8px;">
+			<!-- {日期 => {低温，高温，天气, 风向， 风速}, ...} -->
 				<% @weathers.each_with_index do |(key, value), index| %>
 					<div class="weui_grid <%= "before-none" if index == 4 %>" style="padding-top: 0;">
 						<span class="week-day">
@@ -48,12 +49,12 @@
 							<% end %>
 						</span>
 						<i class="iconfont icon-duoyun"></i>
-						<span style="height: 34px;"><%= value.last %></span>
+						<span style="height: 34px;"><%= value[:weather] %></span>
 						<div class="empty"></div>
 						<i class="iconfont icon-duoyun"></i>
-						<span><%= value.last %></span>
-						<small>东风</small>
-						<small> <3级 </small>
+						<span><%= value[:weather] %></span>
+						<small><%= value[:direction] %></small>
+						<small><%= value[:speed] %></small>
 					</div>
 				<% end %>
 				<!-- 五日天气图表 -->
