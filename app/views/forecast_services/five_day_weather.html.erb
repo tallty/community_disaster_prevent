@@ -38,21 +38,15 @@
 			<div class="panel-bd alpha-bg weui_grids five-weather" style="padding-top: 8px;">
 			<!-- {日期 => {低温，高温，天气, 风向， 风速}, ...} -->
 				<% @weathers.each_with_index do |(key, value), index| %>
+					<!-- 拆分天气 -->
+					<% weather_array = FiveDayWeather.split_weather(value[:weather]) %>
 					<div class="weui_grid <%= "before-none" if index == 4 %>" style="padding-top: 0;">
-						<span class="week-day">
-							<% if key.to_date == Date.today %>
-								今天
-							<% elsif key.to_date == Date.tomorrow %>
-								明天
-							<% else %>
-								<%= week_name key %>
-							<% end %>
-						</span>
-						<i class="iconfont icon-duoyun"></i>
-						<span style="height: 34px;"><%= value[:weather] %></span>
+						<span class="week-day"><%= five_day key %></span>
+						<i class="iconfont <%= FiveDayWeather.weather_keyword weather_array[0] %>"></i>
+						<span style="height: 34px;"><%= weather_array[0] %></span>
 						<div class="empty"></div>
-						<i class="iconfont icon-duoyun"></i>
-						<span><%= value[:weather] %></span>
+						<i class="iconfont <%= FiveDayWeather.weather_keyword weather_array[1] %>"></i>
+						<span><%= weather_array[1] %></span>
 						<small><%= value[:direction] %></small>
 						<small><%= value[:speed] %></small>
 					</div>

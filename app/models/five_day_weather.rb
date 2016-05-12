@@ -65,4 +65,78 @@ class FiveDayWeather
     result
   end
 
+  # 拆分天气
+  def self.split_weather weather
+    if weather.include? "转"
+      data = weather.split('转')
+    else
+      data = [weather, weather]
+    end
+    return data
+  end
+
+  # 获取天气的关键词（用于图标）
+  # 返回图标类
+  def self.weather_keyword weather
+    if weather.include? ','
+      result = weather.split(',').first
+    elsif weather.include? '到'
+      result = weather.split('到').first
+    else
+      result = weather
+    end
+
+    icon = FiveDayWeather.icon_class result
+    icon.blank? ? "icon-lingdang" : icon
+  end
+
+  # 图片描述
+  # def self.icon_text name
+  #   cache = 
+  #     [ "暴雪", "暴雨", "大暴雨", "特大暴雨", "强沙尘暴", "大雪", "大雨",
+  #     "冻雨", "浮尘", "阵雨", "雷阵雨", "沙尘暴", "雾", "小雪", "小雨", "扬沙", "阴",
+  #     "雨夹雪", "中雪", "中雨", "晴", "多云", "冰雹", "阵雪", "浓雾", "强浓雾", "霾",
+  #     "中度霾", "重度霾", "严重霾", "大雾", "特强浓雾" ]
+  #   return name if cache.include?(name)
+  # end
+
+  # 五日天气图标
+  def self.icon_class name
+    cache = {
+      "阴" => "icon-cloud",
+      "晴" => "icon-taiyang",
+      "多云" => "icon-duoyun",
+
+      "暴雪" => "icon-baoxue",
+      "大雪" => "icon-daxue",
+      "中雪" => "icon-zhongxue",
+      "小雪" => "icon-xiaoxue",
+      "小到中雪" => "icon-xiaodaozhongxue",
+
+      "雨夹雪" => "icon-yujiaxue",
+      "阵雪" => "icon-daxue",
+      "冰雹" => "weather_hail",
+
+      "特大暴雨" => "icon-tedabaoyu",
+      "大暴雨" => "icon-dabaoyu",
+      "暴雨" => "icon-baoyu",
+      "大雨" => "icon-dayu",
+      "中雨" => "icon-zhongyu",
+      "小雨" => "icon-xiaoyu",
+
+      "阵雨" => "icon-zhongyu",
+      "雷阵雨" => "icon-leizhenyu",
+      "冻雨" => "icon-dongyu",
+
+      "强沙尘暴" => "icon-dust",
+      "沙尘暴" => "icon-dust",
+      "浮尘" => "icon-dust",
+      "扬沙" => "icon-dust",
+
+      "雾" => "icon-fog",
+      "霾" => "icon-haze"
+    }
+    return cache[name]
+  end
+
 end
