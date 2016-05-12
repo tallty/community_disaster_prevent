@@ -3,8 +3,8 @@ $(function() {
 	<% @low = [] %>
 	<% @high = [] %>
 	<% @weathers.each do |key, value| %>
-		<% @low.push value.first.to_i %>
-		<% @high.push value.second.to_i %>
+		<% @low.push value[:low].to_i %>
+		<% @high.push value[:high].to_i %>
 		<% @week_day.push (week_name key) %>
 	<% end %>
 	// 基于准备好的dom，初始化echarts实例
@@ -51,7 +51,7 @@ $(function() {
             showSymbol: false,
             data: [
                 <% @weathers.each do |key, value| %>
-									{ name: '气温',coord: ['<%= week_name key %>', <%= value.second.to_i %>], value: <%= value.second.to_i %> },
+									{ name: '气温',coord: ['<%= week_name key %>', <%= value[:high].to_i %>], value: <%= value[:high].to_i %> },
                 <% end %>
             ],
             itemStyle: {
@@ -84,7 +84,7 @@ $(function() {
           symbolOffset: [0, '20%'],
           data: [
             <% @weathers.each do |key, value| %>
-							{ name: '气温',coord: ['<%= week_name key %>', <%= value.first.to_i %>], value: <%= value.first.to_i %> },
+							{ name: '气温',coord: ['<%= week_name key %>', <%= value[:low].to_i %>], value: <%= value[:low].to_i %> },
             <% end %>
           ],
 	        itemStyle: {
