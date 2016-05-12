@@ -2,6 +2,7 @@
 class ForecastServicesController < ApplicationController
 	layout 'weixin'
 
+  before_action :set_time
   # 城市告警
   def city_warn
     @warnings = $redis.hvals("warnings_20000").map do |e|
@@ -56,6 +57,10 @@ class ForecastServicesController < ApplicationController
   # 气象服务列表
   def index
     session[:openid] = params[:openid]
+  end
+
+  def set_time
+    @publish_time = Time.zone.now
   end
 
 end
