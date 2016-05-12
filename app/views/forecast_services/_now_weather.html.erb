@@ -15,19 +15,19 @@
 		<div class="weui_grid">
 			<span>能见度</span>
 			<i class="iconfont">&#xe616;</i>
-			<small class="five-info"><%= @auto_station["visibility"].present? ? @auto_station["visibility"] : "大于10" %></small>
+			<small class="five-info"><%= @auto_station["visibility"] == "////" ? "-" : @auto_station["visibility"] %></small>
 			<small>km</small>	
 		</div>
 		<div class="weui_grid">
 			<span>露 点</span>
 			<i class="iconfont">&#xe610;</i>
-			<small class="five-info"><%= @auto_station["humi"] %></small>
+			<small class="five-info"><%= @auto_station["humi"] == "////" ? "-" : @auto_station["humi"] %></small>
 			<small>%</small>	
 		</div>
 		<div class="weui_grid before-none">
 			<span>气 压</span>
 			<i class="iconfont">&#xe60b;</i>
-			<small class="five-info"><%= @auto_station["pressure"] %></small>
+			<small class="five-info"><%= @auto_station["pressure"] == "////" ? "-" : @auto_station["pressure"] %></small>
 			<small>hpa</small>
 		</div>
 	</div>

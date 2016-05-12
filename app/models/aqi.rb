@@ -11,7 +11,7 @@ class AQI < BaseForecast
   def get_web_message
     content = get_data
     list = content["data"]["list"]
-    level = get_level list
+
     # 发布时间
     publish_time = content["data"]["publishtime"]
 
