@@ -178,7 +178,7 @@ class Warning < ActiveRecord::Base
   end
 
   # 获取最新未解除的预警
-  def get_last_active_warn code
+  def self.get_last_active_warn code
     warnings = $redis.hvals("warnings_#{code}").map do |e|
       MultiJson.load(e)
     end
