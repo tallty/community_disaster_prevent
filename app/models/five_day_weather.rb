@@ -51,7 +51,7 @@ class FiveDayWeather
     result = {}
     content = MultiJson.load response.body
     datetime = nil
-    now_day = Time.zone.parse(item["datatime"]).to_date
+    now_day = Time.zone.now.to_date
     limit_day = Time.zone.now.to_date + 4.day
 
     content.each do |item|
