@@ -58,7 +58,7 @@ class FiveDayWeather
       datetime = Time.zone.parse(item["datatime"]).to_date
       if datetime <= limit_day && datetime >= now_day
         temp = item['tempe'].delete("℃").split("~")
-        cache = {low: temp.first, high: temp.last, weather: "#{item['weather']}", direction: "#{item['direction']}", "#{speed: item['speed']}"}
+        cache = {low: temp.first, high: temp.last, weather: "#{item['weather']}", direction: "#{item['direction']}", speed: "#{item['speed']}"}
         result["#{datetime}"] = cache
       end
     end
