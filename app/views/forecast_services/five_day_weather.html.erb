@@ -17,7 +17,7 @@
 						<div class="warn">
 							<i class="iconfont">&#xe632;</i>
 							<% if @warn.nil? %>
-								"没有告警"
+								暂无预警
 							<% else %>
 								<%= "#{@warn['type']}#{@warn['level']}预警" %>
 							<% end %>

@@ -18,7 +18,7 @@ class ForecastServicesController < ApplicationController
 
     # 全市预警
     @warn = Warning.get_last_active_warn 20000
-    
+
     # 气象实况
     if @community.present?
       @auto_station = MonitorStation.community_weather_data @community
