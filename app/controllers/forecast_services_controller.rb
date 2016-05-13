@@ -9,21 +9,19 @@ class ForecastServicesController < ApplicationController
 
   # 五日天气预报
   def five_day_weather
-    five_day_weather = FiveDayWeather.new
-    # 五日预报
-		@weathers = five_day_weather.get_web_message
-    # 全市预警，取最新发生未解除的
-    cache = @warning.select{|x| x['status'] != '解除'}
-    @warn = cache.sort { |a, b| b['publish_time']<=>a['publish_time'] }.first
-    # 实况天气
     subscriber = Subscriber.where(openid: session[:openid]).first
-    if subscriber.present?
-      @community = subscriber.community
-      # 获取数据
-      auto_station_info = MonitorStation.where(community: @community, station_type: "自动站").first
-      auto_station_data = $redis.hget("monitor_stations", auto_station_info.station_number)
-      # 气象实况
-      @auto_station = MultiJson.load auto_station_data
+    @community = subscriber.community
+
+    # 五日预报
+    five_day_weather = FiveDayWeather.new
+		@weathers = five_day_weather.get_web_message
+
+    # 全市预警
+    @warn = Warning.get_last_active_warn 20000
+    
+    # 气象实况
+    if @community.present?
+      @auto_station = MonitorStation.community_weather_data @community
     else
       redirect_to centre_communities_path
     end

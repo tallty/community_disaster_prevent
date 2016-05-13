@@ -163,6 +163,26 @@ class MonitorStation < ActiveRecord::Base
       "西北风"
     end
   end 
+
+  # 气象实况
+  def self.community_weather_data community
+    auto_station_info = MonitorStation.where(community: community, station_type: "自动站").first
+    auto_station_data = $redis.hget("monitor_stations", auto_station_info.station_number)
+    auto_station = MultiJson.load auto_station_data
+  end
+
+  # 积水实况
+  def self.community_water_data community
+    water_station_infos = MonitorStation.where(community: community, station_type: "积水站")
+    water_stations = []
+    water_station_infos.each do |item|
+      data = MultiJson.load($redis.hget("monitor_stations", item.station_number)) rescue {}
+      if data.present?
+        water_stations << data
+      end
+    end
+    return water_stations
+  end
   
   private
   def base_url
