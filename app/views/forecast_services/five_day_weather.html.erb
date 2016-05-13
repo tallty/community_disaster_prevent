@@ -14,7 +14,14 @@
 				<div class="weather-left"><span><%= @auto_station["tempe"] %></span><span style="padding-left: 8px;">˚</span></div>
 				<div class="weather-right">
 					<div class="right">
-						<div class="warn"><i class="iconfont">&#xe632;</i>橙色预警</div>
+						<div class="warn">
+							<i class="iconfont">&#xe632;</i>
+							<% if @warn.nil? %>
+								"没有告警"
+							<% else %>
+								<%= "#{@warn['type']}#{@warn['level']}预警" %>
+							<% end %>
+						</div>
 					</div>
 					<div class="location"><%= @community.street %><i class="iconfont">&#xe612;</i></div>
 				</div>

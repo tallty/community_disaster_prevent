@@ -10,8 +10,11 @@ class ForecastServicesController < ApplicationController
   # 五日天气预报
   def five_day_weather
     five_day_weather = FiveDayWeather.new
+    # 五日预报
 		@weathers = five_day_weather.get_web_message
-
+    # 全市预警，取最新发生未解除的
+    cache = @warning.select{|x| x['status'] != '解除'}
+    @warn = cache.sort { |a, b| b['publish_time']<=>a['publish_time'] }.first
     # 实况天气
     subscriber = Subscriber.where(openid: session[:openid]).first
     if subscriber.present?

@@ -30,7 +30,7 @@ class FiveDayWeather
     datetime = nil
     limit_day = Time.zone.now.to_date + 4.day
     content.each do |weather|
-      datetime = Time.zone.parse(weather["datatime"]).to_date
+      datetime = Time.zone.parse(weather["datatime"])
       if datetime < limit_day
         result << "#{datetime.strftime('%d日')} #{weather['weather']} #{weather['tempe']}\n"
       end
@@ -51,11 +51,12 @@ class FiveDayWeather
     result = {}
     content = MultiJson.load response.body
     datetime = nil
+    now_day = Time.zone.parse(item["datatime"]).to_date
     limit_day = Time.zone.now.to_date + 4.day
 
     content.each do |item|
       datetime = Time.zone.parse(item["datatime"]).to_date
-      if datetime <= limit_day
+      if datetime <= limit_day && datetime >= now_day
         temp = item['tempe'].delete("℃").split("~")
         cache = {low: temp.first, high: temp.last, weather: item['weather'], direction: item['direction'], speed: item['speed']}
         result["#{datetime}"] = cache

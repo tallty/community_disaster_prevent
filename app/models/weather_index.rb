@@ -26,8 +26,6 @@ class WeatherIndex < BaseForecast
     name = ""
     content = get_data
     list = content["data"]["list"]
-    a = list.select{|x| x["name"]}
-    pp a
     list.each do |item|
       name = item["name"]
       if shows.include?(name)

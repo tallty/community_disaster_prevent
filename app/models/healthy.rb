@@ -28,7 +28,6 @@ class Healthy < BaseForecast
   # 微信网页版：获取健康气象数据
   def get_web_message
     content = get_data
-    pp content
     shows = ["儿童感冒", "儿童哮喘", "青少年和成年人感冒", "老年人感冒", "COPD患者"]
 
     now_day = Time.zone.now
