@@ -88,8 +88,6 @@ module ForecastServicesHelper
   def split_air_level level
     if level.include? '到'
       result = level.split('到')
-    elsif level.include? '有'
-      result = level.split('有')
     else
       result = [level, level]
     end

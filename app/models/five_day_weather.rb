@@ -58,7 +58,12 @@ class FiveDayWeather
       datetime = Time.zone.parse(item["datatime"]).to_date
       if datetime <= limit_day && datetime >= now_day
         temp = item['tempe'].delete("℃").split("~")
-        cache = {low: temp.first, high: temp.last, weather: "#{item['weather']}", direction: "#{item['direction']}", speed: "#{item['speed']}"}
+        cache = { low: temp.first, 
+                  high: temp.last, 
+                  weather: "#{item['weather']}", 
+                  direction: "#{item['direction']}", 
+                  speed: "#{item['speed']}" 
+                }
         result["#{datetime}"] = cache
       end
     end
@@ -83,6 +88,8 @@ class FiveDayWeather
       result = weather.split(',').first
     elsif weather.include? '到'
       result = weather.split('到').first
+    elsif weather.include? '有'
+      result = weather.split('有').first
     else
       result = weather
     end
@@ -90,16 +97,6 @@ class FiveDayWeather
     icon = FiveDayWeather.icon_class result
     icon.blank? ? "icon-lingdang" : icon
   end
-
-  # 图片描述
-  # def self.icon_text name
-  #   cache = 
-  #     [ "暴雪", "暴雨", "大暴雨", "特大暴雨", "强沙尘暴", "大雪", "大雨",
-  #     "冻雨", "浮尘", "阵雨", "雷阵雨", "沙尘暴", "雾", "小雪", "小雨", "扬沙", "阴",
-  #     "雨夹雪", "中雪", "中雨", "晴", "多云", "冰雹", "阵雪", "浓雾", "强浓雾", "霾",
-  #     "中度霾", "重度霾", "严重霾", "大雾", "特强浓雾" ]
-  #   return name if cache.include?(name)
-  # end
 
   # 五日天气图标
   def self.icon_class name
