@@ -96,7 +96,7 @@
     $("#toolbar").on("click","button",function(){
       var click_target = $(this).text();
       if(click_target == "灾情上报"){
-        self.location = "disasters/new?openid=<%= @subscriber.openid%>";
+        self.location = "disasters_positions/new?openid=<%= @subscriber.openid%>";
       }else if(click_target == "刷新"){
         window.location.reload();
       }
