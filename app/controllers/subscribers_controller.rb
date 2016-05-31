@@ -4,7 +4,10 @@ class SubscribersController < ApplicationController
 
   # GET /subscribers/new
   def new
-    @subscriber = Subscriber.where(openid: params[:openid]).first
+    logger.info params
+    openid = params[:openid] || params['openid']
+    logger.info openid
+    @subscriber = Subscriber.where(openid: openid).first
   end
 
   # GET /subscribers/1/edit
