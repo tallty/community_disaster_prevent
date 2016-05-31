@@ -19,7 +19,15 @@
     <div class="detection_content">
       <div class="detection-weather-info">
         <div class="detection-weather-icon"><i class="iconfont">&#xe632;</i></div>
-        <div class="detection-weather-text"><span>霾橙色预警</span></div>
+        <div class="detection-weather-text">
+          <span>
+            <% if @warn.nil? %>
+              <%= "没有预警" %>
+            <% else %>
+              <%= "#{@warn['type']}#{@warn['level']}预警" %>
+            <% end %>
+          </span>
+        </div>
       </div>
     </div>
     <div class="detection_content alpha-bg">

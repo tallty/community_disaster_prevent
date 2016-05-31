@@ -21,7 +21,7 @@ class WeatherIndex < BaseForecast
 
   # 获取（微信页面版）生活指数数据
   def get_web_message
-    shows = ["体感指数(上午)", "穿衣指数(早晨)", "洗晒指数(上午)", "户外晚间锻炼指数"]
+    shows = ["体感指数(上午)", "户外晚间锻炼指数", "穿衣指数(早晨)", "日照指数", "洗晒指数(上午)", "空调开启指数(上午)", "洗车指数", "中暑指数(上午)"]
     result = {}
     name = ""
     content = get_data

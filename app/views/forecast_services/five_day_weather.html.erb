@@ -14,18 +14,25 @@
 				<div class="weather-left"><span><%= @auto_station["tempe"] %></span><span style="padding-left: 8px;">˚</span></div>
 				<div class="weather-right">
 					<div class="right">
-						<div class="warn"><i class="iconfont">&#xe632;</i>橙色预警</div>
+						<div class="warn">
+							<i class="iconfont">&#xe632;</i>
+							<% if @warn.nil? %>
+								"没有告警"
+							<% else %>
+								<%= "#{@warn['type']}#{@warn['level']}预警" %>
+							<% end %>
+						</div>
 					</div>
 					<div class="location"><%= @community.street %><i class="iconfont">&#xe612;</i></div>
 				</div>
 			</div>
 			<!-- 气温 -->
 			<div class="other-info">
-				<span><%= @weathers.first.second.last %></span>
+				<span><%= @weathers.first.second[:weather] %></span>
 				<i class="iconfont">&#xe61a;</i>
-				<span><%= @weathers.first.second.second %>°</span>
+				<span><%= @weathers.first.second[:high] %>°</span>
 				<i class="iconfont">&#xe61f;</i>
-				<span><%= @weathers.first.second.first %>˚</span>
+				<span><%= @weathers.first.second[:low] %>˚</span>
 			</div>
 		</div>
 
@@ -36,24 +43,19 @@
 		<div class="my-panel" style="margin-bottom: 0;">
 			<div class="panel-hd alpha-bg">五日预报</div>
 			<div class="panel-bd alpha-bg weui_grids five-weather" style="padding-top: 8px;">
+			<!-- {日期 => {低温，高温，天气, 风向， 风速}, ...} -->
 				<% @weathers.each_with_index do |(key, value), index| %>
+					<!-- 拆分天气 -->
+					<% weather_array = FiveDayWeather.split_weather(value[:weather]) %>
 					<div class="weui_grid <%= "before-none" if index == 4 %>" style="padding-top: 0;">
-						<span class="week-day">
-							<% if key.to_date == Date.today %>
-								今天
-							<% elsif key.to_date == Date.tomorrow %>
-								明天
-							<% else %>
-								<%= week_name key %>
-							<% end %>
-						</span>
-						<i class="iconfont icon-duoyun"></i>
-						<span style="height: 34px;"><%= value.last %></span>
+						<span class="week-day"><%= five_day key %></span>
+						<i class="iconfont <%= FiveDayWeather.weather_keyword weather_array[0] %>"></i>
+						<span style="height: 34px;"><%= weather_array[0] %></span>
 						<div class="empty"></div>
-						<i class="iconfont icon-duoyun"></i>
-						<span><%= value.last %></span>
-						<small>东风</small>
-						<small> <3级 </small>
+						<i class="iconfont <%= FiveDayWeather.weather_keyword weather_array[1] %>"></i>
+						<span><%= weather_array[1] %></span>
+						<small><%= value[:direction] %></small>
+						<small><%= value[:speed] %></small>
 					</div>
 				<% end %>
 				<!-- 五日天气图表 -->

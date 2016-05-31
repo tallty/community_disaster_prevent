@@ -1,28 +1,27 @@
 # 预报服务
 class ForecastServicesController < ApplicationController
 	layout 'weixin'
+  before_action :get_city_warn, only: [:city_warn, :five_day_weather]
 
   # 城市告警
   def city_warn
-    @warnings = $redis.hvals("warnings_20000").map do |e|
-      MultiJson.load(e)
-    end
   end
 
   # 五日天气预报
   def five_day_weather
+    subscriber = Subscriber.where(openid: session[:openid]).first
+    @community = subscriber.community
+
+    # 五日预报
     five_day_weather = FiveDayWeather.new
 		@weathers = five_day_weather.get_web_message
 
-    # 实况天气
-    subscriber = Subscriber.where(openid: session[:openid]).first
-    if subscriber.present?
-      @community = subscriber.community
-      # 获取数据
-      auto_station_info = MonitorStation.where(community: @community, station_type: "自动站").first
-      auto_station_data = $redis.hget("monitor_stations", auto_station_info.station_number)
-      # 气象实况
-      @auto_station = MultiJson.load auto_station_data
+    # 全市预警
+    @warn = Warning.get_last_active_warn 20000
+    
+    # 气象实况
+    if @community.present?
+      @auto_station = MonitorStation.community_weather_data @community
     else
       redirect_to centre_communities_path
     end
@@ -51,11 +50,19 @@ class ForecastServicesController < ApplicationController
   def healthy_weather
     healthy = Healthy.new
     @results = healthy.get_web_message
+    @publish_time = Time.zone.now
   end
 
   # 气象服务列表
   def index
     session[:openid] = params[:openid]
   end
+
+  private
+    def get_city_warn
+      @warnings = $redis.hvals("warnings_20000").map do |e|
+        MultiJson.load(e)
+      end
+    end
 
 end

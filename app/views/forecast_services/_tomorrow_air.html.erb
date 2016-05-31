@@ -2,12 +2,14 @@
 	<div class="part" style="border-right: 1px solid rgba(255,255,255,0.2);">
 		<!-- 数据时间段 -->
 		<div class="now-time">明天上午 06时 - 12时</div>
-		<!-- 现在的空气质量 -->
+		<!-- 明天上午的空气质量 -->
+		<% noon = @result[:aqi][1] %>
 		<div class="now-air">
-			<span class="color<%= aqi_level(@result[:aqi][1]) %>"><%= @result[:aqi][1] %></span> AQI
+			<span class="color<%= aqi_levels(noon)[1] %>"><%= noon %></span> AQI
 		</div>
 		<div class="tips">
-			<div class="tips-l color<%= aqi_level(@result[:aqi][1]) %>"><%= @result[:level][1] %></div>
+			<div class="tips-l color<%= aqi_levels(noon)[0] %>"><%= split_air_level(@result[:level][1])[0] %></div>
+			<div class="tips-r color<%= aqi_levels(noon)[1] %>"><%= split_air_level(@result[:level][1])[1] %></div>
 		</div>
 		<!-- 主要污染物 -->
 		<div class="pollutant">主要污染物： <%= aqi_format @result[:pripoll][1] %></div>
@@ -15,12 +17,14 @@
 	<div class="part">
 		<!-- 数据时间段 -->
 		<div class="now-time">明天下午 12时 - 20时</div>
-		<!-- 现在的空气质量 -->
+		<!-- 明天下午的空气质量 -->
+		<% afternoon = @result[:aqi][2] %>
 		<div class="now-air">
-			<span class="color<%= aqi_level(@result[:aqi][2]) %>"><%= @result[:aqi][2] %></span> AQI
+			<span class="color<%= aqi_levels(afternoon)[1] %>"><%= afternoon %></span> AQI
 		</div>
 		<div class="tips">
-			<div class="tips-l color<%= aqi_level(@result[:aqi][2]) %>"><%= @result[:level][2] %></div>
+			<div class="tips-l color<%= aqi_levels(afternoon)[0] %>"><%= split_air_level(@result[:level][2])[0] %></div>
+			<div class="tips-r color<%= aqi_levels(afternoon)[1] %>"><%= split_air_level(@result[:level][2])[1] %></div>
 		</div>
 		<!-- 主要污染物 -->
 		<div class="pollutant">主要污染物： <%= aqi_format @result[:pripoll][2] %></div>

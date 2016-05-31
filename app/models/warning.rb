@@ -176,4 +176,13 @@ class Warning < ActiveRecord::Base
 
     end
   end
+
+  # 获取最新未解除的预警
+  def get_last_active_warn code
+    warnings = $redis.hvals("warnings_#{code}").map do |e|
+      MultiJson.load(e)
+    end
+    cache = warnings.select{|x| x['status'] != '解除'}
+    return cache.sort { |a, b| b['publish_time']<=>a['publish_time'] }.first
+  end
 end

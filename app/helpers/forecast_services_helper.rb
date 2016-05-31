@@ -1,4 +1,15 @@
 module ForecastServicesHelper
+  # 五日天气图标日期
+  def five_day key
+    if key.to_date == Date.today 
+      '今天'
+    elsif key.to_date == Date.tomorrow
+      '明天'
+    else 
+      week_name key 
+    end 
+  end
+
 	# 生活指数图标
 	def life_index_icon name
 		cache = {
@@ -9,7 +20,7 @@ module ForecastServicesHelper
 			"空调开启指数" => "icon-kongtiao",
 			"洗车指数" => "icon-xichezhishu",
 			"中暑指数" => "icon-baowen",
-			"日照指数" => "icon-taiyangxian"
+			"日照指数" => "icon-taiyang"
 		}
 		cache[name]
 	end
@@ -21,7 +32,7 @@ module ForecastServicesHelper
 			"儿童哮喘气象风险" => "icon-yaopingmp",
 			"老年人感冒气象风险" => "icon-old-man",
 			"儿童感冒气象风险" => "icon-muying",
-			"成人感冒气象风险" => "icon-zhenguan",
+			"青少年和成年人感冒气象风险" => "icon-zhenguan",
 			"慢性阻塞性肺病气象风险" => "icon-feibu"
 		}
 		cache[name]
@@ -48,9 +59,15 @@ module ForecastServicesHelper
   end
 
   # aqi级别
-  def aqi_level range
-    refs = /(\d{1,3}).{1}(\d{1,3})/.match(range)[2].to_f
+  # 数组
+  def aqi_levels range
+    low = /(\d{1,3}).{1}(\d{1,3})/.match(range)[0].to_f
+    high = /(\d{1,3}).{1}(\d{1,3})/.match(range)[2].to_f
+    return [air_level(low), air_level(high)]
+  end
 
+  # 根据数值判断级别
+  def air_level refs
     case refs
     when 0..50
       return 1
@@ -64,6 +81,17 @@ module ForecastServicesHelper
       return 5
     else
       return 6
+    end
+  end
+
+  # 拆分空气质量级别
+  def split_air_level level
+    if level.include? '到'
+      result = level.split('到')
+    elsif level.include? '有'
+      result = level.split('有')
+    else
+      result = [level, level]
     end
   end
 end
