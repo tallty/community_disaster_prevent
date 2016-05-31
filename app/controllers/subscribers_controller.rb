@@ -5,7 +5,7 @@ class SubscribersController < ApplicationController
   # GET /subscribers/new
   def new
     logger.info params
-    openid = params[:openid] || params['openid'] || session[:openid]
+    openid = params[:openid] || session[:openid]
     logger.info openid
     @subscriber = Subscriber.where(openid: openid).first
     # @subscriber = Subscriber.where(openid: session[:openid]).first
