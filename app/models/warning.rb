@@ -56,9 +56,9 @@ class Warning < ActiveRecord::Base
         else
           img_url = "#{Settings.ProjectSetting.url}/assets/images/warnings/b_#{Warning.tran_type(item['type'])}#{Warning.tran_level(item['level'])}.png"
         end
-        community = item['community'].first.street
+        community = Community.where(code: item['community']).first.street
         community = '' if community.eql?('上海')
-        articles << { :title => "上海中心气象台#{publishtime}#{item['status']}#{Community.where(code: item['community']).first.street}#{item['type']}#{item['level']}预警",
+        articles << { :title => "上海中心气象台#{publishtime}#{item['status']}#{community}#{item['type']}#{item['level']}预警",
                       :desc => "", :image_url => img_url,
                       :page_url => "#{Settings.ProjectSetting.url}/warnings/#{item['community']}" }
       end
