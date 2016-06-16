@@ -14,25 +14,25 @@
 				<!-- 折叠模块 -->
 				<div class="healthy-weather" id="accordion" role="tablist" aria-multiselectable="true">
 					<!-- 气象风险 -->
-					<% @results.each_with_index do |(key, value), index| %>
+					<% @results.each_with_index do |item, index| %>
 					  <div class="panel">
 					    <div class="panel-heading alpha-bg" role="tab" id="heading<%= index %>">
 						    <a id="link_collapse<%= index %>" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index %>" aria-expanded="true" aria-controls="collapse<%= index %>" class="clearfix">
-						        <span class="pull-left"><i class="iconfont <%= healthy_weather_icon key %>"></i></span>
-						        <span class="pull-left">&nbsp;&nbsp;&nbsp;<%= key %></span>
+						        <span class="pull-left"><i class="iconfont <%= healthy_weather_icon item['Crow'] %>"></i></span>
+						        <span class="pull-left">&nbsp;&nbsp;&nbsp;<%= item['Crow'] %>气象风险</span>
 										<span class="iconfont icon-right pull-right" style="font-size: 22px;"></span>
 				        </a>
 					    </div>
 					    <div id="collapse<%= index %>" class="panel-collapse collapse alpha-bg" role="tabpanel" aria-labelledby="heading<%= index %>">
 					      <div class="panel-body">
-					      	<% value.each_with_index do |(k, v), i| %>
-						        <p><%= k %></p>
-										<p><small>防范人群：<%= v.first %></small></p>
-										<p><small>防护建议：<%= v.second %></small></p>
-										<% if i != (value.size - 1) %>
-											<hr class="dot-hr">
-										<% end %>
-									<% end %>
+					      	<% item['Deatails'].each_with_index do |obj, i| %>
+                    <p><%= DateTime.parse(obj['Date']).to_date %></p>
+                    <p><small>防范人群：<%= obj['Influ'] %></small></p>
+                    <p><small>防护建议：<%= obj['Wat_guide'] %></small></p>
+                    <% if i == 0 %>
+                      <hr class="dot-hr">
+                    <% end %>
+                  <% end %>
 					      </div>
 					    </div>
 					  </div>
