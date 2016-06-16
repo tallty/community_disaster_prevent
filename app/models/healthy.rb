@@ -28,24 +28,30 @@ class Healthy < BaseForecast
   # 微信网页版：获取健康气象数据
   def get_web_message
     content = get_data
+
     shows = ["儿童感冒", "儿童哮喘", "青少年和成年人感冒", "老年人感冒", "COPD患者"]
-
-    now_day = Time.zone.now
-    results = {}
-
-    (0..content[0].length - 1).each do |i|
-      # 今明的单条指数记录
-      today_item = content[0][i]
-      tomorrow_item = content[1][i]
-
-      if shows.include?(today_item["title"])
-        cache = {}
-        cache["#{today_item['report_time'].to_time.strftime("%Y-%m-%d")}"] = ["#{today_item['info']}", "#{today_item['guide']}"]
-        cache["#{tomorrow_item['report_time'].to_time.strftime("%Y-%m-%d")}"] = ["#{tomorrow_item['info']}", "#{tomorrow_item['guide']}"]
-        results["#{today_item['title']}气象风险"] = cache
-      end
+    results = []
+    if content['Result'] == true
+      results = content['Data']
+      p results
+    else
+      results = []
     end
+    # p content['Data']
 
+    # (0..content[0].length - 1).each do |i|
+    #   # 今明的单条指数记录
+    #   today_item = content[0][i]
+    #   tomorrow_item = content[1][i]
+
+    #   if shows.include?(today_item["title"])
+    #     cache = {}
+    #     cache["#{today_item['report_time'].to_time.strftime("%Y-%m-%d")}"] = ["#{today_item['info']}", "#{today_item['guide']}"]
+    #     cache["#{tomorrow_item['report_time'].to_time.strftime("%Y-%m-%d")}"] = ["#{tomorrow_item['info']}", "#{tomorrow_item['guide']}"]
+    #     results["#{today_item['title']}气象风险"] = cache
+    #   end
+    # end
+    # p results
     # {"风险种类" => {"今天" => ["防范人群", "建议"], "明天" => ["防范人群", "建议"]}, ...}
     results
   end
