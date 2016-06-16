@@ -33,7 +33,6 @@ class Healthy < BaseForecast
     results = []
     if content['Result'] == true
       results = content['Data']
-      p results
     else
       results = []
     end
