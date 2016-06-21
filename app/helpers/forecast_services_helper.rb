@@ -20,7 +20,8 @@ module ForecastServicesHelper
 			"空调开启指数" => "icon-kongtiao",
 			"洗车指数" => "icon-xichezhishu",
 			"中暑指数" => "icon-baowen",
-			"日照指数" => "icon-taiyang"
+			"日照指数" => "icon-taiyang",
+      "火险指数" => "icon-fire"
 		}
 		cache[name]
 	end
