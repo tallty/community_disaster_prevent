@@ -51,16 +51,16 @@ class FiveDayWeather
     result = {}
     content = MultiJson.load response.body
     datetime = nil
-    now_day = Time.zone.parse(item["datatime"]).to_date
+    # now_day = Time.zone.parse(item["datatime"]).to_date
     limit_day = Time.zone.now.to_date + 4.day
 
     content.each do |item|
       datetime = Time.zone.parse(item["datatime"]).to_date
-      if datetime <= limit_day && datetime >= now_day
+      # if datetime <= limit_day && datetime >= now_day
         temp = item['tempe'].delete("℃").split("~")
-        cache = {low: temp.first, high: temp.last, weather: "#{item['weather']}", direction: "#{item['direction']}", "#{speed: item['speed']}"}
+        cache = {low: temp.first, high: temp.last, weather: "#{item['weather']}", direction: "#{item['direction']}", speed: "#{item['speed']}"}
         result["#{datetime}"] = cache
-      end
+      # end
     end
     # {日期 => {低温，高温，天气, 风向， 风速}, ...}
     result
