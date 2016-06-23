@@ -10,25 +10,27 @@ class AQI < BaseForecast
   # （微信页面）：空气质量
   def get_web_message
     content = get_data
-    list = content["data"]["list"]
+    if content['Result'] == true
+      list = content["Data"]["AQIDatas"]
 
-    # 发布时间
-    publish_time = content["data"]["publishtime"]
+      # 发布时间
+      publish_time = Time.strptime(content["Data"]["PublisDate"], "%Y年%m月%d日 %H时").to_time
+      p publish_time
+      aqi = []
+      level = []
+      pripoll = []
 
-    aqi = []
-    level = []
-    pripoll = []
-
-    list.each do |item|
-      # AQI
-      aqi << item['aqi']
-      # 空气质量等级
-      level << item["level"]
-      # 首要污染物
-      pripoll << item["pripoll"]
+      list.each do |item|
+        # AQI
+        aqi << item['AQI']
+        # 空气质量等级
+        level << item["Level"]
+        # 首要污染物
+        pripoll << item["Pripoll"]
+      end
+      
+      { time: publish_time, aqi: aqi, level: level, pripoll: pripoll }
     end
-    
-    { time: publish_time, aqi: aqi, level: level, pripoll: pripoll }
   end
 
   # 过去24小时空气质量
@@ -207,7 +209,7 @@ class AQI < BaseForecast
       pripoll = nil
       len = nil
       offset_x = 0
-      list.each do |item|
+      list[0, 3].each do |item|
         draw.annotate(image, 0, 0, get_offset_x_by_aqi("#{item['aqi']}"), base_y[i], "#{item['aqi']}")
         # 空气质量等级
         level = item["level"]
