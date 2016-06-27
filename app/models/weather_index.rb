@@ -20,15 +20,19 @@ class WeatherIndex < BaseForecast
   end
 
   # 获取（微信页面版）生活指数数据
-  def get_web_message
-    shows = ["体感指数", "户外晚间锻炼指数", "穿衣指数", "日照指数", "洗晒指数", "空调开启指数", "洗车指数", "中暑指数", "火险指数"]
-    result = {}
-    name = ""
-    content = get_data
-    publishtime = nil
-    if content['Result'] == true
-      list = content["Data"]
-      list.each do |item|
+  class WeatherIndexData < BaseForecast
+    def initialize
+      super
+    end
+
+    def get_web_message
+      shows = ["体感指数", "户外晚间锻炼指数", "穿衣指数", "日照指数", "洗晒指数", "空调开启指数", "洗车指数", "中暑指数", "火险指数"]
+      result = {}
+      name = ""
+      content = get_data
+      publishtime = nil
+      
+      content.fetch("Data", []).each do |item|
         name = item["Name"]
         publishtime = item['PublishTime'] if publishtime.blank?
         if shows.include?(name)
@@ -41,10 +45,10 @@ class WeatherIndex < BaseForecast
           end
         end
       end
+      [result, publishtime]
     end
-    [result, publishtime]
   end
-
+  
   def initialize
     super
   end

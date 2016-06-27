@@ -30,8 +30,7 @@ class ForecastServicesController < ApplicationController
 
   # 生活指数
   def life_index
-    weather_index = WeatherIndex.new
-  	@index, _publishtime = weather_index.get_web_message
+  	@index, _publishtime = WeatherIndex::WeatherIndexData.new.get_web_message
     @publish_time = DateTime.parse(_publishtime)
   end
 
