@@ -50,8 +50,7 @@ class ForecastServicesController < ApplicationController
 
   # 健康气象
   def healthy_weather
-    healthy = Healthy.new
-    @results = healthy.get_web_message
+    @results = Healthy::HealthyData.new.get_web_message
     @publish_time = Time.zone.now
   end
 

@@ -7,9 +7,9 @@
 			<div class="panel-hd">
 				空气质量
 				<span class="float-right">
-					<%= @publish_time.strftime("%_m月%d日") %>
-					<%= week_name @publish_time %>
-					<%= @publish_time.strftime("%H:%M") %> 
+					<%= @result[:time].strftime("%_m月%d日") %>
+					<%= week_name @result[:time] %>
+					<%= @result[:time].strftime("%H:%M") %> 
 					发布</span>
 			</div>
 			<div class="panel-bd center">
