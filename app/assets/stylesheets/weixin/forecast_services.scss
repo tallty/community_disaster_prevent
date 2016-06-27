@@ -268,13 +268,19 @@
 		background: rgba(0,0,0,0.3);
 		text-align: center;
 		border-radius: 12px;
-		.tips-l {
+		.simple-tips {
+			min-width: 70px;
 			height: 22px;
 			display: inline-block;
 			padding: 0px 8px 0 12px;
+		}
+		.multi-tips-l {
+			height: 22px;
+			display: inline-block;
+			padding: 0px 12px 0 8px;
 			border-right: 1px solid rgba(255,255,255,0.5);
 		}
-		.tips-r {
+		.multi-tips-r {
 			height: 22px;
 			display: inline-block;
 			padding: 0px 12px 0 8px;
@@ -316,6 +322,7 @@
 			width: 50%;
 			float: left;
 			padding: 4px 0px 4px 15px;
+			text-align: center;
 			.now-time {
 				font-size: 16px;
 				margin-top: 10px;

@@ -8,8 +8,7 @@
 			<span class="color<%= aqi_levels(noon)[1] %>"><%= noon %></span> AQI
 		</div>
 		<div class="tips">
-			<div class="tips-l color<%= aqi_levels(noon)[0] %>"><%= split_air_level(@result[:level][1])[0] %></div>
-			<div class="tips-r color<%= aqi_levels(noon)[1] %>"><%= split_air_level(@result[:level][1])[1] %></div>
+			<%= raw(split_air_level(@result[:level][1], noon)) %>
 		</div>
 		<!-- 主要污染物 -->
 		<div class="pollutant">主要污染物： <%= aqi_format @result[:pripoll][1] %></div>
@@ -23,8 +22,7 @@
 			<span class="color<%= aqi_levels(afternoon)[1] %>"><%= afternoon %></span> AQI
 		</div>
 		<div class="tips">
-			<div class="tips-l color<%= aqi_levels(afternoon)[0] %>"><%= split_air_level(@result[:level][2])[0] %></div>
-			<div class="tips-r color<%= aqi_levels(afternoon)[1] %>"><%= split_air_level(@result[:level][2])[1] %></div>
+			<%= raw(split_air_level(@result[:level][2], afternoon)) %>
 		</div>
 		<!-- 主要污染物 -->
 		<div class="pollutant">主要污染物： <%= aqi_format @result[:pripoll][2] %></div>

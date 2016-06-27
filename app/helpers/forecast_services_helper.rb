@@ -62,6 +62,7 @@ module ForecastServicesHelper
   # aqi级别
   # 数组
   def aqi_levels range
+    p "range: #{range}"
     low = /(\d{1,3}).{1}(\d{1,3})/.match(range)[0].to_f
     high = /(\d{1,3}).{1}(\d{1,3})/.match(range)[2].to_f
     return [air_level(low), air_level(high)]
@@ -86,11 +87,12 @@ module ForecastServicesHelper
   end
 
   # 拆分空气质量级别
-  def split_air_level level
+  def split_air_level level, now_air
     if level.include? '到'
       result = level.split('到')
+      "<div class='multi-tips-l color#{aqi_levels(now_air)[0] }'>#{result[0]}</div><div class='multi-tips-r color#{aqi_levels(now_air)[1] }'>#{result[-1]}</div>"
     else
-      result = [level, level]
+      "<div class='simple-tips color#{aqi_levels(now_air)[0] }'>#{level}</div>"
     end
   end
 end

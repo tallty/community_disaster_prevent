@@ -20,8 +20,7 @@
 				<div class="now-air">
 					<span class="color<%= aqi_levels(now_air)[1] %>"><%= now_air %></span> AQI &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<div class="tips">
-						<div class="tips-l color<%= aqi_levels(now_air)[0] %>"><%= split_air_level(@result[:level][0])[0] %></div>
-						<div class="tips-r color<%= aqi_levels(now_air)[1] %>"><%= split_air_level(@result[:level][0])[1] %></div>
+						<%= raw(split_air_level(@result[:level][0], now_air)) %>
 					</div>
 				</div>
 				<!-- 主要污染物 -->
@@ -55,15 +54,10 @@
 		<%= render partial: "tomorrow_air" %>
 
 		<!-- 过去24小时空气质量指数变化图 -->
-		<%= render partial: "chart_tabs" %>
 	</div>
 </div>
 
 
 <% content_for :scripts do %>
-	<%= javascript_tag "$('.tab-pane div').width(document.body.clientWidth - 30)" %>
-	<!-- chart -->
-	<% {"aqi_chart" => @aqi_datas, "pm25_chart" => @pm25_datas, "O3_chart" => @o3_datas, "pm10_chart" => @pm10_datas, "NO2_chart" => @no2_datas}.each do |key, value| %>
-		<%= render partial: "air_chart", locals: { dom_id: "#{key}", time: air_time(value), data: air_data(value) } %>
-	<% end %>
+	
 <% end %>

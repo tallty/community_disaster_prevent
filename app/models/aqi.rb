@@ -8,31 +8,36 @@ class AQI < BaseForecast
   end
 
   # （微信页面）：空气质量
-  def get_web_message
-    content = get_data
-    if content['Result'] == true
-      list = content["Data"]["AQIDatas"]
+  class AqiData < BaseForecast
+    def initialize
+      super
+    end
 
-      # 发布时间
-      publish_time = Time.strptime(content["Data"]["PublisDate"], "%Y年%m月%d日 %H时").to_time
-      p publish_time
-      aqi = []
-      level = []
-      pripoll = []
+    def get_web_message
+      content = get_data
+      if content['Result'] == true
+        list = content["Data"]["AQIDatas"]
 
-      list.each do |item|
-        # AQI
-        aqi << item['AQI']
-        # 空气质量等级
-        level << item["Level"]
-        # 首要污染物
-        pripoll << item["Pripoll"]
+        # 发布时间
+        publish_time = Time.strptime(content["Data"]["PublisDate"], "%Y年%m月%d日 %H时").to_time
+        aqi = []
+        level = []
+        pripoll = []
+
+        list.each do |item|
+          # AQI
+          aqi << item['AQI']
+          # 空气质量等级
+          level << item["Level"]
+          # 首要污染物
+          pripoll << item["Pripoll"]
+        end
+        
+        { time: publish_time, aqi: aqi, level: level, pripoll: pripoll }
       end
-      
-      { time: publish_time, aqi: aqi, level: level, pripoll: pripoll }
     end
   end
-
+  
   # 过去24小时空气质量
   def self.get_history_by_city city
     url = "#{AQI_HIS_URL}/#{city}"

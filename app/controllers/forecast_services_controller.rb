@@ -36,15 +36,16 @@ class ForecastServicesController < ApplicationController
 
   # 空气质量
   def air_quality
-    aqi = AQI.new
     # 今明空气质量
-    @result = aqi.get_web_message
+    @result = AQI::AqiData.new.get_web_message
+
+
     # 过去24小时空气质量
-    @aqi_weathers = AQI.get_history_by_city("上海").reverse
+    # @aqi_weathers = AQI.get_history_by_city("上海").reverse
     # 发布时间
     
     # # 整理获取AQI图表需要的相应数据
-    @aqi_datas, @pm25_datas, @pm10_datas, @o3_datas, @no2_datas = AQI.organize_aqi_datas @aqi_weathers
+    # @aqi_datas, @pm25_datas, @pm10_datas, @o3_datas, @no2_datas = AQI.organize_aqi_datas @aqi_weathers
   end
 
   # 健康气象
