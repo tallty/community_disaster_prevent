@@ -2,25 +2,17 @@ $(function() {
 	<% @week_day = [] %>
 	<% @low = [] %>
 	<% @high = [] %>
-	<% @weathers.each do |key, value| %>
-		<% @low.push value[:low].to_i %>
-		<% @high.push value[:high].to_i %>
-		<% @week_day.push (week_name key) %>
+	<% @weathers.each do |item| %>
+		<% @low.push item['LowTmp'].to_i %>
+		<% @high.push item['HighTmp'].to_i %>
+		<% @week_day.push (item['Time']) %>
 	<% end %>
 	// 基于准备好的dom，初始化echarts实例
   var myChart = echarts.init(document.getElementById('five_weather_chart'));
   // 指定图表的配置项和数据
   var option = {
-    tooltip: { 
-    	trigger: 'axis' 
-    },
-    grid: {
-      show: false,
-      left: 0,
-      right: 0,
-      top: 12,
-      bottom: 12
-    },
+    tooltip: { trigger: 'axis' },
+    grid: { show: false, left: 0, right: 0, top: 30, bottom: 30 },
     xAxis:  {
       type: 'category',
       boundaryGap: true,
@@ -38,7 +30,8 @@ $(function() {
       },
       axisLine: { show: false },
       axisTick: { show: false },
-      splitLine: { show: false }
+      splitLine: { show: false },
+      scale: true
     },
     series: [
       {
@@ -48,29 +41,20 @@ $(function() {
         markPoint: {
 	        	symbol: 'pin',
             symbolSize: 30,
-            showSymbol: false,
+            showSymbol: true,
             data: [
-                <% @weathers.each do |key, value| %>
-									{ name: '气温',coord: ['<%= week_name key %>', <%= value[:high].to_i %>], value: <%= value[:high].to_i %> },
+                <% @weathers.each do |item| %>
+									{ name: '气温',coord: ['<%= item['Time'] %>', <%= item['HighTmp'].to_i %>], value: <%= item['HighTmp'].to_i %> },
                 <% end %>
             ],
             itemStyle: {
-					    normal: {
-					    		color: 'rgba(255, 255, 255, 0)'
-					    }
+					    normal: { color: 'rgba(255, 255, 255, 0)' }
 						}
         },
-       	lineStyle: {
-            normal: {
-                color: '#ffffff'
-            }
-        },
+        showAllSymbol: true,
+       	lineStyle: { normal: { color: '#fff' } },
         itemStyle: {
-			    normal: {
-			    		color: '#fff',
-			    		borderColor: '#fff',
-			    		borderWidth: 5
-			    }
+			    normal: { color: '#fff', borderColor: '#fff', borderWidth: 5 }
 				}
       },
       {
@@ -83,27 +67,16 @@ $(function() {
           symbolRotate: 180,
           symbolOffset: [0, '20%'],
           data: [
-            <% @weathers.each do |key, value| %>
-							{ name: '气温',coord: ['<%= week_name key %>', <%= value[:low].to_i %>], value: <%= value[:low].to_i %> },
+            <% @weathers.each do |item| %>
+							{ name: '气温',coord: ['<%= item['Time'] %>', <%= item['LowTmp'].to_i %>], value: <%= item['LowTmp'].to_i %> },
             <% end %>
           ],
-	        itemStyle: {
-				    normal: {
-				    		color: 'rgba(255, 255, 255, 0)'
-				    }
-					}
+	        itemStyle: { normal: { color: 'rgba(255, 255, 255, 0)' } }
         },
-        lineStyle: {
-          normal: {
-              color: '#fff'
-          }
-        },
+        showAllSymbol: true,
+        lineStyle: { normal: { color: '#fff' } },
         itemStyle: {
-			    normal: {
-			    		color: '#fff',
-			    		borderColor: '#fff',
-			    		borderWidth: 3
-			    }
+			    normal: { color: '#fff', borderColor: '#fff', borderWidth: 3 }
 				}
       }
     ]

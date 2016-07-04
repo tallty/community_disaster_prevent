@@ -73,6 +73,25 @@ class FiveDayWeather
     result
   end
 
+  class FiveDayWeatherData
+    include NetworkMiddleware
+
+    def initialize
+      @api_path = "/JsonService/JsonService.svc/GetDistrictAutoStationDataByName/"
+      @remote = "http://61.152.126.152/"
+      super 
+    end
+
+    def get_web_message district
+      params_hash = {
+        method: 'get',
+        data: district
+      }
+      result = get_data(params_hash, {})
+      result.fetch('Data', {})
+    end
+  end
+
   # 拆分天气
   def self.split_weather weather
     if weather.include? "转"
