@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-User.create(id: 1, email: '1234567890@qq.com', password: '1234567890')
+User.create(email: '1234567890@qq.com', password: '1234567890')
 
 Diymenu.delete_all
 Diymenu.create(id: 1, name: '预报服务', is_show: true, sort: 0)
@@ -13,9 +13,9 @@ Diymenu.create(id: 2, name: '我的社区', is_show: true, sort: 1)
 Diymenu.create(id: 3, name: '其他', is_show: true, sort:2)
 Diymenu.create(id: 4, parent_id: 1, name: '全市预警', key: '全市预警', is_show: true, sort:0)
 Diymenu.create(id: 5, parent_id: 1, name: '五日预报', key: '五日预报', is_show: true, sort:1)
-Diymenu.create(id: 6, parent_id: 1, name: '气象指数', key: '气象指数', is_show: true, sort:2)
-Diymenu.create(id: 7, parent_id: 1, name: '空气质量', key: '空气质量', is_show: true, sort:3)
-Diymenu.create(id: 8, parent_id: 1, name: '健康气象', url: 'http://61.152.126.154/forecast_services/healthy_weather', is_show: true, sort:4)
+Diymenu.create(id: 6, parent_id: 1, name: '气象指数', url: 'http://weixin.lightning.sh.cn/forecast_services/life_index', is_show: true, sort:2)
+Diymenu.create(id: 7, parent_id: 1, name: '空气质量', url: 'http://weixin.lightning.sh.cn/forecast_services/air_quality', is_show: true, sort:3)
+Diymenu.create(id: 8, parent_id: 1, name: '健康气象', url: 'http://weixin.lightning.sh.cn/forecast_services/healthy_weather', is_show: true, sort:4)
 Diymenu.create(id: 9, parent_id: 2, name: '社区预警', key: '社区预警', is_show: true, sort:0)
 Diymenu.create(id: 10, parent_id: 2, name: '灾情互动', key: '灾情互动', is_show: true, sort:1)
 Diymenu.create(id: 11, parent_id: 2, name: '实况监测', key: '实况监测', is_show: true, sort:2)

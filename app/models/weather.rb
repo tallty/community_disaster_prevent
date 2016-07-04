@@ -4,8 +4,7 @@ class Weather
     include NetworkMiddleware
 
     def initialize
-      @api_path = "JsonService/JsonService.svc/Get5DayForecast_Weixin"
-      @remote = "http://61.152.126.152/"
+      @root = self.class.to_s
       super 
     end
 
@@ -15,6 +14,7 @@ class Weather
         data: ''
       }
       result = get_data(params_hash, {})
+
       result.fetch('Data', {})
     end
   end
@@ -23,8 +23,7 @@ class Weather
     include NetworkMiddleware
 
     def initialize
-      @api_path = "/JsonService/JsonService.svc/GetDistrictAutoStationDataByName/"
-      @remote = "http://61.152.126.152/"
+      @root = self.class.to_s
       super 
     end
 

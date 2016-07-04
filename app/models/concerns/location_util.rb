@@ -3,9 +3,10 @@ class LocationUtil
   include NetworkMiddleware
 
   def initialize
-    @api_path = 'geocoder/v2/'
-    @remote = 'http://api.map.baidu.com'
-    @ak = '200aadcf1ccf720749c79228f9b7fd79'
+    # @api_path = 'geocoder/v2/'
+    # @remote = 'http://api.map.baidu.com'
+    # @ak = '200aadcf1ccf720749c79228f9b7fd79'
+    @root = self.class.to_s
     super
   end
 
