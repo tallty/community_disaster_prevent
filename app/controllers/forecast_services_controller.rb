@@ -7,25 +7,28 @@ class ForecastServicesController < ApplicationController
   def city_warn
   end
 
+  def locate
+    
+  end
+
   # 五日天气预报
   def five_day_weather
+    result = LocationUtil.new.reverse(location_params)
+
+    @district = result['addressComponent']['district']
     # subscriber = Subscriber.where(openid: session[:openid]).first
     # @community = subscriber.community
-    @community = Community.second
+    # @community = Community.second
     
     # 五日预报
-    five_day_weather = FiveDayWeather.new
-		@weathers = five_day_weather.get_web_message
-
+    @weathers = Weather::FiveDayWeather.new.fetch
+    
     # 全市预警
     @warn = Warning.get_last_active_warn 20000
 
     # 气象实况
-    if @community.present?
-      @auto_station = MonitorStation.community_weather_data @community
-    else
-      redirect_to centre_communities_path
-    end
+    @auto_station = Weather::DistrictWeather.new.fetch @district
+    
   end
 
   # 生活指数
@@ -60,10 +63,13 @@ class ForecastServicesController < ApplicationController
   end
 
   private
-    def get_city_warn
-      @warnings = $redis.hvals("warnings_20000").map do |e|
-        MultiJson.load(e)
-      end
+  def get_city_warn
+    @warnings = $redis.hvals("warnings_20000").map do |e|
+      MultiJson.load(e)
     end
+  end
 
+  def location_params
+    params.permit(:lon, :lat)
+  end
 end

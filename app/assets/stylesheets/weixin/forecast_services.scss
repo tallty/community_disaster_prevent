@@ -34,7 +34,7 @@
 
 // ============五日天气预报===========
 .now-weather {
-	margin-bottom: 60px;
+	margin-bottom: 30px;
 	.release {
 		margin-top: 10px;
 	}
@@ -92,6 +92,49 @@
 		span{
 			font-size: 21px;
 			margin-right: 10px;
+		}
+	}
+}
+.real-weather {
+	position: relative;
+	&:before {
+		border: none;
+	}
+	.weui_grid {
+		padding: 10px 0 0px;
+		width: 33.333%;
+		text-align: center;
+		&:after {
+			border: none !important;
+		}
+		.empty {
+			height: 190px;
+		}
+		i {
+			font-size: 30px;
+			display: block;
+			margin-bottom: 3px;
+		}
+		img {
+			height: 30px;
+			margin: 5px auto;
+		}
+		span {
+			margin-bottom: 5px;
+			font-size: 12px;
+			display: block;
+		}
+		small {
+			font-size: 10px;
+			display: block;
+		}
+		.five-info {
+			margin-bottom: 3px;
+			font-size: 14px;
+		}
+		.week-day {
+			font-size: 14px;
+			margin-bottom: 0;
 		}
 	}
 }
