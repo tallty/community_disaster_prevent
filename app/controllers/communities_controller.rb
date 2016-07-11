@@ -8,13 +8,13 @@ class CommunitiesController < ApplicationController
 
 	# 社区四个部分
 	def interact
-		@subscriber = Subscriber.where(openid: session[:openid]).first
+    # @subscriber = Subscriber.where(openid: session[:openid]).first
     @disasters = Disaster.where("occur_time > ?", Time.now.to_date - 3.day).find_all { |d| d.subscriber == @subscriber or d.disaster_position.present? }
 	end
 
   # 实况监测
   def detection
-    subscriber = Subscriber.where(openid: session[:openid]).first
+    # subscriber = Subscriber.where(openid: session[:openid]).first
     # 用户所属社区
     @community = subscriber.community
     if @community.present?
