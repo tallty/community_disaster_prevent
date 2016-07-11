@@ -14,7 +14,6 @@ class OauthsController < ApplicationController
   def check
     result = $client.get_oauth_access_token(params[:code])
     openid = result.result['openid']
-    p "=====================openid: #{openid}============================"
     session[:openid] = openid
     redirect_to session[:reurl]
   end
