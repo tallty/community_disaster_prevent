@@ -5,6 +5,7 @@ class ForecastServicesController < ApplicationController
 
   # 城市告警
   def city_warn
+    @city_warnings = Warning::CityWarningProcess.new.fetch
   end
 
   def locate
