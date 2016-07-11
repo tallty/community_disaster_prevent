@@ -16,7 +16,7 @@ class CommunitiesController < ApplicationController
   def detection
     # subscriber = Subscriber.where(openid: session[:openid]).first
     # 用户所属社区
-    @community = subscriber.community
+    @community = @subscriber.community
     if @community.present?
       # 社区预警
       code = @community.code
