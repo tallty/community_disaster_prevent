@@ -1,13 +1,25 @@
-class OauthController < ApplicationController
-  layout 'wechat'
+class OauthsController < ApplicationController
+  before_action :store_reurl, only: [:index]
+  
   def index
-    @code = params[:code]
-    p @code
-    obj = $client.get_oauth_access_token("#{params[:code]}")
-    p obj
-    # url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{WeixinRailsMiddleware.config.app_id}&secret=67b21dc39ca1e6a46a2551d7589d3c1c&code=#{params[:code]}&grant_type=authorization_code"
-    # info = RestClient.get(URI::escape(url))
-    # obj = MultiJson.load(info)
-    # p obj
+    openid = session[:openid]
+    if openid
+      redirect_to session[:reurl]
+    else
+      url = $client.authorize_url check_oauths_url
+      redirect_to url
+    end
+  end
+
+  def check
+    result = $client.get_oauth_access_token(params[:code])
+    openid = result.result['openid']
+    session[:openid] = openid
+    redirect_to session[:reurl]
+  end
+
+  private
+  def store_url
+    session[:reurl] = params[:reurl] if params[:reurl].present?
   end
 end

@@ -26,6 +26,12 @@ Rails.application.routes.draw do
   resource :monitor_stations, only: [:show]
   resources :surveys
 
+  resources :oauths, only: [:index] do
+    collection do 
+      get :check
+    end
+  end
+
   # 预报服务（全市预警、五日预报、气象指数、空气质量、健康气象）
   resources :forecast_services do
     collection do
