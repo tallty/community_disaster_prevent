@@ -19,7 +19,7 @@ class OauthsController < ApplicationController
   end
 
   private
-  def store_url
+  def store_reurl
     session[:reurl] = params[:reurl] if params[:reurl].present?
   end
 end
