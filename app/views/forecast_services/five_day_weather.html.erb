@@ -11,7 +11,13 @@
 				<%= @auto_station["Datetime"].to_time.strftime("%H:%M") %>发布</p>
 			<!-- 天气 -->
 			<div class="weather-info">
-				<div class="weather-left"><span><%= @auto_station["Tempreture"] %></span><span style="padding-left: 8px;">˚</span></div>
+				<div class="weather-left">
+					<div class="location"><%= @district %><i class="iconfont">&#xe612;</i></div>
+					<span>
+						<%= @auto_station["Tempreture"] %>
+					</span>
+					<span style="padding-left: 8px;">˚</span>
+				</div>
 				<div class="weather-right">
 					<div class="right">
 						<% if @warn.blank? %>
@@ -26,7 +32,6 @@
 							<% end %>
 						<% end %>
 					</div>
-					<div class="location"><%= @district %><i class="iconfont">&#xe612;</i></div>
 				</div>
 			</div>
 			<!-- 气温 -->

@@ -50,7 +50,17 @@
 			top: 0;
 			left: 0;
 			width: 180px;
+			padding-left: 10px;
 			font-size: 70px;
+			.location {
+				font-size: 18px;
+				height: 34px;
+				line-height: 34px;
+				i {
+					font-size: 22px;
+					display: inline-block;
+				}
+			}
 			span {
 				font-family: "degree";
 			}
@@ -73,15 +83,6 @@
 					display: inline;
 					font-size: 20px;
 					margin-right: 5px;
-				}
-			}
-			.location {
-				font-size: 18px;
-				height: 34px;
-				height: 34px;
-				i {
-					font-size: 22px;
-					display: inline-block;
 				}
 			}
 		}
