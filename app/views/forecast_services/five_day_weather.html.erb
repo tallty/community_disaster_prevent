@@ -4,15 +4,17 @@
 	<div class="weui_content">
 
 		<div class="my-panel now-weather">
-			<!-- 发布时间 -->
-			<p class="release right">
-				<%= @auto_station["Datetime"].to_time.strftime("%m月%d日") %>
-				<%= week_name @auto_station["Datetime"].to_time %>
-				<%= @auto_station["Datetime"].to_time.strftime("%H:%M") %>发布</p>
+			<div class="toper-bar row">
+				<div class="location col-xs-5"><%= @district %><i class="iconfont">&#xe612;</i></div>
+				<!-- 发布时间 -->
+				<p class="col-xs-7 right">
+					<%= @auto_station["Datetime"].to_time.strftime("%m月%d日") %>
+					<%= week_name @auto_station["Datetime"].to_time %>
+					<%= @auto_station["Datetime"].to_time.strftime("%H:%M") %>发布</p>	
+			</div>
 			<!-- 天气 -->
 			<div class="weather-info">
 				<div class="weather-left">
-					<div class="location"><%= @district %><i class="iconfont">&#xe612;</i></div>
 					<span>
 						<%= @auto_station["Tempreture"] %>
 					</span>

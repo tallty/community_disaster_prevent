@@ -35,15 +35,18 @@
 // ============五日天气预报===========
 .now-weather {
 	margin-bottom: 30px;
-	.release {
+	.toper-bar {
 		margin-top: 10px;
+		.release {
+			
+		}	
 	}
 	.weather-info {
 		position: relative;
 		display: block;
 		margin-bottom: 0px;
 		margin-top: 15px;
-		height: 130px;
+		height: 90px;
 		.weather-left {
 			font-family: "degree";
 			position: absolute;
@@ -88,6 +91,7 @@
 		}
 	}
 	.other-info {
+		padding-left: 10px;
 		i {
 			display: inline;
 			font-size: 17px;
