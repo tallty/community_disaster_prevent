@@ -43,7 +43,7 @@
 		display: block;
 		margin-bottom: 0px;
 		margin-top: 15px;
-		height: 90px;
+		height: 130px;
 		.weather-left {
 			font-family: "degree";
 			position: absolute;
@@ -61,10 +61,12 @@
 			left: 160px;
 			padding-top: 10px;
 			.warn {
-				font-size: 14px;
+				font-size: 12px;
 				display: inline-block;
 				height: 30px;
 				padding: 0px 12px;
+				margin-right: 8px;
+				margin-bottom: 4px;
 				background: rgba(0,0,0,0.4);
 				border-radius: 17px;
 				i { 

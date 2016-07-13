@@ -68,41 +68,22 @@ class Warning < ActiveRecord::Base
     end
   end
 
-  class CityWarningProcess < BaseForecast
+  class CityWarningProcess
+    include NetworkMiddleware
+
     def initialize
+      @root = self.class.name.to_s
       super
     end
 
-    def parse
-      content = get_data
-      if content.present?
-        warning = nil
-        community = Community.where(district: "上海").first
-        content.each do |item|
+    def fetch
+      params_hash = {
+        method: 'get',
+        data: ''
+      }
+      result = get_data(params_hash, {})
 
-          if item["level"].eql?("解除")
-            warning_level = Warning.where(warning_type: item["type"], community: community).order(id: "desc").limit(1).first.level
-            warning = Warning.find_or_create_by(publish_time: Time.parse(item["publishtime"]), warning_type: item["type"])
-            warning.level = warning_level
-            warning.content = item["content"]
-            warning.community = community
-            warning.status = "解除"
-            warning.save
-          else
-            warning = Warning.find_or_create_by(publish_time: Time.parse(item["publishtime"]), warning_type: item["type"])
-            warning.level = item["level"]
-            warning.content = item["content"]
-            warning.community = community
-            warning.status = "发布"
-            warning.save
-          end
-          $redis.hset("warnings_#{community.code}", "#{warning.warning_type}", warning.to_json)
-        end
-      end
-    end
-
-    def after_process
-
+      result.fetch('Data', {})
     end
   end
 
@@ -187,5 +168,9 @@ class Warning < ActiveRecord::Base
     end
     cache = warnings.select{|x| x['status'] != '解除'}
     return cache.sort { |a, b| b['publish_time']<=>a['publish_time'] }.first
+  end
+
+  class Warning
+  
   end
 end

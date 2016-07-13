@@ -25,7 +25,7 @@ class ForecastServicesController < ApplicationController
     @weathers = Weather::FiveDayWeather.new.fetch
     
     # 全市预警
-    @warn = Warning.get_last_active_warn 20000
+    @warn = Warning::CityWarningProcess.new.fetch
 
     # 气象实况
     @auto_station = Weather::DistrictWeather.new.fetch @district

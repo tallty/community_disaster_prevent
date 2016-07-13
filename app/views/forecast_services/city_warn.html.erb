@@ -2,29 +2,29 @@
 <!-- 气象预警 -->
 <div class="weui_container">
 	<div class="weui_content city-warn">
-		<% @warnings.each do |item| %>
+		<% @city_warnings.each do |item| %>
 			<div class="my-panel">
 				<div class="panel-hd alpha-bg">
 					<% if item['status'].eql?("解除") %>
-						<%= image_tag "warnings/b_#{Warning.tran_type(item['type'])}#{Warning.tran_level(item['level'])}g.png", height: 30 %>
+						<%= image_tag "warnings/b_#{Warning.tran_type(item['TYPE'])}#{Warning.tran_level(item['LEVEL'])}g.png", height: 30 %>
 					<% else %>
-						<%= image_tag "warnings/b_#{Warning.tran_type(item['type'])}#{Warning.tran_level(item['level'])}.png", height: 30 %>
+						<%= image_tag "warnings/b_#{Warning.tran_type(item['TYPE'])}#{Warning.tran_level(item['LEVEL'])}.png", height: 30 %>
 					<% end %>
-					<%= "#{item['type']}#{item['level']}预警" %>
+					<%= "#{item['TYPE']}#{item['LEVEL']}预警" %>
 					<span class="float-right">
-						<%= Time.parse(item["publish_time"]).strftime("%m月%d日") %>
-						<%= week_name Time.parse(item["publish_time"]) %>
-						<%= Time.parse(item["publish_time"]).strftime("%H:%M") %>发布
+						<%= (item['FORECASTDATE'].to_datetime).strftime("%m月%d日") %>
+						<%= week_name item['FORECASTDATE'].to_datetime %>
+						<%= (item['FORECASTDATE'].to_datetime).strftime("%H:%M") %>发布
 					</span>
 				</div>
 				<div class="panel-bd alpha-bg">
-					<%= item["content"] %>
+					<%= item["CONTENT"] %>
 					<br>
 				</div>
 			</div>
 		<% end %>
 
-		<% if @warnings.blank? %>
+		<% if @city_warnings.blank? %>
 			<div class="my-panel alpha-bg">
 				<div class="pannel-bd text-center"><br>当前无预警<br><br></div>
 			</div>
