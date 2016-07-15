@@ -187,6 +187,9 @@
 			margin-bottom: 0;
 		}
 	}
+	.weui_grid:before {
+		border: none;
+	}
 	#five_weather_chart {
 		position: absolute;
 		left: 0;
