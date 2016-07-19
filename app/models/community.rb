@@ -28,4 +28,39 @@ class Community < ActiveRecord::Base
     end
     file.close
   end
+
+  def self.refresh_community_code
+    districts = ['徐汇区', '崇明县', '黄浦区', '静安区', '静安区', '虹口区', '杨浦区', '长宁区', '普陀区', '宝山区', '闵行区',
+                  '嘉定区', '青浦区', '金山区', '松江区', '奉贤区', '浦东新区', '中心城区']
+
+    districts.each do |district|
+      processor = Community::CommunityCode.new
+      district_list = processor.fetch district
+      district_list.each do |item|
+        communtiy = Community.where("street like ?", "%#{item['Name'].delete('街道|社区|镇')}%").first
+        if communtiy.present?
+          communtiy.update_attributes(code: item['ID'])
+        end
+      end
+    end
+  end
+
+  class CommunityCode
+    include NetworkMiddleware
+
+    def initialize
+      @root = self.class.name.to_s
+      super
+    end
+
+    def fetch district
+      params_hash = {
+        method: 'get'
+      }
+      @api_path = "#{@api_path}/#{district}"
+      result = get_data(params_hash, {})
+
+      result.fetch('Data', {})
+    end
+  end
 end
