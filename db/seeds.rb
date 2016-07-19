@@ -16,14 +16,14 @@ Diymenu.create(id: 5, parent_id: 1, name: '五日预报', url: 'http://weixin.li
 Diymenu.create(id: 6, parent_id: 1, name: '气象指数', url: 'http://weixin.lightning.sh.cn/forecast_services/life_index', is_show: true, sort:2)
 Diymenu.create(id: 7, parent_id: 1, name: '空气质量', url: 'http://weixin.lightning.sh.cn/forecast_services/air_quality', is_show: true, sort:3)
 Diymenu.create(id: 8, parent_id: 1, name: '健康气象', url: 'http://weixin.lightning.sh.cn/forecast_services/healthy_weather', is_show: true, sort:4)
-Diymenu.create(id: 9, parent_id: 2, name: '社区预警', key: '社区预警', is_show: true, sort:0)
-Diymenu.create(id: 10, parent_id: 2, name: '灾情互动', key: '灾情互动', is_show: true, sort:1)
-Diymenu.create(id: 11, parent_id: 2, name: '实况监测', key: '实况监测', is_show: true, sort:2)
-Diymenu.create(id: 12, parent_id: 2, name: '社区风险', key: '社区风险', is_show: true, sort:3)
-Diymenu.create(id: 13, parent_id: 3, name: '调查问卷', key: '调查问卷', is_show: true, sort:0)
-Diymenu.create(id: 14, parent_id: 3, name: '气象科普', key: '气象科普', is_show: true, sort:1)
-Diymenu.create(id: 15, parent_id: 3, name: '微社区', url: 'http://wsq.qq.com/reflow/234704148', is_show: true, sort:2)
-Diymenu.create(id: 16, parent_id: 3, name: '帮助', key: '帮助', is_show: true, sort:3)
+
+Diymenu.create(id: 9, parent_id: 2, name: '灾情互动', url: 'http://weixin.lightning.sh.cn/communities/interact', is_show: true, sort:0)
+Diymenu.create(id: 10, parent_id: 2, name: '实况监测', url: 'http://weixin.lightning.sh.cn/communities/detection', is_show: true, sort:1)
+Diymenu.create(id: 11, parent_id: 2, name: '社区风险', url: 'http://weixin.lightning.sh.cn/communities/community_risk', is_show: true, sort:2)
+Diymenu.create(id: 12, parent_id: 3, name: '调查问卷', key: '调查问卷', is_show: true, sort:0)
+Diymenu.create(id: 13, parent_id: 3, name: '气象科普', key: '气象科普', is_show: true, sort:1)
+Diymenu.create(id: 14, parent_id: 3, name: '微社区', url: 'http://wsq.qq.com/reflow/234704148', is_show: true, sort:2)
+Diymenu.create(id: 15, parent_id: 3, name: '帮助', key: '帮助', is_show: true, sort:3)
 
 MessageProcessor.delete_all
 MessageProcessor.create(event_key: "全市预警", process_class_name: "Warning", process_method: "get_show_article", result_type: "news_message")
