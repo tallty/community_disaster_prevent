@@ -21,6 +21,8 @@ config/initializers/weixin_rails_middleware.rb
 /config/database.yml
 /config/application.yml
 /config/initializers/setting.rb
+/config/unicorn.rb
+/config/unicorn_init.sh
 /test
 /public/voice/
 /public/upload/
