@@ -9,9 +9,9 @@
       <div class="panel-hd">
         <i class="iconfont" style="font-size: 20px;">&#xe607;</i>&nbsp;<%= @community.street %>社区
         <span class="float-right">
-          <%= @auto_station["datetime"].to_time.strftime("%m月%d日") %>
-          <%= week_name @auto_station["datetime"].to_time %>
-          <%= @auto_station["datetime"].to_time.strftime("%H:%M") %>发布
+          <%= @auto_station["Datetime"].try(:to_time).try(:strftime, "%m月%d日") %>
+          <%= week_name @auto_station["Datetime"].try(:to_time) %>
+          <%= @auto_station["Datetime"].try(:to_time).try(:strftime, "%H:%M") %>发布
         </span>
       </div>
     </div>
@@ -38,12 +38,12 @@
             <div class="detection_content_grid">
               <p><i class="iconfont">&#xe617;</i></p>
               <p><small>实时温度</small></p>
-              <p><small><%= @auto_station["tempe"] %>℃</small></p>
+              <p><small><%= @auto_station["Tempreture"] %>℃</small></p>
             </div>
             <div class="detection_content_grid detection_content_grid_1">
               <p><i class="iconfont">&#xe602;</i></p>
               <p><small>累计雨量</small></p>
-              <p><small><%= @auto_station["rain"] %>mm</small></p>
+              <p><small><%= @auto_station["RainHour"] %>mm</small></p>
             </div>
             <div class="detection_content_grid">
               <p><i class="iconfont">&#xe619;</i></p>
@@ -52,7 +52,7 @@
                 <% if @auto_station["wind_speed"].to_f < 0.2 %>
                   静风
                 <% else %>
-                  <%= MonitorStation.translate_wdir(@auto_station["wind_direction"]) %><%= MonitorStation.translate_wspeed(@auto_station["wind_speed"])%>
+                  <%= MonitorStation.translate_wdir(@auto_station["WindDir"]) %><%= MonitorStation.translate_wspeed(@auto_station["WindSpd"])%>
                 <% end %>
               </small></p>
             </div>
@@ -76,13 +76,13 @@
 
     <div class="detection_content detection_content_3 alpha-bg">
       <div class="my-panel">
-        <div class="panel-hd mborder">闪电分布</div>
+        <!-- <div class="panel-hd mborder">闪电分布</div>
         <div class="panel-bd">
           <div class="detection_content_lightning">
-            <%= image_tag "../lightning/#{Lightning.get_pic}", :style => "width: 100%;" %>
+            
           </div>
           <p class="detection_content_lightning_text text-justify">云体与大地相接触的放电现象称为地闪·用CG表示，地闪有两种：正地闪(+)和负地闪(-)，通常情况下的对地放电过程都是将云内负电荷输送到地面的负极性放电·即负地闪，但是也有一些放电将云内的正电荷输送到地面，这种现象被称为正地闪。</p>
-        </div>
+        </div> -->
       </div>
     </div>
 

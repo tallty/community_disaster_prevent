@@ -21,9 +21,8 @@ class CommunitiesController < ApplicationController
       # 社区预警
       code = @community.code
       # 气象实况
-      @auto_station = MonitorStation.community_weather_data @community
-      # 积水实况
-      @water_stations = MonitorStation.community_water_data @community
+      @auto_station = MonitorStation::CommunityAutoStation.new.fetch code
+      # @water_stations = MonitorStation.community_water_data code
       # 社区预警
       @warning = Warning.get_last_active_warn code
     else
@@ -41,7 +40,7 @@ class CommunitiesController < ApplicationController
   end
 
   def centre
-    @subscriber = Subscriber.where(openid: session[:openid]).first
+    # @subscriber = Subscriber.where(openid: session[:openid]).first
   end
 
   private
@@ -51,6 +50,7 @@ class CommunitiesController < ApplicationController
     end
 
     def set_subscriber
+      # @subscriber = Subscriber.first
       @subscriber = Subscriber.where(openid: session[:openid]).first
     end
 end

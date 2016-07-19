@@ -183,6 +183,25 @@ class MonitorStation < ActiveRecord::Base
     end
     return water_stations
   end
+
+  class CommunityAutoStation
+    include NetworkMiddleware
+
+    def initialize
+      @root = self.class.name.to_s
+      super
+    end
+
+    def fetch code
+      params_hash = {
+        method: 'get'
+      }
+      @api_path = "#{@api_path}/#{code}"
+      result = get_data(params_hash, {})
+
+      result.fetch('Data', {})
+    end
+  end
   
   private
   def base_url
