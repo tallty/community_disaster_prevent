@@ -49,18 +49,18 @@ class Healthy < BaseForecast
         _content = healthy_hash[item['Crow']]
         _content[:content] = [
           {
-            'date': format_date(item['Deatails'][0]['Date']),
-            'level': item['Deatails'][0]['WarningLevel'],
-            'desc': item['Deatails'][0]['WarningDesc'],
-            'influ': item['Deatails'][0]['Influ'],
-            'guide': item['Deatails'][0]['Wat_guide']
+            :date => format_date(item['Deatails'][0]['Date']),
+            :level => item['Deatails'][0]['WarningLevel'],
+            :desc => item['Deatails'][0]['WarningDesc'],
+            :influ => item['Deatails'][0]['Influ'],
+            :guide => item['Deatails'][0]['Wat_guide']
           },
           {
-            'date': format_date(item['Deatails'][1]['Date']),
-            'level': item['Deatails'][1]['WarningLevel'],
-            'desc': item['Deatails'][1]['WarningDesc'],
-            'influ': item['Deatails'][1]['Influ'],
-            'guide': item['Deatails'][1]['Wat_guide']
+            :date => format_date(item['Deatails'][1]['Date']),
+            :level => item['Deatails'][1]['WarningLevel'],
+            :desc => item['Deatails'][1]['WarningDesc'],
+            :influ => item['Deatails'][1]['Influ'],
+            :guide => item['Deatails'][1]['Wat_guide']
           }
         ]
         healthies << _content
