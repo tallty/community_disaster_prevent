@@ -481,3 +481,114 @@
 		border-bottom-right-radius: 5px;
 	}
 }
+
+.healthy-index {
+  .panel-bd {
+    .col-xs-4 {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    .item {
+      width: 100px;
+      height: 100px;
+      float: left;
+      padding-top: 14px;
+      margin-bottom: 10px;
+      text-align: center;
+      border-radius: 50px;
+      font-size: 12px;
+      background-color: rgba(2, 2, 2, .18);
+      img {
+        width: 24px;
+        height: 26px;
+        margin-bottom: 10px;
+      }
+      p {
+        margin-top: 5px;
+        margin-bottom: 0;
+        font-weight: 300;
+      }
+    }
+    .active {
+      background-color: #1a6d7e;
+      border: 3px solid #64c6d8;
+    }
+  }
+  .panel-ct {
+    display: none;
+    .title {
+      padding: 10px;
+      font-size: 14px;
+      font-weight: 300;
+      border-bottom: 1px solid rgba(255,255,255,.3);
+    }
+    .content {
+    	padding-left: 10px;
+    	padding-right: 10px;
+    	.sub {
+    		padding-top: 10px;
+    		padding-bottom: 10px;
+    		overflow: hidden;
+    		.topper {
+    			height: 36px;
+    			.date-time {
+    				width: 60px;
+    				height: 28px!important;
+    				line-height: 28px!important;
+    				margin-top: 4px;
+    				border-radius: 16px;
+    				background-color: rgba(0,0,0,.23);
+    				text-align: center;
+    			}
+    			div {
+    				height: 36px;
+    				line-height: 36px;
+    			}
+    			.col-xs-4,
+    			.col-xs-8 {
+    				padding-left: 0;
+    				padding-right: 0;
+    			}
+    		}
+    		.bottom1 {
+    			padding-bottom: 6px;
+    			font-size: 14px;
+    			font-weight: 300;
+    		}
+    		.bottom2 {
+    			font-size: 12px;	
+    			font-weight: 300;
+    		}
+    	}
+    	.bl {
+    		border-bottom: 1px solid rgba(255,255,255,.3);
+    	}
+    }
+  }
+  .active {
+    display: block;
+  }
+  .level {
+  	width: 22px;
+  	height: 14px!important;
+  	float: left;
+  	margin-top: 11px;
+  	margin-right: 24px;
+  	border-radius: 3px;
+  }
+  .level1 {
+  	background-color: #32B16C;
+  }
+  .level2 {
+  	background-color: #00a0e9;	
+  }
+  .level3 {
+  	background-color: #FFF100;
+  }
+  .level4 {
+  	background-color: #f39800;
+  }
+  .level5 {
+  	background-color: #ff0000;
+  }
+}

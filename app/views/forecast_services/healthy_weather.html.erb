@@ -1,44 +1,73 @@
 <% content_for :title, "健康气象" %>
 <!-- 生活指数 -->
 <div class="weui_container">
-	<div class="weui_content">
+	<div class="weui_content healthy-index">
 		<div class="my-panel">
-			<div class="panel-hd alpha-bg">
+			<div class="panel-hd">
 				健康气象
 				<span class="float-right">
 					<%= @publish_time.strftime("%m月%d日") %>
 					<%= week_name @publish_time %> 发布
 				</span>
 			</div>
-			<div class="panel-bd" style="padding: 0px;">
-				<!-- 折叠模块 -->
-				<div class="healthy-weather" id="accordion" role="tablist" aria-multiselectable="true">
-					<!-- 气象风险 -->
-					<% @results.each_with_index do |item, index| %>
-					  <div class="panel">
-					    <div class="panel-heading alpha-bg" role="tab" id="heading<%= index %>">
-						    <a id="link_collapse<%= index %>" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index %>" aria-expanded="true" aria-controls="collapse<%= index %>" class="clearfix">
-						        <span class="pull-left"><i class="iconfont <%= healthy_weather_icon item['Crow'] %>"></i></span>
-						        <span class="pull-left">&nbsp;&nbsp;&nbsp;<%= item['Crow'] %>气象风险</span>
-										<span class="iconfont icon-right pull-right" style="font-size: 22px;"></span>
-				        </a>
-					    </div>
-					    <div id="collapse<%= index %>" class="panel-collapse collapse alpha-bg" role="tabpanel" aria-labelledby="heading<%= index %>">
-					      <div class="panel-body">
-					      	<% item['Deatails'].each_with_index do |obj, i| %>
-                    <p><%= DateTime.parse(obj['Date']).to_date %></p>
-                    <p><small>防范人群：<%= obj['Influ'] %></small></p>
-                    <p><small>防护建议：<%= obj['Wat_guide'] %></small></p>
-                    <% if i == 0 %>
-                      <hr class="dot-hr">
-                    <% end %>
-                  <% end %>
-					      </div>
-					    </div>
-					  </div>
-					<% end %>
-				</div><!-- 折叠模块 -->
+			<div class="row panel-bd">
+				<div class="col-xs-4">
+					<div class="item active" data-target='child-cloud'>
+						<%= image_tag 'bassinet.png' %>
+						<p>儿童感冒<br>气象风险</p>	
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="item" data-target='child-asthma'>
+						<%= image_tag 'pillbox.png' %>
+						<p>儿童哮喘<br>气象风险</p>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="item" data-target='adult-cloud'>
+						<%= image_tag 'pinhead.png' %>
+						<p>成人感冒<br>气象风险</p>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="item" data-target='older-cloud'>
+						<%= image_tag 'crutch.png' %>
+						<p>老年人感冒<br>气象风险</p>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="item" data-target='copd'>
+						<%= image_tag 'lungs.png' %>
+						<p>慢性阻塞性肺<br>病气象风险</p>
+					</div>
+				</div>
 			</div>
+			<% @results.each do |item| %>
+				<div class="row panel-ct alpha-bg <%= 'active' if item[:title].eql?('儿童感冒气象风险') %>" data-target="<%= item[:target]%>">
+					<div class="title">
+						<%= item[:title] %>
+					</div>
+					<div class="content">
+						<% item[:content].each_with_index do |sim, idx| %>
+							<div class="sub <%= 'bl' if idx == 0 %>">
+								<div class="topper">
+									<div class="col-xs-4">
+										<div class="date-time"><%= sim[:date] %></div>
+									</div>
+									<div class="col-xs-8"><div class="level level<%= sim[:level] %>"></div><%= sim[:desc] %></div>
+								</div>
+								<div class="bottom1">
+									防范人群: <%= sim[:influ] %>
+								</div>
+								<div class="bottom2">
+									防范建议: <%= sim[:guide] %>
+								</div>
+							</div>
+							
+						<% end %>
+					</div>
+				</div>
+			<% end %>
 		</div>
 	</div>
 </div>
@@ -46,17 +75,26 @@
 <% content_for :scripts do %>
 	<script>
 		$(function() {
-			$('.panel-collapse').on('show.bs.collapse', function () {
-				var a = $(this).attr("id");
-			 	$("#link_"+a+"").children(".iconfont").removeClass("icon-right");
-			  $("#link_"+a+"").children(".iconfont").addClass("icon-bottom");
-			})
+			$('.panel-bd').on('click', '.item', function(){
+				var _target = $(this).attr('data-target');
+				$('.panel-bd').find('.item').each(function(index, el) {
+					if ($(el) == $(this)) {
+						$(el).addClass('active');
+					} else {
+						$(el).removeClass('active');
+					}
+				});
+				$(this).toggleClass('active');
+				$('.my-panel').find('.panel-ct').each(function(index, el) {
+					var _sub = $(el);
+					if (_sub.attr('data-target') == _target) {
+						$(_sub).addClass('active');
+					} else {
+						$(_sub).removeClass('active');
+					}
+				});
 
-			$('.panel-collapse').on('hide.bs.collapse', function () {
-				var b = $(this).attr("id");
-			  $("#link_"+b+"").children(".iconfont").removeClass("icon-bottom");
-			  $("#link_"+b+"").children(".iconfont").addClass("icon-right");
 			});
-		})
+		});
 	</script>
 <% end %>

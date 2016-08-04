@@ -27,6 +27,7 @@ class Healthy < BaseForecast
 
   # 微信网页版：获取健康气象数据
   class HealthyData < BaseForecast
+    
     def initialize
       super
       settings = Settings.__send__ self.class.to_s
@@ -34,9 +35,48 @@ class Healthy < BaseForecast
     end
 
     def get_web_message
+      healthy_hash = {
+                      'COPD患者' => {'target': 'copd', 'title': '慢性阻塞性肺病气象风险'},
+                      '儿童感冒' => {'target': 'child-cloud', 'title': '儿童感冒气象风险'},
+                      '儿童哮喘' => {'target': 'child-asthma', 'title': '儿童哮喘气象风险'},
+                      '老年人感冒' => {'target': 'older-cloud', 'title': '老年人感冒气象风险'},
+                      '青少年和成年人感冒' => {'target': 'adult-cloud', 'title': '成人感冒气象风险'},
+                     }
+      healthies = []
       content = get_data
       results = content.fetch('Data', [])
-      results
+      results.each do |item|
+        _content = healthy_hash[item['Crow']]
+        _content[:content] = [
+          {
+            'date': format_date(item['Deatails'][0]['Date']),
+            'level': item['Deatails'][0]['WarningLevel'],
+            'desc': item['Deatails'][0]['WarningDesc'],
+            'influ': item['Deatails'][0]['Influ'],
+            'guide': item['Deatails'][0]['Wat_guide']
+          },
+          {
+            'date': format_date(item['Deatails'][1]['Date']),
+            'level': item['Deatails'][1]['WarningLevel'],
+            'desc': item['Deatails'][1]['WarningDesc'],
+            'influ': item['Deatails'][1]['Influ'],
+            'guide': item['Deatails'][1]['Wat_guide']
+          }
+        ]
+        healthies << _content
+      end
+      healthies
+    end
+
+    def format_date date
+      report_date = DateTime.parse(date)
+      if report_date == Time.zone.today
+        '今天'
+      elsif report_date == Time.zone.today + 1
+        '明天'
+      else
+        I18n.localize report_date, format: '%a'
+      end
     end
   end
   
