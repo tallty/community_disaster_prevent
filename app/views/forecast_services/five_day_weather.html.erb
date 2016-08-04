@@ -29,7 +29,8 @@
 						<% else %>
 							<% @warn.each do |item| %>
 								<div class="warn">
-									<i class="iconfont">&#xe632;</i><%= "#{item['TYPE']}#{item['LEVEL']}预警" %>
+									<%= image_tag "warnings/#{Warning.tran_type(item['TYPE'])}#{Warning.tran_level(item['LEVEL'])}.png" %>
+									<%= "#{item['TYPE']}#{item['LEVEL']}预警" %>
 								</div>
 							<% end %>
 						<% end %>

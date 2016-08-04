@@ -76,16 +76,20 @@
 			.warn {
 				font-size: 12px;
 				display: inline-block;
-				height: 30px;
-				padding: 0px 12px;
+				height: 36px;
+				padding: 4px;
 				margin-right: 8px;
 				margin-bottom: 4px;
 				background: rgba(0,0,0,0.4);
-				border-radius: 17px;
+				border-radius: 4px;
 				i { 
 					display: inline;
 					font-size: 20px;
 					margin-right: 5px;
+				}
+				img {
+					width: 28px;
+					height: 28px;
 				}
 			}
 		}
