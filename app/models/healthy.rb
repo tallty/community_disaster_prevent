@@ -36,11 +36,11 @@ class Healthy < BaseForecast
 
     def get_web_message
       healthy_hash = {
-                      'COPD患者' => {'target': 'copd', 'title': '慢性阻塞性肺病气象风险'},
-                      '儿童感冒' => {'target': 'child-cloud', 'title': '儿童感冒气象风险'},
-                      '儿童哮喘' => {'target': 'child-asthma', 'title': '儿童哮喘气象风险'},
-                      '老年人感冒' => {'target': 'older-cloud', 'title': '老年人感冒气象风险'},
-                      '青少年和成年人感冒' => {'target': 'adult-cloud', 'title': '成人感冒气象风险'},
+                      'COPD患者' => {:target => 'copd', :title => '慢性阻塞性肺病气象风险'},
+                      '儿童感冒' => {:target => 'child-cloud', :title => '儿童感冒气象风险'},
+                      '儿童哮喘' => {:target => 'child-asthma', :title => '儿童哮喘气象风险'},
+                      '老年人感冒' => {:target => 'older-cloud', :title => '老年人感冒气象风险'},
+                      '青少年和成年人感冒' => {:target => 'adult-cloud', :title => '成人感冒气象风险'},
                      }
       healthies = []
       content = get_data
