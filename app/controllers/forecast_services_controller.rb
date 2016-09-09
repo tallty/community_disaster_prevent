@@ -17,7 +17,6 @@ class ForecastServicesController < ApplicationController
     result = LocationUtil.new.reverse(location_params)
 
     @district = result['addressComponent']['district']
-    # subscriber = Subscriber.where(openid: session[:openid]).first
     # @community = subscriber.community
     # @community = Community.second
     
