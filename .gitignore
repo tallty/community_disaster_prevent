@@ -32,12 +32,6 @@ config/initializers/weixin_rails_middleware.rb
 /public/ckeditor_assets/
 /public/system/*
 /public/assets/
-public/monitor_stations.xlsx
-public/community.txt
-public/doc/
-public/images/
-public/lightning/
-public/volunteer.xlsx
 /bin
 .idea/*
 .idea/*
