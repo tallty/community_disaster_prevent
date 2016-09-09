@@ -224,29 +224,3 @@
   color: #fff;
   width: 100%;
 }
-
-
-//社区风险页
-.weui_risk_container {
-  height: 100%;
-  -webkit-overflow-scrolling: touch;
-  .risk-list {
-    margin: 0 15px !important;
-    padding: 15px 0;
-    border-bottom: 1px solid #EAEAEA;
-    .pic-content {
-      line-height: 95px;
-      padding: 0;
-      .show_pic {
-        width: 100%;
-      }
-    }
-    .article-content {
-      padding-right: 0;
-      .articletext {
-        color: #999999;
-        font-size: 13px;
-      }
-    }
-  }
-}

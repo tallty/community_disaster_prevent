@@ -49,7 +49,6 @@ Rails.application.routes.draw do
     collection do
       get :interact
       get :detection
-      get :community_risk
       get :centre
       get :change_community
     end

@@ -29,11 +29,6 @@ class CommunitiesController < ApplicationController
     end
   end
 
-  def community_risk
-    @articles = ArticleManager.where(keyword: '社区风险', community: @subscriber.community)
-    # @articles = Article.all
-  end
-
   def change_community
     @communities = Community.all
   end

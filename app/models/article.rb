@@ -20,7 +20,7 @@ class Article < ActiveRecord::Base
   def get_show_article
     subscriber = Subscriber.where(openid: @subscriber).first
     if subscriber.community.present?
-      if ["社区风险", "调查问卷"].include?(@keyword)
+      if ["调查问卷"].include?(@keyword)
         if subscriber.community.status.eql?("closed")
           return { :type => 'text', :content => "您所在社区暂未开放此服务" }
         else
