@@ -43,7 +43,6 @@ class CommunitiesController < ApplicationController
     end
 
     def set_subscriber
-      # @subscriber = Subscriber.first
       @subscriber = Subscriber.where(openid: session[:openid]).first
     end
 end
