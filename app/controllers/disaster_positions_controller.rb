@@ -2,7 +2,8 @@ class DisasterPositionsController < ApplicationController
   layout 'weixin'
 
   def new
-    @subscriber = Subscriber.where(openid: session[:openid]).first
+    # @subscriber = Subscriber.where(openid: session[:openid]).first
+    @subscriber = Subscriber.first
     @disaster_positions = DisasterPosition.new
   end
 

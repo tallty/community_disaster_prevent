@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
       return # 防止进入死循环授权
     end
     # 生成授权url，再进行跳转
-    sns_url =  $wechat_client.authorize_url(request.url)
+    sns_url =  $client.authorize_url(request.url)
     redirect_to sns_url and return
   end
 
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   def get_wechat_sns
     # params[:state] 这个参数是微信特定参数，所以可以以此来判断授权成功后微信回调。
     if session[:openid].blank? && params[:state].present?
-      sns_info = $wechat_client.get_oauth_access_token(params[:code])
+      sns_info = $client.get_oauth_access_token(params[:code])
       Rails.logger.debug("Weixin oauth2 response: #{sns_info.result}")
       # 重复使用相同一个code调用时：
       if sns_info.result["errcode"] != "40029"

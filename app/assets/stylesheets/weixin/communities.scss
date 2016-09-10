@@ -192,6 +192,11 @@
   .communities_belong_1, .communities_belong_2 {
     padding: 12px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    .link {
+      display: block;
+      color: #333;
+      text-decoration: none;
+    }
     .right-pull {
       color: #9B9B9B;
     }

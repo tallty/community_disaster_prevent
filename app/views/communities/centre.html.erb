@@ -29,7 +29,9 @@
         <% end -%>
       </div>
       <div class="communities_belong_2">
-        <i class="iconfont input-left-icon">&#xe61c;</i><strong>我的预报风险</strong><i class="iconfont right-pull pull-right">&#xe635;</i>
+        <%= link_to detection_communities_path, class: "link" do %>
+          <i class="iconfont input-left-icon">&#xe61c;</i><strong>社区实况</strong><i class="iconfont right-pull pull-right">&#xe635;</i>
+        <% end %>
       </div>
     </div>
     <%= render partial: "weixin_share/tabbar" %>
