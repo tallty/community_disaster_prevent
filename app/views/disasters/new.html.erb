@@ -19,10 +19,10 @@
       <% end -%>
       <%= f.hidden_field :disaster_position_id, :value => @disaster_position.id %>
       <div class="col-xs-12 disaster-input disaster-time">
-        <strong>灾情发生时间: </strong> <%= f.text_field :occur_time, :class => "input", placeholder: "时间" %>
+        <strong>灾情发生时间: </strong> <%= f.text_field :occur_time, :class => "input", placeholder: "时间", readonly:"true" %>
       </div>
       <div class="col-xs-12 disaster-input">
-        <strong>灾情类别: </strong> <%= f.select :disaster_type, ["暴雨","雷电", "大风", "其它"], options = {:prompt =>"请选择灾情类型" }, :class =>"input" %> <i class="iconfont right-pull pull-right">&#xe635;</i>
+        <strong>灾情类别: </strong> <%= f.select :disaster_type, ["暴雨","雷电", "大风", "其它"], options = {:prompt =>"请选择灾情类型" }, :class =>"input", readonly:"true" %> <i class="iconfont right-pull pull-right">&#xe635;</i>
       </div>
       <strong class="disaster_said">灾情说明: </strong>
 
@@ -51,11 +51,12 @@
   $(function(){
     $("#disaster_occur_time").datetimepicker({
         language: 'zh-CN',
-        format: "yyyy-mm-dd hh:ii",
+        format: "yyyy-mm-dd hh:ii P",
         autoclose: true,
         todayBtn: true,
-        minuteStep: 1
-        // pickerPosition: "bottom-left"
+        showMeridian: true,
+        minuteStep: 15,
+        pickerPosition: "bottom-right"
     });
   });
 

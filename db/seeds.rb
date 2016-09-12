@@ -261,3 +261,4 @@ Community.create(id: 217, code: 21714, district: "崇明", street: "长兴镇", 
 Community.create(id: 218, code: 21715, district: "崇明", street: "横沙乡", c_type: "普通")
 Community.create(id: 219, code: 21716, district: "崇明", street: "东平镇", c_type: "普通")
 Community.create(id: 220, code: 21717, district: "崇明", street: "新海镇", c_type: "普通")
+

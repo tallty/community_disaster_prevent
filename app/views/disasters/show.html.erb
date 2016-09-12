@@ -1,21 +1,31 @@
 <div class="disaster_show_container">
-  <div class="disaster_show_top">
-    <div class="weui_container communities_centre_userinfo_content">
+  <div class="disaster_show_top my-panel">
+    <div class="panel-hd mborder">灾情详情</div>
+    <div class="communities_centre_userinfo_content">
       <div class="row">时间: <%= @disaster.occur_time.strftime("%Y-%m-%d %H:%M") %></div>
       <div class="row">类型: <%= @disaster.disaster_type %></div>
       <div class="row">说明: <%= @disaster.explain %></div>
       <div class="row address">地址: <%= @disaster.disaster_position.try(:address) %></div>
     </div>
   </div> 
-  <div class="disaster_show_content">
-    <div class=""><h4>照片列表</h4></div>
-    <div class="row disaster-picture-list">
-      <% if @disaster.disaster_pictures.nil? %>
-        该灾情暂无上传图片！
-      <% end %>
-      <% @disaster.disaster_pictures.each do |picture| %>
-        <%= image_tag picture.image.url(:medium) %>
-      <% end %>
+  <div class="detection_content detection_content_3 alpha-bg disaster_show_content">
+    <div class="my-panel">
+      <div class="panel-hd mborder">照片列表</div>
+      <div class="panel-bd">
+        <div class="detection_content_lightning">
+          <div class="row disaster-picture-list">
+            <% if @disaster.disaster_pictures.nil? %>
+              该灾情暂无上传图片！
+            <% end %>
+            <% @disaster.disaster_pictures.each do |picture| %>
+              <%= image_tag picture.image.url(:medium) %>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+<script>
+  $(".disaster_show_content").backstretch("<%= asset_path "weixin_bg.png" %>");
+</script>
