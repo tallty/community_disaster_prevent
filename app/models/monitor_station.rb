@@ -60,6 +60,7 @@ class MonitorStation < ActiveRecord::Base
         results << { :title => "温度: #{data["tempe"]} ℃", :desc => "", :image_url => "#{Settings.ProjectSetting.url}/assets/images/temp.png", :page_url => weixin_url("monitor_stations") }
         results << { :title => "实况雨量: #{data["rain"]} mm", :desc => "", :image_url => "#{Settings.ProjectSetting.url}/assets/images/rain.png", :page_url => weixin_url("monitor_stations") }
       end
+
       water_stations = MonitorStation.where(community: subscriber.community, station_type: "积水站")
       if water_stations.present?
         max_deep = 0
@@ -72,6 +73,7 @@ class MonitorStation < ActiveRecord::Base
         end
         results << { :title => "积水: #{max_deep} m", :desc => "", :image_url => "#{Settings.ProjectSetting.url}/assets/images/water.png", :page_url => weixin_url("monitor_stations") }
       end
+
       if results.present?
         { :type => 'articles', :content => results }
       else
@@ -82,6 +84,7 @@ class MonitorStation < ActiveRecord::Base
     end
   end
 
+  # 返回图文
   def write_auto_station_from_file
     File.foreach("documents/自动站.csv") do |line|
       line = line.force_encoding('utf-8').chomp
@@ -97,6 +100,7 @@ class MonitorStation < ActiveRecord::Base
     end
   end
 
+  # 返回图文
   def write_water_station_from_file
     File.foreach("documents/积水站.csv") do |line|
       line = line.force_encoding('utf-8').chomp

@@ -16,11 +16,14 @@ class CommunitiesController < ApplicationController
     # 用户所属社区
     @community = @subscriber.community
     if @community.present?
-      # 社区预警
+      # 社区编号
       code = @community.code
       # 气象实况
       @auto_station = MonitorStation::CommunityAutoStation.new.fetch code
-      # @water_stations = MonitorStation.community_water_data code
+      # 积水实况
+      @water_stations = MonitorStation.community_water_data code
+      # 闪电分布
+      @lightning_img_url = Settings.ProjectSetting.url + "/lightning/" + Lightning.get_pic
       # 社区预警
       @warning = Warning.get_last_active_warn code
     else
