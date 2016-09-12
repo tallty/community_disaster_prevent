@@ -70,6 +70,8 @@
             <% @water_stations.each do |item| %>
               <p class="detection_content_ponding"><%= item["site_name"] %>积水深度：<%= item["data"] || 0 %>m</p>
             <% end %>
+          <% else %>
+              <p class="text-center">无积水实况</p>
           <% end %>
         </div>
       </div>

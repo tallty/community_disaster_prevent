@@ -15,6 +15,7 @@ class CommunitiesController < ApplicationController
   def detection
     # 用户所属社区
     @community = @subscriber.community
+
     if @community.present?
       # 社区编号
       code = @community.code
