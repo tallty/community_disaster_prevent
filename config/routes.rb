@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       get :get_streets
     end
   end
-  resources :disasters, only: [:index, :new, :show, :create] do
+  resources :disasters do
     collection do
       get :get_disaster
     end

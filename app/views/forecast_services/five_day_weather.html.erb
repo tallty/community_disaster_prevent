@@ -21,7 +21,8 @@
 					<span style="padding-left: 8px;">˚</span>
 				</div>
 				<div class="weather-right">
-					<div class="right">
+					<%=link_to city_warn_forecast_services_path do %> 
+						<div class="right">
 						<% if @warn.blank? %>
 							<div class="warn">
 								<i class="iconfont">&#xe632;</i>暂无预警
@@ -34,7 +35,8 @@
 								</div>
 							<% end %>
 						<% end %>
-					</div>
+						</div>
+					<% end %>
 				</div>
 			</div>
 			<!-- 气温 -->

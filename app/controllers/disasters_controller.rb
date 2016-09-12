@@ -1,7 +1,7 @@
 class DisastersController < ApplicationController
   before_action :set_subscriber, only: [:create]
   before_action :set_position, only: [:create]
-  before_action :set_disaster, only: [:show]
+  before_action :set_disaster, only: [:show, :destroy]
   layout 'weixin'
 
   def index
@@ -35,6 +35,14 @@ class DisastersController < ApplicationController
       redirect_to new_disaster_picture_path(disaster_id: @disaster.id)
     else
       redirect_to ''
+    end
+  end
+
+  def destroy
+    @disaster.destroy
+    respond_to do |format|
+      format.html { redirect_to interact_communities_path, notice: 'Disaster was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 

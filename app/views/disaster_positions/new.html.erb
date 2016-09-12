@@ -5,7 +5,7 @@
 
   <div class="disaster_position_content" style="color: #000;">
     <div class="row">
-      <%= @subscriber.nick_name %>, 感谢您上报灾情. 
+      <%#= @subscriber.nick_name %>, 感谢您上报灾情. 
       <% if @disaster_position.nil? %>
         请上传灾情地址完善<灾情上报>流程.
       <% end %>
@@ -67,4 +67,25 @@ $(document).ready(function() {
       alert('failed'+this.getStatus());
     }        
   },{enableHighAccuracy: true})
+
+  //单击获取点击的经纬度
+  map.addEventListener("click",function(e){
+      map.clearOverlays();
+      var mk1 = new BMap.Marker(e.point);
+      map.addOverlay(mk1);
+      map.panTo(e.point);
+
+      var myGeo = new BMap.Geocoder();
+      myGeo.getLocation(new BMap.Point(e.point.lng, e.point.lat),
+          function(rs) {
+            var addComp = rs.addressComponents;
+            var address = addComp.district+addComp.street;
+            $("input#disaster_position_lon").val(e.point.lng);
+            $("input#disaster_position_lat").val(e.point.lat);
+            $("input#disaster_position_address").val(address);
+            $("span#position").text(address);
+            // location.href = "http://localhost:3000/location_weather/query?lon="+r.point.lng+"&lat="+r.point.lat+"&name="+addComp.district+addComp.street;
+          });
+      // alert('您的位置：'+e.point.lng+','+e.point.lat);
+  });
 </script>

@@ -37,24 +37,24 @@
           <div class="detection_content_grids">
             <div class="detection_content_grid">
               <p><i class="iconfont">&#xe617;</i></p>
-              <p><small>实时温度</small></p>
-              <p><small><%= @auto_station["Tempreture"] %>℃</small></p>
+              <p>实时温度</p>
+              <p><%= @auto_station["Tempreture"] %>℃</p>
             </div>
             <div class="detection_content_grid detection_content_grid_1">
-              <p><i class="iconfont">&#xe602;</i></p>
-              <p><small>累计雨量</small></p>
-              <p><small><%= @auto_station["RainHour"] %>mm</small></p>
+              <p><i class="iconfont">&#xe608;</i></p>
+              <p>累计雨量</p>
+              <p><%= @auto_station["RainHour"] %>mm</p>
             </div>
             <div class="detection_content_grid">
-              <p><i class="iconfont">&#xe619;</i></p>
-              <p><small>风速风向</small></p>
-              <p><small>
+              <p><i class="iconfont">&#xe60f;</i></p>
+              <p>风速风向</p>
+              <p>
                 <% if @auto_station["wind_speed"].to_f < 0.2 %>
                   静风
                 <% else %>
                   <%= MonitorStation.translate_wdir(@auto_station["WindDir"]) %><%= MonitorStation.translate_wspeed(@auto_station["WindSpd"])%>
                 <% end %>
-              </small></p>
+              </p>
             </div>
           </div>
         </div>

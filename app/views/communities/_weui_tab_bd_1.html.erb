@@ -19,11 +19,14 @@
             <div class="row">地点: <%= disaster.disaster_position.try(:address) %></div>
           </div>
           <div class="col-xs-12 show_disasters text-center show_disasters_push alpha-bg">
-            <div class="col-xs-6">
+            <div class="col-xs-4">
               <%= link_to "详细信息", disaster_path(disaster) %>
             </div>
+            <div class="col-xs-4">
+              <%= link_to "撤回灾情", disaster_path(disaster), method: :delete %>
+            </div>
             <%#= if disaster.subscriber.id == @subscriber.id %>
-            <div class="col-xs-6">
+            <div class="col-xs-4">
               <%= link_to "上传图片", new_disaster_picture_path(disaster_id: disaster.id) %>
             </div>
             <%#= end %>
@@ -53,15 +56,15 @@
     </div>
   </div>
 </div>
+
 <script type="text/javascript" src=http://api.map.baidu.com/api?v=2.0&ak=8SWaIs2cE83Ssvv90yXPUEQQhnkG368u></script>
 <% content_for :scripts do %>
-
+  
   <%= javascript_tag do %>
     disasters = <%= @disasters.to_json.html_safe %>
   <% end %>
 
   <script type="text/javascript">
-
     $(document).ready(function() {
       var height = $(window).height();
       var width = $(window).width();
