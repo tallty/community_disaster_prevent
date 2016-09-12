@@ -15,8 +15,7 @@ class DisastersController < ApplicationController
   end
 
   def new
-    # @subscriber = Subscriber.where(openid: session[:openid]).first
-    @subscriber = Subscriber.first
+    @subscriber = Subscriber.where(openid: session[:openid]).first
     @disaster_position = DisasterPosition.where(id: params[:disaster_position_id]).first
     @disaster = Disaster.new
   end
