@@ -1,12 +1,17 @@
 <div class="weui_tab_bd">
   <div class="weui_content_communities">
 
-    <div class="head weui_tabbar">
-      <div class="headTab headTabLeft col-xs-6"><a href="javascript:;" id="head_Map" class="weui_bar_item_on">地图</a></div>
-      <div class="headTab headTabRight col-xs-6"><a href="javascript:;" id= "head_List">列表</a></div>
+    <div class="weui_navbar header">
+      <div class="weui_navbar_item weui_bar_item_on" id="head_Map">
+          地图
+      </div>
+      <div class="weui_navbar_item" id= "head_List">
+          列表
+      </div>
     </div>
+
     <div id="map_container"></div>
-    <!-- <div id="map_container"></div> -->
+
     <div id="showList" class="row" style="display: none;">
       <% if @disasters.present? != true %>
         <div class="col-xs-12 show_disasters alpha-bg"><h4>当前没有灾情列表！</h4></div>
@@ -35,25 +40,25 @@
       <% end %>
     </div>
 
-    <div class="rightTabContent">
-      <div class="rightTab rightTabUp alpha-bg">
-        <a href="javascript:;" id="disaster_loading" class="weui_tabbar_item">
-            <div class="weui_tabbar_icon">
-                <i class="iconfont">&#xe600;</i>
-            </div>
-            <p class="rightTabUp_label text-center">灾情上报</p>
-        </a>
-        <!-- <hr class="tab_hr"> -->
-      </div>
-      <div class="rightTab rightTabDown alpha-bg">
-        <a href="javascript:;" id="relaodMap" class="weui_tabbar_item">
-            <div class="weui_tabbar_icon">
-                <i class="iconfont">&#xe60c;</i>
-            </div>
-            <p class="rightTabDown_label text-center">刷新</p>
-        </a>
-      </div>
+    <div class="buttons">
+      <a href="<%= new_disaster_position_path %>">
+        <i class="iconfont">&#xe600;</i>
+        <p>上报</p>
+      </a>
+      <a href="" onclick="window.location.reload();">
+        <i class="iconfont">&#xe60c;</i>
+        <p>刷新</p>
+      </a>
+      <a href="#" id="water_area">
+        <%= image_tag "water_area.png", alt: "易积水小区" %>
+        <p>小区</p>
+      </a>
+      <a href="#" id="water_road">
+        <%= image_tag "water_road.png", alt: "易积水道路" %>
+        <p>道路</p>
+      </a>
     </div>
+
   </div>
 </div>
 
@@ -72,21 +77,15 @@
         $("div#map_container").width(width);
     });
 
-    $("#relaodMap").on("click",function(){
-      window.location.reload();
-    });
-
-    $("#disaster_loading").on("click",function(){
-      window.location = "/disaster_positions/new";
-    });
-
     $("#head_Map").on("click", function(){
       $("#head_Map").removeClass("weui_bar_item_on");
+      $("#head_List").removeClass("weui_bar_item_on");
       $(this).addClass("weui_bar_item_on");
       $("#map_container").show();
       $("#showList").hide();
     });
     $("#head_List").on("click", function(){
+      $("#head_Map").removeClass("weui_bar_item_on");
       $("#head_List").removeClass("weui_bar_item_on");
       $(this).addClass("weui_bar_item_on");
       $("#map_container").hide();
@@ -98,25 +97,36 @@
       window.location.reload();
     });
     
-    //百度地图初始化
+    // ===========百度地图相关=============
     $(document).ready(function() {
-      init_data();
-      function init_data() {
-        var map = new BMap.Map("map_container");
-        map.centerAndZoom("上海",12);      // 初始化地图,用城市名设置地图中心点
-        map.enableScrollWheelZoom(true);
-        map.enableInertialDragging();   //两秒后开启惯性拖拽
+      var map = new BMap.Map("map_container");
+      
+      // 初始化地图，并加载灾情点
+      init_data(map);
+      // 处理易积水点
+      handleWaterPoint(map);
+    })
 
+    // ===========百度地图初始化=============
+    function init_data(map) {
         var geolocation = new BMap.Geolocation();
+        var myIcon;
+        var ptt;
+        var marker;
+
+        // 初始化地图,用城市名设置地图中心点
+        map.centerAndZoom("上海",12);      
+        map.enableScrollWheelZoom(true);
+        //两秒后开启惯性拖拽
+        map.enableInertialDragging();
+        // 获取当前定位
         geolocation.getCurrentPosition(function(r){
           if(this.getStatus() == BMAP_STATUS_SUCCESS){
             // 添加自定义位置图标
-            var myIcon = new BMap.Icon("<%= image_url "location_circle.png" %>", new BMap.Size(60, 60));
-            var ptt = new BMap.Point(r.point.lng, r.point.lat);
+            myIcon = new BMap.Icon("<%= image_url "location_circle.png" %>", new BMap.Size(60, 60));
+            ptt = new BMap.Point(r.point.lng, r.point.lat);
             // 创建标注对象并添加到地图
-            var marker = new BMap.Marker(ptt, {icon: myIcon});
-
-            // map.clearOverlays();
+            marker = new BMap.Marker(ptt, {icon: myIcon});
             map.addOverlay(marker);
             map.panTo(ptt);
           }
@@ -124,78 +134,103 @@
             alert('failed'+this.getStatus());
           }        
         },{enableHighAccuracy: true})
-
+        // 添加灾情图标
         for(var i = 0; i < disasters.length; i++) {
           addmarker(disasters[i],map)
         }
-
-        //======
+        // 地图未加载时，，重新加载
         if($("#map_container div").length == 0) {
           window.location.reload();
         }
-
-        // 添加易积水道路
-        var roadWaterPoint = new BMap.CustomLayer({
-          geotableId: 151627,
-          q: '', //检索关键字
-          tags: '', //空格分隔的多字符串
-          filter: '' //过滤条件,参考http://developer.baidu.com/map/lbs-geosearch.htm#.search.nearby
-        })
-        map.addTileLayer(roadWaterPoint)
-
-        // 添加易积水小区
-        var areaWaterPoint = new BMap.CustomLayer({
-          geotableId: 151586,
-          q: '', //检索关键字
-          tags: '', //空格分隔的多字符串
-          filter: '' //过滤条件,参考http://developer.baidu.com/map/lbs-geosearch.htm#.search.nearby
-        })
-        map.addTileLayer(areaWaterPoint)
       }
 
-        // 创建小狐狸
-      // var pt = new BMap.Point(121.186, 31.3618);
-      // var myIcon = new BMap.Icon("http://developer.baidu.com/map/jsdemo/img/fox.gif", new BMap.Size(300,157));
-      // var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
-      // map.addOverlay(marker2); 
-
-      //弹框式标注、图标自定义
-      function addmarker(d,map) {
-        
-        if(d.disaster_position == null){return;}
+      // 更新灾情点位数据，添加点位标注
+      function addmarker(obj, map) {
         var myIcon = new BMap.Icon("http://webapi.amap.com/images/4.png", new BMap.Size(100,57));
         var icon;
-        if(d.type=="暴雨"){
+        var lanlat = new BMap.Point(obj.disaster_position.lon, obj.disaster_position.lat);
+        var sContent ="<div class='text-center'>"+
+                "<div>时间:"+obj.occur_time+"</div>"+
+                "<img id='imgDemo' style='text-align:center;height:90px;width:80px;' src='system/"+"27"+"/images/medium/image.jpg'/>"+
+                "<div style='word-break:break-all;width:250px;'>说明:"+obj.explain+"</div>"+
+                "<div>"+"<a style='color:red;' href='/disasters/"+obj.id+"'>详细说明</a>"+"</div>"+"</div>";
+        var marker;
+        var infoWindow
+        // 使用不同的灾情图标
+        if(obj.disaster_position == null){ return; }
+        if(obj.type=="暴雨"){
           icon = new BMap.Icon("http://61.152.126.156/cms/resource/img/icon/rain.png", new BMap.Size(300,157));
-        }else if(d.type=="雷电"){
+        }else if(obj.type=="雷电"){
           icon = new BMap.Icon("http://61.152.126.156/cms/resource/img/icon/lightning.png", new BMap.Size(300,157));
-        }else if(d.type=="大风"){
+        }else if(obj.type=="大风"){
           icon = new BMap.Icon("http://61.152.126.156/cms/resource/img/icon/win.png", new BMap.Size(300,157));
         }else{
           icon = new BMap.Icon("http://webapi.amap.com/images/4.png", new BMap.Size(300,157));
         }
-        var lanlat = new BMap.Point(d.disaster_position.lon, d.disaster_position.lat);
-        // var marker2 = new BMap.Marker(lanlat,{icon:myIcon});  // 创建标注
-        // map.addOverlay(marker2);
-
-        var sContent ="<div class='text-center'>"+
-        "<div>时间:"+d.occur_time+"</div>"+
-        "<img id='imgDemo' style='text-align:center;height:90px;width:80px;' src='system/"+"27"+"/images/medium/image.jpg'/>"+
-        "<div style='word-break:break-all;width:250px;'>说明:"+d.explain+"</div>"+
-        "<div>"+"<a style='color:red;' href='/disasters/"+d.id+"'>详细说明</a>"+"</div>"+"</div>";
-
-
-        var marker = new BMap.Marker(lanlat,{icon:myIcon});
-        var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+        // 添加标注点
+        marker = new BMap.Marker(lanlat,{icon:myIcon});
+        // 创建信息窗口对象
+        infoWindow = new BMap.InfoWindow(sContent);
+        // 打点
         map.addOverlay(marker);
         marker.addEventListener("click", function(){          
            this.openInfoWindow(infoWindow);
-           //图片加载完毕重绘infowindow
+           // 图片加载完毕重绘infowindow
            document.getElementById('imgDemo').onload = function (){
-             infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
+             // 防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
+             infoWindow.redraw();
            }
         });
       }
-    })
+
+      // 处理易积水点
+      function handleWaterPoint(map) {
+        var areaBtn = $("#water_area");
+        var roadBtn = $("#water_road");
+        var show_water_area = false;
+        var show_water_road = false;
+
+        // 处理易积水小区按钮点击事件
+        handleAreaToggle(show_water_area, areaBtn, map);
+        // 处理易积水道路按钮点击事件
+        handleRoadToggle(show_water_road, roadBtn, map);
+
+      }
+      
+      // 处理易积水小区按钮点击事件
+      function handleAreaToggle(show_water_area, areaBtn, map) {
+        // 添加LBS云中的易积水小区数据
+        var areaPoints;
+        areaBtn.click(function(){
+          if(show_water_area) {
+            show_water_area = false;
+            areaBtn.removeClass("active");
+            map.removeTileLayer(areaPoints);
+          } else {
+            show_water_area = true;
+            areaBtn.addClass("active");
+            areaPoints = new BMap.CustomLayer({ geotableId: 151586 })
+            map.addTileLayer(areaPoints);
+          }
+        })
+      }
+
+      // 处理易积水道路按钮点击事件
+      function handleRoadToggle(show_water_road, roadBtn, map) {
+        // 获取LBS云中的易积水道路数据
+        var roadPoints;
+        roadBtn.click(function(){
+          if(show_water_road) {
+            show_water_road = false;
+            roadBtn.removeClass("active");
+            map.removeTileLayer(roadPoints);
+          } else {
+            show_water_road = true;
+            roadBtn.addClass("active");
+            roadPoints = new BMap.CustomLayer({ geotableId: 151627 })
+            map.addTileLayer(roadPoints);
+          }
+        })
+      }
   </script>
 <% end %>
