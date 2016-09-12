@@ -70,26 +70,28 @@
   <% end %>
 
   <script type="text/javascript">
-    $(document).ready(function() {
-      var height = $(window).height();
-      var width = $(window).width();
-        $("div#map_container").height(height);
-        $("div#map_container").width(width);
-    });
-
+    var areaBtn = $("#water_area");
+    var roadBtn = $("#water_road");
+    // Navbar 切换逻辑
+    // 地图按钮
     $("#head_Map").on("click", function(){
       $("#head_Map").removeClass("weui_bar_item_on");
       $("#head_List").removeClass("weui_bar_item_on");
       $(this).addClass("weui_bar_item_on");
       $("#map_container").show();
       $("#showList").hide();
+      areaBtn.show();
+      roadBtn.show();
     });
+    // 列表按钮
     $("#head_List").on("click", function(){
       $("#head_Map").removeClass("weui_bar_item_on");
       $("#head_List").removeClass("weui_bar_item_on");
       $(this).addClass("weui_bar_item_on");
       $("#map_container").hide();
       $("#showList").show();
+      areaBtn.hide();
+      roadBtn.hide();
     });
 
     //屏幕旋转事件监听
