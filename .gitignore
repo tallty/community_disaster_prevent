@@ -40,7 +40,7 @@ public/images/
 public/lightning/
 public/monitor_stations.xlsx
 public/volunteer.xlsx
-public/assets/*.json
+public/assets/*
 
 /bin
 .idea/*
