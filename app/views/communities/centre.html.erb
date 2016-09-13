@@ -20,7 +20,11 @@
         <i class="iconfont input-left-icon">&#xe605;</i><strong>社区</strong>
         <% if @subscriber.community.present? %>
           <%=link_to locate_subscribers_path do %> 
-            <span class="pull-right right-pull"><span><%= @subscriber.community.district %></span><span><%= @subscriber.community.street %></span><i class="iconfont">&#xe635;</i></span>
+            <span class="pull-right right-pull">
+              <span><%= @subscriber.community.district %></span>
+              <span><%= @subscriber.community.street %></span>
+              社区
+              <i class="iconfont">&#xe635;</i></span>
           <% end -%>
         <% else %>
           <%=link_to new_subscribers_path do %> 
