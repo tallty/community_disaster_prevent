@@ -10,9 +10,10 @@ class SubscribersController < ApplicationController
     response = Community.fetchNearestCommunity params[:lon], params[:lat]
 
     result = MultiJson.load response.body
-    longer.info "========================"
-    logger.indo result
-    longer.info "========================"
+
+    p "========================"
+    p result
+    p "========================"
     if response.status == 200
       @community = result['Data']
     end
