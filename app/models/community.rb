@@ -53,6 +53,28 @@ class Community < ActiveRecord::Base
     reponse = Faraday.get api_path
   end
 
+  class NearestCommunity
+    include NetworkMiddleware
+
+    def initialize
+      @root = self.class.name.to_s
+      super
+    end
+
+    def fetch location_params
+      lon = location_params[:lon]
+      lat = location_params[:lat]
+      
+      params_hash = {
+        method: 'get'
+      }
+      @api_path = "#{@api_path}/#{lon}/#{lat}"
+      result = get_data(params_hash, {})
+
+      result.fetch('Data', {})
+    end
+  end
+
   class CommunityCode
     include NetworkMiddleware
 

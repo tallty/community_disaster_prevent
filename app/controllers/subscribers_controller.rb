@@ -7,16 +7,8 @@ class SubscribersController < ApplicationController
     openid = params[:openid] || session[:openid]
     @subscriber = Subscriber.where(openid: openid).first
     # 获取当前位置最近社区
-    response = Community.fetchNearestCommunity params[:lon], params[:lat]
-
-    result = MultiJson.load response.body
-
-    p "========================"
-    p result
-    p "========================"
-    if response.status == 200
-      @community = result['Data']
-    end
+    # response = Community.fetchNearestCommunity params[:lon], params[:lat]
+    @community = Community::NearestCommunity.new.fetch params
   end
 
   # GET /subscribers/1/edit

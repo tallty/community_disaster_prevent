@@ -1,8 +1,6 @@
 <script>
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition,showError);
-    lat=position.coords.latitude;
-    lon=position.coords.longitude;
   }
   else {
     alert("浏览器不支持获取地理位置");
@@ -11,7 +9,7 @@
   function showPosition(position) {
     lat=position.coords.latitude;
     lon=position.coords.longitude;
-    location.href = "new?lon="+lon+"&lat="+lat;
+    window.location.href = "new?lon="+lon+"&lat="+lat;
   }
 
   function showError(error) {

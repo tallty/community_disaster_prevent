@@ -49,6 +49,9 @@ defaults: &defaults
   Community::CommunityCode:
     remote: 'http://192.168.169.7'
     api_path: '/JsonService/JsonService.svc/GetCommunityListByDistrictName/'
+  Community::NearestCommunity:
+    remote: 'http://61.152.126.152'
+    api_path: '/JsonService/JsonService.svc/GetCommunityByXY/'
   MonitorStation::CommunityAutoStation:
     remote: 'http://192.168.169.7'
     api_path: '/JsonService/JsonService.svc/GetCommunityAutoStationDataByCommunityID/'
