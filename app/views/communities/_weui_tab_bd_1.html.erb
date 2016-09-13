@@ -175,7 +175,7 @@
         infoWindow = new BMap.InfoWindow(sContent);
         // 打点
         map.addOverlay(marker);
-        marker.addEventListener("click", function(){          
+        marker.addEventListener("click", function(){         
            this.openInfoWindow(infoWindow);
            // 图片加载完毕重绘infowindow
            document.getElementById('imgDemo').onload = function (){

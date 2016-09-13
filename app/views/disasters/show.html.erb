@@ -1,5 +1,5 @@
 <div class="disaster_show_container">
-  <div class="disaster_show_top my-panel">
+  <div class="disaster_show_top disaster-panel">
     <div class="panel-hd mborder">灾情详情</div>
     <div class="communities_centre_userinfo_content">
       <div class="row">时间: <%= @disaster.occur_time.strftime("%Y-%m-%d %H:%M") %></div>
@@ -8,8 +8,8 @@
       <div class="row address">地址: <%= @disaster.disaster_position.try(:address) %></div>
     </div>
   </div> 
-  <div class="detection_content detection_content_3 alpha-bg disaster_show_content">
-    <div class="my-panel">
+  <div class="detection_content detection_content_3 disaster_show_content">
+    <div class="disaster-panel">
       <div class="panel-hd mborder">照片列表</div>
       <div class="panel-bd">
         <div class="detection_content_lightning">
@@ -27,5 +27,5 @@
   </div>
 </div>
 <script>
-  $(".disaster_show_content").backstretch("<%= asset_path "weixin_bg.png" %>");
+  $(".disaster_show_container").backstretch("<%= asset_path "weixin_bg.png" %>");
 </script>

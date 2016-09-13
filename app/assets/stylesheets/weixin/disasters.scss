@@ -81,34 +81,52 @@
   }
 }
 
-.disaster_show_top {
-  color: #fff;
-  background-color: RGB(0, 165, 197);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-  .communities_centre_userinfo_content {
-    padding: 10px;
+
+
+.disaster_show_container {
+  height: 100%;
+  .disaster_show_top {
+    color: #fff;
+    background-color: RGB(0, 165, 197);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    .communities_centre_userinfo_content {
+      padding: 10px;
+    }
   }
-}
-.my-panel {
-  padding-top: 0;
-  color: #fff;
-  text-align: center;
-  margin-bottom: 0;
-  .panel-bd {
-    overflow: auto;
-    height: 74.5vh;
-  }
-  h4 {
-    background-color: #d3d3d3;
-    margin-top: 0;
-    padding: 8px;
-  }
-  .disaster-picture-list {
-    padding: 0 10vw;
-    color: #d3d3d3;
-    img {
-      border: 2px solid #fff;
-      border-radius: 8px;
+  .disaster-panel {
+    padding-top: 0;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 0;
+    .panel-hd {
+      padding: 12px 10px 8px;
+      font-size: 16px;
+      font-weight: lighter;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+      overflow: auto;
+      span {
+        float: right;
+        padding-top: 5px;
+        font-size: 12px;
+      }
+    }
+    .panel-bd {
+      margin-bottom: 1px;
+      padding: 12px 0;
+      overflow: auto;
+    }
+    h4 {
+      background-color: #d3d3d3;
+      margin-top: 0;
+      padding: 8px;
+    }
+    .disaster-picture-list {
+      padding: 0 10vw;
+      color: #d3d3d3;
+      img {
+        border: 2px solid #fff;
+        border-radius: 8px;
+      }
     }
   }
 }
