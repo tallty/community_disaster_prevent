@@ -5,7 +5,7 @@
     lon=position.coords.longitude;
   }
   else {
-    alert("Geolocation is not supported by this browser.");
+    alert("浏览器不支持获取地理位置");
   }
 
   function showPosition(position) {
@@ -17,16 +17,16 @@
   function showError(error) {
     switch(error.code) {
       case error.PERMISSION_DENIED:
-        alert("User denied the request for Geolocation.");
+        alert("用户拒绝获取定位信息");
         break;
       case error.POSITION_UNAVAILABLE:
-        alert("Location information is unavailable.");
+        alert("未能获取定位信息");
         break;
       case error.TIMEOUT:
-        alert("The request to get user location timed out.");
+        alert("获取用户位置信息超时");
         break;
       case error.UNKNOWN_ERROR:
-        alert("An unknown error occurred.");
+        alert("未知错误");
         break;
     }
   }

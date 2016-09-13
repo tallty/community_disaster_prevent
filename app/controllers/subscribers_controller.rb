@@ -4,11 +4,14 @@ class SubscribersController < ApplicationController
 
   # GET /subscribers/new
   def new
-    logger.info params
     openid = params[:openid] || session[:openid]
-    logger.info openid
     @subscriber = Subscriber.where(openid: openid).first
-    # @subscriber = Subscriber.where(openid: session[:openid]).first
+    # 获取当前位置最近社区
+    response = Community.fetchNearestCommunity params[:lon], params[:lat]
+    result = MultiJson.load response.body
+    if response.status == 200
+      @community = result['Data']
+    end
   end
 
   # GET /subscribers/1/edit
@@ -53,6 +56,10 @@ class SubscribersController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def locate
+    
   end
 
   private

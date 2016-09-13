@@ -1,14 +1,32 @@
 <div id="map_container1"></div>
-<div class="container">
+<div class="subscribers-container">
   <div class="row">
     <div class="col-xs-12">
-      <h3>上海市社区气象安全一点通</h3>
+      <!-- <h3>上海市社区气象安全一点通</h3> -->
     </div>
     <div class="col-xs-12">
-      <a href="javascript:;" class="pull-right right-pull" id= "head_List" style="text-decoration: none;">［ 手动选择 ］</a>
-      <div class="communities_change1">
-        <i class="iconfont" style="color: #F5A623;">&#xe607;</i><span id="location_address"></span>
+      <div class="row">
+        <div class="col-xs-12">
+          <p class="subscribers-hello">Hello, <%= @subscriber.nick_name %></p>
+        </div>
+        <div class="col-xs-12 logic-btn">
+          <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_plain_primary btn-block" id= "head_List" style="text-decoration: none;">手动选择社区</a>
+          <%= link_to "加入志愿者队伍", "#", class: "weui_btn weui_btn_mini weui_btn_plain_primary btn-block" %>
+        </div>
       </div>
+      
+      <div class="communities_change1">
+        <i class="iconfont" style="color: #F5A623;">&#xe607;</i>
+        您当前定位社区为：
+        <span id="location_address">
+          <% if @community %>
+            <%= "#{@community["District_Name"]}#{@community["Name"]}" %>
+          <% else %>
+            <button class="btn btn-xs btn-info" onclick="window.location.reload();">重新定位</button>
+          <% end %>
+        </span>
+      </div>
+
     </div>
     <div class="col-xs-12">
       <% if @subscriber.community.present? %>
@@ -20,7 +38,6 @@
     </div>
     <div class="col-xs-12">
       <%= form_for @subscriber,  :url => { :action => :update } do |f| %>
-        <h3>Hello, <%= @subscriber.nick_name %></h3>
         <div class="form-inputs" style="display: none;">
           <div class="input-group col-xs-12">
             <%= f.hidden_field :openid, value: @subscriber.openid %>
@@ -46,14 +63,14 @@
           <% end %>
             <div class="space-6"></div>
         </div>
-        <div class="btn-group btn-group-justified ">
-          <%= f.submit "提交", :class => "btn makesure btn-success", :style => "width:100%" %>
-        </div>
+          <%= f.submit "绑定", :class => "btn bind-btn btn-success" %>
+          
       <% end %>
     </div>
   </div>
   <div style="height: 50px;"></div>
 </div>
+
 <%= content_for :scripts do %>
   <%= javascript_tag do %>
     get_streets_path = "<%= get_streets_subscribers_path %>"
@@ -61,7 +78,8 @@
   <%= javascript_include_tag "weixin_comm", 'data-turbolinks-track' => true  %>
 <% end %>
 
-<%= render partial: "weixin_share/mapbar_container" %>
+<%= render partial: "weixin_share/mapbar_container", locals: { lon: params[:lon], lat: params[:lat] } %>
+
 <script type="text/javascript">
   $("#head_List").on("click", function(){
     if($(".form-inputs").css("display")=="none"){

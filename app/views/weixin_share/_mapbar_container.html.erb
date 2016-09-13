@@ -1,4 +1,4 @@
-<script type="text/javascript" src=http://api.map.baidu.com/api?v=2.0&ak=5l5GtYwm4wTs7hBpeijR7CeGQEbs8jwP></script>
+<script type="text/javascript" src=http://api.map.baidu.com/api?v=2.0&ak=8SWaIs2cE83Ssvv90yXPUEQQhnkG368u></script>
 <script type="text/javascript">
   $(document).ready(function() {
     var height = $(window).height()*2;
@@ -9,66 +9,22 @@
 
   // 百度地图API功能
   var map = new BMap.Map("map_container1");    // 创建Map实例
-  map.centerAndZoom("上海",15);      // 初始化地图,用城市名设置地图中心点
+  var new_point = new BMap.Point(<%= lon %>,<%= lat %>);
+
+  map.centerAndZoom(new_point, 15);      // 初始化地图,用城市名设置地图中心点
   map.enableScrollWheelZoom(true);
   map.enableInertialDragging();   //两秒后开启惯性拖拽
 
-  
-  
-//定位当前位置
+  // 直接使用new_point 添加标注，会出现失准问题，待解决
   var geolocation = new BMap.Geolocation();
   geolocation.getCurrentPosition(function(r){
     if(this.getStatus() == BMAP_STATUS_SUCCESS){
-      var mk = new BMap.Marker(r.point);
+      var mk = new BMap.Marker(new_point);
       map.addOverlay(mk);
-      map.panTo(r.point);
-
-      var myGeo = new BMap.Geocoder();
-      myGeo.getLocation(new BMap.Point(r.point.lng, r.point.lat),
-          function(rs) {
-            var addComp = rs.addressComponents;
-            var address = "您当前的定位: " + addComp.district+addComp.street
-            $("span#location_address").text(address)
-            // location.href = "http://localhost:3000/location_weather/query?lon="+r.point.lng+"&lat="+r.point.lat+"&name="+addComp.district+addComp.street;
-          });
+      map.panTo(new_point);
     }
     else {
       alert('failed'+this.getStatus());
     }        
   },{enableHighAccuracy: true})
-
-  // // 创建地址解析器实例
-  // var index = 0;
-  // // var district = addComp.district;
-  // var myGeo = new BMap.Geocoder();
-  // var adds = []
-  // <%#= @communities.each do |community| %>
-  //   adds.push("<%#= community.district+community.street %>")
-  // <%#= end %>;
-
-  // // function getCoordinate(adds) {
-  //   function bdGEO(){
-  //     var add = adds[index];
-  //     geocodeSearch(add);
-  //     index++;
-  //   }
-  //   function geocodeSearch(add){
-  //     if(index < adds.length){
-  //       setTimeout(window.bdGEO,400);
-  //     } 
-  //     myGeo.getPoint(add, function(point){
-  //       if (point) {
-  //         document.getElementById("result").innerHTML +=  index + "、" + add + ":" + point.lng + "," + point.lat + "</br>";
-  //         var address = new BMap.Point(point.lng, point.lat);
-  //         addMarker(address,new BMap.Label(index+":"+add,{offset:new BMap.Size(20,-10)}));
-  //       }
-  //     }, "上海市");
-  //     // 编写自定义函数,创建标注
-  //     function addMarker(point,label){
-  //       var marker = new BMap.Marker(point);
-  //       map.addOverlay(marker);
-  //       marker.setLabel(label);
-  //     }
-  //   }
-  // }
 </script>

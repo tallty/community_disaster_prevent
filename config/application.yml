@@ -1,0 +1,62 @@
+# config/application.yml
+defaults: &defaults
+  ProjectSetting:
+    url: "http://61.152.126.154/"
+  DataUrl: 'http://61.152.122.112:8080'
+  AQI:
+    url: 'http://61.152.122.112:8080/publicdata/data?type=aqi_forecast&appid=LV08MwglXetHcxdaUTIR&appkey=3LpFnUP84xhj5HaIcmKGAC2yezMgY9'
+    #url: 'http://61.152.122.112:8080/publicdata/data?type=aqi_forecast&appid=jQnvHkDPX8TsFa71Wb3O&appkey=Pw7VoReKMrb0LfmHulI5nUB83FS6Xi'
+  Warning::CommunityWarningProcess:
+    url: 'http://61.152.122.112:8080/api/v1/warnings/community?appid=jQnvHkDPX8TsFa71Wb3O&appkey=Pw7VoReKMrb0LfmHulI5nUB83FS6Xi&unit=所有'
+  Healthy:
+    url: 'http://222.66.83.20:9090/health_weathers'
+    #url: 'http://192.168.169.7/JsonService/JsonService.svc/GetHealthyMeteorological'
+  WeatherIndex:
+    url: 'http://61.152.122.112:8080/publicdata/data?type=live_index&appid=LV08MwglXetHcxdaUTIR&appkey=3LpFnUP84xhj5HaIcmKGAC2yezMgY9'
+    #url: 'http://192.168.169.7/JsonService/JsonService.svc/GetIndex'
+  #Warning::CityWarningProcess:
+  #  url: 'http://61.152.122.112:8080/publicdata/data?type=warning_city&appid=jQnvHkDPX8TsFa71Wb3O&appkey=Pw7VoReKMrb0LfmHulI5nUB83FS6Xi'
+  Warning::CityWarningProcess:
+    remote: 'http://192.168.169.7'
+    api_path: 'JsonService/JsonService.svc/GetWeatherWarnning'
+  FiveDayWeather:
+    url: 'http://61.152.122.112:8080/publicdata/data?type=ten_day_forecast&appid=jQnvHkDPX8TsFa71Wb3O&appkey=Pw7VoReKMrb0LfmHulI5nUB83FS6Xi'
+  MonitorStation:
+    url: ''
+  Lightning::LightningProcess:
+    server: 10.228.18.177
+    user: LTS
+    password: '123456'
+    port: 21
+    remote_dir: '/'
+    local_dir: '.tmp/lightning/'
+  Healthy::HealthyData:
+    url: 'http://192.168.169.7/JsonService/JsonService.svc/GetHealthyMeteorological'
+  WeatherIndex::WeatherIndexData:
+    url: 'http://192.168.169.7/JsonService/JsonService.svc/GetIndex'
+  AQI::AqiData:
+    url: 'http://192.168.169.7/JsonService/JsonService.svc/GetAirQuality'
+  Weather::FiveDayWeather:
+    remote: 'http://192.168.169.7'
+    api_path: '/JsonService/JsonService.svc/Get5DayForecast_Weixin'
+  Weather::DistrictWeather:
+    remote: 'http://192.168.169.7'
+    api_path: '/JsonService/JsonService.svc/GetDistrictAutoStationDataByName/'
+  LocationUtil:
+    api_path: 'geocoder/v2/'
+    remote: 'http://api.map.baidu.com'
+    ak: '200aadcf1ccf720749c79228f9b7fd79'
+  Community::CommunityCode:
+    remote: 'http://192.168.169.7'
+    api_path: '/JsonService/JsonService.svc/GetCommunityListByDistrictName/'
+  MonitorStation::CommunityAutoStation:
+    remote: 'http://192.168.169.7'
+    api_path: '/JsonService/JsonService.svc/GetCommunityAutoStationDataByCommunityID/'
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

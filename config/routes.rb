@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resource :volunteers, only: [:new, :create, :update]
   resource :subscribers, only: [:new, :update] do
     collection do
+      get :locate
       get :get_streets
     end
   end

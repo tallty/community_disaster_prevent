@@ -28,7 +28,6 @@ class ForecastServicesController < ApplicationController
 
     # 气象实况
     @auto_station = Weather::DistrictWeather.new.fetch @district
-    
   end
 
   # 生活指数
