@@ -148,29 +148,29 @@
 
       // 更新灾情点位数据，添加点位标注
       function addmarker(obj, map) {
-        var myIcon = new BMap.Icon("http://webapi.amap.com/images/4.png", new BMap.Size(100,57));
-        var icon;
+        var myIcon = new BMap.Icon("../assets/images/water_area.png", new BMap.Size(30,35));
         var lanlat = new BMap.Point(obj.disaster_position.lon, obj.disaster_position.lat);
         var sContent ="<div class='text-center'>"+
                 "<div>时间:"+obj.occur_time+"</div>"+
-                "<img id='imgDemo' style='text-align:center;height:90px;width:80px;' src='system/"+"27"+"/images/medium/image.jpg'/>"+
-                "<div style='word-break:break-all;width:250px;'>说明:"+obj.explain+"</div>"+
-                "<div>"+"<a style='color:red;' href='/disasters/"+obj.id+"'>详细说明</a>"+"</div>"+"</div>";
+                "<div style='word-break:break-all;width:200px;'>说明:"+obj.explain+"</div>"+
+                "<div>"+"<a style='color:red;' href='/disasters/"+obj.id+"'>详细说明</a>"+"</div>"+
+                "<img id='imgDemo' style='text-align:center;height:100px;width:100px;' src='"+obj.pictures[0].url+"'/>"+"</div>";
+        console.log(obj.pictures[0].url);
         var marker;
         var infoWindow
         // 使用不同的灾情图标
         if(obj.disaster_position == null){ return; }
         if(obj.type=="暴雨"){
-          icon = new BMap.Icon("http://61.152.126.156/cms/resource/img/icon/rain.png", new BMap.Size(300,157));
+          var icon = new BMap.Icon("../assets/images/rain_icon.png", new BMap.Size(30,35));
         }else if(obj.type=="雷电"){
-          icon = new BMap.Icon("http://61.152.126.156/cms/resource/img/icon/lightning.png", new BMap.Size(300,157));
+          var icon = new BMap.Icon("../assets/images/thunder_icon.png", new BMap.Size(30,35));
         }else if(obj.type=="大风"){
-          icon = new BMap.Icon("http://61.152.126.156/cms/resource/img/icon/win.png", new BMap.Size(300,157));
+          var icon = new BMap.Icon("../assets/images/win_icon.png", new BMap.Size(30,35));
         }else{
-          icon = new BMap.Icon("http://webapi.amap.com/images/4.png", new BMap.Size(300,157));
+          var icon = new BMap.Icon("../assets/images/other_icon.png", new BMap.Size(30,35));
         }
         // 添加标注点
-        marker = new BMap.Marker(lanlat,{icon:myIcon});
+        marker = new BMap.Marker(lanlat,{icon:icon});
         // 创建信息窗口对象
         infoWindow = new BMap.InfoWindow(sContent);
         // 打点

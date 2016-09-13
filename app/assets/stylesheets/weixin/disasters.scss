@@ -57,9 +57,11 @@
 }
 
 .disaster_picture_content, .disaster_position_content {
+  overflow: auto;
+  height: 88vh;
   color: #fff;
-  padding: 20px;
-
+  padding: 2vh 10vw;
+  border-top: 1px solid rgba(255,255,255,0.25);
   .disaster-picture-list {
     img {
       border: 2px solid #fff;

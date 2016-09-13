@@ -24,7 +24,8 @@ class DisasterPicture < ActiveRecord::Base
   def as_json(options=nil)
     {
       id: id,
-      url: "http://61.152.126.154#{image.url}"
+      url: "http://61.152.126.154#{image.url}",
+      name: "#{image.path}"
     }
   end
 end

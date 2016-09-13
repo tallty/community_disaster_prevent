@@ -11,27 +11,31 @@
       </div>
     </div>
   </div>
-
-  <div class="disaster_picture_content">
-    <div class="row disaster-picture-list">
-      <% @disaster.disaster_pictures.each do |picture| %>
-        <% if picture.image.present? %>
-          <%= image_tag picture.image.url %>
+  <div class="pic_container">
+    <div class="disaster_picture_content">
+      <div class="row disaster-picture-list">
+        <% @disaster.disaster_pictures.each do |picture| %>
+          <% if picture.image.present? %>
+            <%= image_tag picture.image.url %>
+          <% end %>
         <% end %>
+      </div>
+      <div class="row disaster-picture-push">
+      <%= form_for(@disaster_pictures, url: disaster_pictures_path, :html => { :multipart => true } ) do |f| %>
+        <%= f.hidden_field :disaster_id, :value => @disaster.id %>
+        <div class="row submit_input">
+          <%= f.file_field :image%>
+        </div>
+        <div class="headTab headTabRight col-xs-5"><a href="javascript:;" id= "head_List"><%= f.submit "上传", class: "btn btn-info btn-lg", :style => "width:100%" %></a></div>
+        <div class="headTab headTabRight col-xs-5 col-xs-offset-2">
+          <a href="../communities/interact" class= "btn btn-success btn-lg" data-turbolinks='true' style="width: 100%;">返回</a>
+        </div>
+          
       <% end %>
-    </div>
-    <div class="row disaster-picture-push">
-    <%= form_for(@disaster_pictures, url: disaster_pictures_path, :html => { :multipart => true } ) do |f| %>
-      <%= f.hidden_field :disaster_id, :value => @disaster.id %>
-      <div class="row submit_input">
-        <%= f.file_field :image%>
       </div>
-      <div class="headTab headTabRight col-xs-5"><a href="javascript:;" id= "head_List"><%= f.submit "上传", class: "btn btn-info btn-lg", :style => "width:100%" %></a></div>
-      <div class="headTab headTabRight col-xs-5 col-xs-offset-2">
-        <a href="../communities/interact" class= "btn btn-success btn-lg" data-turbolinks='true' style="width: 100%;">结束上报</a>
-      </div>
-        
-    <% end %>
     </div>
   </div>
 </div>
+<script>
+  $(".pic_container").backstretch("<%= asset_path "weixin_bg.png" %>");
+</script>
