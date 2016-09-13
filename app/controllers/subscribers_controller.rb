@@ -8,7 +8,11 @@ class SubscribersController < ApplicationController
     @subscriber = Subscriber.where(openid: openid).first
     # 获取当前位置最近社区
     response = Community.fetchNearestCommunity params[:lon], params[:lat]
+
     result = MultiJson.load response.body
+    longer.info "========================"
+    logger.indo result
+    longer.info "========================"
     if response.status == 200
       @community = result['Data']
     end

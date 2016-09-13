@@ -1,17 +1,21 @@
+<% interact_url = 'http://weixin.lightning.sh.cn/oauths?reurl=http://weixin.lightning.sh.cn/communities/interact' %>
+<% detection_url = "http://weixin.lightning.sh.cn/oauths?reurl=http://weixin.lightning.sh.cn/communities/detection" %>
+<% me_url = 'http://weixin.lightning.sh.cn/oauths?reurl=http://weixin.lightning.sh.cn/communities/centre' %>
+
 <div class="weui_tabbar">
-  <a href="<%= interact_communities_path %>" class="weui_tabbar_item <%= "weui_bar_item_on" if params[:action] == "interact"%>">
+  <a href="<%= interact_url %>" class="weui_tabbar_item <%= "weui_bar_item_on" if params[:action] == "interact"%>">
       <div class="weui_tabbar_icon">
           <i class="iconfont">&#xe61e;</i>
       </div>
       <p class="weui_tabbar_label">灾情互动</p>
   </a>
-  <a href="<%= detection_communities_path %>" class="weui_tabbar_item <%= "weui_bar_item_on" if params[:action] == "detection"%>">
+  <a href="<%= detection_url %>" class="weui_tabbar_item <%= "weui_bar_item_on" if params[:action] == "detection"%>">
       <div class="weui_tabbar_icon">
           <i class="iconfont">&#xe606;</i>
       </div>
       <p class="weui_tabbar_label">社区实况</p>
   </a>
-  <a href="<%= centre_communities_path %>" class="weui_tabbar_item <%= "weui_bar_item_on" if params[:action] == "centre"%>">
+  <a href="<%= me_url %>" class="weui_tabbar_item <%= "weui_bar_item_on" if params[:action] == "centre"%>">
       <div class="weui_tabbar_icon">
           <i class="iconfont">&#xe61c;</i>
       </div>
