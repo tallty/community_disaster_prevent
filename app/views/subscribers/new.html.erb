@@ -1,4 +1,5 @@
 <div id="map_container1"></div>
+<% community = @subscriber.community %>
 <div class="subscribers-container">
   <div class="row">
     <div class="col-xs-12">
@@ -7,11 +8,13 @@
     <div class="col-xs-12">
       <div class="row">
         <div class="col-xs-12">
-          <p class="subscribers-hello">Hello, <%= @subscriber.nick_name %></p>
+          <p class="subscribers-hello">Hello, <%= @subscriber.nick_name %>, [<%= "#{community.district}#{community.street}社区" if community.present? %>]</p>
         </div>
         <div class="col-xs-12 logic-btn">
           <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_plain_primary btn-block" id= "head_List" style="text-decoration: none;">手动选择社区</a>
-          <%= link_to "加入志愿者队伍", "#", class: "weui_btn weui_btn_mini weui_btn_plain_primary btn-block" %>
+          <% if @subscriber.community.present? %>
+            <%= link_to "加入志愿者队伍", "/volunteers/new?openid=#{@subscriber.openid}", class: "weui_btn weui_btn_mini weui_btn_plain_primary btn-block", style: "text-decoration: none;" %>
+          <% end %>
         </div>
       </div>
       
@@ -20,18 +23,13 @@
         您当前定位社区为：
         <span id="location_address">
           <% if @community %>
-            <%= "#{@community["District_Name"]}#{@community["Name"]}" %>
+            <%= "#{@community["District_Name"]}#{@community["Name"]}社区" %>
           <% else %>
             <button class="btn btn-xs btn-info" onclick="window.location.reload();">重新定位</button>
           <% end %>
         </span>
       </div>
 
-    </div>
-    <div class="col-xs-12">
-      <% if @subscriber.community.present? %>
-        <%= link_to "加入志愿者队伍", "/volunteers/new?openid=#{@subscriber.openid}" %>
-      <% end %>
     </div>
     <div class="col-xs-12 notice">
       <%= notice %>
@@ -83,9 +81,9 @@
 <script type="text/javascript">
   $("#head_List").on("click", function(){
     if($(".form-inputs").css("display")=="none"){
-      $(".form-inputs").slideDown(800);
+      $(".form-inputs").slideDown(500);
     }else{
-      $(".form-inputs").slideUp(800);
+      $(".form-inputs").slideUp(500);
     }
   });
 </script>
