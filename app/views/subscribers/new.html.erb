@@ -3,46 +3,40 @@
 <div class="subscribers-container">
   <div class="row">
     <div class="col-xs-12">
-
-      <div class="row">
-        <div class="col-xs-12">
-          <p class="subscribers-hello">Hello, <%= @subscriber.nick_name %></p>
-        </div>
-
-        <div class="col-xs-12">
-          <i class="iconfont" style="color: #F5A623;">&#xe607;</i>
-          您当前定位社区为：
-          <span id="location_address">
-            <% if @community %>
-              <%= "#{@community["District_Name"]}#{@community["Name"]}社区" %>
-            <% else %>
-              <button class="btn btn-xs btn-info" onclick="window.location.reload();">重新定位</button>
-            <% end %>
-          </span>
-        </div>
-
-        <div class="col-xs-12">
-          <i class="iconfont" style="color: #F5A623;">&#xe607;</i>
-          <% if community.present? %>
-            您当前绑定社区为：
-            <%= "#{community.district}#{community.street}社区" %>
-          <% else %>
-            您当前未绑定社区，请点击选择社区按钮
-          <% end %>
-        </div>
-  
-        <div class="col-xs-12 logic-btn">
-          <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_plain_primary btn-block" id= "head_List" style="text-decoration: none;">选择社区</a>
-          <% if community.present? %>
-            <%= link_to "加入志愿者", "/volunteers/new?openid=#{@subscriber.openid}", class: "weui_btn weui_btn_mini weui_btn_plain_primary btn-block", style: "text-decoration: none;" %>
-          <% end %>
-        </div>
-      </div>
-
+      <p class="subscribers-hello">Hello, <%= @subscriber.nick_name %></p>
     </div>
-    <div class="col-xs-12 notice">
-      <%= notice %>
+
+    <div class="col-xs-12">
+      <i class="iconfont" style="color: #F5A623;">&#xe607;</i>
+      您当前定位社区为：
+      <span id="location_address">
+        <% if @community %>
+          <%= "#{@community["District_Name"]}#{@community["Name"]}社区" %>
+        <% else %>
+          <button class="btn btn-xs btn-info" onclick="window.location.reload();">重新定位</button>
+        <% end %>
+      </span>
     </div>
+
+    <div class="col-xs-12">
+      <i class="iconfont" style="color: #F5A623;">&#xe607;</i>
+      <% if community.present? %>
+        您当前绑定社区为：
+        <%= "#{community.district}#{community.street}社区" %>
+      <% else %>
+        您当前未绑定社区，请点击选择社区按钮
+      <% end %>
+    </div>
+
+    <div class="col-xs-12 logic-btn">
+      <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_plain_primary btn-block" id= "head_List" style="text-decoration: none;">选择社区</a>
+      <% if community.present? %>
+        <%= link_to "加入志愿者", "/volunteers/new?openid=#{@subscriber.openid}", class: "weui_btn weui_btn_mini weui_btn_plain_primary btn-block", style: "text-decoration: none;" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-xs-12">
       <% districts = Community.where("district <> '上海'").distinct.pluck(:district) %>
       <% streets = Community.where("district = ?", @subscriber.community.district).pluck(:street) %>
@@ -78,6 +72,7 @@
       <% end %>
     </div>
   </div>
+
   <div style="height: 50px;"></div>
 </div>
 
