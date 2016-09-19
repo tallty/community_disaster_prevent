@@ -11,10 +11,10 @@
           <p class="subscribers-hello">Hello, <%= @subscriber.nick_name %>, [<%= "#{community.district}#{community.street}社区" if community.present? %>]</p>
         </div>
         <div class="col-xs-12 logic-btn">
-          <% if @subscriber.community.present? %>
-            <%= link_to "加入志愿者队伍", "/volunteers/new?openid=#{@subscriber.openid}", class: "weui_btn weui_btn_mini weui_btn_plain_primary btn-block", style: "text-decoration: none;" %>
-          <% end %>
           <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_plain_primary btn-block" id= "head_List" style="text-decoration: none;">手动选择社区</a>
+          <% if @subscriber.community.present? %>
+            <%= link_to "加入志愿者", "/volunteers/new?openid=#{@subscriber.openid}", class: "weui_btn weui_btn_mini weui_btn_plain_primary btn-block", style: "text-decoration: none;" %>
+          <% end %>
         </div>
       </div>
       
@@ -35,6 +35,8 @@
       <%= notice %>
     </div>
     <div class="col-xs-12">
+      <% districts = Community.where("district <> '上海'").distinct.pluck(:district) %>
+      <% streets = Community.where("district = ?", @subscriber.community.district).pluck(:street) %>
       <%= form_for @subscriber,  :url => { :action => :update } do |f| %>
         <div class="form-inputs" style="display: none;">
           <div class="input-group col-xs-12">
@@ -44,11 +46,11 @@
 
           <% if @subscriber.community.present? %>
             <div class="input-group col-xs-12">
-            <%= f.select :district, options_for_select(Community.where("district <> '上海'").distinct.pluck(:district), @community["District_Name"]), options = {:prompt =>"请选择绑定区县" }, :class =>"form-control input" %>
+            <%= f.select :district, options_for_select(Community.where("district <> '上海'").distinct.pluck(:district), @subscriber.community.district), options = {:prompt =>"请选择绑定区县" }, :class =>"form-control input" %>
             </div>
             <div class="space-6"></div>
             <div class="input-group col-xs-12">
-              <%= f.select :community, options_for_select(Community.where("district = ?", @subscriber.community.district).pluck(:street), @community["Name"]), options ={:prompt =>"请选择绑定街道"}, :class =>"form-control input" %>
+              <%= f.select :community, options_for_select(Community.where("district = ?", @subscriber.community.district).pluck(:street), @subscriber.community.street), options ={:prompt =>"请选择绑定街道"}, :class =>"form-control input" %>
             </div>
           <% else %>
             <div class="input-group col-xs-12">
@@ -59,10 +61,9 @@
               <%= f.select :community, [], options ={:prompt =>"请选择绑定街道"}, :class =>"form-control input" %>
             </div>
           <% end %>
-            <div class="space-6"></div>
-        </div>
+          <div class="space-6"></div>
           <%= f.submit "绑定新社区", :class => "btn bind-btn btn-success" %>
-          
+        </div>
       <% end %>
     </div>
   </div>
