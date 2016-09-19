@@ -47,12 +47,7 @@ class Community < ActiveRecord::Base
     end
   end
 
-  # 获取离当前位置最近的社区
-  def self.fetchNearestCommunity lon, lat
-    api_path = "http://61.152.126.152/JsonService/JsonService.svc/GetCommunityByXY/#{lon}/#{lat}"
-    reponse = Faraday.get api_path
-  end
-
+  # 获取当前最近社区
   class NearestCommunity
     include NetworkMiddleware
 

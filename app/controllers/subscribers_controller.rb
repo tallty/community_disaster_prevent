@@ -1,11 +1,9 @@
 class SubscribersController < ApplicationController
-  before_action :set_subscriber, only: [:edit, :create, :update]
+  before_action :set_subscriber, only: [:new, :edit, :create, :update]
   layout 'weixin'
 
   # GET /subscribers/new
   def new
-    openid = params[:openid] || session[:openid]
-    @subscriber = Subscriber.where(openid: openid).first
     # 获取当前位置最近社区
     # response = Community.fetchNearestCommunity params[:lon], params[:lat]
     @community = Community::NearestCommunity.new.fetch params
@@ -38,7 +36,7 @@ class SubscribersController < ApplicationController
     @subscriber.community = @community
     respond_to do |format|
       if @subscriber.update_attributes(:community => @community)
-        format.html { redirect_to "/subscribers/new?openid=#{@subscriber.openid}", notice: "您当前绑定社区为: #{@community.street}." }
+        format.html { redirect_to "/subscribers/new?lon=#{params[:lon]}&lat=#{params[:lat]}", notice: "您当前绑定社区为: #{@community.street}." }
         format.json { render :show, status: :ok, location: @subscriber }
       else
         format.html { render :edit }
@@ -60,11 +58,10 @@ class SubscribersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_subscriber
-      @subscriber = Subscriber.where(openid: params[:subscriber][:openid]).first
+      openid = params[:openid] || session[:openid]
+      @subscriber = Subscriber.where(openid: openid).first
     end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def subscriber_params
       params.require(:subscriber).permit(:openid, :community)
