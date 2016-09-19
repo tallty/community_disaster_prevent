@@ -3,12 +3,12 @@
 <% me_url = 'http://weixin.lightning.sh.cn/oauths?reurl=http://weixin.lightning.sh.cn/communities/centre' %>
 
 <div class="weui_tabbar">
-  <a href="<%= interact_url %>" class="weui_tabbar_item <%= "weui_bar_item_on" if params[:action] == "interact"%>">
+  <%= link_to interact_url, class: "weui_tabbar_item #{"weui_bar_item_on" if params[:action] == "interact"}", 'data-no-turbolink' => true do  %>
     <div class="weui_tabbar_icon">
       <i class="iconfont">&#xe61e;</i>
     </div>
     <p class="weui_tabbar_label">灾情互动</p>
-  </a>
+  <% end %>
   <a href="<%= detection_url %>" class="weui_tabbar_item <%= "weui_bar_item_on" if params[:action] == "detection"%>">
     <div class="weui_tabbar_icon">
       <i class="iconfont">&#xe606;</i>
