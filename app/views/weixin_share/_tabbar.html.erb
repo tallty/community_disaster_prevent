@@ -9,16 +9,17 @@
     </div>
     <p class="weui_tabbar_label">灾情互动</p>
   <% end %>
-  <a href="<%= detection_url %>" class="weui_tabbar_item <%= "weui_bar_item_on" if params[:action] == "detection"%>">
+  <%= link_to detection_url, class: "weui_tabbar_item #{"weui_bar_item_on" if params[:action] == "detection"}", 'data-no-turbolink' => true do %>
     <div class="weui_tabbar_icon">
       <i class="iconfont">&#xe606;</i>
     </div>
     <p class="weui_tabbar_label">社区实况</p>
-  </a>
-  <a href="<%= me_url %>" class="weui_tabbar_item <%= "weui_bar_item_on" if params[:action] == "centre"%>">
+  <% end %>
+
+  <%= link_to me_url, class: "weui_tabbar_item #{"weui_bar_item_on" if params[:action] == "centre"}", 'data-no-turbolink' => true do %>
     <div class="weui_tabbar_icon">
       <i class="iconfont">&#xe61c;</i>
     </div>
     <p class="weui_tabbar_label">个人中心</p>
-  </a>
+  <% end %>
 </div>

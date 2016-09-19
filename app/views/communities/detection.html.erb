@@ -92,3 +92,10 @@
   </div>
 </div>
 <%= render partial: "weixin_share/tabbar" %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var width = $("div.detection_content_grids").width()/3;
+      $("div.detection_content_grid").width(width-4);
+  });
+</script>
