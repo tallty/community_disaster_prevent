@@ -6,7 +6,7 @@
 
       <div class="row">
         <div class="col-xs-12">
-          <p class="subscribers-hello">Hello, <%= @subscriber.nick_name %>, [<%= "#{community.district}#{community.street}社区" if community.present? %>]</p>
+          <p class="subscribers-hello">Hello, <%= @subscriber.nick_name %></p>
         </div>
 
         <div class="col-xs-12">
@@ -24,7 +24,8 @@
         <div class="col-xs-12">
           <i class="iconfont" style="color: #F5A623;">&#xe607;</i>
           <% if community.present? %>
-            您当前绑定社区为：<%= "#{community.district}#{community.street}社区" %>
+            您当前绑定社区为：
+            <%= "#{community.district}#{community.street}社区" %>
           <% else %>
             您当前未绑定社区，请点击选择社区按钮
           <% end %>
