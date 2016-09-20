@@ -103,163 +103,245 @@
     // ===========百度地图相关=============
     $(document).ready(function() {
       map = new BMap.Map("map_container");
+      var u = navigator.userAgent, app = navigator.appVersion;
+      var map = new BMap.Map("map_container");
       // 初始化地图，并加载灾情点
-      init_data(map);
+      var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+      if (isIOS) {
+        init_data_ios(map);
+        console.log('-----IOS------');
+      }else{
+        init_data(map);
+        console.log('-----web------');
+      }
       // 处理易积水点
       handleWaterPoint(map);
     })
 
-    // ===========百度地图初始化=============
-    function init_data(map) {
-        var geolocation = new qq.maps.Geolocation("OZBBZ-ZQLC3-MKF3U-3VCU4-DFWO7-AGFPB", "weather_survey")
+    function init_data_ios(map) {
+      var geolocation = new qq.maps.Geolocation("O2KBZ-EILW5-NOJIH-QWO7L-VLF25-QFFDV", "community_disaster_prevent")
 
-        // 初始化地图,用城市名设置地图中心点
-        map.centerAndZoom("上海",15);      
-        map.enableScrollWheelZoom(true);
-        //两秒后开启惯性拖拽
-        // map.enableInertialDragging();
-        // 获取当前定位
-        geolocation.getLocation(function(r){
-          console.log(r);
-          // if(this.getStatus() == BMAP_STATUS_SUCCESS){
-            let x_pi=3.14159265358979324;  
-            var x = r.lng;
-            var y = r.lat;  
-            var z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * x_pi);
-            var theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * x_pi);
-            var bd_lon = z * Math.cos(theta) + 0.0065;
-            var bd_lat = z * Math.sin(theta) + 0.00670;
-            // 添加自定义位置图标
-            var ptt = new BMap.Point(bd_lon, bd_lat);
-            let myIcon = new BMap.Icon("<%= image_url "location_circle.png" %>", new BMap.Size(60, 60));
-            // 创建标注对象并添加到地图
-            var marker = new BMap.Marker(ptt, {icon: myIcon});
-            map.addOverlay(marker);
-            map.panTo(ptt);
-          // }
-          // else {
-          //   alert('failed'+this.getStatus());
-          // }        
-        },{enableHighAccuracy: true})
-        // 添加灾情图标
-        for(var i = 0; i < disasters.length; i++) {
-          addmarker(disasters[i],map)
-        }
-        // 地图未加载时，，重新加载
-        if($("#map_container div").length == 0) {
-          window.location.reload();
-        }
-      }
+      // 初始化地图,用城市名设置地图中心点
+      map.centerAndZoom("上海",12);
+      map.enableScrollWheelZoom(true);
+      //两秒后开启惯性拖拽
+      // map.enableInertialDragging();
+      // 获取当前定位
+      geolocation.getLocation(showPosition, showErr, options)
+      var positionNum = 0;
+      var options = {timeout: 80000};
+      function showPosition(r) {
+        console.log(r);
+        let x_pi=3.14159265358979324;
+        var x = r.lng;
+        var y = r.lat;
+        var z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * x_pi);
+        var theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * x_pi);
+        var bd_lon = z * Math.cos(theta) + 0.0065;
+        var bd_lat = z * Math.sin(theta) + 0.00670;
 
-      // 更新灾情点位数据，添加点位标注
-      function addmarker(obj, map) {
-        var myIcon = new BMap.Icon("../assets/images/water_area.png", new BMap.Size(30,35));
-        var lanlat = new BMap.Point(obj.disaster_position.lon, obj.disaster_position.lat);
-        var sContent ="<div class='text-center'>"+
-                "<div>时间:"+obj.occur_time+"</div>"+
-                "<div style='word-break:break-all;width:200px;'>说明:"+obj.explain+"</div>"+
-                "<div>"+"<a style='color:red;' href='/disasters/"+obj.id+"'>详细说明</a>"+"</div>"+
-                "<img id='imgDemo' style='text-align:center;height:100px;width:100px;' src='"+obj.pictures[0].url+"'/>"+"</div>";
-        console.log(obj.pictures[0].url);
-        var marker;
-        var infoWindow
-        // 使用不同的灾情图标
-        if(obj.disaster_position == null){ return; }
-        if(obj.type=="暴雨"){
-          var icon = new BMap.Icon("../assets/images/rain_icon.png", new BMap.Size(30,35));
-        }else if(obj.type=="雷电"){
-          var icon = new BMap.Icon("../assets/images/thunder_icon.png", new BMap.Size(30,35));
-        }else if(obj.type=="大风"){
-          var icon = new BMap.Icon("../assets/images/win_icon.png", new BMap.Size(30,35));
-        }else{
-          var icon = new BMap.Icon("../assets/images/other_icon.png", new BMap.Size(30,35));
-        }
-        // 添加标注点
-        marker = new BMap.Marker(lanlat,{icon:icon});
-        // 创建信息窗口对象
-        infoWindow = new BMap.InfoWindow(sContent);
-        // 打点
+        var ptt = new BMap.Point(bd_lon, bd_lat);
+        let myIcon = new BMap.Icon("<%= image_url "location_circle.png" %>", new BMap.Size(60, 60));
+
+        var marker = new BMap.Marker(ptt, {icon: myIcon});
         map.addOverlay(marker);
-        marker.addEventListener("click", function(){         
-           this.openInfoWindow(infoWindow);
-           // 图片加载完毕重绘infowindow
-           document.getElementById('imgDemo').onload = function (){
-             // 防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
-             infoWindow.redraw();
-           }
-        });
+        map.panTo(ptt);
+      };
+      function showErr() {
+        document.getElementById("map_container").innerHTML = "定位失败！";
+      };
+      // 添加灾情图标
+      for(var i = 0; i < disasters.length; i++) {
+        addmarker(disasters[i],map)
       }
-
-      // 处理易积水点
-      function handleWaterPoint(map) {
-        var areaBtn = $("#water_area");
-        var roadBtn = $("#water_road");
-        var show_water_area = false;
-        var show_water_road = false;
-
-        // 处理易积水小区按钮点击事件
-        handleAreaToggle(show_water_area, areaBtn, map);
-        // 处理易积水道路按钮点击事件
-        handleRoadToggle(show_water_road, roadBtn, map);
-
+      // 地图未加载时，，重新加载
+      if($("#map_container div").length == 0) {
+        window.location.reload();
       }
-      
-      // 处理易积水小区按钮点击事件
-      function handleAreaToggle(show_water_area, areaBtn, map) {
-        // 添加LBS云中的易积水小区数据
-        var areaPoints;
-        areaBtn.click(function(){
-          if(show_water_area) {
-            show_water_area = false;
-            areaBtn.removeClass("active");
-            map.removeTileLayer(areaPoints);
-          } else {
-            show_water_area = true;
-            areaBtn.addClass("active");
-            areaPoints = new BMap.CustomLayer({ geotableId: 151586 })
-            map.addTileLayer(areaPoints);
-            areaPoints.addEventListener("hotspotclick", callback);
-          }
-        })
-      }
+    }
 
-      // 处理易积水道路按钮点击事件
-      function handleRoadToggle(show_water_road, roadBtn, map) {
-        // 获取LBS云中的易积水道路数据
-        var roadPoints;
-        roadBtn.click(function(){
-          if(show_water_road) {
-            show_water_road = false;
-            roadBtn.removeClass("active");
-            map.removeTileLayer(roadPoints);
-          } else {
-            show_water_road = true;
-            roadBtn.addClass("active");
-            roadPoints = new BMap.CustomLayer({ geotableId: 151627 })
-            map.addTileLayer(roadPoints);
-            roadPoints.addEventListener("hotspotclick", callback);
-          }
-        })
-      }
+    function init_data(map) {
+      var geolocation = new BMap.Geolocation();
 
-      // 点击积水点图层
-      function callback(e) {
-        var customPoi = e.customPoi;
-        var contentPoi =  e.content;
-        var content = '<p style="width:280px;margin:0;line-height:20px;">地址：' + customPoi.address + '<br/>类型：'+contentPoi.title+'</p>';
-        var point = new BMap.Point(customPoi.point.lng, customPoi.point.lat);
-        
-        var opts = {
-          width : 100,     // 信息窗口宽度
-          height: 50,     // 信息窗口高度
-          title: "易积水点",
-          enableMessage:true,//设置允许信息窗发送短息
+      // 初始化地图,用城市名设置地图中心点
+      map.centerAndZoom("上海",12);
+      map.enableScrollWheelZoom(true);
+      //两秒后开启惯性拖拽
+      map.enableInertialDragging();
+      // 获取当前定位   
+      geolocation.getCurrentPosition(function(r){
+        console.log(r);
+        if(this.getStatus() == BMAP_STATUS_SUCCESS){
+          // 添加自定义位置图标
+          var ptt = new BMap.Point(r.point.lng, r.point.lat);
+          let myIcon = new BMap.Icon("<%= image_url "location_circle.png" %>", new BMap.Size(60, 60));
+          // 创建标注对象并添加到地图
+          var marker = new BMap.Marker(ptt, {icon: myIcon});
+          map.addOverlay(marker);
+          map.panTo(ptt);
         }
-
-        console.log(customPoi.point.lng+ "\n" +customPoi.point.lat);
-
-        var infoWindow = new BMap.InfoWindow(content, opts);
-        map.openInfoWindow(infoWindow,point); //开启信息窗口
+        else {
+          alert('failed'+this.getStatus());
+        }        
+      },{enableHighAccuracy: true})
+      // 添加灾情图标
+      for(var i = 0; i < disasters.length; i++) {
+        addmarker(disasters[i],map)
       }
+      // 地图未加载时，，重新加载
+      if($("#map_container div").length == 0) {
+        window.location.reload();
+      }
+    }
+    // 处理易积水小区按钮点击事件
+    function handleAreaToggle(show_water_area, areaBtn, map) {
+      // 添加LBS云中的易积水小区数据
+      var areaPoints;
+      areaBtn.click(function(){
+        if(show_water_area) {
+          show_water_area = false;
+          areaBtn.removeClass("active");
+          map.removeTileLayer(areaPoints);
+        } else {
+          show_water_area = true;
+          areaBtn.addClass("active");
+          areaPoints = new BMap.CustomLayer({ geotableId: 151586 })
+          map.addTileLayer(areaPoints);
+          areaPoints.addEventListener("hotspotclick", callback);
+        }
+      })
+
+      // 地图未加载时，，重新加载
+      if($("#map_container div").length == 0) {
+        window.location.reload();
+      }
+    }
+
+    // 处理易积水道路按钮点击事件
+    function handleRoadToggle(show_water_road, roadBtn, map) {
+      // 获取LBS云中的易积水道路数据
+      var roadPoints;
+      roadBtn.click(function(){
+        if(show_water_road) {
+          show_water_road = false;
+          roadBtn.removeClass("active");
+          map.removeTileLayer(roadPoints);
+        } else {
+          show_water_road = true;
+          roadBtn.addClass("active");
+          roadPoints = new BMap.CustomLayer({ geotableId: 151627 })
+          map.addTileLayer(roadPoints);
+          roadPoints.addEventListener("hotspotclick", callback);
+        }
+      })
+    }
+
+    // 点击积水点图层
+    function callback(e) {
+      var customPoi = e.customPoi;
+      var contentPoi =  e.content;
+      var content = '<p style="width:280px;margin:0;line-height:20px;">地址：' + customPoi.address + '<br/>类型：'+contentPoi.title+'</p>';
+      var point = new BMap.Point(customPoi.point.lng, customPoi.point.lat);
+      
+      var opts = {
+        width : 100,     // 信息窗口宽度
+        height: 50,     // 信息窗口高度
+        title: "易积水点",
+        enableMessage:true,//设置允许信息窗发送短息
+      }
+
+      console.log(customPoi.point.lng+ "\n" +customPoi.point.lat);
+
+      var infoWindow = new BMap.InfoWindow(content, opts);
+      map.openInfoWindow(infoWindow,point); //开启信息窗口
+    }
+
+    // 更新灾情点位数据，添加点位标注
+    function addmarker(obj, map) {
+      var myIcon = new BMap.Icon("../assets/images/water_area.png", new BMap.Size(30,35));
+      var lanlat = new BMap.Point(obj.disaster_position.lon, obj.disaster_position.lat);
+      var sContent ="<div class='text-center'>"+
+              "<div>时间:"+obj.occur_time+"</div>"+
+              "<div style='word-break:break-all;width:200px;'>说明:"+obj.explain+"</div>"+
+              "<div>"+"<a style='color:red;' href='/disasters/"+obj.id+"'>详细说明</a>"+"</div>"+
+              "<img id='imgDemo' style='text-align:center;height:100px;width:100px;' src='"+obj.pictures[0].url+"'/>"+"</div>";
+      console.log(obj.pictures[0].url);
+      var marker;
+      var infoWindow
+      // 使用不同的灾情图标
+      if(obj.disaster_position == null){ return; }
+      if(obj.type=="暴雨"){
+        var icon = new BMap.Icon("../assets/images/rain_icon.png", new BMap.Size(30,35));
+      }else if(obj.type=="雷电"){
+        var icon = new BMap.Icon("../assets/images/thunder_icon.png", new BMap.Size(30,35));
+      }else if(obj.type=="大风"){
+        var icon = new BMap.Icon("../assets/images/win_icon.png", new BMap.Size(30,35));
+      }else{
+        var icon = new BMap.Icon("../assets/images/other_icon.png", new BMap.Size(30,35));
+      }
+      // 添加标注点
+      marker = new BMap.Marker(lanlat,{icon:icon});
+      // 创建信息窗口对象
+      infoWindow = new BMap.InfoWindow(sContent);
+      // 打点
+      map.addOverlay(marker);
+      marker.addEventListener("click", function(){         
+         this.openInfoWindow(infoWindow);
+         // 图片加载完毕重绘infowindow
+         document.getElementById('imgDemo').onload = function (){
+           // 防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
+           infoWindow.redraw();
+         }
+      });
+    }
+
+    // 处理易积水点
+    function handleWaterPoint(map) {
+      var areaBtn = $("#water_area");
+      var roadBtn = $("#water_road");
+      var show_water_area = false;
+      var show_water_road = false;
+
+      // 处理易积水小区按钮点击事件
+      handleAreaToggle(show_water_area, areaBtn, map);
+      // 处理易积水道路按钮点击事件
+      handleRoadToggle(show_water_road, roadBtn, map);
+    }
+    
+    // 处理易积水小区按钮点击事件
+    function handleAreaToggle(show_water_area, areaBtn, map) {
+      // 添加LBS云中的易积水小区数据
+      var areaPoints;
+      areaBtn.click(function(){
+        if(show_water_area) {
+          show_water_area = false;
+          areaBtn.removeClass("active");
+          map.removeTileLayer(areaPoints);
+        } else {
+          show_water_area = true;
+          areaBtn.addClass("active");
+          areaPoints = new BMap.CustomLayer({ geotableId: 151586 })
+          map.addTileLayer(areaPoints);
+        }
+      })
+    }
+
+    // 处理易积水道路按钮点击事件
+    function handleRoadToggle(show_water_road, roadBtn, map) {
+      // 获取LBS云中的易积水道路数据
+      var roadPoints;
+      roadBtn.click(function(){
+        if(show_water_road) {
+          show_water_road = false;
+          roadBtn.removeClass("active");
+          map.removeTileLayer(roadPoints);
+        } else {
+          show_water_road = true;
+          roadBtn.addClass("active");
+          roadPoints = new BMap.CustomLayer({ geotableId: 151627 })
+          map.addTileLayer(roadPoints);
+        }
+      })
+    }
   </script>
 <% end %>
