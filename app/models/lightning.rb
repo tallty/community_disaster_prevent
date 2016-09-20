@@ -31,4 +31,24 @@ class Lightning
       $redis.set(@redis_key, filename)
     end
   end
+
+  class LightningPoint
+    include NetworkMiddleware
+
+    def initialize
+      @root = self.class.name.to_s
+      super
+    end
+
+    def fetch
+      params_hash = {
+        method: 'get'
+      }
+      #{Time.now().strftime('%Y%m%d%H%M%S').to_s}
+      @api_path = "#{@api_path}/20160606211200"
+      result = get_data(params_hash, {})
+
+      result.fetch('Data', {})
+    end
+  end
 end

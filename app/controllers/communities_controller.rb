@@ -9,10 +9,12 @@ class CommunitiesController < ApplicationController
 	# 社区四个部分
 	def interact
     @disasters = Disaster.where("occur_time > ?", Time.now.to_date - 3.day).find_all { |d| d.subscriber == @subscriber or d.disaster_position.present? }
+    p @disasters
 	end
 
   # 实况监测
   def detection
+
     # 用户所属社区
     @community = @subscriber.community
 
@@ -24,7 +26,8 @@ class CommunitiesController < ApplicationController
       # 积水实况
       @water_stations = MonitorStation.community_water_data code
       # 闪电分布
-      @lightning_img_url = Settings.ProjectSetting.url + "/lightning/" + Lightning.get_pic
+      # @lightning_img_url = Settings.ProjectSetting.url + "/lightning/" + Lightning.get_pic
+      @lightningPoints = Lightning::LightningPoint.new.fetch
       # 社区预警
       @warning = Warning.get_last_active_warn code
     else

@@ -66,8 +66,8 @@
       <div class="my-panel">
         <div class="panel-hd mborder">积水实况</div>
         <div class="panel-bd">
-          <% if @water_stations.present? %>
-            <% @water_stations.each do |item| %>
+          <%= if @water_stations.present? %>
+            <%= @water_stations.each do |item| %>
               <p class="detection_content_ponding"><%= item["site_name"] %>积水深度：<%= item["data"] || 0 %>m</p>
             <% end %>
           <% else %>
@@ -82,20 +82,56 @@
         <div class="panel-hd mborder">闪电分布</div>
         <div class="panel-bd">
           <div class="detection_content_lightning">
-            <img src="<%= @lightning_img_url %>" alt="闪电分布图">
+            <div id="map_container_lightning"></div>
+            <!-- <img src="<%#= @lightning_img_url %>" alt="闪电分布图"> -->
           </div>
           <p class="detection_content_lightning_text text-justify">云体与大地相接触的放电现象称为地闪·用CG表示，地闪有两种：正地闪(+)和负地闪(-)，通常情况下的对地放电过程都是将云内负电荷输送到地面的负极性放电·即负地闪，但是也有一些放电将云内的正电荷输送到地面，这种现象被称为正地闪。</p>
         </div>
       </div>
     </div>
-
   </div>
 </div>
 <%= render partial: "weixin_share/tabbar" %>
+<% content_for :scripts do %>
+  <%= javascript_tag do %>
+    lightningPoints = <%= @lightningPoints.to_json.html_safe %>
+  <% end %>
+  <script type="text/javascript" src=http://api.map.baidu.com/api?v=2.0&ak=8SWaIs2cE83Ssvv90yXPUEQQhnkG368u></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var width = $("div.detection_content_grids").width()/3;
+        $("div.detection_content_grid").width(width-4);
+    });
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        var height = $(window).height()*2;
+        var width = $(window).width
+          $("div#map_container_lightning").height(height/6);
+          $("div#map_container_lightning").width(width);
+      });
 
-<script type="text/javascript">
-  $(document).ready(function() {
-    var width = $("div.detection_content_grids").width()/3;
-      $("div.detection_content_grid").width(width-4);
-  });
-</script>
+      // 百度地图API功能
+      var map = new BMap.Map("map_container_lightning");    // 创建Map实例
+      map.centerAndZoom("上海",8);      // 初始化地图,用城市名设置地图中心点
+      map.enableScrollWheelZoom(true);
+      map.enableInertialDragging();   //两秒后开启惯性拖拽
+
+      // 添加灾情图标
+      for(var i = 0; i < lightningPoints.length; i++) {
+        addmarker(lightningPoints[i],map)
+      }
+
+      // 更新灾情点位数据，添加点位标注
+        function addmarker(obj, map) {
+          var myIcon = new BMap.Icon("../assets/images/thunder_icon.png", new BMap.Size(30,35));
+          var lanlat = new BMap.Point(obj.Lon, obj.Lat);
+          var marker;
+          // 添加标注点
+          marker = new BMap.Marker(lanlat,{icon:myIcon});
+          // 打点
+          map.addOverlay(marker);
+        }
+
+  </script>
+<% end %>

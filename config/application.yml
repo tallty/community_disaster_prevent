@@ -23,6 +23,9 @@ defaults: &defaults
     url: 'http://61.152.122.112:8080/publicdata/data?type=ten_day_forecast&appid=jQnvHkDPX8TsFa71Wb3O&appkey=Pw7VoReKMrb0LfmHulI5nUB83FS6Xi'
   MonitorStation:
     url: ''
+  Lightning::LightningPoint:
+    remote: 'http://61.152.126.152'
+    api_path: '/JsonService/JsonService.svc/Get_1H_Lightning/'
   Lightning::LightningProcess:
     server: 10.228.18.177
     user: LTS
