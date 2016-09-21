@@ -15,25 +15,25 @@ class CommunitiesController < ApplicationController
   # 实况监测
   def detection
 
-    # 用户所属社区
-    @community = @subscriber.community
+    # # 用户所属社区
+    # @community = @subscriber.community
 
-    if @community.present?
-      # 社区编号
-      code = @community.code
-      # 气象实况
-      @auto_station = MonitorStation::CommunityAutoStation.new.fetch code
-      # 积水实况
-      @water_stations = MonitorStation.community_water_data code
-      # 闪电分布
-      # @lightning_img_url = Settings.ProjectSetting.url + "/lightning/" + Lightning.get_pic
-      @lightningPoints = Lightning::LightningPoint.new.fetch
-      # 社区预警
-      @warning = Warning.get_last_active_warn code
-    else
-      # 跳转绑定社区页面
-      redirect_to centre_communities_path
-    end
+    # if @community.present?
+    #   # 社区编号
+    #   code = @community.code
+    #   # 气象实况
+    #   @auto_station = MonitorStation::CommunityAutoStation.new.fetch code
+    #   # 积水实况
+    #   @water_stations = MonitorStation.community_water_data code
+    #   # 闪电分布
+    #   # @lightning_img_url = Settings.ProjectSetting.url + "/lightning/" + Lightning.get_pic
+    #   @lightningPoints = Lightning::LightningPoint.new.fetch
+    #   # 社区预警
+    #   @warning = Warning.get_last_active_warn code
+    # else
+    #   # 跳转绑定社区页面
+    #   redirect_to centre_communities_path
+    # end
   end
 
   def change_community
