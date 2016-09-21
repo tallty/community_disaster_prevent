@@ -45,7 +45,7 @@ class Lightning
         method: 'get'
       }
       #{Time.now().strftime('%Y%m%d%H%M%S').to_s}
-      @api_path = "#{@api_path}/20160606211200"
+      @api_path = "#{@api_path}/#{Time.now().strftime('%Y%m%d%H%M%S').to_s}"
       result = get_data(params_hash, {})
 
       result.fetch('Data', {})
