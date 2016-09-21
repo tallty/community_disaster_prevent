@@ -84,7 +84,7 @@
           <% if @lightningPoints.present? == false || @lightningPoints.length == 0 %>
             <p class="text-center">过去一小时没有闪电分布点</p>
           <% else %>
-            <p class="text-center">过去一小时闪电分布点【<%=@lightningPoints.length%>个】</p>
+            <p class="text-center">过去一小时闪电分布点【<%=@lightningPoints.length%>个】<%=@lightningPoints.first.Lon%><%=@lightningPoints.first.Lat%></p>
             <div class="detection_content_lightning">
               <div id="map_container_lightning"></div>
               <!-- <img src="<%#= @lightning_img_url %>" alt="闪电分布图"> -->
