@@ -24,7 +24,7 @@ defaults: &defaults
   MonitorStation:
     url: ''
   Lightning::LightningPoint:
-    remote: 'http://61.152.126.152'
+    remote: 'http://192.168.169.7'
     api_path: '/JsonService/JsonService.svc/Get_1H_Lightning/'
   Lightning::LightningProcess:
     server: 10.228.18.177
