@@ -34,7 +34,8 @@
 <script>
   if (navigator.geolocation) {
     var geolocation = new qq.maps.Geolocation("OZBBZ-ZQLC3-MKF3U-3VCU4-DFWO7-AGFPB", "weather_survey")
-    geolocation.getLocation(showPosition,showError);
+    geolocation.getLocation(showPosition, showError, options);
+    var options = {timeout: 80000};
   }
   else {
     alert("浏览器不支持获取地理位置");
