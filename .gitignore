@@ -57,5 +57,4 @@ app/assets/javascripts/chart/.DS_Store
 
 
 .tmp/*
-/public/*
 config/initializers/weixin_rails_middleware.rb
