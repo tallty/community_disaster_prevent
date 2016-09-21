@@ -28,6 +28,7 @@ class CommunitiesController < ApplicationController
       # 闪电分布
       # @lightning_img_url = Settings.ProjectSetting.url + "/lightning/" + Lightning.get_pic
       @lightningPoints = Lightning::LightningPoint.new.fetch
+      p @lightningPoints
       # 社区预警
       @warning = Warning.get_last_active_warn code
     else
