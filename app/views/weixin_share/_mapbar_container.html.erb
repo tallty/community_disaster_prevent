@@ -1,4 +1,5 @@
 <script type="text/javascript" src=http://api.map.baidu.com/api?v=2.0&ak=8SWaIs2cE83Ssvv90yXPUEQQhnkG368u></script>
+<script type="text/javascript" src="http://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
     var height = $(window).height()*2;
@@ -16,7 +17,24 @@
   map.enableScrollWheelZoom(true);
   map.enableInertialDragging();   //两秒后开启惯性拖拽
 
-  var mk = new BMap.Marker(new_point);
-  map.addOverlay(mk);
-  map.panTo(new_point);
+  var geolocation = new qq.maps.Geolocation("OZBBZ-ZQLC3-MKF3U-3VCU4-DFWO7-AGFPB", "weather_survey")
+  geolocation.getLocation(function(r){
+    // if(this.getStatus() == BMAP_STATUS_SUCCESS){
+    var x_pi=3.14159265358979324;  
+    var x = r.lng;
+    var y = r.lat;  
+    var z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * x_pi);  
+    var theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * x_pi);  
+    var bd_lon = z * Math.cos(theta) + 0.0065;  
+    var bd_lat = z * Math.sin(theta) + 0.00670;
+    // 添加自定义位置图标
+    var ptt = new BMap.Point(bd_lon, bd_lat);
+
+    var mk = new BMap.Marker(ptt);
+    map.addOverlay(mk);
+    map.panTo(ptt);
+
+    console.log(r);
+    $("span#location_address").text(r.addr);
+  },{enableHighAccuracy: true})
 </script>

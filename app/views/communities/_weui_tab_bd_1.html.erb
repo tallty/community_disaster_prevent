@@ -268,13 +268,13 @@
         // 使用不同的灾情图标
         if(obj.disaster_position == null){ return; }
         if(obj.type=="暴雨"){
-          var icon = new BMap.Icon("../assets/images/rain_icon.png", new BMap.Size(30,35));
+          var icon = new BMap.Icon("../../assets/images/rain_icon.png", new BMap.Size(30,35));
         }else if(obj.type=="雷电"){
-          var icon = new BMap.Icon("../assets/images/thunder_icon.png", new BMap.Size(30,35));
+          var icon = new BMap.Icon("../../assets/images/thunder_icon.png", new BMap.Size(30,35));
         }else if(obj.type=="大风"){
-          var icon = new BMap.Icon("../assets/images/win_icon.png", new BMap.Size(30,35));
+          var icon = new BMap.Icon("../../assets/images/win_icon.png", new BMap.Size(30,35));
         }else{
-          var icon = new BMap.Icon("../assets/images/other_icon.png", new BMap.Size(30,35));
+          var icon = new BMap.Icon("../../assets/images/other_icon.png", new BMap.Size(30,35));
         }
         // 添加标注点
         marker = new BMap.Marker(lanlat,{icon:icon});
