@@ -66,8 +66,8 @@
       <div class="my-panel">
         <div class="panel-hd mborder">积水实况</div>
         <div class="panel-bd">
-          <%= if @water_stations.present? %>
-            <%= @water_stations.each do |item| %>
+          <% if @water_stations.present? %>
+            <% @water_stations.each do |item| %>
               <p class="detection_content_ponding"><%= item["site_name"] %>积水深度：<%= item["data"] || 0 %>m</p>
             <% end %>
           <% else %>
