@@ -91,7 +91,8 @@
     </div>
   </div>
 </div>
-<%= render partial: "weixin_share/tabbar" %>
+<%= render partial: "weixin_share/tabbar", 'data-no-turbolink' => true %>
+
 <% content_for :scripts do %>
   <%= javascript_tag do %>
     lightningPoints = <%= @lightningPoints.to_json.html_safe %>
