@@ -20,9 +20,9 @@ Diymenu.create(id: 8, parent_id: 1, name: '健康气象', url: 'http://weixin.li
 Diymenu.create(id: 9, parent_id: 2, name: '灾情互动', url: 'http://weixin.lightning.sh.cn/oauths?reurl=http://weixin.lightning.sh.cn/communities/interact', is_show: true, sort:0)
 Diymenu.create(id: 10, parent_id: 2, name: '社区实况', url: 'http://weixin.lightning.sh.cn/oauths?reurl=http://weixin.lightning.sh.cn/communities/detection', is_show: true, sort:1)
 Diymenu.create(id: 11, parent_id: 2, name: '个人中心', url: 'http://weixin.lightning.sh.cn/oauths?reurl=http://weixin.lightning.sh.cn/communities/centre', is_show: true, sort:2)
-Diymenu.create(id: 12, parent_id: 3, name: '调查问卷', key: '调查问卷', is_show: true, sort:0)
-Diymenu.create(id: 13, parent_id: 3, name: '气象科普', key: '气象科普', is_show: true, sort:1)
-Diymenu.create(id: 14, parent_id: 3, name: '微社区', url: 'http://wsq.qq.com/reflow/234704148', is_show: true, sort:2)
+# Diymenu.create(id: 12, parent_id: 3, name: '调查问卷', key: '调查问卷', is_show: true, sort:0)
+# Diymenu.create(id: 13, parent_id: 3, name: '气象科普', key: '气象科普', is_show: true, sort:1)
+# Diymenu.create(id: 14, parent_id: 3, name: '微社区', url: 'http://wsq.qq.com/reflow/234704148', is_show: true, sort:2)
 Diymenu.create(id: 15, parent_id: 3, name: '帮助', key: '帮助', is_show: true, sort:3)
 
 MessageProcessor.delete_all
