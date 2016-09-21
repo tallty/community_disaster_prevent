@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition,showError);
   }
@@ -28,4 +28,45 @@
         break;
     }
   }
+</script> -->
+
+<script type="text/javascript" src="http://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
+<script>
+  if (navigator.geolocation) {
+    var geolocation = new qq.maps.Geolocation("OZBBZ-ZQLC3-MKF3U-3VCU4-DFWO7-AGFPB", "weather_survey")
+    geolocation.getLocation(showPosition,showError);
+  }
+  else {
+    alert("浏览器不支持获取地理位置");
+  }
+
+  function showPosition(position) {
+    var x_pi=3.14159265358979324;  
+    var x = position.lng;
+    var y = position.lat;  
+    var z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * x_pi);  
+    var theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * x_pi);  
+    var bd_lon = z * Math.cos(theta) + 0.0065;  
+    var bd_lat = z * Math.sin(theta) + 0.00670;
+    // 添加自定义位置图标
+    window.location.href = "new?lon="+bd_lon+"&lat="+bd_lat;
+  }
+
+  function showError(error) {
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        alert("用户拒绝获取定位信息");
+        break;
+      case error.POSITION_UNAVAILABLE:
+        alert("未能获取定位信息");
+        break;
+      case error.TIMEOUT:
+        alert("获取用户位置信息超时");
+        break;
+      case error.UNKNOWN_ERROR:
+        alert("未知错误");
+        break;
+    }
+  }
 </script>
+
