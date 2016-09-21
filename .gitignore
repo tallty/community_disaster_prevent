@@ -31,6 +31,7 @@ config/initializers/weixin_rails_middleware.rb
 /public/media/*
 /public/ckeditor_assets/
 /public/assets/*
+/public/assets/
 /public/assets
 /public/system/
 .tmp/
@@ -41,6 +42,7 @@ public/lightning/
 public/monitor_stations.xlsx
 public/volunteer.xlsx
 public/assets/*
+public/assets/
 
 /bin
 .idea/*
