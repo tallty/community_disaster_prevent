@@ -139,6 +139,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
     # 点击菜单跳转链接时的事件推送
     def handle_view_event
       Rails.logger.info("你点击了: #{@keyword}")
+      reply_text_message("")
     end
 
     # 帮助文档: https://github.com/lanrion/weixin_authorize/issues/22

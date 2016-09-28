@@ -18,15 +18,16 @@
         <%= f.hidden_field :openid, :value => @subscriber.openid %>
       <% end -%>
       <%= f.hidden_field :disaster_position_id, :value => @disaster_position.id %>
+
       <div class="col-xs-12 disaster-input disaster-time">
-        <strong>灾情发生时间: </strong> <%= f.text_field :occur_time, :class => "input", placeholder: "时间", readonly:"true" %>
+        <strong>灾情发生时间: </strong> 
+        <%= f.text_field :occur_time, value: "#{Time.now.strftime('%F %H:%M')}", :class => "input", placeholder: "时间", readonly:"true" %>
       </div>
       <div class="col-xs-12 disaster-input">
         <strong>灾情类别: </strong> 
         <%= f.select :disaster_type, ["暴雨","雷电", "大风", "其它"], 
-                      options = {:prompt =>"请选择灾情类型" }, 
-                      :class =>"input", readonly:"true"
-                      :selected => "暴雨" %> 
+                      options = { :prompt =>"请选择灾情类型", :selected => "暴雨" }, 
+                      :class =>"input", readonly:"true" %> 
         <i class="iconfont right-pull pull-right">&#xe635;</i>
       </div>
       <strong class="disaster_said">灾情说明: </strong>
