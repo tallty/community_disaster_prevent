@@ -2,9 +2,9 @@
   <div id="map_container_position"></div>
   <div class="disaster_position_content" style="color: #000;">
     <div class="row">
-      <%#= @subscriber.nick_name %>, 感谢您上报灾情. 
+      <p><%= @subscriber.present? ? @subscriber.nick_name : "访客" %>, 感谢您上报灾情. </p>
       <% if @disaster_position.nil? %>
-        请上传灾情地址完善<灾情上报>流程.
+        <p>请上传灾情地址完善<灾情上报>流程.</p>
       <% end %>
     </div>
     
@@ -15,9 +15,16 @@
       <%= f.hidden_field :lon %>
       <%= f.hidden_field :lat %>
       <%= f.hidden_field :address %>
-      <div class="text-center"><i class="iconfont">&#xe607;</i><span id="position" style="color: red;"></span></div>
+      <div class="text-center">
+        <i class="iconfont">&#xe607;</i>
+        <span id="position" style="color: red;"></span>
+      </div>
       <br>
-      <div class="headTab headTabRight"><a href="javascript:;" id= "head_List"><%= f.submit "确认", class: "btn btn-success btn-lg", :style => "width:100%" %></a></div>
+      <div class="headTab headTabRight">
+        <a href="javascript:;" id= "head_List">
+          <%= f.submit "确认", class: "btn btn-success btn-lg", :style => "width:100%" %>
+        </a>
+      </div>
     <% end %>
     </div>
   </div>

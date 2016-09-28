@@ -2,12 +2,8 @@
   <div class="communities_centre_userinfo">
     <div class="weui_container communities_centre_userinfo_content">
       <div class="row">
-        <% if @subscriber.present? %>
-          <span><%= @subscriber.nick_name %></span>
-        <% else %>
-          <span>游客</span>
-        <% end -%>, 感谢您上报灾情. 
-        <br>请上传灾情照片完善<灾情上报>流程.
+        <p><%= @subscriber.present? ? @subscriber.nick_name : "访客" %>, 感谢您上报灾情.</p> 
+        <p>请上传灾情照片完善<灾情上报>流程.</p>
       </div>
     </div>
   </div>

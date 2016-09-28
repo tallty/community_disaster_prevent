@@ -2,19 +2,15 @@
   <div class="weui_content_communities">
 
     <div class="weui_navbar header">
-      <div class="weui_navbar_item weui_bar_item_on" id="head_Map">
-          地图
-      </div>
-      <div class="weui_navbar_item" id= "head_List">
-          列表
-      </div>
+      <div class="weui_navbar_item weui_bar_item_on" id="head_Map">地图</div>
+      <div class="weui_navbar_item" id= "head_List">详情</div>
     </div>
 
     <div id="map_container"></div>
 
     <div id="showList" class="row" style="display: none;">
       <% if @disasters.present? != true %>
-        <div class="col-xs-12 show_disasters alpha-bg"><h4>当前没有灾情列表！</h4></div>
+        <div class="col-xs-12 show_disasters alpha-bg"><h4>当前没有灾情</h4></div>
       <% else %>
         <% @disasters.each do |disaster| %>
           <div class="col-xs-12 show_disasters alpha-bg">

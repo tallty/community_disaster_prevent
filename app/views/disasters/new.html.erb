@@ -14,7 +14,7 @@
   <div class="disaster_content row">
     <%= form_for @disaster, url: disasters_path do |f| %>
       <% if @subscriber.present? %>
-        <div class="row">你好: <%= @subscriber.nick_name %></div>
+        <div class="col-xs-12">你好: <%= @subscriber.nick_name %></div>
         <%= f.hidden_field :openid, :value => @subscriber.openid %>
       <% end -%>
       <%= f.hidden_field :disaster_position_id, :value => @disaster_position.id %>
@@ -22,7 +22,12 @@
         <strong>灾情发生时间: </strong> <%= f.text_field :occur_time, :class => "input", placeholder: "时间", readonly:"true" %>
       </div>
       <div class="col-xs-12 disaster-input">
-        <strong>灾情类别: </strong> <%= f.select :disaster_type, ["暴雨","雷电", "大风", "其它"], options = {:prompt =>"请选择灾情类型" }, :class =>"input", readonly:"true" %> <i class="iconfont right-pull pull-right">&#xe635;</i>
+        <strong>灾情类别: </strong> 
+        <%= f.select :disaster_type, ["暴雨","雷电", "大风", "其它"], 
+                      options = {:prompt =>"请选择灾情类型" }, 
+                      :class =>"input", readonly:"true"
+                      :selected => "暴雨" %> 
+        <i class="iconfont right-pull pull-right">&#xe635;</i>
       </div>
       <strong class="disaster_said">灾情说明: </strong>
 
@@ -57,7 +62,8 @@
         todayBtn: true,
         showMeridian: true,
         minuteStep: 15,
-        pickerPosition: "bottom-right"
+        pickerPosition: "bottom-right",
+        initialDate: new Date()
     });
   });
 
