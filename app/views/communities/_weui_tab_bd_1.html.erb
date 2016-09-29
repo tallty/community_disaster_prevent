@@ -20,8 +20,8 @@
             <div class="row">地点: <%= disaster.disaster_position.try(:address) %></div>
           </div>
           <div class="col-xs-12 show_disasters text-center show_disasters_push alpha-bg">
-            <%# if disaster.subscriber_id == @subscriber.id %>
-        <!--       <div class="col-xs-4">
+            <% if disaster.subscriber_id == @subscriber.id %>
+              <div class="col-xs-4">
                 <%= link_to "详细信息", disaster_path(disaster) %>
               </div>
               <div class="col-xs-4">
@@ -29,15 +29,15 @@
               </div>
               <div class="col-xs-4">
                 <%= link_to "上传图片", new_disaster_picture_path(disaster_id: disaster.id) %>
-              </div> -->
-            <%# else %>
+              </div>
+            <% else %>
               <div class="col-xs-6">
                 <%= link_to "详细信息", disaster_path(disaster) %>
               </div>
               <div class="col-xs-6">
                 <%= link_to "上传图片", new_disaster_picture_path(disaster_id: disaster.id) %>
               </div>
-            <%# end %>
+            <% end %>
           </div>
         <% end %>
       <% end %>
