@@ -14,30 +14,32 @@
       <% else %>
         <% @disasters.each do |disaster| %>
           <div class="col-xs-12 show_disasters alpha-bg">
-            <div class="row">时间: <%= disaster.occur_time.strftime("%Y-%m-%d %H:%M") %></div>
-            <div class="row">类型: <%= disaster.disaster_type %></div>
-            <div class="row">说明: <%= truncate(disaster.explain,length: 20) %></div>
-            <div class="row">地点: <%= disaster.disaster_position.try(:address) %></div>
+            <div class="row">时间：<%= disaster.occur_time.strftime("%Y-%m-%d %H:%M") %></div>
+            <div class="row">类型：<%= disaster.disaster_type %></div>
+            <div class="row">说明：<%= truncate(disaster.explain,length: 20) %></div>
+            <div class="row">地点：<%= disaster.disaster_position.try(:address) %></div>
           </div>
-          <div class="col-xs-12 show_disasters text-center show_disasters_push alpha-bg">
-            <% if disaster.subscriber_id == @subscriber.id %>
-              <div class="col-xs-4">
-                <%= link_to "详细信息", disaster_path(disaster) %>
-              </div>
-              <div class="col-xs-4">
-                <%= link_to "撤回灾情", disaster_path(disaster), method: :delete %>
-              </div>
-              <div class="col-xs-4">
-                <%= link_to "上传图片", new_disaster_picture_path(disaster_id: disaster.id) %>
-              </div>
-            <% else %>
-              <div class="col-xs-6">
-                <%= link_to "详细信息", disaster_path(disaster) %>
-              </div>
-              <div class="col-xs-6">
-                <%= link_to "上传图片", new_disaster_picture_path(disaster_id: disaster.id) %>
-              </div>
-            <% end %>
+          <div class="col-xs-12 text-center show_disasters_push alpha-bg">
+            <div class="row">
+              <% if disaster.subscriber_id == @subscriber.id %>
+                <div class="col-xs-4">
+                  <%= link_to "详细信息", disaster_path(disaster) %>
+                </div>
+                <div class="col-xs-4">
+                  <%= link_to "撤回灾情", disaster_path(disaster), method: :delete %>
+                </div>
+                <div class="col-xs-4">
+                  <%= link_to "上传图片", new_disaster_picture_path(disaster_id: disaster.id) %>
+                </div>
+              <% else %>
+                <div class="col-xs-6">
+                  <%= link_to "详细信息", disaster_path(disaster) %>
+                </div>
+                <div class="col-xs-6">
+                  <%= link_to "上传图片", new_disaster_picture_path(disaster_id: disaster.id) %>
+                </div>
+              <% end %>
+            </div>
           </div>
         <% end %>
       <% end %>
@@ -77,6 +79,7 @@
       $(this).addClass("weui_bar_item_on");
       $("#map_container").show();
       $("#showList").hide();
+      $(".buttons").show();
     });
     // 列表按钮
     $("#head_List").on("click", function(){
@@ -85,6 +88,7 @@
       $(this).addClass("weui_bar_item_on");
       $("#map_container").hide();
       $("#showList").show();
+      $(".buttons").hide();
     });
 
     //屏幕旋转事件监听
