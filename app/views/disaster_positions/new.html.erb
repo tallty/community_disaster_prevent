@@ -6,7 +6,7 @@
     <div class="row">
       <p><%= @subscriber.present? ? @subscriber.nick_name : "访客" %>, 感谢您上报灾情. </p>
       <% if @disaster_position.nil? %>
-        <p>请上传灾情地址完善<灾情上报>流程.</p>
+        <p>请上传灾情地址完善【灾情上报】流程.</p>
       <% end %>
     </div>
     
@@ -64,23 +64,12 @@
         var mk = new BMap.Marker(ptt);
         map.addOverlay(mk);
         map.panTo(ptt);
+
         console.log(r);
-        // var myGeo = new BMap.Geocoder();
-        // myGeo.getLocation(new BMap.Point(r.point.lng, r.point.lat),
-        //     function(rs) {
-        //       var addComp = rs.addressComponents;
-        //       var address = addComp.district+addComp.street;
-        //       $("input#disaster_position_lon").val(r.point.lng);
-        //       $("input#disaster_position_lat").val(r.point.lat);
-        //       $("input#disaster_position_address").val(address);
-              $("span#position").text(r.addr);
-              // location.href = "http://localhost:3000/location_weather/query?lon="+r.point.lng+"&lat="+r.point.lat+"&name="+addComp.district+addComp.street;
-            // });
-        // alert('您的位置：'+r.point.lng+','+r.point.lat);
-      // }
-      // else {
-      //   alert('failed'+this.getStatus());
-      // }        
+        $("input#disaster_position_lon").val(bd_lon);
+        $("input#disaster_position_lat").val(bd_lat);
+        $("input#disaster_position_address").val(r.addr);
+        $("span#position").text(r.addr);      
     },{enableHighAccuracy: true})
 
     //单击获取点击的经纬度

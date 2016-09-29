@@ -20,8 +20,8 @@
             <div class="row">地点: <%= disaster.disaster_position.try(:address) %></div>
           </div>
           <div class="col-xs-12 show_disasters text-center show_disasters_push alpha-bg">
-            <% if disaster.subscriber_id == @subscriber.id %>
-              <div class="col-xs-4">
+            <%# if disaster.subscriber_id == @subscriber.id %>
+        <!--       <div class="col-xs-4">
                 <%= link_to "详细信息", disaster_path(disaster) %>
               </div>
               <div class="col-xs-4">
@@ -29,15 +29,15 @@
               </div>
               <div class="col-xs-4">
                 <%= link_to "上传图片", new_disaster_picture_path(disaster_id: disaster.id) %>
-              </div>
-            <% else %>
+              </div> -->
+            <%# else %>
               <div class="col-xs-6">
                 <%= link_to "详细信息", disaster_path(disaster) %>
               </div>
               <div class="col-xs-6">
                 <%= link_to "上传图片", new_disaster_picture_path(disaster_id: disaster.id) %>
               </div>
-            <% end %>
+            <%# end %>
           </div>
         <% end %>
       <% end %>
@@ -77,8 +77,6 @@
       $(this).addClass("weui_bar_item_on");
       $("#map_container").show();
       $("#showList").hide();
-      areaBtn.show();
-      roadBtn.show();
     });
     // 列表按钮
     $("#head_List").on("click", function(){
@@ -87,8 +85,6 @@
       $(this).addClass("weui_bar_item_on");
       $("#map_container").hide();
       $("#showList").show();
-      areaBtn.hide();
-      roadBtn.hide();
     });
 
     //屏幕旋转事件监听
@@ -197,24 +193,36 @@
     function addmarker(obj, map) {
       var myIcon = new BMap.Icon("../assets/images/water_area.png", new BMap.Size(30,35));
       var lanlat = new BMap.Point(obj.disaster_position.lon, obj.disaster_position.lat);
-      var sContent ="<div class='text-center'>"+
+      console.log("灾情点")
+      console.dir(lanlat)
+
+      var sContent = "";
+      if (obj.pictures[0]) {
+        sContent ="<div class='text-center'>"+
               "<div>时间:"+obj.occur_time+"</div>"+
               "<div style='word-break:break-all;width:200px;'>说明:"+obj.explain+"</div>"+
               "<div>"+"<a style='color:red;' href='/disasters/"+obj.id+"'>详细说明</a>"+"</div>"+
               "<img id='imgDemo' style='text-align:center;height:100px;width:100px;' src='"+obj.pictures[0].url+"'/>"+"</div>";
-      console.log(obj.pictures[0].url);
+        console.log(obj.pictures[0].url);
+      } else {
+        sContent ="<div class='text-center'>"+
+              "<div>时间:"+obj.occur_time+"</div>"+
+              "<div style='word-break:break-all;width:200px;'>说明:"+obj.explain+"</div>"+
+              "<div>"+"<a style='color:red;' href='/disasters/"+obj.id+"'>详细说明</a>"+"</div>"+
+              "<div><a style='color: blue;' href='/disaster_pictures/new?disaster_id="+obj.id+"'>上传灾情图片</a></div>";
+      }
       var marker;
       var infoWindow
       // 使用不同的灾情图标
-      if(obj.disaster_position == null){ return; }
+      if(obj.disaster_position === null){ return; }
       if(obj.type=="暴雨"){
-        var icon = new BMap.Icon("../assets/images/rain_icon.png", new BMap.Size(30,35));
+        var icon = new BMap.Icon("<%= asset_path 'rain_icon.png' %>", new BMap.Size(30,35));
       }else if(obj.type=="雷电"){
-        var icon = new BMap.Icon("../assets/images/thunder_icon.png", new BMap.Size(30,35));
+        var icon = new BMap.Icon("<%= asset_path 'thunder_icon.png' %>", new BMap.Size(30,35));
       }else if(obj.type=="大风"){
-        var icon = new BMap.Icon("../assets/images/win_icon.png", new BMap.Size(30,35));
+        var icon = new BMap.Icon("<%= asset_path 'win_icon.png' %>", new BMap.Size(30,35));
       }else{
-        var icon = new BMap.Icon("../assets/images/other_icon.png", new BMap.Size(30,35));
+        var icon = new BMap.Icon("<%= asset_path 'other_icon.png' %>", new BMap.Size(30,35));
       }
       // 添加标注点
       marker = new BMap.Marker(lanlat,{icon:icon});

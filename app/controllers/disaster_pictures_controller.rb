@@ -1,5 +1,6 @@
 class DisasterPicturesController < ApplicationController
   before_action :set_disaster, only: [:new]
+  before_action :set_subscriber
   layout 'weixin'
 
   def new
@@ -21,5 +22,9 @@ class DisasterPicturesController < ApplicationController
 
   def disaster_picture_params
     params.require(:disaster_picture).permit(:image, :disaster_id)
+  end
+
+  def set_subscriber
+    @subscriber = Subscriber.where(openid: session[:openid]).first
   end
 end

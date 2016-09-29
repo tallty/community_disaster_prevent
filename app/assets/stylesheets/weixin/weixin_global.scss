@@ -129,3 +129,10 @@ body * {
 		border-color: rgba(255,255,255,0.2);
 	}
 }
+
+.myTabbar:before {
+	border-top: none !important;
+}
+.weui_navbar:after {
+	border-bottom: none !important;
+}

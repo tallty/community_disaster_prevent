@@ -7,9 +7,9 @@ class DisasterPositionsController < ApplicationController
   end
 
   def create
-    @disaster_position = DisasterPosition.create(disaster_position_params)
+    @disaster_position = DisasterPosition.new(disaster_position_params)
     if @disaster_position.save
-      redirect_to new_disaster_path(disaster_position_id: @disaster_position.id)
+      redirect_to new_disaster_path(disaster_position_id: @disaster_position.id, params: disaster_position_params)
     else
     end
   end
