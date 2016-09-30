@@ -74,11 +74,8 @@
   $(function() {
     var file_field = $(".weui_uploader_input_wrp");
     var imageList = $("#image_list");
-    
-    alert("1、准备上传函数");
 
     $("#disaster_picture_image").change(function() {
-      alert("2、文件表单改变值了");
       processUploader("#disaster_picture_image");
     });
 
@@ -87,10 +84,7 @@
       var file = $(input_id)[0].files[0];
       console.dir(file)
 
-      alert(file);
-
       if(file){
-        alert("3、获取到文件了")
         var reader=new FileReader();
         reader.readAsDataURL(file);
 
@@ -100,7 +94,6 @@
           var li = '<li class="weui_uploader_file weui_uploader_status"><div class="weui_uploader_status_content">0%</div></li>';
           imageList.append(li)
           console.log("添加了")
-          alert("4、添加了li");
         }
         // 文件读取中
         reader.onprogress=function(e){
