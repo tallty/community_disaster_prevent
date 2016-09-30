@@ -59,9 +59,9 @@
 
 .disaster_picture_content, .disaster_position_content {
   overflow: auto;
-  height: 88vh;
+  height: 100vh;
   color: #fff;
-  padding: 2vh 10vw;
+  padding: 15px 15px;
   border-top: 1px solid rgba(255,255,255,0.25);
   .disaster-picture-list {
     img {
@@ -85,7 +85,7 @@
 }
 
 
-
+// 灾情show
 .disaster_show_container {
   height: 100%;
   .disaster_show_top {
@@ -131,5 +131,40 @@
         border-radius: 8px;
       }
     }
+  }
+}
+
+.acticle_container {
+  height: 100vh;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  background: image-url("weixin_bg.png");
+  background-size: 100% 100%;
+  .article {
+    color: #fff;
+    .page_title {
+      text-align: center;
+      font-size: 26px;
+      color: #fff;
+      font-weight: 400;
+      margin: 20px 15% 10px;
+    }
+    .weui_article {
+      h1 {
+        color: #de7c23;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+
+// 上传灾情图片
+.new_disaster_picture {
+  a:hover {
+    text-decoration: none;
+  }
+  .weui_btn_disabled {
+    color: rgba(255, 255, 255, 0.6);
   }
 }

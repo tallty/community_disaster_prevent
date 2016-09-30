@@ -8,11 +8,12 @@ class DisasterPicturesController < ApplicationController
   end
 
   def create
-    @disaster_picture = DisasterPicture.create(disaster_picture_params)
-    if @disaster_picture.save
-      redirect_to new_disaster_picture_path(disaster_id: disaster_picture_params[:disaster_id])
-    else
+    images = params[:disaster_picture][:image]
+    images.each do |image|
+      DisasterPicture.create(disaster_id: disaster_picture_params[:disaster_id], image: image)
     end
+
+    redirect_to disaster_path(id: disaster_picture_params[:disaster_id])
   end
 
   private

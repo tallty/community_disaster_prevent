@@ -1,39 +1,146 @@
 <% content_for :title, "灾情图片上传" %>
 <div class="disaster_picture_container">
-  <div class="communities_centre_userinfo">
-    <div class="weui_container communities_centre_userinfo_content">
-      <div class="row">
-        <p><%= @subscriber.present? ? @subscriber.nick_name : "访客" %>, 感谢您上报灾情.</p> 
-        <p>请上传灾情照片完善【灾情上报】流程.</p>
-      </div>
-    </div>
-  </div>
+
   <div class="pic_container">
     <div class="disaster_picture_content">
-      <div class="row disaster-picture-list">
-        <% @disaster.disaster_pictures.each do |picture| %>
-          <% if picture.image.present? %>
-            <%= image_tag picture.image.url %>
-          <% end %>
-        <% end %>
+      <div class="hd text-center">
+        <h3 class="page_title">灾情图片上传</h3>
       </div>
       
-      <div class="row disaster-picture-push">
-      <%= form_for(@disaster_pictures, url: disaster_pictures_path, :html => { :multipart => true } ) do |f| %>
+ <!--      <div class="row disaster-picture-push">
+        <%#= form_for(@disaster_pictures, 
+                    url: disaster_pictures_path, 
+                    :html => { :multipart => true } ) do |f| %>
+          <%#= f.hidden_field :disaster_id, :value => @disaster.id %>
+          <div class="row submit_input">
+            <%#= f.file_field :image%>
+          </div>
+          <div class="headTab headTabRight col-xs-5">
+            <a href="javascript:;" id= "head_List">
+              <%#= f.submit "上传", class: "btn btn-info btn-lg", :style => "width:100%" %>
+              </a>
+            </div>
+          <div class="headTab headTabRight col-xs-5 col-xs-offset-2">
+            <a href="../communities/interact" 
+                class= "btn btn-success btn-lg" 
+                data-no-turbolink='true' 
+                style="width: 100%;">返回</a>
+          </div>
+        <%# end %>
+      </div> -->
+
+      <%= form_for(@disaster_pictures, 
+                    url: disaster_pictures_path, 
+                    html: { multipart: true, id: "uploaderFrom" } ) do |f| %>
         <%= f.hidden_field :disaster_id, :value => @disaster.id %>
-        <div class="row submit_input">
-          <%= f.file_field :image%>
+
+        <div class="weui_cells weui_cells_form">
+          <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary">
+              <div class="weui_uploader">
+                <div class="weui_uploader_hd weui_cell">
+                  <!-- <div class="weui_cell_bd weui_cell_primary">灾情图片上传</div> -->
+                </div>
+                <div class="weui_uploader_bd">
+                  <ul class="weui_uploader_files" id="image_list">
+                    <% @disaster.disaster_pictures.each do |picture| %>
+                      <% if picture.image.present? %>
+                        <li class="weui_uploader_file" style="background-image:url('<%= picture.image.url %>')"></li>
+                      <% end %>
+                    <% end %>
+                  </ul>
+                  <div class="weui_uploader_input_wrp">
+                    <%= f.file_field :image, class: "weui_uploader_input", accept: "image/*", multiple: true %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="headTab headTabRight col-xs-5"><a href="javascript:;" id= "head_List"><%= f.submit "上传", class: "btn btn-info btn-lg", :style => "width:100%" %></a></div>
-        <div class="headTab headTabRight col-xs-5 col-xs-offset-2">
-          <a href="../communities/interact" class= "btn btn-success btn-lg" data-no-turbolink='true' style="width: 100%;">返回</a>
-        </div>
-          
+        <br> 
+        <%= f.submit "开始上传", class: "weui_btn weui_btn_primary", style: "display: none; margin-top: 15px;" %>
+        <a href="javascript:;" id="disabled_submit" class="weui_btn weui_btn_disabled weui_btn_primary">开始上传</a>
+        <a href="<%= interact_communities_path %>" 
+                  class= "weui_btn weui_btn_default" 
+                  data-no-turbolink='true'>返回</a>
       <% end %>
-      </div>
     </div>
   </div>
 </div>
 <script>
   $(".pic_container").backstretch("<%= asset_path "weixin_bg.png" %>");
+</script>
+<script>
+  $(function() {
+    var file_field = $(".weui_uploader_input_wrp");
+    var imageList = $("#image_list");
+
+    $("#disaster_picture_image").change(function() {
+      processUploader("#disaster_picture_image");
+    });
+
+    function processUploader(input_id) {
+      console.log(input_id)
+      var file = $(input_id)[0].files[0];
+      console.dir(file)
+      if(file){
+        var reader=new FileReader();
+        reader.readAsDataURL(file);
+
+        // 读取开始时触发
+        reader.onloadstart=function(){
+          // 添加一格
+          var li = '<li class="weui_uploader_file weui_uploader_status"><div class="weui_uploader_status_content">0%</div></li>';
+          imageList.append(li)
+          console.log("添加了")
+        }
+        // 文件读取中
+        reader.onprogress=function(e){
+          var lastImageStatus = $("li:last .weui_uploader_status_content");
+          var percent = e.loaded / e.total * 100;
+          lastImageStatus.text(percent + "%");
+        }
+        // 文件读取成功完成时触发
+        reader.onload=function(e){
+          var lastImage = $("li:last");
+          lastImage.css("background-image", "url("+this.result+")");
+        }
+        // 上传中断
+        reader.onabort=function(){
+          var lastImageStatus = $("li:last .weui_uploader_status_content");
+          lastImageStatus.text("中断");  
+        } 
+        // 上传错误
+        reader.onerror=function(){
+          var lastImageStatus = $("li:last .weui_uploader_status_content");
+          lastImageStatus.text("错误");
+        }
+        // 读取完成触发，无论成功或失败
+        reader.onloadend=function(){
+          // 显示图片
+          var lastImage = $("li:last");
+          var lastImageStatus = $("li:last .weui_uploader_status_content");
+          lastImage.removeClass("weui_uploader_status");
+          lastImageStatus.remove();
+
+          // 激活上传按钮
+          $(":submit").css("display", "block");
+          $("#disabled_submit").css("display", "none");
+
+          // 增加文件域
+          var input_count = $(":file").length;
+
+          $("#disaster_picture_image").css("display", "none");
+          var add_input = '<input class="weui_uploader_input" accept="image/*" multiple="multiple" type="file" name="disaster_picture[image][]" id="disaster_picture_image'+input_count+'">';
+          file_field.append(add_input);
+
+          // 为新的文件域增加监听事件
+          var new_input_id = "#disaster_picture_image"+input_count;
+          $(new_input_id).change(function() {
+            processUploader(new_input_id);
+          });
+        }
+      }
+    }
+  })
 </script>

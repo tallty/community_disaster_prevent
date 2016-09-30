@@ -136,3 +136,22 @@ body * {
 .weui_navbar:after {
 	border-bottom: none !important;
 }
+
+// uploader
+
+.weui_cells {
+	background-color: transparent !important;
+	&:before {
+		border-top: none !important;
+	}
+	&:after {
+		border-bottom: none !important;
+	}
+	.weui_uploader_files {
+		display: inline;
+	}
+	.weui_cell_ft {
+		color: #fff !important;
+	}
+}
+

@@ -1,31 +1,32 @@
-<div class="disaster_show_container">
-  <div class="disaster_show_top disaster-panel">
-    <div class="panel-hd mborder">灾情详情</div>
-    <div class="communities_centre_userinfo_content">
-      <div class="row">时间: <%= @disaster.occur_time.strftime("%Y-%m-%d %H:%M") %></div>
-      <div class="row">类型: <%= @disaster.disaster_type %></div>
-      <div class="row">说明: <%= @disaster.explain %></div>
-      <div class="row address">地址: <%= @disaster.disaster_position.try(:address) %></div>
+<div class="acticle_container">
+  <div class="article">
+    <div class="hd">
+      <h3 class="page_title">灾情点详情</h3>
     </div>
-  </div> 
-  <div class="detection_content detection_content_3 disaster_show_content">
-    <div class="disaster-panel">
-      <div class="panel-hd mborder">照片列表</div>
-      <div class="panel-bd">
-        <div class="detection_content_lightning">
-          <div class="row disaster-picture-list">
-            <% if @disaster.disaster_pictures.nil? %>
-              该灾情暂无上传图片！
+    <div class="bd">
+      <article class="weui_article">
+        <section>
+          <section>
+            <h1>基本信息</h1>
+            <p> • 时间: <%= @disaster.occur_time.strftime("%Y-%m-%d %H:%M") %></p>
+            <p> • 类型: <%= @disaster.disaster_type %></p>
+            <p> • 说明: <%= @disaster.explain %></p>
+            <p> • 地址: <%= @disaster.disaster_position.try(:address) %></p>
+          </section>
+          <section>
+            <h1>灾情照片</h1>
+            <% if @disaster.disaster_pictures.empty? %>
+              <p>该灾情暂无上传图片！</p>
+            <% else %>
+              <p>
+                <% @disaster.disaster_pictures.each do |picture| %>
+                  <%= image_tag picture.image.url(:medium) %>
+                <% end %>
+              </p>
             <% end %>
-            <% @disaster.disaster_pictures.each do |picture| %>
-              <%= image_tag picture.image.url(:medium) %>
-            <% end %>
-          </div>
-        </div>
-      </div>
+          </section>
+        </section>
+      </article>
     </div>
   </div>
 </div>
-<script>
-  $(".disaster_show_container").backstretch("<%= asset_path "weixin_bg.png" %>");
-</script>
