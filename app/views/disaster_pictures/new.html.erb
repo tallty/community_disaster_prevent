@@ -58,7 +58,7 @@
           </div>
         </div>
         <br> 
-        <%= f.submit "开始上传", class: "weui_btn weui_btn_primary", style: "display: none; margin-top: 15px;" %>
+        <%= f.submit "开始上传", data: { disable_with: "正在上传..." }, class: "weui_btn weui_btn_primary", style: "display: none; margin-top: 15px;" %>
         <a href="javascript:;" id="disabled_submit" class="weui_btn weui_btn_disabled weui_btn_primary">开始上传</a>
         <a href="<%= interact_communities_path %>" 
                   class= "weui_btn weui_btn_default" 
