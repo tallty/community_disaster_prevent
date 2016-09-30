@@ -36,7 +36,7 @@
                   <%= link_to "详细信息", disaster_path(disaster) %>
                 </div>
                 <div class="col-xs-6">
-                  <%= link_to "上传图片", new_disaster_picture_path(disaster_id: disaster.id) %>
+                  <%= link_to "上传图片", new_disaster_picture_path(disaster_id: disaster.id), "data-no-turbolink" => true %>
                 </div>
               <%# end %>
             </div>
