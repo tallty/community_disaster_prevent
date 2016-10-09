@@ -228,6 +228,7 @@
       }else{
         var icon = new BMap.Icon("<%= asset_path 'other_icon.png' %>", new BMap.Size(30,35));
       }
+      icon.setImageSize(new BMap.Size(30,35))
       // 添加标注点
       marker = new BMap.Marker(lanlat,{icon:icon});
       // 创建信息窗口对象
@@ -261,7 +262,8 @@
     function handleAreaToggle(show_water_area, areaBtn, map) {
       var point;
       var marker;
-      var roadIcon = new BMap.Icon("<%= image_url "water_area_icon.png" %>", new BMap.Size(28, 28));
+      var areaIcon = new BMap.Icon("<%= image_url "water_area.png" %>", new BMap.Size(28, 28));
+      areaIcon.setImageSize(new BMap.Size(24, 28));
       var overlays = [];
       var opts = {
         width : 200,     // 信息窗口宽度
@@ -283,7 +285,7 @@
             // 循环打点
             for (var i = 0; i < data.length; i++) {
               point = new BMap.Point(data[i].lon, data[i].lat);
-              marker = new BMap.Marker(point, {icon: roadIcon});
+              marker = new BMap.Marker(point, {icon: areaIcon});
               map.addOverlay(marker);
               overlays.push(marker);
               // 添加信息窗口
@@ -299,7 +301,8 @@
     function handleRoadToggle(show_water_road, roadBtn, map) {
       var point;
       var marker;
-      var roadIcon = new BMap.Icon("<%= image_url "water_road_icon.png" %>", new BMap.Size(28, 28));
+      var roadIcon = new BMap.Icon("<%= image_url "water_road.png" %>", new BMap.Size(28, 28));
+      roadIcon.setImageSize(new BMap.Size(24, 28));
       var overlays = [];
       var opts = {
         width : 200,     // 信息窗口宽度
