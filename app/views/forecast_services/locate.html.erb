@@ -5,15 +5,15 @@
   // 初始化地图，并加载灾情点
   var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
   if (isIOS) {
-    init_data_ios();
+    init_five_data_ios();
     console.log('-----IOS------');
   }else{
-    init_data();
+    init_five_data();
     console.log('-----web------');
   }
 
   // ===========IOS端地图初始化=============
-  function init_data_ios() {
+  function init_five_data_ios() {
     console.log("====")
     var geolocation = new qq.maps.Geolocation("O2KBZ-EILW5-NOJIH-QWO7L-VLF25-QFFDV", "community_disaster_prevent")
     // 获取当前定位
@@ -39,7 +39,7 @@
   }
 
   // ===========android 或 web 端地图初始化=============
-  function init_data() {
+  function init_five_data() {
     console.log("=++++++++++++")
     var geolocation = new BMap.Geolocation();
     // 获取当前定位
