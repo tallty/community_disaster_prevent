@@ -29,11 +29,11 @@
     </div>
 
     <div class="col-xs-12 logic-btn">
-      <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_plain_primary btn-block" id= "head_List" style="text-decoration: none;">选择社区</a>
+      <a href="javascript:;" class="weui_btn weui_btn_plain_primary btn-block" id= "head_List" style="text-decoration: none;">选择社区</a>
       <% if community.present? %>
-        <%= link_to "加入志愿者", "/volunteers/new?openid=#{@subscriber.openid}", class: "weui_btn weui_btn_mini weui_btn_plain_primary btn-block", style: "text-decoration: none;" %>
+        <%= link_to "加入志愿者", "/volunteers/new?openid=#{@subscriber.openid}", class: "weui_btn weui_btn_plain_primary btn-block", style: "text-decoration: none;" %>
       <% end %>
-      <%= link_to "进入社区实况", "http://weixin.lightning.sh.cn/oauths?reurl=http://weixin.lightning.sh.cn/communities/detection", class: "weui_btn weui_btn_mini weui_btn_plain_default btn-block", style: "text-decoration: none;" %>
+      <%= link_to "进入社区实况", "http://weixin.lightning.sh.cn/oauths?reurl=http://weixin.lightning.sh.cn/communities/detection", class: "weui_btn weui_btn_plain_default btn-block", style: "text-decoration: none;" %>
     </div>
   </div>
 

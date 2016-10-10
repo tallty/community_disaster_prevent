@@ -19,7 +19,7 @@
       <div class="communities_belong_1">
         <i class="iconfont input-left-icon">&#xe605;</i><strong>社区</strong>
         <% if @subscriber.community.present? %>
-          <%=link_to locate_subscribers_path do %> 
+          <%=link_to locate_subscribers_path, "data-no-turbolink" => true do %>
             <span class="pull-right right-pull">
               <span><%= @subscriber.community.district %></span><span><%= @subscriber.community.street %></span>社区
               <i class="iconfont">&#xe635;</i></span>
