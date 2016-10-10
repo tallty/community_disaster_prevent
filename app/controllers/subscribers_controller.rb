@@ -6,7 +6,7 @@ class SubscribersController < ApplicationController
   def new
     # 获取当前位置最近社区
     # response = Community.fetchNearestCommunity params[:lon], params[:lat]
-    #@community = Community::NearestCommunity.new.fetch params
+    @community = Community::NearestCommunity.new.fetch params
   end
 
   # GET /subscribers/1/edit
