@@ -220,11 +220,11 @@ class MonitorStation < ActiveRecord::Base
       params_hash = {
         method: 'get'
       }
-      @api_path = "#{@api_path}/#{code}"
-      Rails.logger.info @api_path
+      @api_path = "#{@api_path}#{code}"
       result = get_data(params_hash, {})
 
       Rails.logger.info "+++++++++++++"
+      Rails.logger.info @api_path
       Rails.logger.info result
       Rails.logger.info "+++++++++++++"
 
