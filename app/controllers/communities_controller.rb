@@ -25,9 +25,9 @@ class CommunitiesController < ApplicationController
       @auto_station = MonitorStation::CommunityAutoStation.new.fetch code
       # 积水实况
       @water_stations = MonitorStation::CommunityWaterStation.new.fetch code
-      p "=========================="
-      p @water_stations
-      p "=========================="
+      logger.info "=========================="
+      logger.info @water_stations
+      logger.info '=========================='
       # @water_stations = MonitorStation.community_water_data code
       # 闪电分布
       # @lightning_img_url = Settings.ProjectSetting.url + "/lightning/" + Lightning.get_pic
