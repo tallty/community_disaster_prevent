@@ -221,7 +221,13 @@ class MonitorStation < ActiveRecord::Base
         method: 'get'
       }
       @api_path = "#{@api_path}/#{code}"
+      Rails.logger.info @api_path
       result = get_data(params_hash, {})
+
+      Rails.logger.info "+++++++++++++"
+      Rails.logger.info result
+      result.fetch('Data', {})
+      Rails.logger.info "+++++++++++++"
 
       result.fetch('Data', {})
     end
