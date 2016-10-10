@@ -58,6 +58,9 @@ defaults: &defaults
   MonitorStation::CommunityAutoStation:
     remote: 'http://192.168.169.7'
     api_path: '/JsonService/JsonService.svc/GetCommunityAutoStationDataByCommunityID/'
+  MonitorStation::CommunityWaterStation:
+    remote: 'http://192.168.169.7'
+    api_path: '/JsonService/JsonService.svc/GetCommunityWaterStationData/'
 development:
   <<: *defaults
 

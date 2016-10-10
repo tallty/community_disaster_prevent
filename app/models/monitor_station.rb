@@ -181,8 +181,6 @@ class MonitorStation < ActiveRecord::Base
     water_stations = []
     water_station_infos.each do |item|
       data = MultiJson.load($redis.hget("monitor_stations", item.station_number)) rescue {}
-      p "====================="
-      p data
       if data.present?
         water_stations << data
       end
@@ -191,6 +189,26 @@ class MonitorStation < ActiveRecord::Base
   end
 
   class CommunityAutoStation
+    include NetworkMiddleware
+
+    def initialize
+      @root = self.class.name.to_s
+      super
+    end
+
+    def fetch code
+      params_hash = {
+        method: 'get'
+      }
+      @api_path = "#{@api_path}/#{code}"
+      result = get_data(params_hash, {})
+
+      result.fetch('Data', {})
+    end
+  end
+
+  # 获取积水站数据
+  class CommunityWaterStation
     include NetworkMiddleware
 
     def initialize
