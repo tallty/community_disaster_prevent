@@ -181,6 +181,8 @@ class MonitorStation < ActiveRecord::Base
     water_stations = []
     water_station_infos.each do |item|
       data = MultiJson.load($redis.hget("monitor_stations", item.station_number)) rescue {}
+      p "====================="
+      p data
       if data.present?
         water_stations << data
       end
