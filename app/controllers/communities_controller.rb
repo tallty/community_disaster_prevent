@@ -17,7 +17,6 @@ class CommunitiesController < ApplicationController
 
     # 用户所属社区
     @community = @subscriber.community
-    logger.info @community
 
     if @community.present?
       # 社区编号
