@@ -24,9 +24,9 @@ class CommunitiesController < ApplicationController
       # 气象实况
       @auto_station = MonitorStation::CommunityAutoStation.new.fetch code
       # 积水实况
-      @water_stations = MonitorStation::CommunityWaterStation.new.fetch code
+      @water_station = MonitorStation::CommunityWaterStation.new.fetch code
       logger.info "=========================="
-      logger.info @water_stations
+      logger.info @water_station
       logger.info '=========================='
       # @water_stations = MonitorStation.community_water_data code
       # 闪电分布

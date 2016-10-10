@@ -221,15 +221,9 @@ class MonitorStation < ActiveRecord::Base
         method: 'get'
       }
       @api_path = "#{@api_path}/#{code}"
-      logger.info "================="
-      logger.info @api_path
-      logger.info "================="
-      
       result = get_data(params_hash, {})
 
       result.fetch('Data', {})
-      logger.info "fetch water station"
-      logger.info result
     end
   end
   

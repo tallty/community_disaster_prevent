@@ -61,14 +61,14 @@
       </div>
     </div>
 
-    <% if @water_stations.present? %>
+    <% if @water_station["data"].present? %>
       <div class="detection_content alpha-bg">
         <div class="my-panel">
           <div class="panel-hd mborder">积水实况</div>
           <div class="panel-bd">
-            <% @water_stations.each do |item| %>
-              <p class="detection_content_ponding"><%= item["site_name"] %>积水深度：<%= item["data"] || 0 %>m</p>
-            <% end %>
+            <% time = @water_station["data"]["DATATIME"].split('T') %>
+            <p class="detection_content_ponding">发布时间：<%= time[0] %>&nbsp;&nbsp;<%= time[1]%></p>
+            <p class="detection_content_ponding">积水深度：<%= @water_station["data"]["WATERDEPTH"] %>m</p>
           </div>
         </div>
       </div>
