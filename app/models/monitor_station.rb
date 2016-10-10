@@ -226,7 +226,6 @@ class MonitorStation < ActiveRecord::Base
 
       Rails.logger.info "+++++++++++++"
       Rails.logger.info result
-      result.fetch('Data', {})
       Rails.logger.info "+++++++++++++"
 
       result.fetch('Data', {})
