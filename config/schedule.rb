@@ -27,6 +27,7 @@ end
 every 10.minutes do
   runner "Lightning.process"
 end
-# every 10.minutes do
-  # runner "MonitorStation.new.process"
-# end
+
+every 5.minutes do
+  runner "MonitorStation.new.process"
+end
