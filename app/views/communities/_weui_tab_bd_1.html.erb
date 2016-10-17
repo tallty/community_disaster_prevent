@@ -21,8 +21,8 @@
           </div>
           <div class="col-xs-12 text-center show_disasters_push alpha-bg">
             <div class="row">
-              <%# if disaster.subscriber_id == @subscriber.id %>
-               <!--  <div class="col-xs-4">
+              <% if disaster.subscriber_id == @subscriber.id %>
+               <div class="col-xs-4">
                   <%= link_to "详细信息", disaster_path(disaster) %>
                 </div>
                 <div class="col-xs-4">
@@ -30,15 +30,15 @@
                 </div>
                 <div class="col-xs-4">
                   <%= link_to "上传图片", new_disaster_picture_path(disaster_id: disaster.id) %>
-                </div> -->
-              <%# else %>
+                </div>
+              <% else %>
                 <div class="col-xs-6">
                   <%= link_to "详细信息", disaster_path(disaster) %>
                 </div>
                 <div class="col-xs-6">
                   <%= link_to "上传图片", new_disaster_picture_path(disaster_id: disaster.id), "data-no-turbolink" => true %>
                 </div>
-              <%# end %>
+              <% end %>
             </div>
           </div>
         <% end %>
