@@ -23,11 +23,14 @@ class CommunitiesController < ApplicationController
       code = @community.code
       # 气象实况
       @auto_station = MonitorStation::CommunityAutoStation.new.fetch code
+      logger.info "============气象实况=============="
+      logger.info @auto_station
+      logger.info '=============气象实况============='
       # 积水实况
       @water_station = MonitorStation::CommunityWaterStation.new.fetch code
-      logger.info "=========================="
+      logger.info "============积水实况=============="
       logger.info @water_station
-      logger.info '=========================='
+      logger.info '============积水实况=============='
       # @water_stations = MonitorStation.community_water_data code
       # 闪电分布
       # @lightning_img_url = Settings.ProjectSetting.url + "/lightning/" + Lightning.get_pic

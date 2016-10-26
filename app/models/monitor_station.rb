@@ -203,6 +203,11 @@ class MonitorStation < ActiveRecord::Base
       @api_path = "#{@api_path}/#{code}"
       result = get_data(params_hash, {})
 
+      Rails.logger.info "--------自动站信息-------"
+      Rails.logger.info @api_path
+      Rails.logger.info result
+      Rails.logger.info "--------自动站信息--------"
+
       result.fetch('Data', {})
     end
   end
@@ -223,10 +228,10 @@ class MonitorStation < ActiveRecord::Base
       @api_path = "#{@api_path}#{code}"
       result = get_data(params_hash, {})
 
-      Rails.logger.info "+++++++++++++"
+      Rails.logger.info "+++++积水站信息++++++++"
       Rails.logger.info @api_path
       Rails.logger.info result
-      Rails.logger.info "+++++++++++++"
+      Rails.logger.info "+++++积水站信息++++++++"
 
       result.fetch('Data', {})
     end
