@@ -233,7 +233,9 @@ class MonitorStation < ActiveRecord::Base
       Rails.logger.info result
       Rails.logger.info "+++++积水站信息++++++++"
 
-      result.fetch('Data', {})
+      data = result.fetch('Data', {})
+      default_data = {"Tempreture"=>'--', "RainHour"=>'--', "WindSpd"=>'--', "WindDir"=>'--', "Datetime"=>Time.now}
+      return data.present? ? data : default_data
     end
   end
   
