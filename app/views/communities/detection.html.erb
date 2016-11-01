@@ -66,9 +66,11 @@
         <div class="my-panel">
           <div class="panel-hd mborder">积水实况</div>
           <div class="panel-bd">
-            <% time = @water_station["DATATIME"].split('T') %>
-            <p class="detection_content_ponding">发布时间：<%= time[0] %>&nbsp;&nbsp;<%= time[1]%></p>
-            <p class="detection_content_ponding">积水深度：<%= @water_station["WATERDEPTH"] %>m</p>
+            <% @water_station.each do |station| %>
+              <% time = station["DATATIME"].split('T') %>
+              <p class="detection_content_ponding">发布时间：<%= time[0] %>&nbsp;&nbsp;<%= time[1]%></p>
+              <p class="detection_content_ponding">积水深度：<%= station["WATERDEPTH"] %>m</p>
+            <% end %>
           </div>
         </div>
       </div>
