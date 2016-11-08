@@ -44,6 +44,7 @@
 
       <% districts = Community.where("district <> '上海'").distinct.pluck(:district) %>
       <% streets = Community.where("district = ?", @subscriber.community.district).pluck(:street) %>
+
       <%= form_for @subscriber,  :url => { :action => :update } do |f| %>
         <div class="form-inputs" style="display: none;">
           <div class="input-group col-xs-12">
@@ -55,15 +56,17 @@
 
           <% if @subscriber.community.present? %>
             <div class="input-group col-xs-12">
-            <%= f.select :district, options_for_select(Community.where("district <> '上海'").distinct.pluck(:district), location_district), options = {:prompt =>"请选择绑定区县" }, :class =>"form-control input" %>
+            <%= f.select :district, options_for_select(districts, @subscriber.community.district), 
+                          options = {:prompt =>"请选择绑定区县" }, :class =>"form-control input" %>
             </div>
             <div class="space-6"></div>
             <div class="input-group col-xs-12">
-              <%= f.select :community, options_for_select(Community.where("district = ?", @subscriber.community.district).pluck(:street), location_street), options ={:prompt =>"请选择绑定街道"}, :class =>"form-control input" %>
+              <%= f.select :community, options_for_select(streets, @subscriber.community.street), 
+                            options ={:prompt =>"请选择绑定街道"}, :class =>"form-control input" %>
             </div>
           <% else %>
             <div class="input-group col-xs-12">
-            <%= f.select :district, Community.where("district <> '上海'").distinct.pluck(:district), options = {:prompt =>"请选择绑定区县" }, :class =>"form-control input" %>
+            <%= f.select :district, districts, options = {:prompt =>"请选择绑定区县" }, :class =>"form-control input" %>
             </div>
             <div class="space-6"></div>
             <div class="input-group col-xs-12">
