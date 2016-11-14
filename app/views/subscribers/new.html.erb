@@ -42,8 +42,12 @@
       <% location_district = @community["District_Name"] == "浦东新区" ? @community["District_Name"] : @community["District_Name"].remove("区") %>
       <% location_street = @community["Name"] %>
 
+      <!-- 默认表单显示原来的社区 -->
+      <%# districts = Community.where("district <> '上海'").distinct.pluck(:district) %>
+      <%# streets = Community.where("district = ?", @subscriber.community.district).pluck(:street) %>
+      <!-- 默认表单显示定位的社区 -->
       <% districts = Community.where("district <> '上海'").distinct.pluck(:district) %>
-      <% streets = Community.where("district = ?", @subscriber.community.district).pluck(:street) %>
+      <% streets = Community.where("district = ?", location_district).pluck(:street) %>
 
       <%= form_for @subscriber,  :url => { :action => :update } do |f| %>
         <div class="form-inputs" style="display: none;">
@@ -56,12 +60,12 @@
 
           <% if @subscriber.community.present? %>
             <div class="input-group col-xs-12">
-            <%= f.select :district, options_for_select(districts, @subscriber.community.district), 
+            <%= f.select :district, options_for_select(districts, location_district), 
                           options = {:prompt =>"请选择绑定区县" }, :class =>"form-control input" %>
             </div>
             <div class="space-6"></div>
             <div class="input-group col-xs-12">
-              <%= f.select :community, options_for_select(streets, @subscriber.community.street), 
+              <%= f.select :community, options_for_select(streets, location_street), 
                             options ={:prompt =>"请选择绑定街道"}, :class =>"form-control input" %>
             </div>
           <% else %>

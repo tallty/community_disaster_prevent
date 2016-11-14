@@ -1,7 +1,7 @@
 <div class="tomorrow-air alpha-bg">
 	<div class="part" style="border-right: 1px solid rgba(255,255,255,0.2);">
 		<!-- 数据时间段 -->
-		<div class="now-time"><%= Date.tomorrow.strftime("%F") %> 上午 06时 - 12时</div>
+		<div class="now-time"><%= @result[:time].to_date.tomorrow.strftime("%F") %> 上午 06时 - 12时</div>
 		<!-- 明天上午的空气质量 -->
 		<% noon = @result[:aqi][1] %>
 		<div class="now-air">
@@ -15,7 +15,7 @@
 	</div>
 	<div class="part">
 		<!-- 数据时间段 -->
-		<div class="now-time"><%= Date.tomorrow.strftime("%F") %> 下午 12时 - 20时</div>
+		<div class="now-time"><%= @result[:time].to_date.tomorrow.strftime("%F") %> 下午 12时 - 20时</div>
 		<!-- 明天下午的空气质量 -->
 		<% afternoon = @result[:aqi][2] %>
 		<div class="now-air">
