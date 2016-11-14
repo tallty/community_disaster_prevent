@@ -45,9 +45,7 @@
 
     // 百度地图API功能
     var map = new BMap.Map("map_container_position");    // 创建Map实例
-    map.centerAndZoom("上海",15);      // 初始化地图,用城市名设置地图中心点
-    map.enableScrollWheelZoom(true);
-    map.enableInertialDragging();   //两秒后开启惯性拖拽
+
 
     var geolocation = new qq.maps.Geolocation("OZBBZ-ZQLC3-MKF3U-3VCU4-DFWO7-AGFPB", "weather_survey")
     geolocation.getLocation(function(r){
@@ -62,6 +60,11 @@
         // 添加自定义位置图标
         var ptt = new BMap.Point(bd_lon, bd_lat);
         var mk = new BMap.Marker(ptt);
+
+        map.centerAndZoom(ptt,15);    // 初始化地图,用城市名设置地图中心点
+        map.enableScrollWheelZoom(true);
+        map.enableInertialDragging();   //两秒后开启惯性拖拽
+
         map.addOverlay(mk);
         map.panTo(ptt);
 
