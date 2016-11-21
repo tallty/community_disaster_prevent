@@ -8,15 +8,20 @@
 				<div class="location col-xs-5"><%= @district %><i class="iconfont">&#xe612;</i></div>
 				<!-- 发布时间 -->
 				<p class="col-xs-7 right">
-					<%= @auto_station["Datetime"].to_time.strftime("%m月%d日") %>
-					<%= week_name @auto_station["Datetime"].to_time %>
-					<%= @auto_station["Datetime"].to_time.strftime("%H:%M") %>发布</p>	
+					<% if @auto_station.present? %>
+						<%= @auto_station["Datetime"].to_time.strftime("%m月%d日") %>
+						<%= week_name @auto_station["Datetime"].to_time %>
+						<%= @auto_station["Datetime"].to_time.strftime("%H:%M") %>发布
+					<% else %>
+						暂无数据	
+					<% end %>
+				</p>	
 			</div>
 			<!-- 天气 -->
 			<div class="weather-info">
 				<div class="weather-left">
 					<span>
-						<%= @auto_station["Tempreture"] %>
+						<%= @auto_station.present? ? @auto_station["Tempreture"] : "--" %>
 					</span>
 					<span style="padding-left: 8px;">˚</span>
 				</div>

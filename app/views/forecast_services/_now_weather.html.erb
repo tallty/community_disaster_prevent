@@ -3,19 +3,25 @@
 		<div class="weui_grid">
 			<span>风 速</span>
 			<i class="iconfont">&#xe60f;</i>
-			<small class="five-info"><%= MonitorStation.translate_wspeed @auto_station["WindSpd"] %></small>
-			<small><%= MonitorStation.translate_wdir @auto_station["WindDir"] %></small>
+			<small class="five-info"><%= @auto_station.present? ? MonitorStation.translate_wspeed @auto_station["WindSpd"] : "--" %></small>
+			<small><%= @auto_station.present? ? MonitorStation.translate_wdir(@auto_station["WindDir"]) : "--" %></small>
 		</div>
 		<div class="weui_grid">
 			<span>降 水</span>
 			<i class="iconfont">&#xe608;</i>
-			<small class="five-info"><%= @auto_station["RainHour"] %></small>
+			<small class="five-info"><%= @auto_station.present? ? @auto_station["RainHour"] : "--" %></small>
 			<small>mm</small>	
 		</div>
 		<div class="weui_grid">
 			<span>能见度</span>
 			<i class="iconfont">&#xe616;</i>
-			<small class="five-info"><%= @auto_station["Visible"] == "////" ? "-" : @auto_station["Visible"].to_i %></small>
+			<small class="five-info">
+				<% if @auto_station.present? %>
+					<%= @auto_station["Visible"] == "////" ? "-" : @auto_station["Visible"].to_i %>
+				<% else %>
+					<%= "--" %>
+				<% end %>
+			</small>
 			<small>km</small>	
 		</div>
 	</div>
