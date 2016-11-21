@@ -3,7 +3,7 @@
 		<div class="weui_grid">
 			<span>风 速</span>
 			<i class="iconfont">&#xe60f;</i>
-			<small class="five-info"><%= @auto_station.present? ? MonitorStation.translate_wspeed @auto_station["WindSpd"] : "--" %></small>
+			<small class="five-info"><%= @auto_station.present? ? MonitorStation.translate_wspeed(@auto_station["WindSpd"]) : "--" %></small>
 			<small><%= @auto_station.present? ? MonitorStation.translate_wdir(@auto_station["WindDir"]) : "--" %></small>
 		</div>
 		<div class="weui_grid">
