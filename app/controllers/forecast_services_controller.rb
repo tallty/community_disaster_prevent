@@ -15,17 +15,12 @@ class ForecastServicesController < ApplicationController
   # 五日天气预报
   def five_day_weather
     result = LocationUtil.new.reverse(location_params)
-
+    # 街道
     @district = result['addressComponent']['district']
-    # @community = subscriber.community
-    # @community = Community.second
-    
     # 五日预报
     @weathers = Weather::FiveDayWeather.new.fetch
-    
     # 全市预警
     @warn = Warning::CityWarningProcess.new.fetch
-
     # 气象实况
     @auto_station = Weather::DistrictWeather.new.fetch @district
   end
@@ -40,12 +35,9 @@ class ForecastServicesController < ApplicationController
   def air_quality
     # 今明空气质量
     @result = AQI::AqiData.new.get_web_message
-
-
     # 过去24小时空气质量
     # @aqi_weathers = AQI.get_history_by_city("上海").reverse
     # 发布时间
-    
     # # 整理获取AQI图表需要的相应数据
     # @aqi_datas, @pm25_datas, @pm10_datas, @o3_datas, @no2_datas = AQI.organize_aqi_datas @aqi_weathers
   end
