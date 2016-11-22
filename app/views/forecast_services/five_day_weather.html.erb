@@ -36,9 +36,9 @@
 							<% @warn.each do |item| %>
 								<div class="warn">
 									<% if item['OPERATION'].eql?("解除") %>
-										<%= image_tag "warnings/b_#{Warning.tran_type(item['TYPE'])}#{Warning.tran_level(item['LEVEL'])}g.png" %>
+										<%= image_tag "warnings/b_#{Warning.tran_type(item['TYPE'])}#{Warning.tran_level(item['LEVEL'])}g.png", with: 28, height: 28 %>
 									<% else %>
-										<%= image_tag "warnings/b_#{Warning.tran_type(item['TYPE'])}#{Warning.tran_level(item['LEVEL'])}.png" %>
+										<%= image_tag "warnings/b_#{Warning.tran_type(item['TYPE'])}#{Warning.tran_level(item['LEVEL'])}.png", width: 28, height: 28 %>
 									<% end %>
 									<%= "#{item['TYPE']}#{item['LEVEL']}预警" %>
 								</div>
