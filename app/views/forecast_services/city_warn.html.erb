@@ -5,7 +5,7 @@
 		<% @city_warnings.each do |item| %>
 			<div class="my-panel">
 				<div class="panel-hd alpha-bg">
-					<% if item['status'].eql?("解除") %>
+					<% if item['OPERATION'].eql?("解除") %>
 						<%= image_tag "warnings/b_#{Warning.tran_type(item['TYPE'])}#{Warning.tran_level(item['LEVEL'])}g.png", height: 30 %>
 					<% else %>
 						<%= image_tag "warnings/b_#{Warning.tran_type(item['TYPE'])}#{Warning.tran_level(item['LEVEL'])}.png", height: 30 %>

@@ -51,7 +51,7 @@ class Warning < ActiveRecord::Base
         item = MultiJson.load item rescue {}
         publishtime = Time.parse(item["publish_time"]).strftime("%m月%d日 %H点%M分")
 
-        if item["status"].eql?("解除")
+        if item["OPERATION"].eql?("解除")
           img_url = "#{Settings.ProjectSetting.url}/assets/images/warnings/b_#{Warning.tran_type(item['type'])}#{Warning.tran_level(item['level'])}g.png"
         else
           img_url = "#{Settings.ProjectSetting.url}/assets/images/warnings/b_#{Warning.tran_type(item['type'])}#{Warning.tran_level(item['level'])}.png"
