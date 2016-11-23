@@ -61,35 +61,36 @@
       </div>
     </div>
 
-    <% if @water_station.present? %>
-      <div class="detection_content alpha-bg">
-        <div class="my-panel">
-          <div class="panel-hd mborder">积水实况</div>
-          <div class="panel-bd">
-            <% @water_station.each do |station| %>
-              <% time = station["DATATIME"].split('T') %>
-              <p class="detection_content_ponding">发布时间：<%= time[0] %>&nbsp;&nbsp;<%= time[1]%></p>
-              <p class="detection_content_ponding">积水深度：<%= station["WATERDEPTH"] %>m</p>
+    
+    <div class="detection_content alpha-bg">
+      <div class="my-panel">
+        <div class="panel-hd mborder">积水实况</div>
+        <div class="panel-bd">
+          <% if @water_stations.present? %>
+            <% @water_stations.each do |item| %>
+              <p class="detection_content_ponding"><%= item["site_name"] %>积水深度：<%= item["data"] || 0 %>m</p>
             <% end %>
-          </div>
+          <% else %>
+              <p class="text-center">无积水实况</p>
+          <% end %>
         </div>
       </div>
-    <% end %>
+    </div>
 
     <div class="detection_content detection_content_3 alpha-bg">
       <div class="my-panel">
         <div class="panel-hd mborder">闪电分布</div>
         <div class="panel-bd">
           <% if @lightningPoints.present? == false || @lightningPoints.length == 0 %>
-            <p class="text-center">过去一小时没有闪电分布</p>
+            <p class="text-center">过去一小时没有闪电分布点</p>
           <% else %>
             <p class="text-center">过去一小时闪电分布点【<%=@lightningPoints.length%>个】</p>
+            <div class="detection_content_lightning">
+              <div id="map_container_lightning"></div>
+              <!-- <img src="<%#= @lightning_img_url %>" alt="闪电分布图"> -->
+            </div>
           <% end %>
-          <div class="detection_content_lightning">
-            <div id="map_container_lightning"></div>
-            <!-- <img src="<%#= @lightning_img_url %>" alt="闪电分布图"> -->
-          </div>
-     <!--      <p class="detection_content_lightning_text text-justify">云体与大地相接触的放电现象称为地闪·用CG表示，地闪有两种：正地闪(+)和负地闪(-)，通常情况下的对地放电过程都是将云内负电荷输送到地面的负极性放电·即负地闪，但是也有一些放电将云内的正电荷输送到地面，这种现象被称为正地闪。</p> -->
+          <p class="detection_content_lightning_text text-justify">云体与大地相接触的放电现象称为地闪·用CG表示，地闪有两种：正地闪(+)和负地闪(-)，通常情况下的对地放电过程都是将云内负电荷输送到地面的负极性放电·即负地闪，但是也有一些放电将云内的正电荷输送到地面，这种现象被称为正地闪。</p>
         </div>
       </div>
     </div>
