@@ -70,8 +70,6 @@
             <% @water_stations.each do |item| %>
               <p class="detection_content_ponding"><%= item["site_name"] %>积水深度：<%= item["data"] || 0 %>m</p>
             <% end %>
-          <% else %>
-              <p class="text-center">无积水实况</p>
           <% end %>
         </div>
       </div>
@@ -81,7 +79,7 @@
       <div class="my-panel">
         <div class="panel-hd mborder">闪电分布</div>
         <div class="panel-bd">
-          <p class="text-center">过去一小时闪电分布点【<%=@lightningPoints.length%>个】</p>
+          <p class="text-center">上海市范围内过去一小时闪电【<%=@lightningPoints.length%>个】</p>
           <div class="detection_content_lightning">
             <div id="map_container_lightning"></div>
             <!-- <img src="<%#= @lightning_img_url %>" alt="闪电分布图"> -->
