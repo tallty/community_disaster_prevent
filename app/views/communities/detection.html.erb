@@ -90,7 +90,7 @@
               <!-- <img src="<%#= @lightning_img_url %>" alt="闪电分布图"> -->
             </div>
           <% end %>
-          <p class="detection_content_lightning_text text-justify">云体与大地相接触的放电现象称为地闪·用CG表示，地闪有两种：正地闪(+)和负地闪(-)，通常情况下的对地放电过程都是将云内负电荷输送到地面的负极性放电·即负地闪，但是也有一些放电将云内的正电荷输送到地面，这种现象被称为正地闪。</p>
+          <!-- <p class="detection_content_lightning_text text-justify">云体与大地相接触的放电现象称为地闪·用CG表示，地闪有两种：正地闪(+)和负地闪(-)，通常情况下的对地放电过程都是将云内负电荷输送到地面的负极性放电·即负地闪，但是也有一些放电将云内的正电荷输送到地面，这种现象被称为正地闪。</p> -->
         </div>
       </div>
     </div>
@@ -113,13 +113,13 @@
     $(document).ready(function() {
         var height = $(window).height()*2;
         var width = $(window).width
-          $("div#map_container_lightning").height(height/4);
+          $("div#map_container_lightning").height(height/3);
           $("div#map_container_lightning").width(width);
       });
 
       // 百度地图API功能
       var map = new BMap.Map("map_container_lightning");    // 创建Map实例
-      map.centerAndZoom("上海",8);      // 初始化地图,用城市名设置地图中心点
+      map.centerAndZoom("上海",10);      // 初始化地图,用城市名设置地图中心点
       map.enableScrollWheelZoom(true);
       map.enableInertialDragging();   //两秒后开启惯性拖拽
 
