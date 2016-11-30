@@ -61,19 +61,18 @@
       </div>
     </div>
 
-    
-    <div class="detection_content alpha-bg">
-      <div class="my-panel">
-        <div class="panel-hd mborder">积水实况</div>
-        <div class="panel-bd">
-          <% if @water_stations.present? %>
+    <% if @water_stations.present? %>
+      <div class="detection_content alpha-bg">
+        <div class="my-panel">
+          <div class="panel-hd mborder">积水实况</div>
+          <div class="panel-bd">
             <% @water_stations.each do |item| %>
               <p class="detection_content_ponding"><%= item["site_name"] %>积水深度：<%= item["data"] || 0 %>m</p>
             <% end %>
-          <% end %>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
 
     <div class="detection_content detection_content_3 alpha-bg">
       <div class="my-panel">
