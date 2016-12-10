@@ -5,7 +5,7 @@ $(function() {
 	<% @weathers.each_with_index do |item, index| %>
 		<% @low.push item[:LowTmp].to_i %>
 		<% @high.push item[:HighTmp].to_i %>
-		<% @week_day.push (index.to_s) %>
+		<% @week_day.push (item[:Time]) %>
 	<% end %>
 	// 基于准备好的dom，初始化echarts实例
   var myChart = echarts.init(document.getElementById('five_weather_chart'));
@@ -43,8 +43,8 @@ $(function() {
             symbolSize: 30,
             showSymbol: true,
             data: [
-                <% @weathers.each_with_index do |item, index| %>
-									{ name: '气温',coord: ['<%= index.to_s %>', <%= item[:HighTmp].to_i %>] },
+                <% @weathers.each do |item| %>
+									{ name: '气温',coord: ['<%= item[:Time] %>', <%= item[:HighTmp].to_i %>] },
                 <% end %>
             ],
             itemStyle: {
@@ -67,8 +67,8 @@ $(function() {
           symbolRotate: 180,
           symbolOffset: [0, '20%'],
           data: [
-            <% @weathers.each_with_index do |item, index| %>
-							{ name: '气温',coord: ['<%= index.to_s %>', <%= item[:LowTmp].to_i %>] },
+            <% @weathers.each do |item| %>
+							{ name: '气温',coord: ['<%= item[:Time] %>', <%= item[:LowTmp].to_i %>] },
             <% end %>
           ],
 	        itemStyle: { normal: { color: 'rgba(255, 255, 255, 0)' } }
