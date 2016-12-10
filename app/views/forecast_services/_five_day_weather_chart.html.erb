@@ -43,7 +43,7 @@ $(function() {
             symbolSize: 30,
             showSymbol: true,
             data: [
-                <% @weathers.each do |item| %>
+                <% @weathers.each_with_index do |item, index| %>
 									{ name: '气温',coord: ['<%= index.to_s %>', <%= item[:HighTmp].to_i %>] },
                 <% end %>
             ],
@@ -67,7 +67,7 @@ $(function() {
           symbolRotate: 180,
           symbolOffset: [0, '20%'],
           data: [
-            <% @weathers.each do |item| %>
+            <% @weathers.each_with_index do |item, index| %>
 							{ name: '气温',coord: ['<%= index.to_s %>', <%= item[:LowTmp].to_i %>] },
             <% end %>
           ],
