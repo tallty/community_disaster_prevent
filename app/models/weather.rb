@@ -7,7 +7,8 @@ class Weather
     elsif report_date == Time.zone.today + 1
       "明天"
     else
-      I18n.localize report_date, format: "%f"
+      # todo
+      I18n.localize report_date, format: "%a"
     end
   end
 
