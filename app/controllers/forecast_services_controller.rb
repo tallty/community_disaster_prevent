@@ -19,9 +19,9 @@ class ForecastServicesController < ApplicationController
     @district = result['addressComponent']['district']
     # 五日预报
     @weathers = Weather::FiveDayWeather.new.fetch
-    Logger.info "=================="
-    Logger.info @weathers
-    Logger.info "=================="
+    logger.info "=================="
+    logger.info @weathers
+    logger.info "=================="
     # 全市预警
     @warn = Warning::CityWarningProcess.new.fetch
     # 气象实况
