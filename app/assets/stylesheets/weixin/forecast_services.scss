@@ -154,11 +154,11 @@
 }
 .five-weather {
 	position: relative;
+	overflow: auto;
 	&:before {
 		border: none;
 	}
 	.scroll_h_container {
-		overflow: auto;
 		width: 200%;
 	}
 	.weui_grid {
