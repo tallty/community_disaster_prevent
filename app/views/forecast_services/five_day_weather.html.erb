@@ -65,22 +65,24 @@
 		<div class="my-panel" style="margin-bottom: 0;">
 			<div class="panel-hd alpha-bg">五日预报</div>
 			<div class="panel-bd alpha-bg weui_grids five-weather" style="padding-top: 8px;">
-			<!-- {日期 => {低温，高温，天气, 风向， 风速}, ...} -->
-				<% @weathers.each do |value| %>
-					<!-- 拆分天气 -->
-					<div class="weui_grid" style="padding-top: 0;">
-						<span class="week-day"><%= value[:Time] %></span>
-						<i class="iconfont <%= FiveDayWeather.weather_keyword value[:Day] %>"></i>
-						<span style="height: 34px;"><%= value[:Day] %></span>
-						<div class="empty"><!-- 图表预留位置 --></div>
-						<i class="iconfont <%= FiveDayWeather.weather_keyword value[:Night] %>"></i>
-						<span><%= value[:Night] %></span>
-						<small><%= value[:Wind] %></small>
-						<small><%= value[:WindLev] %></small>
-					</div>
-				<% end %>
-				<!-- 五日天气图表 -->
-				<div id="five_weather_chart"></div>
+				<div class="scroll_h_container">
+					<!-- {日期 => {低温，高温，天气, 风向， 风速}, ...} -->
+					<% @weathers.each do |value| %>
+						<!-- 拆分天气 -->
+						<div class="weui_grid" style="padding-top: 0;">
+							<span class="week-day"><%= value[:Time] %></span>
+							<i class="iconfont <%= FiveDayWeather.weather_keyword value[:Day] %>"></i>
+							<span style="height: 34px;"><%= value[:Day] %></span>
+							<div class="empty"><!-- 图表预留位置 --></div>
+							<i class="iconfont <%= FiveDayWeather.weather_keyword value[:Night] %>"></i>
+							<span><%= value[:Night] %></span>
+							<small><%= value[:Wind] %></small>
+							<small><%= value[:WindLev] %></small>
+						</div>
+					<% end %>
+					<!-- 五日天气图表 -->
+					<div id="five_weather_chart"></div>
+				</div>
 			</div>
 		</div><!--end: 五日预报 -->
 		

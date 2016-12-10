@@ -157,10 +157,15 @@
 	&:before {
 		border: none;
 	}
+	.scroll_h_container {
+		overflow: auto;
+		width: 200%;
+	}
 	.weui_grid {
 		padding: 10px 0 0px;
-		width: 20%;
+		width: 10%;
 		text-align: center;
+		overflow: scroll;
 		&:after {
 			border: none !important;
 		}
