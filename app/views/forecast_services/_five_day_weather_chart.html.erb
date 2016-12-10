@@ -5,7 +5,7 @@ $(function() {
 	<% @weathers.each_with_index do |item, index| %>
 		<% @low.push item[:LowTmp].to_i %>
 		<% @high.push item[:HighTmp].to_i %>
-		<% @week_day.push (item[:Time]+index) %>
+		<% @week_day.push (index) %>
 	<% end %>
 	// 基于准备好的dom，初始化echarts实例
   var myChart = echarts.init(document.getElementById('five_weather_chart'));
