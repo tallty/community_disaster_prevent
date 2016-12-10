@@ -92,8 +92,7 @@
 <% content_for :scripts do %>
 	<script>
 		$(function() {
-			var width = document.body.clientWidth*2 - 180;
-			$(".weather-right").width(width);
+			$(".weather-right").width(document.body.clientWidth - 180);
 			// 五日天气图表
 			<%= render partial: "five_day_weather_chart" %>
 			

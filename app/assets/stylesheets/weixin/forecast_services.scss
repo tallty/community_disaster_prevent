@@ -160,6 +160,8 @@
 	}
 	.scroll_h_container {
 		width: 200%;
+		display: block;
+		overflow: hidden;
 	}
 	.weui_grid {
 		padding: 10px 0 0px;
