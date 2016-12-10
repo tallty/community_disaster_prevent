@@ -16,13 +16,13 @@ class ForecastServicesController < ApplicationController
   def five_day_weather
     result = LocationUtil.new.reverse(location_params)
     # 街道
-    # @district = result['addressComponent']['district']
-    # # 五日预报
-    # @weathers = Weather::FiveDayWeather.new.fetch
-    # # 全市预警
-    # @warn = Warning::CityWarningProcess.new.fetch
-    # # 气象实况
-    # @auto_station = Weather::DistrictWeather.new.fetch @district
+    @district = result['addressComponent']['district']
+    # 五日预报
+    @weathers = Weather::FiveDayWeather.new.fetch
+    # 全市预警
+    @warn = Warning::CityWarningProcess.new.fetch
+    # 气象实况
+    @auto_station = Weather::DistrictWeather.new.fetch @district
   end
 
   # 生活指数
