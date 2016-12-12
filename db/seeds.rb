@@ -12,7 +12,7 @@ Diymenu.create(id: 1, name: '预报服务', is_show: true, sort: 0)
 Diymenu.create(id: 2, name: '我的社区', is_show: true, sort: 1)
 Diymenu.create(id: 3, name: '帮助', is_show: true, sort:2)
 Diymenu.create(id: 4, parent_id: 1, name: '全市预警', url: 'http://weixin.lightning.sh.cn/forecast_services/city_warn', is_show: true, sort:0)
-Diymenu.create(id: 5, parent_id: 1, name: '五日预报', url: 'http://weixin.lightning.sh.cn/forecast_services/locate', is_show: true, sort:1)
+Diymenu.create(id: 5, parent_id: 1, name: '十日预报', url: 'http://weixin.lightning.sh.cn/forecast_services/locate', is_show: true, sort:1)
 Diymenu.create(id: 6, parent_id: 1, name: '气象指数', url: 'http://weixin.lightning.sh.cn/forecast_services/life_index', is_show: true, sort:2)
 Diymenu.create(id: 7, parent_id: 1, name: '空气质量', url: 'http://weixin.lightning.sh.cn/forecast_services/air_quality', is_show: true, sort:3)
 Diymenu.create(id: 8, parent_id: 1, name: '健康气象', url: 'http://weixin.lightning.sh.cn/forecast_services/healthy_weather', is_show: true, sort:4)
@@ -27,7 +27,7 @@ Diymenu.create(id: 15, parent_id: 3, name: '帮助', key: '帮助', is_show: tru
 
 MessageProcessor.delete_all
 MessageProcessor.create(event_key: "全市预警", process_class_name: "Warning", process_method: "get_show_article", result_type: "news_message")
-MessageProcessor.create(event_key: "五日预报", process_class_name: "FiveDayWeather", process_method: "get_message", result_type: "text_message")
+MessageProcessor.create(event_key: "十日预报", process_class_name: "FiveDayWeather", process_method: "get_message", result_type: "text_message")
 MessageProcessor.create(event_key: "气象指数", process_class_name: "WeatherIndex", process_method: "get_message", result_type: "text_message")
 MessageProcessor.create(event_key: "空气质量", process_class_name: "AQI", process_method: "get_show_article", result_type: "news_message")
 MessageProcessor.create(event_key: "健康气象", process_class_name: "Healthy", process_method: "get_message", result_type: "text_message")
