@@ -12,12 +12,12 @@ class ForecastServicesController < ApplicationController
     
   end
 
-  # 五日天气预报
+  # 十日天气预报
   def five_day_weather
     result = LocationUtil.new.reverse(location_params)
     # 街道
     @district = result['addressComponent']['district']
-    # 五日预报
+    # 十日预报
     @weathers = Weather::FiveDayWeather.new.fetch
     logger.info "=================="
     logger.info @weathers

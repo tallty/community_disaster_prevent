@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     end
   end
 
-  # 预报服务（全市预警、五日预报、气象指数、空气质量、健康气象）
+  # 预报服务（全市预警、十日预报、气象指数、空气质量、健康气象）
   resources :forecast_services do
     collection do
       get :locate
