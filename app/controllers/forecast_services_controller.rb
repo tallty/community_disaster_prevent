@@ -29,9 +29,6 @@ class ForecastServicesController < ApplicationController
   def life_index
   	@index, _publishtime = WeatherIndex::WeatherIndexData.new.get_web_message
     @publish_time = DateTime.parse(_publishtime)
-    logger.info "=================="
-    logger.info @index
-    logger.info "=================="
   end
 
   # 空气质量

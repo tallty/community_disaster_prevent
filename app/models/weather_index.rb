@@ -34,9 +34,6 @@ class WeatherIndex < BaseForecast
       
       content.fetch("Data", []).each do |item|
         name = item["Name"]
-        p "=================="
-        p item
-        p "=================="
         publishtime = item['PublishTime'] if publishtime.blank?
         if shows.include?(name)
           _descriptions = item['Descriptions']

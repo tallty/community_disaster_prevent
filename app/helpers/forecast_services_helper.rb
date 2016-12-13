@@ -21,7 +21,8 @@ module ForecastServicesHelper
 			"洗车指数" => "icon-xichezhishu",
 			"中暑指数" => "icon-baowen",
 			"日照指数" => "icon-taiyang",
-      "火险指数" => "icon-fire"
+      "火险指数" => "icon-fire",
+      "感冒指数" => "icon-ganmaozhishu"
 		}
 		cache[name]
 	end
