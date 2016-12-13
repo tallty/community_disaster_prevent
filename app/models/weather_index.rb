@@ -34,13 +34,16 @@ class WeatherIndex < BaseForecast
       
       content.fetch("Data", []).each do |item|
         name = item["Name"]
+        logger.info "=================="
+        logger.info item
+        logger.info "=================="
         publishtime = item['PublishTime'] if publishtime.blank?
         if shows.include?(name)
           _descriptions = item['Descriptions']
           _descriptions.each do |desc|
             _time = desc['Time']
             if _time.eql?('上午') or _time.eql?('早晨') or _time.blank?
-              result[name] = [desc['Level'], desc['Comfort']]    
+              result[name] = [desc['Level'], desc['Comfort']]  
             end
           end
         end
