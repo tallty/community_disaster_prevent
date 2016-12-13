@@ -19,9 +19,6 @@ class ForecastServicesController < ApplicationController
     @district = result['addressComponent']['district']
     # 十日预报
     @weathers = Weather::FiveDayWeather.new.fetch
-    logger.info "=================="
-    logger.info @weathers
-    logger.info "=================="
     # 全市预警
     @warn = Warning::CityWarningProcess.new.fetch
     # 气象实况
@@ -32,6 +29,9 @@ class ForecastServicesController < ApplicationController
   def life_index
   	@index, _publishtime = WeatherIndex::WeatherIndexData.new.get_web_message
     @publish_time = DateTime.parse(_publishtime)
+    logger.info "=================="
+    logger.info @index
+    logger.info "=================="
   end
 
   # 空气质量
