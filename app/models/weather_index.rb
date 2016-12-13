@@ -26,7 +26,7 @@ class WeatherIndex < BaseForecast
     end
 
     def get_web_message
-      shows = ["体感指数", "户外晚间锻炼指数", "穿衣指数", "日照指数", "洗晒指数", "空调开启指数", "洗车指数", "中暑指数", "火险指数"]
+      shows = ["体感指数", "户外晚间锻炼指数", "穿衣指数", "日照指数", "洗晒指数", "空调开启指数", "洗车指数", "中暑指数", "火险指数", "感冒指数"]
       result = {}
       name = ""
       content = get_data
@@ -34,9 +34,9 @@ class WeatherIndex < BaseForecast
       
       content.fetch("Data", []).each do |item|
         name = item["Name"]
-        logger.info "=================="
-        logger.info item
-        logger.info "=================="
+        p "=================="
+        p item
+        p "=================="
         publishtime = item['PublishTime'] if publishtime.blank?
         if shows.include?(name)
           _descriptions = item['Descriptions']
