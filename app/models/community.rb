@@ -57,7 +57,7 @@ class Community < ActiveRecord::Base
     communities = []
     districts.each do |district|
       processor = Community::CommunityCode.new
-      cache_communities = processor.fetch district.Name
+      cache_communities = processor.fetch district['Name']
       communities.concat cache_communities
     end
     logger.info communities
