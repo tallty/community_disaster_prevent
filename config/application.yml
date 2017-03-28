@@ -49,6 +49,11 @@ defaults: &defaults
     api_path: 'geocoder/v2/'
     remote: 'http://api.map.baidu.com'
     ak: '200aadcf1ccf720749c79228f9b7fd79'
+  # 获取区县列表
+  Community::Districts:
+    remote: 'http://192.168.169.7'
+    api_path: '/JsonService/JsonService.svc/GetDistrictList'
+  # 获取区县的所有街道列表（社区列表）
   Community::CommunityCode:
     remote: 'http://192.168.169.7'
     api_path: '/JsonService/JsonService.svc/GetCommunityListByDistrictName/'

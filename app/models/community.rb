@@ -47,6 +47,25 @@ class Community < ActiveRecord::Base
     end
   end
 
+  # 更新社区数据
+  # By Chen
+  def self.refresh_communities
+    districts_client = Community::Districts.new
+    districts = districts_client.fetch
+    logger.info districts
+    # 遍历获取社区
+    communities = []
+    districts.each do |district|
+      processor = Community::CommunityCode.new
+      cache_communities = processor.fetch district.Name
+      communities.concat cache_communities
+    end
+    logger.info communities
+    logger.info communities.size
+    logger.info communities[0]
+    # update local communities
+  end
+
   # 获取当前最近社区
   class NearestCommunity
     include NetworkMiddleware
@@ -59,7 +78,7 @@ class Community < ActiveRecord::Base
     def fetch location_params
       lon = location_params[:lon]
       lat = location_params[:lat]
-      
+
       params_hash = {
         method: 'get'
       }
@@ -70,6 +89,7 @@ class Community < ActiveRecord::Base
     end
   end
 
+  # 根据区县获取社区列表
   class CommunityCode
     include NetworkMiddleware
 
@@ -85,6 +105,24 @@ class Community < ActiveRecord::Base
       @api_path = "#{@api_path}/#{district}"
       result = get_data(params_hash, {})
 
+      result.fetch('Data', {})
+    end
+  end
+
+  # 获取区县列表
+  class Districts
+    include NetworkMiddleware
+
+    def initialize
+      @root = self.class.name.to_s
+      super
+    end
+
+    def fetch
+      params_hash = {
+        method: 'get'
+      }
+      result = get_data(params_hash, {})
       result.fetch('Data', {})
     end
   end
