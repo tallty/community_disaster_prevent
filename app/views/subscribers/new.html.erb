@@ -39,7 +39,7 @@
 
   <div class="row">
     <div class="col-xs-12">
-      <% location_district = @community["District_Name"] == "浦东新区" ? @community["District_Name"] : @community["District_Name"].remove("区") %>
+      <% location_district = @community["District_Name"] %>
       <% location_street = @community["Name"] %>
 
       <!-- 默认表单显示原来的社区 -->
@@ -60,12 +60,12 @@
 
           <% if @subscriber.community.present? %>
             <div class="input-group col-xs-12">
-            <%= f.select :district, options_for_select(districts, location_district), 
+            <%= f.select :district, options_for_select(districts, location_district),
                           options = {:prompt =>"请选择绑定区县" }, :class =>"form-control input" %>
             </div>
             <div class="space-6"></div>
             <div class="input-group col-xs-12">
-              <%= f.select :community, options_for_select(streets, location_street), 
+              <%= f.select :community, options_for_select(streets, location_street),
                             options ={:prompt =>"请选择绑定街道"}, :class =>"form-control input" %>
             </div>
           <% else %>

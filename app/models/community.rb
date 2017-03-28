@@ -31,38 +31,19 @@ class Community < ActiveRecord::Base
     file.close
   end
 
-  # def self.refresh_community_code
-  #   districts = ['徐汇区', '崇明县', '黄浦区', '静安区', '静安区', '虹口区', '杨浦区', '长宁区', '普陀区', '宝山区', '闵行区',
-  #                 '嘉定区', '青浦区', '金山区', '松江区', '奉贤区', '浦东新区', '中心城区']
-
-  #   districts.each do |district|
-  #     processor = Community::CommunityCode.new
-  #     district_list = processor.fetch district
-  #     district_list.each do |item|
-  #       communtiy = Community.where("street like ?", "%#{item['Name'].delete('街道|社区|镇')}%").first
-  #       if communtiy.present?
-  #         communtiy.update_attributes(code: item['ID'])
-  #       end
-  #     end
-  #   end
-  # end
-
   # 重建社区
   def self.rebuild_communities
     districts_client = Community::Districts.new
     districts = districts_client.fetch
-    logger.info districts
-    # 遍历获取社区
+
     communities = []
     districts.each do |district|
       processor = Community::CommunityCode.new
       cache_communities = processor.fetch district['Name']
       communities.concat cache_communities
     end
-    logger.info communities
-    logger.info communities.size
-    # create community
-    Community.destroy_all
+
+    # Community.destroy_all
     communities.each do |community|
       Community.create(code: community['ID'].to_i, district: community['District_Name'], street: community['Name'], c_type: "普通")
     end
