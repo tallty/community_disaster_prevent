@@ -27,6 +27,10 @@ class Subscriber < ActiveRecord::Base
     subscriber.fetch_user_info
   end
 
+  def community_by_code
+    Community.where(code: community_code).first
+  end
+
   def fetch_user_id(next_openid=nil)
     verify_client
     result = $client.followers(next_openid)
