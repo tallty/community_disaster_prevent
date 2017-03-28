@@ -25,9 +25,9 @@
               <i class="iconfont">&#xe635;</i></span>
           <% end -%>
         <% else %>
-          <%=link_to locate_subscribers_path do %> 
+          <a href="<%= locate_subscribers_path %>" data-turbolinks="false">
             <span class="pull-right right-pull">未绑定<i class="iconfont">&#xe635;</i></span>
-          <% end -%>
+          </a>
         <% end -%>
       </div>
       <div class="communities_belong_2">

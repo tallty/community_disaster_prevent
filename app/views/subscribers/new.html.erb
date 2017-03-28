@@ -57,26 +57,15 @@
             <%= hidden_field_tag 'lat', params[:lat] %>
           </div>
           <div class="space-6"></div>
-
-          <% if @subscriber.community.present? %>
-            <div class="input-group col-xs-12">
-            <%= f.select :district, options_for_select(districts, location_district),
-                          options = {:prompt =>"请选择绑定区县" }, :class =>"form-control input" %>
-            </div>
-            <div class="space-6"></div>
-            <div class="input-group col-xs-12">
-              <%= f.select :community, options_for_select(streets, location_street),
-                            options ={:prompt =>"请选择绑定街道"}, :class =>"form-control input" %>
-            </div>
-          <% else %>
-            <div class="input-group col-xs-12">
-            <%= f.select :district, districts, options = {:prompt =>"请选择绑定区县" }, :class =>"form-control input" %>
-            </div>
-            <div class="space-6"></div>
-            <div class="input-group col-xs-12">
-              <%= f.select :community, [], options ={:prompt =>"请选择绑定街道"}, :class =>"form-control input" %>
-            </div>
-          <% end %>
+          <div class="input-group col-xs-12">
+          <%= f.select :district, options_for_select(districts, location_district),
+                        options = {:prompt =>"请选择绑定区县" }, :class =>"form-control input" %>
+          </div>
+          <div class="space-6"></div>
+          <div class="input-group col-xs-12">
+            <%= f.select :community, options_for_select(streets, location_street),
+                          options ={:prompt =>"请选择绑定街道"}, :class =>"form-control input" %>
+          </div>
           <div class="space-6"></div>
           <%= f.submit "绑定新社区", :class => "btn bind-btn btn-success" %>
         </div>
