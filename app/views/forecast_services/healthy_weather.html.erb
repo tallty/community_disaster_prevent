@@ -14,7 +14,7 @@
 				<div class="col-xs-4">
 					<div class="item active" data-target='child-cloud'>
 						<%= image_tag 'bassinet.png' %>
-						<p>儿童感冒<br>气象风险</p>	
+						<p>儿童感冒<br>气象风险</p>
 					</div>
 				</div>
 				<div class="col-xs-4">
@@ -54,7 +54,9 @@
 									<div class="col-xs-4">
 										<div class="date-time"><%= sim[:date] %></div>
 									</div>
-									<div class="col-xs-8"><div class="level level<%= sim[:level] %>"></div><%= sim[:desc] %></div>
+									<div class="col-xs-8">
+										<div class="level level<%= sim[:level] %>"><%= sim[:desc] %></div>
+									</div>
 								</div>
 								<div class="bottom1">
 									防范人群: <%= sim[:influ] %>
@@ -63,7 +65,7 @@
 									防范建议: <%= sim[:guide] %>
 								</div>
 							</div>
-							
+
 						<% end %>
 					</div>
 				</div>

@@ -1,7 +1,7 @@
 <% content_for :scripts do %>
 <script type="text/javascript" src=http://api.map.baidu.com/api?v=2.0&ak=8SWaIs2cE83Ssvv90yXPUEQQhnkG368u></script>
 <script type="text/javascript" src="http://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
-<script>
+<script data-turbolinks-eval="false">
 var u = navigator.userAgent, app = navigator.appVersion;
   // 初始化地图，并加载灾情点
   var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
@@ -51,7 +51,7 @@ var u = navigator.userAgent, app = navigator.appVersion;
       }
       else {
         alert('定位失败'+this.getStatus());
-      }        
+      }
     },{enableHighAccuracy: true})
   }
 </script>

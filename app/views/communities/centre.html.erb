@@ -25,13 +25,13 @@
               <i class="iconfont">&#xe635;</i></span>
           <% end -%>
         <% else %>
-          <a href="<%= locate_subscribers_path %>" data-turbolinks="false">
+          <%=link_to locate_subscribers_path, "data-no-turbolink" => true do %>
             <span class="pull-right right-pull">未绑定<i class="iconfont">&#xe635;</i></span>
-          </a>
+          <% end -%>
         <% end -%>
       </div>
       <div class="communities_belong_2">
-        <%= link_to detection_communities_path, class: "link" do %>
+        <%= link_to detection_communities_path, class: "link", "data-no-turbolink" => true do %>
           <i class="iconfont input-left-icon">&#xe61c;</i><strong>社区实况</strong><i class="iconfont right-pull pull-right">&#xe635;</i>
         <% end %>
       </div>

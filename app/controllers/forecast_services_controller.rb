@@ -9,7 +9,7 @@ class ForecastServicesController < ApplicationController
   end
 
   def locate
-    
+
   end
 
   # 十日天气预报
