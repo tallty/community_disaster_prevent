@@ -45,7 +45,12 @@ class Community < ActiveRecord::Base
 
     # Community.destroy_all
     communities.each do |community|
-      Community.create(code: community['ID'].to_i, district: community['District_Name'], street: community['Name'], c_type: "普通")
+      if Community.where(code: community['ID'].to_i).first.nil?
+        # Community.create(code: community['ID'].to_i, district: community['District_Name'], street: community['Name'], c_type: "普通")
+        logger.info "============================="
+        logger.info community['ID']
+        logger.info "============================="
+      end
     end
   end
 
