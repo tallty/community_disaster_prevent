@@ -31,8 +31,8 @@ class Community < ActiveRecord::Base
     file.close
   end
 
-  # 重建社区
-  def self.rebuild_communities
+  # 增量新建社区
+  def self.incremental_update_communities
     districts_client = Community::Districts.new
     districts = districts_client.fetch
 
@@ -43,13 +43,9 @@ class Community < ActiveRecord::Base
       communities.concat cache_communities
     end
 
-    # Community.destroy_all
     communities.each do |community|
       if Community.where(code: community['ID'].to_i).first.nil?
-        # Community.create(code: community['ID'].to_i, district: community['District_Name'], street: community['Name'], c_type: "普通")
-        logger.info "============================="
-        logger.info community['ID']
-        logger.info "============================="
+        Community.create(code: community['ID'].to_i, district: community['District_Name'], street: community['Name'], c_type: "普通")
       end
     end
   end
