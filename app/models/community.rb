@@ -21,8 +21,6 @@ class Community < ActiveRecord::Base
 
   enum status: [ :closed, :used]
 
-  include NetworkMiddleware
-
   def write_community_to_file
     file = File.new('./public/community.txt', 'w')
     Community.all.each do |item|
