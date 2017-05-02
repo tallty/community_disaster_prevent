@@ -7,7 +7,7 @@
 
     <div class="my-panel">
       <div class="panel-hd">
-        <i class="iconfont" style="font-size: 18px;">&#xe607;</i>&nbsp;<%= @community.street %><%= @community.district %>
+        <i class="iconfont" style="font-size: 18px;">&#xe607;</i>&nbsp;<%= @community.district %><%= @community.street %>
         <span class="float-right">
           <%= @auto_station["Datetime"].try(:to_time).try(:strftime, "%m月%d日") %>
           <%= week_name @auto_station["Datetime"].try(:to_time) %>
