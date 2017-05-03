@@ -41,10 +41,6 @@
     <div class="col-xs-12">
       <% location_district = @community["District_Name"] %>
       <% location_street = @community["Name"] %>
-
-      <!-- 默认表单显示原来的社区 -->
-      <%# districts = Community.where("district <> '上海'").distinct.pluck(:district) %>
-      <%# streets = Community.where("district = ?", @subscriber.community.district).pluck(:street) %>
       <!-- 默认表单显示定位的社区 -->
       <% districts = Community.where("district <> '上海'").distinct.pluck(:district) %>
       <% streets = Community.streets_by_district(location_district) %>
@@ -61,7 +57,9 @@
           <%= f.select :district, options_for_select(districts, location_district),
                         options = {:prompt =>"请选择绑定区县" }, :class =>"form-control input" %>
           </div>
-          <div class="space-6"></div>
+          <div class="space-6">
+            <%= streets %>
+          </div>
           <div class="input-group col-xs-12">
             <%= f.select :community, options_for_select(streets, location_street),
                           options ={:prompt =>"请选择绑定街道"}, :class =>"form-control input" %>
