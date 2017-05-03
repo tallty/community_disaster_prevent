@@ -1,5 +1,5 @@
 var community_option = "<option>请选择绑定街道</option>";
-<% @streets.each do |s| %>
+<% @streets.reverse().each do |s| %>
   community_option = community_option + "<option><%= s %></option>"
 <% end %>
 $("#subscriber_community").html(community_option);

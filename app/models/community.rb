@@ -21,7 +21,7 @@ class Community < ActiveRecord::Base
 
   enum status: [ :closed, :used]
 
-  scope :streets_by_district, ->(district) { where("district = ?", district).order(id: :desc).pluck(:street) }
+  scope :streets_by_district, ->(district) { where("district = ?", district).pluck(:street) }
 
   def write_community_to_file
     file = File.new('./public/community.txt', 'w')
