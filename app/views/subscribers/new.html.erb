@@ -47,7 +47,7 @@
       <%# streets = Community.where("district = ?", @subscriber.community.district).pluck(:street) %>
       <!-- 默认表单显示定位的社区 -->
       <% districts = Community.where("district <> '上海'").distinct.pluck(:district) %>
-      <% streets = Community.where("district = ?", location_district).pluck(:street) %>
+      <% streets = Community.where("district = ?", location_district).pluck(:street).reverse() %>
 
       <%= form_for @subscriber,  :url => { :action => :update } do |f| %>
         <div class="form-inputs" style="display: none;">
