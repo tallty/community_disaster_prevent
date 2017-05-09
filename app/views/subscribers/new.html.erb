@@ -11,7 +11,7 @@
       您当前定位社区为：
       <span>
         <% if @community %>
-          <%= "#{@community["District_Name"]}#{@community["Name"]}社区" %>
+          <%= showCommunityName(@community["District_Name"], @community["Name"]) %>
         <% else %>
           <button class="btn btn-xs btn-info" onclick="window.location.reload();">重新定位</button>
         <% end %>
@@ -22,7 +22,7 @@
       <i class="iconfont" style="color: #F5A623;">&#xe607;</i>
       <% if community.present? %>
         您当前绑定社区为：
-        <%= "#{community.district}#{community.street}社区" %>
+        <%= showCommunityName(community.district, community.street) %>
       <% else %>
         您当前未绑定社区，请点击选择社区按钮
       <% end %>

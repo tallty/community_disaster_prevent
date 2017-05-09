@@ -7,7 +7,7 @@
       $("div#map_container1").height(height/5);
       $("div#map_container1").width(width);
   });
-  
+
 
   // 百度地图API功能
   var map = new BMap.Map("map_container1");    // 创建Map实例
@@ -20,12 +20,12 @@
   var geolocation = new qq.maps.Geolocation("OZBBZ-ZQLC3-MKF3U-3VCU4-DFWO7-AGFPB", "weather_survey")
   geolocation.getLocation(function(r){
     // if(this.getStatus() == BMAP_STATUS_SUCCESS){
-    var x_pi=3.14159265358979324;  
+    var x_pi=3.14159265358979324;
     var x = r.lng;
-    var y = r.lat;  
-    var z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * x_pi);  
-    var theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * x_pi);  
-    var bd_lon = z * Math.cos(theta) + 0.0065;  
+    var y = r.lat;
+    var z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * x_pi);
+    var theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * x_pi);
+    var bd_lon = z * Math.cos(theta) + 0.0065;
     var bd_lat = z * Math.sin(theta) + 0.00670;
     // 添加自定义位置图标
     var ptt = new BMap.Point(bd_lon, bd_lat);
@@ -34,7 +34,6 @@
     map.addOverlay(mk);
     map.panTo(ptt);
 
-    console.log(r);
     $("span#location_address").text(r.addr);
   },{enableHighAccuracy: true})
 </script>

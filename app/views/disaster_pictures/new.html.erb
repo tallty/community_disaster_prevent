@@ -6,10 +6,10 @@
       <div class="hd text-center">
         <h3 class="page_title">灾情图片上传</h3>
       </div>
-      
+
  <!--      <div class="row disaster-picture-push">
-        <%#= form_for(@disaster_pictures, 
-                    url: disaster_pictures_path, 
+        <%#= form_for(@disaster_pictures,
+                    url: disaster_pictures_path,
                     :html => { :multipart => true } ) do |f| %>
           <%#= f.hidden_field :disaster_id, :value => @disaster.id %>
           <div class="row submit_input">
@@ -21,16 +21,16 @@
               </a>
             </div>
           <div class="headTab headTabRight col-xs-5 col-xs-offset-2">
-            <a href="../communities/interact" 
-                class= "btn btn-success btn-lg" 
-                data-no-turbolink='true' 
+            <a href="../communities/interact"
+                class= "btn btn-success btn-lg"
+                data-no-turbolink='true'
                 style="width: 100%;">返回</a>
           </div>
         <%# end %>
       </div> -->
 
-      <%= form_for(@disaster_pictures, 
-                    url: disaster_pictures_path, 
+      <%= form_for(@disaster_pictures,
+                    url: disaster_pictures_path,
                     html: { multipart: true, id: "uploaderFrom" } ) do |f| %>
         <%= f.hidden_field :disaster_id, :value => @disaster.id %>
 
@@ -57,11 +57,11 @@
             </div>
           </div>
         </div>
-        <br> 
+        <br>
         <%= f.submit "开始上传", data: { disable_with: "正在上传..." }, class: "weui_btn weui_btn_primary", style: "display: none; margin-top: 15px;" %>
         <a href="javascript:;" id="disabled_submit" class="weui_btn weui_btn_disabled weui_btn_primary">开始上传</a>
-        <a href="<%= interact_communities_path %>" 
-                  class= "weui_btn weui_btn_default" 
+        <a href="<%= interact_communities_path %>"
+                  class= "weui_btn weui_btn_default"
                   data-no-turbolink='true'>返回</a>
       <% end %>
     </div>
@@ -80,9 +80,7 @@
     });
 
     function processUploader(input_id) {
-      console.log(input_id)
       var file = $(input_id)[0].files[0];
-      console.dir(file)
 
       if(file){
         var reader=new FileReader();
@@ -93,7 +91,6 @@
           // 添加一格
           var li = '<li class="weui_uploader_file weui_uploader_status"><div class="weui_uploader_status_content">0%</div></li>';
           imageList.append(li)
-          console.log("添加了")
         }
         // 文件读取中
         reader.onprogress=function(e){
@@ -109,8 +106,8 @@
         // 上传中断
         reader.onabort=function(){
           var lastImageStatus = $("li:last .weui_uploader_status_content");
-          lastImageStatus.text("中断");  
-        } 
+          lastImageStatus.text("中断");
+        }
         // 上传错误
         reader.onerror=function(){
           var lastImageStatus = $("li:last .weui_uploader_status_content");

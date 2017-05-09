@@ -6,22 +6,19 @@
   var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
   if (isIOS) {
     init_five_data_ios();
-    console.log('-----IOS------');
   }else{
     init_five_data();
-    console.log('-----web------');
   }
 
   // ===========IOS端地图初始化=============
   function init_five_data_ios() {
-    console.log("====")
+
     var geolocation = new qq.maps.Geolocation("O2KBZ-EILW5-NOJIH-QWO7L-VLF25-QFFDV", "community_disaster_prevent")
     // 获取当前定位
     geolocation.getLocation(showPosition, showErr, options)
     var positionNum = 0;
     var options = {timeout: 80000};
     function showPosition(r) {
-      console.log(r);
       // 解析成百度坐标
       var x_pi=3.14159265358979324;
       var x = r.lng;
@@ -40,7 +37,6 @@
 
   // ===========android 或 web 端地图初始化=============
   function init_five_data() {
-    console.log("=++++++++++++")
     var geolocation = new BMap.Geolocation();
     // 获取当前定位
     geolocation.getCurrentPosition(function(r){
@@ -50,7 +46,7 @@
       }
       else {
         alert('定位失败'+this.getStatus());
-      }        
+      }
     },{enableHighAccuracy: true})
   }
 </script>
