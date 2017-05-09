@@ -1,5 +1,5 @@
 class WeatherIndex < BaseForecast
-  
+
   def get_message
     shows = ["体感指数(上午)", "穿衣指数(早晨)", "洗晒指数(上午)", "户外晚间锻炼指数"]
     result = ""
@@ -16,7 +16,7 @@ class WeatherIndex < BaseForecast
         result << "#{title} #{item['level']} #{item['shortcues']}\n"
       end
     end
-    { :type => 'text', :content => result }  
+    { :type => 'text', :content => result }
   end
 
   # 获取（微信页面版）生活指数数据
@@ -31,7 +31,7 @@ class WeatherIndex < BaseForecast
       name = ""
       content = get_data
       publishtime = nil
-      
+
       content.fetch("Data", []).each do |item|
         name = item["Name"]
         publishtime = item['PublishTime'] if publishtime.blank?
@@ -40,7 +40,7 @@ class WeatherIndex < BaseForecast
           _descriptions.each do |desc|
             _time = desc['Time']
             if _time.eql?('上午') or _time.eql?('早晨') or _time.blank?
-              result[name] = [desc['Level'], desc['Comfort']]  
+              result[name] = [desc['Level'], desc['Comfort'], desc['Descrip'], desc['Suggestion']]
             end
           end
         end
@@ -48,14 +48,13 @@ class WeatherIndex < BaseForecast
       [result, publishtime]
     end
   end
-  
+
   def initialize
     super
   end
 
   def parse
     content = get_data
-    p content
   end
 
   def after_process

@@ -39,7 +39,6 @@
 	margin-bottom: 30px;
 	.toper-bar {
 		margin-top: 10px;
-		.release {}
 	}
 	.weather-info {
 		position: relative;
@@ -162,12 +161,16 @@
 	}
 	.scroll_h_container {
 		width: 200%;
-		display: block;
 		overflow: hidden;
+		display: flex;
+		display: -webkit-flex;
+		flex-flow: row nowrap;
 	}
 	.weui_grid {
+		flex-grow: 1;
 		padding: 10px 0 0px;
 		width: 10%;
+		display: block;
 		text-align: center;
 		&:after {
 			border: none !important;
