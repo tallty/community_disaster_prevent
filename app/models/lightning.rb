@@ -26,7 +26,7 @@ class Lightning
 
       FileUtils.mkdir_p(lightning_dir) unless File.exist?(lightning_dir)
       FileUtils.cp(local_file, lightning_dir)
-    
+
       filename = File.basename local_file
       $redis.set(@redis_key, filename)
     end
@@ -44,8 +44,8 @@ class Lightning
       params_hash = {
         method: 'get'
       }
-      #{Time.now().strftime('%Y%m%d%H%M%S').to_s}
-      @api_path = "#{@api_path}/#{Time.now().strftime('%Y%m%d%H%M%S').to_s}"
+
+      @api_path = "#{@api_path}/#{Time.zone.now.strftime('%Y%m%d%H%M%S').to_s}"
       result = get_data(params_hash, {})
 
       result.fetch('Data', {})

@@ -35,6 +35,9 @@ class CommunitiesController < ApplicationController
       # 闪电分布
       # @lightning_img_url = Settings.ProjectSetting.url + "/lightning/" + Lightning.get_pic
       @lightningPoints = Lightning::LightningPoint.new.fetch
+      logger.info "============闪电实况=============="
+      logger.info @lightningPoints
+      logger.info '============闪电实况=============='
       # 社区预警
       @warning = Warning.get_last_active_warn code
     else
@@ -48,7 +51,7 @@ class CommunitiesController < ApplicationController
   end
 
   def centre
-    
+
   end
 
   private
