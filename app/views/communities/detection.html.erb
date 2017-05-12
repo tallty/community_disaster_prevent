@@ -118,20 +118,17 @@
       map.enableInertialDragging();   //两秒后开启惯性拖拽
 
       // 添加灾情图标
+      var myIcon = new BMap.Icon("<%= image_url "thunder_icon.png" %>", new BMap.Size(28,28));
+      myIcon.setImageSize(new BMap.Size(24, 28));
       for(var i = 0; i < lightningPoints.length; i++) {
-        addmarker(lightningPoints[i],map)
+        addmarker(lightningPoints[i], map, myIcon)
       }
 
       // 更新灾情点位数据，添加点位标注
-        function addmarker(obj, map) {
-          var myIcon = new BMap.Icon("../../assets/images/thunder_icon.png", new BMap.Size(30,35));
-          var lanlat = new BMap.Point(obj.Lon, obj.Lat);
-          var marker;
-          // 添加标注点
-          marker = new BMap.Marker(lanlat,{icon:myIcon});
-          // 打点
-          map.addOverlay(marker);
-        }
-
+      function addmarker(obj, map, icon) {
+        var lanlat = new BMap.Point(obj.Lon, obj.Lat);
+        // 打点
+        map.addOverlay(new BMap.Marker(lanlat,{ icon: icon }));
+      }
   </script>
 <% end %>
