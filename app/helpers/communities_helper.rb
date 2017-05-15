@@ -1,5 +1,5 @@
 module CommunitiesHelper
-  def showCommunityName community
-    community.district == community.street ? community.district : community.district + community.street
+  def showCommunityName(district, street)
+    district == street ? district : district + street
   end
 end
