@@ -54,10 +54,17 @@
 		<%= render partial: "tomorrow_air" %>
 
 		<!-- 过去24小时空气质量指数变化图 -->
+		<!-- 2016-06-27 18:03 shtzr840329 去除 commit: 0600221b8ac0e74d039c7a6c45700d02a4c2ffa4-->
+		<%#= render partial: "chart_tabs" %>
 	</div>
 </div>
 
-
-<% content_for :scripts do %>
-	
-<% end %>
+<!-- 2016-06-27 18:03 shtzr840329 去除, commit: 0600221b8ac0e74d039c7a6c45700d02a4c2ffa4 -->
+<%# content_for :scripts do %>
+	<!-- chart -->
+	<%#= javascript_tag "$('.tab-pane div').width(document.body.clientWidth - 30)" %>
+  <!-- chart -->
+	<%# {"aqi_chart" => @aqi_datas, "pm25_chart" => @pm25_datas, "O3_chart" => @o3_datas, "pm10_chart" => @pm10_datas, "NO2_chart" => @no2_datas}.each do |key, value| %>
+		<%#= render partial: "air_chart", locals: { dom_id: "#{key}", time: air_time(value), data: air_data(value) } %>
+	<%# end %>
+<%# end %>
