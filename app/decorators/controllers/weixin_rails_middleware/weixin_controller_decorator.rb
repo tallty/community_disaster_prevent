@@ -5,7 +5,11 @@
 WeixinRailsMiddleware::WeixinController.class_eval do
 
   def reply
-    render xml: send("response_#{@weixin_message.MsgType}_message", {})
+    if (response = send("response_#{@weixin_message.MsgType}_message", {})).nil?
+      render text: ''
+    else
+      render xml: response
+    end
   end
 
   private
