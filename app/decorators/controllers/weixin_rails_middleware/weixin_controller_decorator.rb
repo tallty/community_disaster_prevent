@@ -5,11 +5,7 @@
 WeixinRailsMiddleware::WeixinController.class_eval do
 
   def reply
-    if (response = send("response_#{@weixin_message.MsgType}_message", {})).nil?
-      render text: ''
-    else
-      render xml: response
-    end
+    render xml: send("response_#{@weixin_message.MsgType}_message", {})
   end
 
   private
@@ -18,7 +14,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       if @keyword == "列表"
         reply_text_message("http://61.152.126.154/forecast_services?openid=#{@weixin_message.FromUserName}")
       else
-        reply_text_message(nil)
+        # reply_text_message(nil)
       end
     end
 
