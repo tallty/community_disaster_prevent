@@ -48,7 +48,7 @@ defaults: &defaults
   LocationUtil:
     api_path: 'geocoder/v2/'
     remote: 'http://api.map.baidu.com'
-    ak: '200aadcf1ccf720749c79228f9b7fd79'
+    ak: '8SWaIs2cE83Ssvv90yXPUEQQhnkG368u'
   # 获取区县列表
   Community::Districts:
     remote: 'http://192.168.169.7'

@@ -5,7 +5,7 @@ class LocationUtil
   def initialize
     # @api_path = 'geocoder/v2/'
     # @remote = 'http://api.map.baidu.com'
-    # @ak = '200aadcf1ccf720749c79228f9b7fd79'
+    # @ak = '8SWaIs2cE83Ssvv90yXPUEQQhnkG368u'
     @root = self.class.to_s
     super
   end
